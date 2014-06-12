@@ -47,11 +47,11 @@ A = [RV B;B' zeros(size(B,2))];
 
 % BC data for u
 u0 = zeros(size(B,2),1);
-u0(vmapBTr) = (xr < -1+1e-7).*sqrt(1-yr.^2);
+% u0(vmapBTr) = (xr < -1+1e-7).*sqrt(1-yr.^2); 
+% to fix - add integral over boundaries for inhomog Neumann conditions
 
 % BC data for e is generally zero.  
 e0 = zeros(size(B,1),1);
-
 
 U0 = [e0;u0];
 b = [b; zeros(size(B,2),1)];
