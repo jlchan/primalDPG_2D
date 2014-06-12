@@ -1,6 +1,5 @@
 function mortarCGExample
 
-% Driver script for solving the 2D advection
 Globals2D;
 
 % Polynomial order used for approximation 
@@ -86,12 +85,12 @@ function Vol = getVolOp(M,Dx,Dy)
 Globals2D
 Ks = Dx'*M*Dx + Dy'*M*Dy;
 b1 = 1; b2 = 1;ep = 1e-6;
-% S = -(b1*Dx+b2*Dy)'*M;
-% Vol = ep*Ks + S;
 
+S = -(b1*Dx+b2*Dy)'*M;
 Kb = (b1*Dx+b2*Dy)'*M*(b1*Dx+b2*Dy);
-% Vol = M + Kb + ep*Ks;
-Vol = Ks;
+
+% Vol = M + Kb + ep*Ks; % Convection-diffusion
+Vol = Ks;  % Poisson
 
 % b1 = 1; b2 = 1;ep = 1e-1;
 % L = (Dx*b1 + Dy*b2) - ep*(Dx^2 + Dy^2); 
