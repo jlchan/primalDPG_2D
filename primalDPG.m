@@ -3,8 +3,8 @@ function primalDPG
 Globals2D
 
 % Polynomial order used for approximation
-Ntrial = 4;
-Ntest = Ntrial + 2;
+Ntrial = 5;
+Ntest = Ntrial + 3;
 Nflux = Ntrial;
 
 N = Ntest;
@@ -15,7 +15,7 @@ N = Ntest;
 [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('lshape.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
-% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
+[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('backdrop1.neu');
 

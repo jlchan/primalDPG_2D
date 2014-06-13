@@ -10,7 +10,7 @@ saveFlag = 1;
 a = backupGlobals(saveFlag);
 
 % ugly way to do this part... fix - do a smarter restriction? or do no
-% restriction at all, and just do elem computation locally 
+% restriction at all, and just do elem computation locally. next time.
 Nold = N; N = Nr; %save old N 
 StartUp2D;
 

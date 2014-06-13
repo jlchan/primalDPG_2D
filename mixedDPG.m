@@ -4,7 +4,7 @@ Globals2D
 
 % Polynomial order used for approximation
 Ntrial = 2;
-Ntest = Ntrial + 2;
+Ntest = Ntrial + 1;
 
 N = Ntest;
 
@@ -12,7 +12,7 @@ N = Ntest;
 [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squareireg.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('lshape.neu');
-% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
+% % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
@@ -30,8 +30,8 @@ b1 = 1; b2 = 0;ep = 1e-6;
 [M, Dx, Dy] = getBlockOps();
 [AK, BK] = getVolOp(M,Dx,Dy);
 
-% f = ones(Np*K,1);
-f = y(:)<=0;
+f = ones(Np*K,1);
+% f = y(:)<=0; 
 % f = sin(pi*x(:)).*sin(pi*y(:));
 
 [R vmapBT] = getCGRestriction();
@@ -41,20 +41,28 @@ f = y(:)<=0;
 B = R*BK*Rr';
 RV = R*AK*R';
 b = R*M*f;
-
-% make saddle point system
-A = [RV B;B' zeros(size(B,2))];
+b = [b; zeros(size(B,2),1)]; 
 
 % BC data for u
 u0 = zeros(size(B,2),1);
 % u0(vmapBTr) = (xr < -1+1e-7).*sqrt(1-yr.^2); 
 % to fix - add integral over boundaries for inhomog Neumann conditions
+bnf = nx(vmapM==vmapP)*b1 + ny(vmapM==vmapP)*b2; % beta_n, determines inflow vs outflow
+bmask = (bnf < NODETOL); % inflow = beta_n < 0
+[Mb Eb] = getBoundaryMatrix(bmask.^0);
+% keyboard
+% b = b + bnf.*(yf<0).*(1+yf);  % BC data on flux = bn*u - eps*du/dn
 
 % BC data for e is generally zero.  
 e0 = zeros(size(B,1),1);
 
 U0 = [e0;u0];
-b = [b; zeros(size(B,2),1)];
+
+% B = B + 1e7*R*Eb'*Mb*Eb*Rr'; % this adds a penalty term
+
+% make saddle point system
+A = [RV B;B' zeros(size(B,2))];
+% A = [RV B;B' 1e2*Rr*Mb*Rr']; %penalty BCs as functional
 
 % applying lift data
 b = b - A*U0;
@@ -69,6 +77,7 @@ A(vmapBTU,vmapBTU) = speye(length(vmapBTU));
 beta_n = b1*nx + b2*ny; beta_nb = beta_n(mapB);
 inflow = beta_nb < -NODETOL;
 vmapBT(inflow)=[]; % remove BCs on inflow for convection-diffusion!
+% vmapBT= []; %remove all BCs for testing
 b(vmapBT) = U0(vmapBT);
 A(vmapBT,:) = 0; A(:,vmapBT) = 0;
 A(vmapBT,vmapBT) = speye(length(vmapBT));
@@ -104,12 +113,12 @@ S = -(b1*Dx+b2*Dy)'*M;
 Kb = (b1*Dx+b2*Dy)'*M*(b1*Dx+b2*Dy);
 
 % Poisson
-% Test = M + Ks;
-% Trial = Ks;
+Test = M + Ks;
+Trial = Ks;
 
 % CD
-Test = M + ep*Ks + Kb;
-Trial = S + ep*Ks;
+% Test = M + ep*Ks + Kb;
+% Trial = S + ep*Ks;
 
 % Helmholtz
 % k = 100;
@@ -127,3 +136,5 @@ blkM = kron(speye(K),MassMatrix);
 M = spdiag(J(:))*blkM; % J = h^2
 Dx = spdiag(rx(:))*blkDr + spdiag(sx(:))*blkDs;
 Dy = spdiag(ry(:))*blkDr + spdiag(sy(:))*blkDs;
+
+

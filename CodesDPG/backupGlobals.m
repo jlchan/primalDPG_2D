@@ -4,6 +4,9 @@ function a = backupGlobals(saveFlag, a)
 
 Globals2D
 
+if nargin<2
+    a = struct;
+end
 if saveFlag
     a.Np = Np;
     a.Nfp = Nfp;
@@ -59,7 +62,7 @@ if saveFlag
     a.NODETOL=NODETOL;
     a.VX=VX;
     a.VY=VY;
-else
+else % load
     Np = a.Np;
     Nfp = a.Nfp;
     N = a.N;
