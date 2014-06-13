@@ -3,8 +3,8 @@ function mixedDPG
 Globals2D
 
 % Polynomial order used for approximation
-Ntrial = 2;
-Ntest = Ntrial + 1;
+Ntrial = 3;
+Ntest = Ntrial + 2;
 
 N = Ntest;
 
@@ -30,7 +30,7 @@ b1 = 1; b2 = 0;ep = 1e-6;
 [M, Dx, Dy] = getBlockOps();
 [AK, BK] = getVolOp(M,Dx,Dy);
 
-f = ones(Np*K,1);
+f = 0*ones(Np*K,1);
 % f = y(:)<=0; 
 % f = sin(pi*x(:)).*sin(pi*y(:));
 
@@ -41,21 +41,20 @@ f = ones(Np*K,1);
 B = R*BK*Rr';
 RV = R*AK*R';
 b = R*M*f;
-b = [b; zeros(size(B,2),1)]; 
 
 % BC data for u
 u0 = zeros(size(B,2),1);
 % u0(vmapBTr) = (xr < -1+1e-7).*sqrt(1-yr.^2); 
 % to fix - add integral over boundaries for inhomog Neumann conditions
-bnf = nx(vmapM==vmapP)*b1 + ny(vmapM==vmapP)*b2; % beta_n, determines inflow vs outflow
+bnf = nx(mapB)*b1 + ny(mapB)*b2; % beta_n, determines inflow vs outflow
 bmask = (bnf < NODETOL); % inflow = beta_n < 0
+f0 = bnf.*(Fy(mapB)<0).*(1+Fy(mapB));
 [Mb Eb] = getBoundaryMatrix(bmask.^0);
-% keyboard
-% b = b + bnf.*(yf<0).*(1+yf);  % BC data on flux = bn*u - eps*du/dn
+b = b - R*Eb'*Mb*f0;  % BC data on flux = bn*u - eps*du/dn
 
 % BC data for e is generally zero.  
 e0 = zeros(size(B,1),1);
-
+b = [b; zeros(size(B,2),1)]; 
 U0 = [e0;u0];
 
 % B = B + 1e7*R*Eb'*Mb*Eb*Rr'; % this adds a penalty term
@@ -68,6 +67,8 @@ A = [RV B;B' zeros(size(B,2))];
 b = b - A*U0;
 
 % BCs on U - skip over e dofs
+outflow = xr>1-NODETOL;
+vmapBTr(~outflow) = [];
 vmapBTU = vmapBTr + size(B,1);
 b(vmapBTU) = U0(vmapBTU);
 A(vmapBTU,:) = 0; A(:,vmapBTU) = 0;
@@ -117,8 +118,8 @@ Test = M + Ks;
 Trial = Ks;
 
 % CD
-% Test = M + ep*Ks + Kb;
-% Trial = S + ep*Ks;
+Test = M + ep*Ks + Kb;
+Trial = S + ep*Ks;
 
 % Helmholtz
 % k = 100;

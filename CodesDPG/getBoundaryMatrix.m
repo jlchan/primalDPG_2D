@@ -24,7 +24,7 @@ M1D = inv(V1D*V1D'); % 1D stiffness matrix from GLL nodes for faces
 % note: may not need bfaces most of the time - setting BCs automatically
 % gets rid of BC entries anyways, so we can possibly precompute Mb.
 Mbface = spdiag(sJ(mapB))*kron(speye(nbfaces),M1D);
-Mb = Mbface*spdiag(bmask(:)); 
+Mb = Mbface*spdiag(bmask(:));
 
 return
 
