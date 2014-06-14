@@ -43,7 +43,7 @@ end
 
 sJReduc = reshape(sJ,Nfp,Nfaces*K); 
 sJReduc = sJReduc(:,fpairs(1,:)); % get unique faces
-SJ = spdiag(sJReduc(:)); % fix - Fscale scaling is wrong?
+SJ = spdiag(sJReduc(:));
 B = kron(speye(NfacesU),R1D'*M1D)*SJ*Ef; % for fluxes
 
 % get flux ids on boundaries
@@ -73,5 +73,5 @@ nxf = nxf(:,bfaces); nyf = nyf(:,bfaces);
 % WARNING: straight edge elem hack - take 1st Nfrp points, all nx/ny same.
 nxf = nxf(1:Nfrp,:); nyf = nyf(1:Nfrp,:);
 
-
+vmapB = vmapB(:);
 return
