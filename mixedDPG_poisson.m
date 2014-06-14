@@ -8,17 +8,17 @@ function mixedDPG_poisson
 Globals2D
 
 % Polynomial order used for approximation
-Ntrial = 2;
-Ntest = Ntrial + 1;
+Ntrial = 4;
+Ntest = Ntrial+2;
 
 N = Ntest;
 
 % Read in Mesh
 [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squareireg.neu');
-% % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
-% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
+[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 
 % Initialize solver and construct grid and metric
@@ -31,29 +31,30 @@ StartUp2D;
 % forcing = 1
 f = ones(Np*K,1);
 
+% make CG operators
 [R vmapBT] = getCGRestriction();
 [Rr vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space 
-
-% make CG operators
 B = R*BK*Rr';
 RV = R*AK*R';
 b = R*M*f;
 
 % BC data for u
 u0 = zeros(size(B,2),1);
-u0(vmapBTr) = (xr < -1+1e-7).*sqrt(1-yr.^2); 
+left = xr < -1+NODETOL;
+right = xr > 1-NODETOL;
+u0(vmapBTr) = left.*sqrt(1-yr.^2); 
 
 % penalty/robin BCs 
 bmask = abs(y(vmapB)) > 1 - NODETOL; % top/bottom boundaries
 [Mb Eb] = getBoundaryMatrix(bmask);
-u0tb = (1+x(vmapB));
-b = b + 1e6*R*Eb'*Mb*u0tb;
-B = B + 1e6*R*Eb'*Mb*Eb*Rr'; % this adds a penalty term on u 
+u0tb = 1+x(vmapB);
+% B = B + 1e6*R*Eb'*Mb*Eb*Rr'; % this adds a penalty term on u 
+% b = b + 1e6*R*Eb'*Mb*u0tb;
 
 % nonhomogeneous neumann BCs
-bmask = abs(x(vmapB)) > 1 - NODETOL; % top/bottom boundaries
-[Mb Eb] = getBoundaryMatrix(bmask); 
-dudn0 = nx(mapB).*(y(vmapB)<0);
+bmask = x(vmapB) > 1 - NODETOL; % right boundary
+[Mb Eb] = getBoundaryMatrix(bmask(:)); 
+dudn0 = nx(mapB).*((y(vmapB)<=0) - (y(vmapB)>0)).^0;
 b = b + R*Eb'*Mb*dudn0;
 
 % BC data for e is generally zero.  
@@ -69,16 +70,18 @@ A = [RV B;B' zeros(size(B,2))];
 b = b - A*U0;
 
 % BCs on U - skip over e dofs
-left = xr < -1+NODETOL;
-vmapBTr(~left) = []; %neumann on right outflow - remove top/bottom BCs
+% vmapBTr(~left) = []; %neumann on right outflow - remove top/bottom BCs
+vmapBTr(right) = []; %neumann on right outflow - remove top/bottom BCs
 vmapBTU = vmapBTr + size(B,1);
 b(vmapBTU) = U0(vmapBTU);
 A(vmapBTU,:) = 0; A(:,vmapBTU) = 0;
 A(vmapBTU,vmapBTU) = speye(length(vmapBTU));
 
 % BCs on V
-left = x(vmapB)<-1+NODETOL;
-vmapBT(~left) = []; %remove right BCs for Neumann - needs to modify test space
+left = x(vmapB)<-1+NODETOL; 
+right = x(vmapB) > 1-NODETOL;
+% vmapBT(~left) = []; %remove right BCs for Neumann -modify test space
+vmapBT(right) = []; %remove right BCs for Neumann - needs to modify test space
 b(vmapBT) = U0(vmapBT);
 A(vmapBT,:) = 0; A(:,vmapBT) = 0;
 A(vmapBT,vmapBT) = speye(length(vmapBT));
@@ -90,8 +93,11 @@ u = Rr'*U(size(B,1)+1:end);
 % err = e'*RV*e;
 % e = R'*e;
 
-Nplot = 25;
-[xu,yu] = EquiNodes2D(Nplot); [ru, su] = xytors(xu,yu);
+% Nplot = 25;
+Nplot = Ntrial;
+% [xu,yu] = EquiNodes2D(Nplot); 
+[xu,yu] = Nodes2D(Nplot); 
+[ru, su] = xytors(xu,yu);
 Vu = Vandermonde2D(N,ru,su); Iu = Vu*invV;
 xu = 0.5*(-(ru+su)*VX(va)+(1+ru)*VX(vb)+(1+su)*VX(vc));
 yu = 0.5*(-(ru+su)*VY(va)+(1+ru)*VY(vb)+(1+su)*VY(vc));
@@ -104,9 +110,6 @@ title('Mixed form of DPG')
 function [Test, Trial] = getVolOp(M,Dx,Dy)
 
 Globals2D
-global b1
-global b2
-global ep
 Ks = Dx'*M*Dx + Dy'*M*Dy;
 
 % Poisson
