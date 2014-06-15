@@ -48,7 +48,7 @@ u0(vmapBTr) = left.*sqrt(1-yr.^2);
 bmask = abs(y(vmapB)) > 1 - NODETOL; % top/bottom boundaries
 [Mb Eb] = getBoundaryMatrix(bmask);
 u0tb = 1+x(vmapB);
-B = B + 1e6*R*Eb'*Mb*Eb*Rr'; % this adds a penalty term on u 
+B = B + 1e6*R*Eb'*Mb*Eb*Rr'; % this adds a penalty term on u (or Robin condition) 
 b = b + 1e6*R*Eb'*Mb*u0tb;
 
 % nonhomogeneous neumann BCs
