@@ -48,8 +48,8 @@ u0(vmapBTr) = left.*sqrt(1-yr.^2);
 bmask = abs(y(vmapB)) > 1 - NODETOL; % top/bottom boundaries
 [Mb Eb] = getBoundaryMatrix(bmask);
 u0tb = 1+x(vmapB);
-% B = B + 1e6*R*Eb'*Mb*Eb*Rr'; % this adds a penalty term on u 
-% b = b + 1e6*R*Eb'*Mb*u0tb;
+B = B + 1e6*R*Eb'*Mb*Eb*Rr'; % this adds a penalty term on u 
+b = b + 1e6*R*Eb'*Mb*u0tb;
 
 % nonhomogeneous neumann BCs
 bmask = x(vmapB) > 1 - NODETOL; % right boundary
@@ -70,8 +70,8 @@ A = [RV B;B' zeros(size(B,2))];
 b = b - A*U0;
 
 % BCs on U - skip over e dofs
-% vmapBTr(~left) = []; %neumann on right outflow - remove top/bottom BCs
-vmapBTr(right) = []; %neumann on right outflow - remove top/bottom BCs
+vmapBTr(~left) = []; %neumann on right outflow - remove top/bottom BCs
+% vmapBTr(right) = []; %neumann on right outflow - remove top/bottom BCs
 vmapBTU = vmapBTr + size(B,1);
 b(vmapBTU) = U0(vmapBTU);
 A(vmapBTU,:) = 0; A(:,vmapBTU) = 0;
@@ -80,8 +80,8 @@ A(vmapBTU,vmapBTU) = speye(length(vmapBTU));
 % BCs on V
 left = x(vmapB)<-1+NODETOL; 
 right = x(vmapB) > 1-NODETOL;
-% vmapBT(~left) = []; %remove right BCs for Neumann -modify test space
-vmapBT(right) = []; %remove right BCs for Neumann - needs to modify test space
+vmapBT(~left) = []; %remove right BCs for Neumann -modify test space
+% vmapBT(right) = []; %remove right BCs for Neumann - needs to modify test space
 b(vmapBT) = U0(vmapBT);
 A(vmapBT,:) = 0; A(:,vmapBT) = 0;
 A(vmapBT,vmapBT) = speye(length(vmapBT));

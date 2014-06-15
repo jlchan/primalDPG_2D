@@ -41,8 +41,8 @@ nTrial = nU + nM;
 bmask = abs(y(vmapB)) > 1 - NODETOL; % top/bottom boundaries
 [Mb Eb] = getBoundaryMatrix(bmask(:));
 u0tb = 1+x(vmapB);
-% B = B + 1e6*Eb'*Mb*Eb*Rr'; % this adds a penalty term on u 
-% b = b + 1e6*Eb'*Mb*u0tb;
+B = B + 1e6*Eb'*Mb*Eb*Rr'; % this adds a penalty term on u 
+b = b + 1e6*Eb'*Mb*u0tb;
 
 Bh = [B Bhat'];
 Tblk = cell(K,1);
@@ -83,29 +83,31 @@ u0 = zeros(size(B,2),1);
 left = xr < -1+NODETOL;
 u0(vmapBTr) = left.*sqrt(1-yr.^2); 
 right = xr > 1-NODETOL;
+top = yr > 1-NODETOL;
+bot = yr < -1+NODETOL;
+% u0(vmapBTr) = top.*sqrt(1-xr.^2);
 
 % BCs on flux
 uh0 = zeros(nM,1); 
 leftf = xf < -1+NODETOL; % right boundary
 rightf = xf > 1-NODETOL; % right boundary
 uh0(vmapBF) = -rightf.*nxf.*((yf<=0) - (yf>0)).^0;  % BC data on -du/dn
-
+topf = yf > 1-NODETOL;
+botf = yf < -1+NODETOL;
 U0 = [u0;uh0];
 
 b = b - A*U0; % get lift
 
 % BCs on U: ordered first
-left = xr < -1+NODETOL;
-% vmapBTr(~left) = []; % remove strong BCs on u except for left
-vmapBTr(right) = []; % remove strong BCs on right
+vmapBTr(~left) = [];
 b(vmapBTr) = U0(vmapBTr);
 A(vmapBTr,:) = 0; A(:,vmapBTr) = 0;
 A(vmapBTr,vmapBTr) = speye(length(vmapBTr));
 
 % homogeneous BCs on V are implied by mortars.
 % BCs on mortars removes BCs on test functions.
-% vmapBF(~leftf) = []; % impose BCs on right outflow
-vmapBF(~rightf) = []; % impose BCs on right outflow
+vmapBF(leftf) = [];
+% vmapBF = [];
 bci = nU + vmapBF; % skip over u dofs
 b(bci) = uh0(vmapBF);
 A(bci,:) = 0; A(:,bci)=0;
