@@ -3,7 +3,7 @@ function primalDPG_poisson
 Globals2D
 
 % Polynomial order used for approximation
-Ntrial = 4;
+Ntrial = 8;
 Ntest = Ntrial+2;
 Nflux = Ntrial;
 
@@ -12,8 +12,8 @@ N = Ntest;
 % Read in Mesh
 [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squareireg.neu');
-% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
+[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
@@ -91,7 +91,7 @@ bot = yr < -1+NODETOL;
 uh0 = zeros(nM,1); 
 leftf = xf < -1+NODETOL; % right boundary
 rightf = xf > 1-NODETOL; % right boundary
-uh0(vmapBF) = -rightf.*nxf.*((yf<=0) - (yf>0)).^0;  % BC data on -du/dn
+uh0(vmapBF) = -rightf.*nxf.*((yf<=0) - (yf>0));  % BC data on -du/dn
 topf = yf > 1-NODETOL;
 botf = yf < -1+NODETOL;
 U0 = [u0;uh0];
@@ -116,11 +116,24 @@ A(bci,bci) = speye(length(bci));
 U = A\b;
 u = Rr'*U(1:nU);
 
-% Nplot = 25;
-Nplot = Ntrial;
-% [xu,yu] = EquiNodes2D(Nplot); 
-[xu,yu] = Nodes2D(Nplot); 
-[ru, su] = xytors(xu,yu);
+Av = A(1:nU,1:nU);
+Af = A(nU+(1:nM),nU+(1:nM));
+Avf = A(1:nU,nU+(1:nM)); 
+% Pre = cholinc(A,1e-2); %Pre'*Pre
+% Pre = chol(A);
+% Pfun = @(x) Pre\((Pre')\x);
+% keyboard
+Blk = [Av zeros(size(Avf));zeros(size(Avf')) Af];
+Pre = @(x) Blk\x;
+
+% [U, flag, relres, iter, resvec] = pcg(A,b,1e-7,250,Pre',Pre);
+[U, flag, relres, iter, resvec] = pcg(A,b,1e-7,250,@(x) Pre(x));
+
+keyboard
+
+Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot); 
+% Nplot = 25; [xu,yu] = EquiNodes2D(Nplot); 
+[ru, su] = xytors(xu,yu); 
 Vu = Vandermonde2D(N,ru,su); Iu = Vu*invV;
 xu = 0.5*(-(ru+su)*VX(va)+(1+ru)*VX(vb)+(1+su)*VX(vc));
 yu = 0.5*(-(ru+su)*VY(va)+(1+ru)*VY(vb)+(1+su)*VY(vc));

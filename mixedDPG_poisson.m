@@ -17,7 +17,8 @@ N = Ntest;
 [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squareireg.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
+[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 
@@ -54,7 +55,7 @@ b = b + 1e6*R*Eb'*Mb*u0tb;
 % nonhomogeneous neumann BCs
 bmask = x(vmapB) > 1 - NODETOL; % right boundary
 [Mb Eb] = getBoundaryMatrix(bmask(:)); 
-dudn0 = nx(mapB).*((y(vmapB)<=0) - (y(vmapB)>0)).^0;
+dudn0 = nx(mapB).*((y(vmapB)<=0) - (y(vmapB)>0));
 b = b + R*Eb'*Mb*dudn0;
 
 % BC data for e is generally zero.  
@@ -64,7 +65,6 @@ U0 = [e0;u0];
 
 % make saddle point system
 A = [RV B;B' zeros(size(B,2))];
-% A = [RV B;B' 1e2*Rr*Mb*Rr']; %penalty BCs as functional
 
 % applying lift data
 b = b - A*U0;
@@ -93,10 +93,8 @@ u = Rr'*U(size(B,1)+1:end);
 % err = e'*RV*e;
 % e = R'*e;
 
-% Nplot = 25;
-Nplot = Ntrial;
-% [xu,yu] = EquiNodes2D(Nplot); 
-[xu,yu] = Nodes2D(Nplot); 
+Nplot = 25; [xu,yu] = EquiNodes2D(Nplot); 
+Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot); 
 [ru, su] = xytors(xu,yu);
 Vu = Vandermonde2D(N,ru,su); Iu = Vu*invV;
 xu = 0.5*(-(ru+su)*VX(va)+(1+ru)*VX(vb)+(1+su)*VX(vc));
