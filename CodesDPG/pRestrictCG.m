@@ -2,7 +2,7 @@
 % block diagonal matrix Ak (of order N >= Nr). 
 % other return values: boundary indices (into reduced system) and nodal coordinates.
 % - vmapBT, xrestrict, yrestrict 
-function [Rr vmapBT xrestrict yrestrict] = pRestrictCG(Nr)
+function [Rp Irp vmapBT xrestrict yrestrict] = pRestrictCG(Nr)
 
 Globals2D
 
@@ -33,5 +33,5 @@ backupGlobals(saveFlag,a);
 Vr = Vandermonde2D(Nr,rr,sr); 
 Ir = Vandermonde2D(Nr,r,s)/Vr;  % interp from Nr to Np points
 
-Ip = kron(speye(K),Ir);
-Rr = Rp*Ip';
+Irp = kron(speye(K),Ir);
+% Rr = Rp*Irp';

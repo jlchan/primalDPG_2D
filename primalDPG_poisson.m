@@ -12,8 +12,8 @@ N = Ntest;
 % Read in Mesh
 [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squareireg.neu');
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
-% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
+[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
@@ -28,7 +28,8 @@ f = ones(Np*K,1);
 b = M*f;
 
 [R vmapBT] = getCGRestriction();
-[Rr vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space
+[Rp Irp vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space
+Rr = Rp*Irp';
 [Bhat vmapBF xf yf nxf nyf] = getMortarConstraint(Nflux);
 
 B = BK*Rr';   % form rectangular bilinear form matrix

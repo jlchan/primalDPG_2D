@@ -34,7 +34,8 @@ f = ones(Np*K,1);
 
 % make CG operators
 [R vmapBT] = getCGRestriction();
-[Rr vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space 
+[Rp Irp vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space 
+Rr = Rp*Irp';
 B = R*BK*Rr';
 RV = R*AK*R';
 b = R*M*f;
