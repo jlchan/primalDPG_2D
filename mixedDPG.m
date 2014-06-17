@@ -35,7 +35,8 @@ f = 0*ones(Np*K,1);
 % f = sin(pi*x(:)).*sin(pi*y(:));
 
 [R vmapBT] = getCGRestriction();
-[Rr vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space 
+[Rp Irp vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space 
+Rr = Rp*Irp';
 
 % make CG operators
 B = R*BK*Rr';
