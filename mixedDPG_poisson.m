@@ -80,8 +80,7 @@ A(vmapBTU,vmapBTU) = speye(length(vmapBTU));
 % BCs on V
 left = x(vmapB)<-1+NODETOL; 
 right = x(vmapB) > 1-NODETOL;
-vmapBT(~left) = []; %remove right BCs for Neumann -modify test space
-% vmapBT(right) = []; %remove right BCs for Neumann - needs to modify test space
+vmapBT(~left) = []; % remove BCs for dirichlet conditions only
 b(vmapBT) = U0(vmapBT);
 A(vmapBT,:) = 0; A(:,vmapBT) = 0;
 A(vmapBT,vmapBT) = speye(length(vmapBT));
