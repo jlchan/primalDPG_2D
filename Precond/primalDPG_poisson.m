@@ -1,4 +1,4 @@
-function [A b nU nM Np Rr bK] = primalDPG_poisson(mesh,Ntrial,Ntest,Nflux,plotFlag)
+function [A b nU nM Np bK Rp Irp, M] = primalDPG_poisson(mesh,Ntrial,Ntest,Nflux,plotFlag)
 
 Globals2D
 
@@ -17,7 +17,8 @@ f = ones(Np*K,1);
 b = M*f;
 
 [R vmapBT] = getCGRestriction();
-[Rr vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space
+[Rp Irp vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space
+Rr = Rp*Irp';
 [Bhat vmapBF xf yf nxf nyf] = getMortarConstraint(Nflux);
 
 B = BK*Rr';   % form rectangular bilinear form matrix
@@ -47,9 +48,9 @@ if 1
         Tblk{i} = AK(inds,inds)\Bh(inds,:);
         disp(['on element ' num2str(i)])
         bKr = BK(inds,inds)*Ir;
-        bK{i} = bKr'*(AK(inds,inds)\bKr);
-        %             Tblk{i} = Bh(inds,:);
+        bK{i} = bKr'*(AK(inds,inds)\bKr);        
     end
+    bK = blkdiag(bK{:});
     disp(['time for test function computation = ', num2str(toc)])
 else
     disp('parfor implementation...')
@@ -135,11 +136,16 @@ function [Test, Trial] = getVolOp(M,Dx,Dy)
 Globals2D
 Ks = Dx'*M*Dx + Dy'*M*Dy;
 Kb = (Dx+Dy)'*M*(Dx+Dy);
-S = (Dx+Dy)'*M;
+S = -(Dx+Dy)'*M;
 
 % Poisson
 Test = M + Ks;
-Trial = Ks;
+Trial = .01*M+Ks;
+
+% CD
+% ep = .1;
+% Test = M + ep*Ks + Kb;
+% Trial = ep*Ks + S;
 
 % % Helmholtz
 % k = 50;
