@@ -1,0 +1,2 @@
+- Remove 2x startup cost for primal DPG by locally interping to higher order only 
+- Speed up local solve by using parpool/parfor, avoid kron
