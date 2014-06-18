@@ -19,14 +19,14 @@ k = 1;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
-% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu'); % 8 elements
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu'); % 16 elements 
+[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu'); % 8 elements
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu'); % 16 elements 
 % Initialize solver and construct grid and metric
 StartUp2D;
 
 
 PPB = numel(vmapB)/4 % 4 boundaries - points per boundary
-PPW = 8;
+PPW = 4;
 k = PPB/PPW
 % keyboard
 % PPW = PPB/k
@@ -47,17 +47,29 @@ B = R*BK*R';
 u0 = zeros(size(B,2),1);
 t = 0*pi/4;
 u0f = @(x,y) exp(1i*k*(cos(t)*x + sin(t)*y));
+dudx0f = @(x,y) 1i*k*cos(t)*exp(1i*k*(cos(t)*x + sin(t)*y));
+dudy0f = @(x,y) 1i*k*sin(t)*exp(1i*k*(cos(t)*x + sin(t)*y));
+
+%%
+% compute projections of exact solutions for bdata
+Corder = 25;
+[cubR,cubS,cubW, Ncub] = Cubature2D(Corder); Vcub = Vandermonde2D(N,cubR,cubS);
+xcub = 0.5*(-(cubR+cubS)*VX(va)+(1+cubR)*VX(vb)+(1+cubS)*VX(vc));
+ycub = 0.5*(-(cubR+cubS)*VY(va)+(1+cubR)*VY(vb)+(1+cubS)*VY(vc));
+
+Interp = Vcub*invV; % interp to cubature points
+Wcub = diag(cubW);
+Minv = V*V';
+u0 = Minv*Interp'*Wcub*u0f(xcub,ycub);
+dudx0 = Minv*Interp'*Wcub*dudx0f(xcub,ycub);
+dudy0 = Minv*Interp'*Wcub*dudy0f(xcub,ycub);
+
 u0 = u0f(x(:),y(:));
-dudx0 = 1i*k*cos(t)*exp(1i*k*(cos(t)*x(:) + sin(t)*y(:)));
-dudy0 = 1i*k*sin(t)*exp(1i*k*(cos(t)*x(:) + sin(t)*y(:)));
+dudx0 = dudx0f(x(:),y(:));
+dudy0 = dudy0f(x(:),y(:));
 dudn0 = nx(mapB).*dudx0(vmapB) + ny(mapB).*dudy0(vmapB);
 
-% Ng = Ntest + 10;
-% [rg,sg,wg, Ncub] = Cubature2D(Ng);
-% Vg = Vandermonde2D(N,rg,sg); Ig = Vg*invV;
-% xg = 0.5*(-(rg+sg)*VX(va)+(1+rg)*VX(vb)+(1+sg)*VX(vc));
-% yg = 0.5*(-(rg+sg)*VY(va)+(1+rg)*VY(vb)+(1+sg)*VY(vc));
-% keyboard
+%%
 
 % penalty/robin BCs 
 % robin = y(vmapB) > 1 - NODETOL | x(vmapB) > 1-NODETOL; % top/right boundaries
@@ -103,7 +115,9 @@ Vu = Vandermonde2D(Nplot,ru,su);
 Mu = inv(Vu*Vu');
 Nplotp = (Nplot+1)*(Nplot+2)/2;
 e = reshape(Iuh-Iu0,Nplotp,K);
-tmp = Mu*e;
+J = J(1,:); % hack for non curved elems
+J = repmat(J,Nplotp,1);
+tmp = J.*(Mu*e);
 L2err = sqrt(abs(e(:)'*tmp(:)));
 title(['L2 error = ' num2str(L2err) ' at k = ' num2str(k) ' and ' num2str(PPW) ' ppw.'])
 

@@ -8,7 +8,7 @@ function mixedDPG_poisson
 Globals2D
 
 % Polynomial order used for approximation
-Ntrial = 2;
+Ntrial = 4;
 Ntest = Ntrial+2;
 
 N = Ntest;
@@ -21,8 +21,8 @@ k = 1;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
-% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
+[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 
 % Initialize solver and construct grid and metric
 StartUp2D;
@@ -30,12 +30,10 @@ StartUp2D;
 NpTrial = (Ntrial+1);
 NpTest = (Ntest+1);
 PPB = numel(vmapB)*(NpTrial/NpTest)/4 % 4 boundaries - points per boundary of trial
-PPW = 8;
+PPW = 2;
 k = PPB/PPW
-
 % keyboard
 % PPW = PPB/k
-
 
 % get block operators
 [M, Dx, Dy] = getBlockOps();
@@ -56,10 +54,29 @@ b = R*M*f;
 u0 = zeros(size(B,2),1);
 t = 0*pi/4;
 u0f = @(x,y) exp(1i*k*(cos(t)*x + sin(t)*y));
-u0 = u0f(x(:),y(:));
-dudx0 = 1i*k*cos(t)*exp(1i*k*(cos(t)*x(:) + sin(t)*y(:)));
-dudy0 = 1i*k*sin(t)*exp(1i*k*(cos(t)*x(:) + sin(t)*y(:)));
-dudn0 = nx(mapB).*dudx0(vmapB) + ny(mapB).*dudy0(vmapB);
+dudx0f = @(x,y) 1i*k*cos(t)*exp(1i*k*(cos(t)*x + sin(t)*y));
+dudy0f = @(x,y) 1i*k*sin(t)*exp(1i*k*(cos(t)*x + sin(t)*y));
+
+%%
+% compute projections of exact solutions for bdata
+Corder = 25;
+[cubR,cubS,cubW, Ncub] = Cubature2D(Corder); Vcub = Vandermonde2D(N,cubR,cubS);
+xcub = 0.5*(-(cubR+cubS)*VX(va)+(1+cubR)*VX(vb)+(1+cubS)*VX(vc));
+ycub = 0.5*(-(cubR+cubS)*VY(va)+(1+cubR)*VY(vb)+(1+cubS)*VY(vc));
+
+Interp = Vcub*invV; % interp to cubature points
+Wcub = diag(cubW);
+Minv = V*V';
+u0 = Minv*Interp'*Wcub*u0f(xcub,ycub);
+dudx0 = Minv*Interp'*Wcub*dudx0f(xcub,ycub);
+dudy0 = Minv*Interp'*Wcub*dudy0f(xcub,ycub);
+
+% u0 = u0f(x(:),y(:));
+% dudx0 = dudx0f(x(:),y(:));
+% dudy0 = dudy0f(x(:),y(:));
+dudn0 = nx(mapB).*dudx0(vmapB) + ny(mapB).*dudy0(vmapB); 
+
+%%
 
 % Ng = Ntest + 10;
 % [rg,sg,wg, Ncub] = Cubature2D(Ng);
@@ -87,35 +104,14 @@ b = b + R*Eb'*Mb*dudn0;
 
 % add boundary trace?
 [Mb Eb] = getBoundaryMatrix(robin);
-% RV = RV - k*R*Eb'*Mb*Eb*R';
-
-RV = B*B' + 1e-4*R*M*R';
-% RV = RV - k*R*Eb'*Mb*Eb*R';
+% RV = RV + k*(1i'*R*Eb'*Mb*Eb*R' + + R*Eb'*Mb*Eb*R'*1i);
+% RV = B*B' + 1e-4*R*M*R';
 % DuDnB = (spdiag(nx(mapB(:)))*Eb*Dx + spdiag(ny(mapB(:)))*Eb*Dy)*R';
 % RV = RV + k^2*DuDnB'*Mb*DuDnB;
 
 % make saddle point system
 A = [RV B;B' zeros(size(B,2))];
 b = [b; zeros(size(B,2),1)]; 
-
-% vmapBT(robin) = [];
-% b(vmapBT) = 0;
-% A(vmapBT,:) = 0; A(:,vmapBT) = 0;
-% A(vmapBT,vmapBT) = speye(length(vmapBT));
-
-% try Dir on bot/left
-% u0 = zeros(size(B,2),1);
-% onlyLeft = (xr < -1 + NODETOL) & (yr < 1-NODETOL);
-% onlyBot = (yr < -1 + NODETOL) & (xr < 1-NODETOL);
-% neum = onlyLeft | onlyBot; % left/bottom boundary
-% u0(vmapBTr) = neum.*u0f(xr,yr); 
-% U0 = [zeros(size(B,1),1);u0];
-% b = b - A*U0;
-% vmapBTr(~neum) = [];
-% vmapBTU = vmapBTr + size(B,1);
-% b(vmapBTU) = U0(vmapBTU);
-% A(vmapBTU,:) = 0; A(:,vmapBTU) = 0;
-% A(vmapBTU,vmapBTU) = speye(length(vmapBTU));
 
 % solve and prolong solution u to local storage
 U = (A\b);
@@ -127,7 +123,7 @@ e = R'*e;
 
 Nplot = 25; [xu,yu] = EquiNodes2D(Nplot); 
 % Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot); 
-Nplot = 25; [xu,yu] = Nodes2D(Nplot); 
+Nplot = 30; [xu,yu] = Nodes2D(Nplot); 
 [ru, su] = xytors(xu,yu);
 Vu = Vandermonde2D(N,ru,su); Iu = Vu*invV;
 xu = 0.5*(-(ru+su)*VX(va)+(1+ru)*VX(vb)+(1+su)*VX(vc));
@@ -138,7 +134,7 @@ Iu0 = u0f(xu(:),yu(:));
 
 figure 
 Iuh = Iu*reshape(u,Np,K);Iuh = Iuh(:);
-Ie = Iu*reshape(e,Np,K);Ie = Ie(:);
+Ie = Iu*reshape(e,Np,K);Ie = Ie(:); % rescale by J for integration
 % title('Mixed form of DPG')
 ax = [-1 1 -1 1 -1 1];
 subplot(2,1,1);color_line3(xu,yu,Iuh,Iuh,'.');axis(ax);view(2);%view(0,0)
@@ -150,14 +146,15 @@ subplot(2,1,2);color_line3(xu,yu,Iuh-Iu0,Iuh-Iu0,'.');%axis([-1 1 -1 1 -.1 .1])
 colorbar;view(2);%view(0,0);
 
 Vu = Vandermonde2D(Nplot,ru,su);
-Mu = inv(Vu*Vu');
-Nplotp = (Nplot+1)*(Nplot+2)/2;
-e = reshape(Iuh-Iu0,Nplotp,K);
-tmp = Mu*e;
-L2err = sqrt(abs(e(:)'*tmp(:)));
-subplot(2,1,1);title(['L2 error = ' num2str(L2err) ' at k = ' num2str(k) ' and ' num2str(PPW) ' ppw.'])
+Mu = inv(Vu*Vu'); Nplotp = (Nplot+1)*(Nplot+2)/2;
+err = reshape(Iuh-Iu0,Nplotp,K);
 
-% keyboard
+J = J(1,:); % hack for non curved elems
+J = repmat(J,Nplotp,1);
+
+err = abs(err);tmp = J.*(Mu*err);
+L2err = sqrt(abs(err(:)'*tmp(:)));
+subplot(2,1,1);title(['L2 error = ' num2str(L2err) ' at k = ' num2str(k) ' and ' num2str(PPW) ' ppw.'])
 
 function [Test, Trial] = getVolOp(M,Dx,Dy)
 
@@ -174,7 +171,7 @@ Trial = -k^2*M + Ks;
 % Test = (1/k^2)*M + Ks;
 % L = -k^2*speye(size(M)) - Dx*Dx - Dy*Dy;
 % Test = Ks + k^2*L'*M*L + 1e-6*M;
-Test = (k^2)*M + Ks;
+Test = M + (k^2)*Ks;%+ Ks;
 % blkiM = kron(speye(K),inv(MassMatrix));
 % invM = spdiag(1./J(:))*blkiM; % J = h^2
 % Test = Trial*blkiM*Trial' + 1e-6*M;%(1/k^2)*M;
