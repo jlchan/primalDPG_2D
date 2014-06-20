@@ -1,13 +1,7 @@
-% Initializes paths
+% Initializes absolute paths
 addpath .
-addpath Codes1D
-addpath Codes2D
-addpath CodesDPG
-
-addpath ServiceRoutines
-addpath Grid/
-addpath Grid/CFD
-addpath Grid/CNS2D
-addpath Grid/Euler2D
-addpath Grid/Maxwell2D
-addpath Grid/Other
+addpath(genpath(fullfile(pwd,'Codes1D')))
+addpath(genpath(fullfile(pwd,'Codes2D')))
+addpath(genpath(fullfile(pwd,'CodesDPG')))
+addpath(genpath(fullfile(pwd,'ServiceRoutines')))
+addpath(genpath(fullfile(pwd,'Grid'))) % recursive path
