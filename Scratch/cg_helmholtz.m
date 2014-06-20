@@ -1,7 +1,7 @@
-% Poisson example for reference. 
+% Poisson example for reference.
 % square domain, forcing = 1
 % BCs: left Dirichlet, right (nonconstant) inhomogeneous Neumann BC, and
-% penalty enforcement of nonzero BCs on top and bottom 
+% penalty enforcement of nonzero BCs on top and bottom
 
 function cg_helmholtz
 
@@ -20,7 +20,7 @@ k = 1;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
 [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu'); % 8 elements
-% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu'); % 16 elements 
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu'); % 16 elements
 % Initialize solver and construct grid and metric
 StartUp2D;
 
@@ -71,7 +71,7 @@ dudn0 = nx(mapB).*dudx0(vmapB) + ny(mapB).*dudy0(vmapB);
 
 %%
 
-% penalty/robin BCs 
+% penalty/robin BCs
 % robin = y(vmapB) > 1 - NODETOL | x(vmapB) > 1-NODETOL; % top/right boundaries
 robin = abs(nx(mapB)+1) < NODETOL | abs(ny(mapB)+1) < NODETOL;
 % robin = zeros(size(vmapB));
@@ -85,16 +85,16 @@ b = b + R*Eb'*Mb*(-1i*k*u0(vmapB) + dudn0);
 % neum = onlyLeft | onlyBot; % left/bottom boundary
 neum = abs(nx(mapB)-1) < NODETOL | abs(ny(mapB)-1) < NODETOL;
 % neum = ones(size(vmapB))*0;
-[Mb Eb] = getBoundaryMatrix(neum(:)); 
+[Mb Eb] = getBoundaryMatrix(neum(:));
 b = b + R*Eb'*Mb*dudn0;
 
 % solve and prolong solution u to local storage
 U = (B\b);
 u = R'*U;
 
-% Nplot = 25; [xu,yu] = EquiNodes2D(Nplot); 
-% Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot); 
-Nplot = 25; [xu,yu] = Nodes2D(Nplot); 
+% Nplot = 25; [xu,yu] = EquiNodes2D(Nplot);
+% Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot);
+Nplot = 25; [xu,yu] = Nodes2D(Nplot);
 [ru, su] = xytors(xu,yu);
 Vu = Vandermonde2D(N,ru,su); Iu = Vu*invV;
 xu = 0.5*(-(ru+su)*VX(va)+(1+ru)*VX(vb)+(1+su)*VX(vc));
@@ -103,7 +103,7 @@ yu = 0.5*(-(ru+su)*VY(va)+(1+ru)*VY(vb)+(1+su)*VY(vc));
 % figure
 Iu0 = u0f(xu(:),yu(:));
 
-figure 
+figure
 Iuh = Iu*reshape(u,Np,K);Iuh = Iuh(:);
 ax = [-1 1 -1 1 -1 1];
 subplot(3,1,1);color_line3(xu,yu,Iuh,Iuh,'.');axis(ax);view(2);%view(0,0)
@@ -140,17 +140,4 @@ Test = k^2*M + Ks;
 % blkiM = kron(speye(K),inv(MassMatrix));
 % invM = spdiag(1./J(:))*blkiM; % J = h^2
 % Test = Trial*blkiM*Trial' + 1e-6*M;%(1/k^2)*M;
-
-function [M, Dx, Dy] = getBlockOps()
-
-Globals2D
-
-blkDr = kron(speye(K),Dr);
-blkDs = kron(speye(K),Ds);
-blkM = kron(speye(K),MassMatrix);
-
-M = spdiag(J(:))*blkM; % J = h^2
-Dx = spdiag(rx(:))*blkDr + spdiag(sx(:))*blkDs;
-Dy = spdiag(ry(:))*blkDr + spdiag(sy(:))*blkDs;
-
 
