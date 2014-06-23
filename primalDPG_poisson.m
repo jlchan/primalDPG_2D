@@ -3,7 +3,7 @@ function primalDPG_poisson
 Globals2D
 
 % Polynomial order used for approximation
-Ntrial = 8;
+Ntrial = 2;
 Ntest = Ntrial+2;
 Nflux = Ntrial;
 
@@ -13,7 +13,7 @@ N = Ntest;
 [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squareireg.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
@@ -116,21 +116,6 @@ A(bci,bci) = speye(length(bci));
 
 U = A\b;
 u = Rr'*U(1:nU);
-
-Av = A(1:nU,1:nU);
-Af = A(nU+(1:nM),nU+(1:nM));
-Avf = A(1:nU,nU+(1:nM)); 
-% Pre = cholinc(A,1e-2); %Pre'*Pre
-% Pre = chol(A);
-% Pfun = @(x) Pre\((Pre')\x);
-% keyboard
-Blk = [Av zeros(size(Avf));zeros(size(Avf')) Af];
-Pre = @(x) Blk\x;
-
-% [U, flag, relres, iter, resvec] = pcg(A,b,1e-7,250,Pre',Pre);
-[U, flag, relres, iter, resvec] = pcg(A,b,1e-7,250,@(x) Pre(x));
-
-keyboard
 
 Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot); 
 % Nplot = 25; [xu,yu] = EquiNodes2D(Nplot); 
