@@ -8,7 +8,7 @@ function mixedDPG_poisson
 Globals2D
 
 % Polynomial order used for approximation
-Ntrial = 4;
+Ntrial = 2;
 Ntest = Ntrial+2;
 
 N = Ntest;

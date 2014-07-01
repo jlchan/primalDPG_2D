@@ -85,14 +85,14 @@ b = T'*M*f;
 u0 = zeros(size(B,2),1);
 
 % BCs on flux
-uh0 = zeros(nM,1); 
+uh0 = zeros(nM,1);
 bnf = nxf*b1 + nyf*b2; % beta_n, determines inflow vs outflow
 bmaskf = (bnf < NODETOL); % inflow = beta_n < 0
 uh0(vmapBF) = bnf.*(yf<0).*(1+yf);  % BC data on flux = bn*u - eps*du/dn
 
 U0 = [u0;uh0];
 
-% remove BCs on u on inflow for stability 
+% remove BCs on u on inflow for stability
 vmapBTr(xr < -1+NODETOL) = [];
 %   vmapBTr = []; % removes all Dirichlet BCs for testing....
 
@@ -153,30 +153,4 @@ Trial = S + ep*Ks;
 % k = 100;
 % Test = k^2*M + Ks;
 % Trial = -k^2*M + Ks;
-
-function [M, Dx, Dy] = getBlockOps()
-
-Globals2D
-
-blkDr = kron(speye(K),Dr);
-blkDs = kron(speye(K),Ds);
-blkM = kron(speye(K),MassMatrix);
-
-M = spdiag(J(:))*blkM; % J = h^2
-Dx = spdiag(rx(:))*blkDr + spdiag(sx(:))*blkDs;
-Dy = spdiag(ry(:))*blkDr + spdiag(sy(:))*blkDs;
-
-function plotNodes()
-Globals2D
-figure
-plot(x,y,'.');hold on;
-j = 1;
-for k = 1:K
-    for i = 1:size(x,1)
-        off = .2*((k-1)/K);
-        text(x(i,k)+off,y(i,k)+off,num2str(j),'fontsize',16)
-        j = j+1;
-    end
-end
-% PlotMesh2D
 

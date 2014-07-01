@@ -1,7 +1,7 @@
-% Poisson example for reference. 
+% Poisson example for reference.
 % square domain, forcing = 1
 % BCs: left Dirichlet, right (nonconstant) inhomogeneous Neumann BC, and
-% penalty enforcement of nonzero BCs on top and bottom 
+% penalty enforcement of nonzero BCs on top and bottom
 
 function mixedDPG_poisson
 
@@ -44,7 +44,7 @@ f = zeros(Np*K,1);
 
 % make CG operators
 [R vmapBT] = getCGRestriction();
-[Rp Irp vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space 
+[Rp Irp vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space
 Rr = Rp*Irp';
 B = R*BK*Rr';
 RV = R*AK*R';
@@ -74,7 +74,7 @@ dudy0 = Minv*Interp'*Wcub*dudy0f(xcub,ycub);
 % u0 = u0f(x(:),y(:));
 % dudx0 = dudx0f(x(:),y(:));
 % dudy0 = dudy0f(x(:),y(:));
-dudn0 = nx(mapB).*dudx0(vmapB) + ny(mapB).*dudy0(vmapB); 
+dudn0 = nx(mapB).*dudx0(vmapB) + ny(mapB).*dudy0(vmapB);
 
 %%
 
@@ -85,7 +85,7 @@ dudn0 = nx(mapB).*dudx0(vmapB) + ny(mapB).*dudy0(vmapB);
 % yg = 0.5*(-(rg+sg)*VY(va)+(1+rg)*VY(vb)+(1+sg)*VY(vc));
 % keyboard
 
-% penalty/robin BCs 
+% penalty/robin BCs
 % robin = y(vmapB) > 1 - NODETOL | x(vmapB) > 1-NODETOL; % top/right boundaries
 robin = abs(nx(mapB)+1) < NODETOL | abs(ny(mapB)+1) < NODETOL;
 % robin = ones(size(vmapB));
@@ -99,7 +99,7 @@ b = b + R*Eb'*Mb*(-1i*k*u0(vmapB) + dudn0);
 % neum = onlyLeft | onlyBot; % left/bottom boundary
 neum = abs(nx(mapB)-1) < NODETOL | abs(ny(mapB)-1) < NODETOL;
 % neum = zeros(size(vmapB));
-[Mb Eb] = getBoundaryMatrix(neum(:)); 
+[Mb Eb] = getBoundaryMatrix(neum(:));
 b = b + R*Eb'*Mb*dudn0;
 
 % add boundary trace?
@@ -111,7 +111,7 @@ b = b + R*Eb'*Mb*dudn0;
 
 % make saddle point system
 A = [RV B;B' zeros(size(B,2))];
-b = [b; zeros(size(B,2),1)]; 
+b = [b; zeros(size(B,2),1)];
 
 % solve and prolong solution u to local storage
 U = (A\b);
@@ -121,9 +121,9 @@ e = U(1:size(B,1));
 % err = e'*RV*e;
 e = R'*e;
 
-Nplot = 25; [xu,yu] = EquiNodes2D(Nplot); 
-% Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot); 
-Nplot = 30; [xu,yu] = Nodes2D(Nplot); 
+Nplot = 25; [xu,yu] = EquiNodes2D(Nplot);
+% Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot);
+Nplot = 30; [xu,yu] = Nodes2D(Nplot);
 [ru, su] = xytors(xu,yu);
 Vu = Vandermonde2D(N,ru,su); Iu = Vu*invV;
 xu = 0.5*(-(ru+su)*VX(va)+(1+ru)*VX(vb)+(1+su)*VX(vc));
@@ -132,7 +132,7 @@ yu = 0.5*(-(ru+su)*VY(va)+(1+ru)*VY(vb)+(1+su)*VY(vc));
 % figure
 Iu0 = u0f(xu(:),yu(:));
 
-figure 
+figure
 Iuh = Iu*reshape(u,Np,K);Iuh = Iuh(:);
 Ie = Iu*reshape(e,Np,K);Ie = Ie(:); % rescale by J for integration
 % title('Mixed form of DPG')
@@ -176,16 +176,5 @@ Test = M + (k^2)*Ks;%+ Ks;
 % invM = spdiag(1./J(:))*blkiM; % J = h^2
 % Test = Trial*blkiM*Trial' + 1e-6*M;%(1/k^2)*M;
 
-function [M, Dx, Dy] = getBlockOps()
-
-Globals2D
-
-blkDr = kron(speye(K),Dr);
-blkDs = kron(speye(K),Ds);
-blkM = kron(speye(K),MassMatrix);
-
-M = spdiag(J(:))*blkM; % J = h^2
-Dx = spdiag(rx(:))*blkDr + spdiag(sx(:))*blkDs;
-Dy = spdiag(ry(:))*blkDr + spdiag(sy(:))*blkDs;
 
 

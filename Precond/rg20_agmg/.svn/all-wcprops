@@ -1,0 +1,275 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/gNek/!svn/ver/2144/branches/rg20/agmg/matlab_version
+END
+rhoDinvA.m
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/gNek/!svn/ver/1198/branches/rg20/agmg/matlab_version/rhoDinvA.m
+END
+test_agmg.m
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/gNek/!svn/ver/2144/branches/rg20/agmg/matlab_version/test_agmg.m
+END
+csr_prod.m
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/csr_prod.m
+END
+my_pcg.m
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/gNek/!svn/ver/2143/branches/rg20/agmg/matlab_version/my_pcg.m
+END
+my_gmres.m
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/my_gmres.m
+END
+arnoldi_nullA.m
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/gNek/!svn/ver/1716/branches/rg20/agmg/matlab_version/arnoldi_nullA.m
+END
+agmg_solve.m
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/agmg_solve.m
+END
+kcycle_notay.m
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/gNek/!svn/ver/1285/branches/rg20/agmg/matlab_version/kcycle_notay.m
+END
+vcycle.m
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/vcycle.m
+END
+precond_agmg.m
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/gNek/!svn/ver/1716/branches/rg20/agmg/matlab_version/precond_agmg.m
+END
+csr_transpose.m
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/csr_transpose.m
+END
+coarsen_ell.m
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/coarsen_ell.m
+END
+agmg_setup_nullA.m
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/gNek/!svn/ver/1718/branches/rg20/agmg/matlab_version/agmg_setup_nullA.m
+END
+matvec_csr.m
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/matvec_csr.m
+END
+csr.m
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/csr.m
+END
+coarsenAdDiff.m
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/gNek/!svn/ver/1740/branches/rg20/agmg/matlab_version/coarsenAdDiff.m
+END
+coarsen.m
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/gNek/!svn/ver/1198/branches/rg20/agmg/matlab_version/coarsen.m
+END
+coarsen_C.m
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/coarsen_C.m
+END
+hdfread.m
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/hdfread.m
+END
+poissonPureNeumann5pt_100.mtx
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/gNek/!svn/ver/1743/branches/rg20/agmg/matlab_version/poissonPureNeumann5pt_100.mtx
+END
+multiplePairWise.m
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/gNek/!svn/ver/1741/branches/rg20/agmg/matlab_version/multiplePairWise.m
+END
+convDiffRiesz.mat
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/gNek/!svn/ver/1096/branches/rg20/agmg/matlab_version/convDiffRiesz.mat
+END
+smooth_nullA.m
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/gNek/!svn/ver/1718/branches/rg20/agmg/matlab_version/smooth_nullA.m
+END
+mmread.m
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/mmread.m
+END
+coarsen_save.m
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/coarsen_save.m
+END
+my_pcg_nullA.m
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/gNek/!svn/ver/1718/branches/rg20/agmg/matlab_version/my_pcg_nullA.m
+END
+kcycle.m
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/gNek/!svn/ver/2144/branches/rg20/agmg/matlab_version/kcycle.m
+END
+csr2mat.m
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/csr2mat.m
+END
+mat2csr.m
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/mat2csr.m
+END
+ell.m
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/ell.m
+END
+poissonPureNeumann5pt_10.mtx
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/gNek/!svn/ver/1743/branches/rg20/agmg/matlab_version/poissonPureNeumann5pt_10.mtx
+END
+agmg_solve_nullA.m
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/gNek/!svn/ver/1716/branches/rg20/agmg/matlab_version/agmg_solve_nullA.m
+END
+agmg_globals.m
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/gNek/!svn/ver/1716/branches/rg20/agmg/matlab_version/agmg_globals.m
+END
+precond_agmg_nullA.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/gNek/!svn/ver/1716/branches/rg20/agmg/matlab_version/precond_agmg_nullA.m
+END
+sag_coarsen.m
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/gNek/!svn/ver/1198/branches/rg20/agmg/matlab_version/sag_coarsen.m
+END
+arnoldi.m
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/gNek/!svn/ver/1124/branches/rg20/agmg/matlab_version/arnoldi.m
+END
+agmg_setup.m
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/gNek/!svn/ver/2144/branches/rg20/agmg/matlab_version/agmg_setup.m
+END
+test_convergence.m
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/test_convergence.m
+END
+mat2csr_opt.m
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/mat2csr_opt.m
+END
+mat2ell.m
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/gNek/!svn/ver/1077/branches/rg20/agmg/matlab_version/mat2ell.m
+END
+mmwrite_easy.m
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/gNek/!svn/ver/1716/branches/rg20/agmg/matlab_version/mmwrite_easy.m
+END
+kcycle_nullA.m
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/gNek/!svn/ver/1716/branches/rg20/agmg/matlab_version/kcycle_nullA.m
+END
+convRiesz.mat
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/gNek/!svn/ver/1096/branches/rg20/agmg/matlab_version/convRiesz.mat
+END
+readReidData.m
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/gNek/!svn/ver/1746/branches/rg20/agmg/matlab_version/readReidData.m
+END
+smooth.m
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/gNek/!svn/ver/1728/branches/rg20/agmg/matlab_version/smooth.m
+END
