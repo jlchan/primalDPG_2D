@@ -1,2 +1,15 @@
 - Remove 2x startup cost for primal DPG by locally interping to higher order only 
 - Speed up local solve by using parpool/parfor, avoid kron
+
+Preconditioners to try
+1. ideal block preconditioner (invert blocks exactly)
+2. (O)AS + coarse P1 (interp to N=1 space) 
+
+classical OAS:  high-order elements, matrix blocks with overlap, coarse space preconditioner involving linear vertex modes for all elements.
+
+3. AGMG 
+4. nodal dpg-fem preconditioner (AGMG?)
+
+Take all nodes from all elements (ignoring redundancy), triangulate (delauney)
+and then form an operator the same size as the original system but with increased sparsity. 
+Then proceed with this as a preconditioner using say AGMG

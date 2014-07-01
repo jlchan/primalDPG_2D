@@ -1,4 +1,4 @@
-function [A b nU nM Np bK Rp Irp, M] = primalDPG_poisson(mesh,Ntrial,Ntest,Nflux,plotFlag)
+function [A b nU nM Np Rp Irp, M, Mfaces] = primalDPG_poisson(mesh,Ntrial,Ntest,Nflux,plotFlag)
 
 Globals2D
 
@@ -19,7 +19,7 @@ b = M*f;
 [R vmapBT] = getCGRestriction();
 [Rp Irp vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space
 Rr = Rp*Irp';
-[Bhat vmapBF xf yf nxf nyf] = getMortarConstraint(Nflux);
+[Bhat vmapBF xf yf nxf nyf Mfaces] = getMortarConstraint(Nflux);
 
 B = BK*Rr';   % form rectangular bilinear form matrix
 
@@ -47,10 +47,7 @@ if 1
         inds = (i-1)*Np + (1:Np);        
         Tblk{i} = AK(inds,inds)\Bh(inds,:);
         disp(['on element ' num2str(i)])
-        bKr = BK(inds,inds)*Ir;
-        bK{i} = bKr'*(AK(inds,inds)\bKr);        
     end
-    bK = blkdiag(bK{:});
     disp(['time for test function computation = ', num2str(toc)])
 else
     disp('parfor implementation...')
@@ -140,7 +137,7 @@ S = -(Dx+Dy)'*M;
 
 % Poisson
 Test = M + Ks;
-Trial = .01*M+Ks;
+Trial = M + Ks;
 
 % CD
 % ep = .1;
@@ -152,20 +149,6 @@ Trial = .01*M+Ks;
 % Test = k^2*M + Ks;
 % Trial = k^2*M-Ks;
 % Test = Trial*Trial' + 1e-7*M;%speye(size(M));
-
-
-function [M, Dx, Dy] = getBlockOps()
-
-Globals2D
-
-blkDr = kron(speye(K),Dr);
-blkDs = kron(speye(K),Ds);
-blkM = kron(speye(K),MassMatrix);
-
-M = spdiag(J(:))*blkM; % J = h^2
-Dx = spdiag(rx(:))*blkDr + spdiag(sx(:))*blkDs;
-Dy = spdiag(ry(:))*blkDr + spdiag(sy(:))*blkDs;
-
 
 function Ir = InterpDown(Nr)
 
