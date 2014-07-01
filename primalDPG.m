@@ -3,8 +3,8 @@ function primalDPG
 Globals2D
 
 % Polynomial order used for approximation
-Ntrial = 5;
-Ntest = Ntrial + 3;
+Ntrial = 3;
+Ntest = Ntrial + 2;
 Nflux = Ntrial;
 
 N = Ntest;
@@ -15,6 +15,7 @@ N = Ntest;
 [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('lshape.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
 [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
+[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('backdrop1.neu');
@@ -25,7 +26,7 @@ StartUp2D;
 global b1
 global b2
 global ep
-b1 = 1; b2 = 0;ep = 1e-6;
+b1 = 1; b2 = 0;ep = 1e-3;
 
 % get block operators
 [M, Dx, Dy] = getBlockOps();
@@ -40,6 +41,7 @@ Rr = Rp*Irp';
 [Bhat vmapBF xf yf nxf nyf] = getMortarConstraint(Nflux);
 
 B = BK*Rr';   % form rectangular bilinear form matrix
+% B = BK;
 
 [nV nU] = size(B); % num test nodes, num trial nodes
 nM = size(Bhat,1); % num mortar nodes
@@ -81,7 +83,6 @@ b = T'*M*f;
 
 % BCs on u
 u0 = zeros(size(B,2),1);
-% u0(vmapBTr) = (xr <= -1+NODETOL).*(yr<0).*(1+yr);
 
 % BCs on flux
 uh0 = zeros(nM,1); 
@@ -126,7 +127,7 @@ color_line3(xu,yu,Iu*reshape(u,Np,K),Iu*reshape(u,Np,K),'.');
 
 title('DPG with fluxes and traces')
 
-keyboard
+
 
 function [Test, Trial] = getVolOp(M,Dx,Dy)
 
