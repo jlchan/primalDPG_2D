@@ -231,6 +231,21 @@ B^TR_V^{-1}B & B^TR_V^{-1}\hat{B}\\
 \end{array}\right]
 \vecttwo{u}{\uh} = \vecttwo{B^TR_V^{-1} f}{\hat{B}^TR_V^{-1}f}.
 \]
+
+\subsection{Primal hybrid formulation: why it works for DPG}
+
+Note: primal hybrid formulation gives Crouziex-Raviart elements for lowest order $N=1$, with flux order $N_f = N-1$.  However, this does not work in defining elements for $N>1$; for $N$ even and $N_f = N-1$, the Lagrange multiplier constraint set will not be linearly independent.   On triangles, the jump constraints for $N$ odd will imply that the solution must be an orthogonal polynomial of order $N$ over the edge.  Since $N$ is odd, in 2D, the values at both vertices will be equal, and the trace on the edge will be continuous.  Taking $u$ to be any polynomial over $T$ with this trace gives that $Bu = 0$, but $u\neq 0$.  (I believe Jay Gopalakrishnan also noticed this independently.)
+
+If you take $N$ arbitrary and $N_f \leq N-2$, however, things work fine.  This is roughly the situation with DPG - consider primal DPG, with $N_{\rm trial}$, $N_{\rm test} = N_{\rm trial} + 2$, and $N_f = N_{\rm trial} - 1$.  
+
+%\section{Ideas from domain decomposition}
+%
+%The DPG method can be considered a 
+%\begin{figure}
+%\centering
+%\includegraphics[width=.6\textwidth]{figs/DDdiagram.png}
+%\end{figure}
+
 \section{Primal DPG and preconditioning}
 
 The DPG system can be reordered 
@@ -283,6 +298,48 @@ S = \hat{B}^TR_V^{-1/2}\LRs{I - \tilde{B}(\tilde{B}^T\tilde{B})^{-1}\tilde{B}^T}
 \]
 The matrix $\LRs{I - \tilde{B}(\tilde{B}^T\tilde{B})^{-1}\tilde{B}^T}$ is the orthogonal projector onto the kernel of $\tilde{B}^T$ - does this help? 
 
+Alternatively, suppose we just wish to precondition $S$ with $C = \hat{B}^TR_V^{-1}\hat{B}$.  This assumes that $C^{-1}S = I - C^{-1}B^TA^{-1}B$ is close to an identity, or that $C^{-1}B^TA^{-1}B$ is nearly zero.  Numerical experiments with Poisson/convection-diffusion indicate this may holds independently of $h$, though convection-diffusion appears to have dependence on $N$ for $N>4$.  
+
+\subsection{Block Jacobi}
+
+We can write (overloading notation for $A$) the full DPG system in block form
+\[
+\arr{A}{B}{B^T}{C}\vecttwo{u}{\uh} = \vecttwo{f}{g}.
+\]
+We could naively break the system up into two blocks and use a fixed point iterative scheme
+\begin{align*}
+u^{n+1} &= A^{-1}(f-B\uh^{n})\\
+\uh^{n+1} &= C^{-1}(g-B^Tu^{n+1}).
+\end{align*}
+or equivalently
+\[
+\vecttwo{u}{\uh} = \arr{A^{-1}}{}{}{C^{-1}}\LRp{\vecttwo{f}{g} - \arr{}{B}{B^T}{}\vecttwo{u}{\uh}}
+\]
+which we can recognize as a block Jacobi iteration.  This may be preferrable in a matrix-free environment, as both $A$ and $C$ can be computed in a matrix-free fashion ($C\uh$ can be computed using local inversions of the Riesz product with $\uh$ as boundary data).  As far as I can tell, the Schur complement $S = C-B^TA^{-1}B$ for a general DPG system cannot.
+
+This iteration was tested on pure convection under both the ultra-weak and primal formulations.  As there was no observable difference in the primal formulation, we just show ultra-weak results here.  
+\begin{itemize}
+\item Convergence depends on $\Delta N$ and $N_{\rm flux}$.  
+\item If $N_{\rm flux} = 0$, convergence is roughly independent of $\Delta N$.  If $N_{\rm flux} > 0$, the convergence is both slower than with $N_{\rm flux} = 0$ and more sensitive to $N$ and $\Delta N$.
+\end{itemize}
+
+Convergence of the fixed point solution to the exact solution is shown here.
+\begin{figure}
+\centering
+\subfigure[$N_{\rm flux} = 1, \Delta N = 2$]{\includegraphics[width=.49\textwidth]{figs/Nflux1_DP2.eps}}
+\subfigure[$N_{\rm flux} = 1, \Delta N = 4$]{\includegraphics[width=.49\textwidth]{figs/Nflux1_DP4.eps}}
+\subfigure[$N_{\rm flux} = 0, \Delta N = 4$]{\includegraphics[width=.49\textwidth]{figs/Nflux0_DP2.eps}}
+\subfigure[$N_{\rm flux} = 0, \Delta N = 2$]{\includegraphics[width=.49\textwidth]{figs/Nflux0_DP4.eps}}
+\caption{Block Jacobi fixed point iterations for pure convection with $\beta = (1,0)$, ultra-weak formulation.}
+\end{figure}
+
+Questions:
+\begin{itemize}
+\item Do the results carry over for the ultra-weak formulation?
+\item Why do these results fail for Poisson's equation in the primal formulation?  
+\item \textbf{This has to be related to the fixed point/Uzawa iteration of Dahmen.  How to prove?}
+\end{itemize}
+
 \subsection{Etc notes}
 \begin{itemize}
 \item Flux sub-block
@@ -293,6 +350,7 @@ is the exact same as system for primal hybrid method under the test norm.  Block
 \item Can we use the idea of reducing to field dofs?  i.e. turn the inversion of the flux matrix into just an outer product?  Make equiv to testing with null space of $\hat{B}^T$...
 \item Can we change the coupling to the mortar space for $e$?  i.e. add consistency/penalty/etc?
 \item Mesh dependent test norms: do they improve the flux subproblem?  
+\item Calderon preconditioners?
 \end{itemize}
 
 \end{document}
