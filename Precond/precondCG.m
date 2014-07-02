@@ -1,12 +1,14 @@
 clear
-grids = {'Maxwell05.neu','Maxwell025.neu','Maxwell0125.neu'};
+run('../Init')
+grids = {'Maxwell05.neu','Maxwell025.neu'};
+% grids = {'Maxwell05.neu','Maxwell025.neu','Maxwell0125.neu'};
 addpath ../CodesDPG
 addpath rg20_agmg
 mesh = grids{2};
 % mesh = 'Maxwell1.neu';
 
 Globals2D;
-N = 6;
+N = 4;
 [Nv, VX, VY, K, EToV] = MeshReaderGambit2D(mesh);
 StartUp2D;
 
@@ -68,6 +70,7 @@ switch preFlag
         Pre = @(x) diag(1./sum(R,2))*R*(OAS\(R'*x)) + A1;
         keyboard
     case 'nodalfem'
+
         [r c] = find(R); [ru i] = unique(r);
         xu = x(c(i)); yu = y(c(i));   % get unique nodes
         tri = delaunay(xu,yu);        

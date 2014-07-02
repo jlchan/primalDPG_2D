@@ -1,4 +1,4 @@
-function [A b nU nM Np Rp Irp, M, Mfaces] = primalDPG_poisson(mesh,Ntrial,Ntest,Nflux,plotFlag)
+function [A b nU nM Np Rp Irp, M] = primalDPG_poisson(mesh,Ntrial,Ntest,Nflux,plotFlag)
 
 Globals2D
 
@@ -19,7 +19,7 @@ b = M*f;
 [R vmapBT] = getCGRestriction();
 [Rp Irp vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space
 Rr = Rp*Irp';
-[Bhat vmapBF xf yf nxf nyf Mfaces] = getMortarConstraint(Nflux);
+[Bhat vmapBF xf yf nxf nyf] = getMortarConstraint(Nflux);
 
 B = BK*Rr';   % form rectangular bilinear form matrix
 
