@@ -29,10 +29,10 @@ Efp = sparse(1:NfpT,fP(:),fM~=fP,NfpT,Np*K); % don't subtract off vmapP for boun
 Ef = Efm-Efp; % jump matrix (maps volume nodes to jumps over faces) modified to not zero out boundary terms
 
 % make edge integration matrix on non-boundary edges
-Nf = Nfp-1; r1D = JacobiGL(0,0,Nf); V1D = Vandermonde1D(Nf,r1D);
+r1D = JacobiGL(0,0,N); V1D = Vandermonde1D(N,r1D);
 M1D = inv(V1D*V1D'); % 1D stiffness matrix from GLL nodes for faces
 
-% degree of hybrid unknown - Nfr = restricted Nf
+% degree of hybrid unknown - Nfr = restricted N
 if (Nfr==0)
     R1D = ones(Nfp,1)/sqrt(Nfp); % interpolate constant to multiple nodes
 else    
