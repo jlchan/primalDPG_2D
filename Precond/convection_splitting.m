@@ -1,5 +1,5 @@
-function CD_splitting
-Nvec = 2:5;
+function convection_splitting
+Nvec = 1:3;
 mesh = {'Maxwell05.neu','Maxwell025.neu'}%,'Maxwell0125.neu'}%,'Maxwell00625.neu'};
 C = hsv(length(mesh)*length(Nvec));
 
@@ -7,7 +7,7 @@ k = 1;
 leg = {};
 for i = 1:length(Nvec)
     N = Nvec(i);
-    for m = 1:length(mesh)
+    for m = 1:length(mesh) 
         run(N,mesh{m},C(k,:));
         leg{k} = ['N = ' num2str(N) ' on mesh ' num2str(m)];
         k = k+1;
@@ -22,9 +22,9 @@ Globals2D
 
 % Polynomial order used for approximation
 % Ntrial = 6;
-Ntest = Ntrial + 2;
-% Nflux = Ntrial;
-Nflux = 0;
+Ntest = Ntrial + 4;
+Nflux = Ntrial;
+% Nflux = 0;
 
 N = Ntest;
 
@@ -44,8 +44,7 @@ StartUp2D;
 
 global b1
 global b2
-global ep
-b1 = 1; b2 = 0;ep = 0e-2;
+b1 = 1; b2 = 0;
 
 % get block operators
 [M, Dx, Dy] = getBlockOps();
@@ -108,7 +107,7 @@ u0 = zeros(size(B,2),1);
 uh0 = zeros(nM,1);
 bnf = nxf*b1 + nyf*b2; % beta_n, determines inflow vs outflow
 bmaskf = (bnf < NODETOL); % inflow = beta_n < 0
-uh0(vmapBF) = bnf.*(yf<0).*(1+yf);  % BC data on flux = bn*u - eps*du/dn
+uh0(vmapBF) = bnf.*(yf<0).*(1+yf);  % BC data on flux = bn*u
 
 U0 = [u0;uh0];
 
@@ -146,11 +145,11 @@ if useDD
         C = A(I2,I2);
         b1 = b(I1);
         b2 = b(I2);
-%         Mr = Rr*M*Rr';        
-%         D = blkdiag(A1,C);
-
+        %         Mr = Rr*M*Rr';
+        %         D = blkdiag(A1,C);
+%         u =  (Rr*M*Rr')\(b1-B*uh);
         u =  A1\(b1-B*uh);
-        uh = C\(b2-B'*u); 
+        uh = C\(b2-B'*u);
 %         levelsA1 = agmg_setup(A1);
 %         levelsC = agmg_setup(C);
 %         [u flag relres iter resvec] = agmg_solve(levelsA1, b1-B*uh, 10*N, 1e-6);
@@ -196,7 +195,6 @@ function [Test, Trial] = getVolOp(M,Dx,Dy)
 Globals2D
 global b1
 global b2
-global ep
 Ks = Dx'*M*Dx + Dy'*M*Dy;
 
 S = -(b1*Dx+b2*Dy)'*M;
@@ -208,11 +206,32 @@ Kb = (b1*Dx+b2*Dy)'*M*(b1*Dx+b2*Dy);
 % Trial = Ks;
 
 % CD
-Test = M + ep*Ks + Kb;
-Trial = S + ep*Ks;
+Trial = S;
+Test = M + Kb;
 
 % Helmholtz
 % k = 100;
 % Test = k^2*M + Ks;
 % Trial = -k^2*M + Ks;
+
+
+function [M, Dx, Dy] = getBlockOps()
+
+Globals2D
+
+blkDr = kron(speye(K),Dr);
+blkDs = kron(speye(K),Ds);
+
+%Filtered mass matrix
+% cut = 1;
+% f = [ones(cut,1); zeros(Np-cut,1)];
+% F = V*diag(f)*invV;
+% keyboard
+% MassMatrix = F'*MassMatrix*F;
+
+blkM = kron(speye(K),MassMatrix);
+
+M = spdiag(J(:))*blkM; % J = h^2
+Dx = spdiag(rx(:))*blkDr + spdiag(sx(:))*blkDs;
+Dy = spdiag(ry(:))*blkDr + spdiag(sy(:))*blkDs;
 

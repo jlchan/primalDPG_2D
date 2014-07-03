@@ -345,18 +345,14 @@ We note that these results are sensitive also to the regularization parameter $\
 \centering
 \subfigure[$N_{\rm flux} = 0$]{\includegraphics[width=.49\textwidth]{figs/Nflux0_compare.eps}}
 \subfigure[$N_{\rm flux} = N_{\rm trial}$]{\includegraphics[width=.49\textwidth]{figs/NfluxTrial_compare.eps}}
-\caption{Block Jacobi fixed point iterations for pure convection - dependence on $\alpha$ regularization parameter.}
+\caption{Block Jacobi fixed point iterations for pure convection - dependence on $\alpha$ regularization parameter.  ``Mass matrix'' means that the solution of $B^TR_V^{-1}B$ was replaced by the inversion of an $\L$ mass matrix instead.}
 \end{figure}
 
 Questions: 
 \begin{itemize}
 \item Do the results carry over for the ultra-weak formulation?  Maybe only using the graph norm?  
 \item Why do these results fail for Poisson's equation in the primal formulation?  
-\item \textbf{This has to be related to the fixed point/Uzawa iteration of Dahmen.}  Issues in generalization: 
-\begin{itemize}
-\item Addition of regularizing term $\alpha$ to graph norm (can we duplicate Dahmen's proof under $\alpha$?)
-\item Addition of fluxes (nonconformity).  
-\end{itemize}
+\item \textbf{This has to be related to the fixed point/Uzawa iteration of Dahmen.}  Issues in generalization described below.
 \end{itemize}
 
 \subsubsection{Relation to Dahmen fixed point iteration}
@@ -383,11 +379,14 @@ where $M$ is the standard $\L$ mass matrix.  His key observation is that the Sch
 
 DPG commits two ``crimes'' compared to Dahmen's work.  
 \begin{itemize}
-\item We modify $R_V$ to be 
+\item Under the graph norm for DPG, we modify $R_V$ to be 
 \[
-\nor{v}_V^2 = \alpha \nor{v}_{\L} + \nor{A^*v}_{\L}.
+\nor{v}_V^2 = \alpha \nor{v}_{\L}^2 + \nor{A^*v}_{\L}^2.
 \]
 This makes $R_V$ a positive definite operator.  Dahmen relied on the fact that $R_V$ was invertible only under proper assumptions on the test space (i.e. boundary conditions on $V$).  However, this relies on $R_V$ being global.  
+
+We note that this relies on DPG using the graph norm.  It's not known whether or not the result holds for robust (but non-graph) test norms.  
+
 \item We use the primal hybrid formulation as a nonconforming method to approximate $e$.  $e$ is then condensed out to yield Lagrange multipliers $\uh$, which are appended to the the global system (much like FETI).  However, the condensation yields that the total system is now symmetric positive definite.  
 \end{itemize}
 Convergence analysis of the Jacobi fixed-point iteration will depend on adapting Dahmen's proof to accomodate these two conditions.  
