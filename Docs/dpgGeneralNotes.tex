@@ -79,6 +79,7 @@
 \newcommand{\Nel} {\ensuremath{{N^\text{el}}}}
 \newcommand{\jump}[1] {\ensuremath{\LRs{\![#1]\!}}}
 \newcommand{\uh}{\widehat{u}}
+\newcommand{\Bh}{\widehat{B}}
 \newcommand{\fnh}{\widehat{f}_n}
 \renewcommand{\L}{L^2\LRp{\Omega}}
 \newcommand{\pO}{\partial\Omega}
@@ -198,6 +199,7 @@ Eliminating $e$ from the above system leads to the above algebraic normal equati
 \emph{Note: for general $R_V$, the algebraic normal equations are completely dense.  Cohen, Welper, and Dahmen thus solve the augmented system to get solutions in this setting; however, this is a saddle point problem, and over 2x as large as the trial space, which makes preconditioning and solving more difficult. }
 
 \section{Deriving the Discontinuous Petrov-Galerkin method}
+
 We want to avoid solving either a fully dense system or a saddle point problem, so we introduce Lagrange multipliers $\uh$ to enforce continuity weakly on $e$, which we will now approximate using discontinuous functions.  These $\uh$ are defined on element edges only, similarly to hybrid variables or mortars in finite elements.  This leads to the new system 
 \begin{align*}
 \LRa{\uh, \jump{v}}_{\Gh} + (e,v)_V + b(u,v) &= l(v) \\
@@ -237,7 +239,7 @@ B^TR_V^{-1}B & B^TR_V^{-1}\hat{B}\\
 The primal hybrid formulation for a symmetric, positive-definite variational form is to enforce a weak continuity using mortar-like basis functions on element interfaces.
 \begin{align*}
 \sum_K (a_K(u,v) + \LRa{\lambda, v}_{\partial K}) = (f,v)_{\L}\\
-\sum_K \LRa{\mu, u}_{\partial K}) = 0.
+\sum_K \LRa{\mu, u}_{\partial K} = 0.
 \end{align*}
 The weak continuity is enforced by noticing that $\sum_K \LRa{\mu, u}_{\partial K} = \LRa{\mu,\jump{u}}_{\Gamma_h}$, where $\Gamma_h$ is the union of mesh interfaces.
 
@@ -261,68 +263,39 @@ A = \left[\begin{array}{c c}
 B^TR_V^{-1}B & B^TR_V^{-1}\hat{B}\\
 \hat{B}^TR_V^{-1}B & \hat{B}^TR_V^{-1}\hat{B}
 \end{array}
-\right] = \arr{K}{C}{C^T}{F}
+\right]\vecttwo{u}{\uh} = \arr{A_h}{B_h}{B_h^T}{C_h}\vecttwo{u}{\uh} = \vecttwo{f_h}{g_h}
 \]
-where $K$ is the matrix corresponding to field (volume) variables, $F$ is the submatrix corresponding to flux (surface/mortar) variables, and $C$ couples the system together.  
-
-We can do a block triangular factorization of this system 
+where 
 \[
-A = \arr{I}{0}{C^TK^{-1}}{I}\arr{K}{0}{0}{S}\arr{I}{K^{-1}C}{0}{I}.
+\vecttwo{f_h}{g_h} = \vecttwo{B^TR_V^{-1} f}{\hat{B}^TR_V^{-1}f}.
 \]
-where $S = F - C^TK^{-1}C$, the Schur complement.  We approach the design of preconditioners based on the approximate inversion of $K$ and $S$.  
+where $A_h$ is the matrix corresponding to field (volume) variables, $C_h$ is the submatrix corresponding to flux (surface/mortar) variables, and $B_h$ couples the system together.  
 
-For a first pass, we consider the primal DPG method, which is probably the simplest DPG method available, where field variables are approximated with $C_0$-continuous piecewise polynomials and the flux variables are approximated using discontinuous mortar basis functions.  Test functions are approximated with disjoint discontinuous polynomials of higher order than the trial field variables.  
+For a first pass, we consider the primal DPG method, which is probably the simplest DPG method available, where field variables are approximated with $C_0$-continuous piecewise polynomials and the flux variables are approximated using discontinuous mortar basis functions.  Test functions are approximated with disjoint discontinuous polynomials of higher order than the trial field variables.  (We may also wish to consider the DPG method with ultra-weak variational formulation (discontinuous field variables).  In this case, $A_h$ is also block diagonal.)
 
-We may also wish to consider the DPG method with ultra-weak variational formulation (discontinuous field variables).  In this case, $K$ is also block diagonal.  
-
-\subsection{$K$ block}
-
-We assume that preconditioning the $K$ submatrix can roughly be done using similar techniques to preconditioning standard elliptic equations.  Initial numerical evidence appears to support this
-
+We assume that preconditioning the $A_h$ submatrix can roughly be done using similar techniques to preconditioning standard elliptic equations.  Initial numerical evidence appears to support this.  Options include
 \begin{itemize}
 \item Two-level additive Schwarz.  A coarse solve ($P_1$ elements with AGMG?) + (overlapping) block solves.  \textcolor{red}{Not working yet.}
 \item Direct AGMG preconditioning.  \textcolor{red}{Working for CG and DPG.}
 \item $P_1$ FEM preconditioning of nodal bases \textcolor{red}{Working for CG, not yet implemented for DPG.}
 \end{itemize}
 
-\subsection{Schur block}
-
-Preconditioners for this general sort of system often involve an approximation of the Schur complement, which, in this case, is
-\[
-S = \hat{B}^TR_V^{-1}\hat{B} - \hat{B}^TR_V^{-1}{B}\LRp{B^TR_V^{-1}B}^{-1} B^TR_V^{-1}\hat{B}
-\]
-Factoring out $\hat{B}$ on both sides gives
-\[
-S = \hat{B}^T\LRp{R_V^{-1} - R_V^{-1}{B}\LRp{B^TR_V^{-1}B}^{-1} B^TR_V^{-1}}\hat{B}
-\]
-Factoring out $\hat{B}^TR_V^{-1}$ on both the left and right gives
-\[
-S = \hat{B}^TR_V^{-1}\LRp{R_V-B\LRp{B^TR_V^{-1}B}^{-1}B^T}R_V^{-1}\hat{B}
-\]
-If we define $\tilde{B} = R_V^{-1/2}{B}$, then the above is
-\[
-S = \hat{B}^TR_V^{-1/2}\LRs{I - \tilde{B}(\tilde{B}^T\tilde{B})^{-1}\tilde{B}^T}R_V^{-1/2}\hat{B}.
-\]
-The matrix $\LRs{I - \tilde{B}(\tilde{B}^T\tilde{B})^{-1}\tilde{B}^T}$ is the orthogonal projector onto the kernel of $\tilde{B}^T$ - does this help? 
-
-Alternatively, suppose we just wish to precondition $S$ with $C = \hat{B}^TR_V^{-1}\hat{B}$.  This assumes that $C^{-1}S = I - C^{-1}B^TA^{-1}B$ is close to an identity, or that $C^{-1}B^TA^{-1}B$ is nearly zero.  Numerical experiments with Poisson/convection-diffusion indicate this may holds independently of $h$, though convection-diffusion appears to have dependence on $N$ for $N>4$.  
-
 \subsection{Block Jacobi}
 
-We can write (overloading notation for $A$) the full DPG system in block form
+We can write the full DPG system in block form
 \[
-\arr{A}{B}{B^T}{C}\vecttwo{u}{\uh} = \vecttwo{f}{g}.
+\arr{A_h}{B_h}{B_h^T}{C_h}\vecttwo{u}{\uh} = \vecttwo{f_h}{g_h}.
 \]
 We could naively break the system up into two blocks and use a fixed point iterative scheme
 \begin{align*}
-u^{n+1} &= A^{-1}(f-B\uh^{n})\\
-\uh^{n+1} &= C^{-1}(g-B^Tu^{n+1}).
+u^{n+1} &= A_h^{-1}(f_h-B_h\uh^{n})\\
+\uh^{n+1} &= C_h^{-1}(g_h-B_h^Tu^{n+1}).
 \end{align*}
 or equivalently
 \[
-\vecttwo{u}{\uh} = \arr{A^{-1}}{}{}{C^{-1}}\LRp{\vecttwo{f}{g} - \arr{}{B}{B^T}{}\vecttwo{u}{\uh}}
+\vecttwo{u^{n+1}}{\uh^{n+1}} = \arr{A_h^{-1}}{}{}{C_h^{-1}}\LRp{\vecttwo{f_h}{g_h} - \arr{}{B_h}{B_h^T}{}\vecttwo{u^n}{\uh^n}}
 \]
-which we can recognize as a block Jacobi iteration.  This may be preferrable in a matrix-free environment, as both $A$ and $C$ can be computed in a matrix-free fashion ($C\uh$ can be computed using local inversions of the Riesz product with $\uh$ as boundary data).  As far as I can tell, the Schur complement $S = C-B^TA^{-1}B$ for a general DPG system cannot.
+which we can recognize as a block Jacobi iteration.  This may be preferrable in a matrix-free environment, as both $A_h$ and $C_h$ can be computed in a matrix-free fashion ($C_h\uh$ can be computed using local inversions of the Riesz product with $\uh$ as boundary data).  As far as I can tell, the Schur complement $S = C_h-B_h^TA_h^{-1}B_h$ for a general DPG system cannot, due to the non-explicit nature of $A_h = B_h^TR_V^{-1}B_h$.
 
 This iteration was tested on pure convection under both the ultra-weak and primal formulations.  As there was no observable difference in the primal formulation, we just show ultra-weak results here.  Test norm was taken to be $\nor{v}_V^2 = \alpha\nor{v}_{\L}^2 + \nor{\beta\cdot\grad v}_{\L}^2$.  
 \begin{itemize}
@@ -355,6 +328,29 @@ Questions:
 \item \textbf{This has to be related to the fixed point/Uzawa iteration of Dahmen.}  Issues in generalization described below.
 \end{itemize}
 
+\subsection{GMRES preconditioner}
+
+An issue with preconditioning using a fixed point iteration is that the preconditioner is no longer symmetric positive-definite, though we can still take advantage of the positive-definite nature of the blocks in the block Jacobi iteration.  We therefore use the block Jacobi iteration as a GMRES preconditioner.  We chart the dependence of the method on $\alpha$ and the number of fixed point iterations below.  
+\begin{figure}
+\centering
+\subfigure[$\alpha = 1$]{\includegraphics[width=.49\textwidth]{figs/GMRES_bJacobi.eps}}
+\subfigure[$\alpha = .1$]{\includegraphics[width=.49\textwidth]{figs/GMRES_bJacobi_alpha10th.eps}}
+\caption{Block Jacobi fixed point iterations for pure convection used as a preconditioner for GMRES.}
+\end{figure}
+
+\section{Issues with this idea}
+
+\begin{itemize}
+\item Main problem: for ultra-weak DPG, the matrix 
+\[
+C = \hat{B}R_V^{-1}\hat{B}
+\]
+has exactly the same sparsity structure as the Schur complement $S = C - B^TA^{-1}B$ if we take discontinuous trial functions.  The advantage: $C$ is slightly better conditioned in practice, and there are better-known ways to precondition mortar systems.  However, the preconditioner becomes sensitive to tolerances (AGMG needs a lot of iterations/low tolerance to do well in the inner iteration, though it gets better w/$\alpha$ larger).  Do we gain anything else here?  
+\item This approach does not work for second order primal DPG methods - if I take $C_0$ basis functions and add diffusion, this approach fails.  We cannot precondition 2nd order $C_0$ DPG with this method.  
+\end{itemize}
+
+Main contribution of this work so far: connecting the block Jacobi DPG idea to Dahmen's fixed point iteration scheme for the mixed DPG formulation.  Noting the dependence of fixed point convergence vs conditioning with $\alpha$.  
+
 \subsubsection{Relation to Dahmen fixed point iteration}
 
 Dahmen's fixed point iteration considers solving
@@ -377,6 +373,35 @@ Mu^{n+1} &= Mu^n + B^Te^{n+1}.
 \end{align*}
 where $M$ is the standard $\L$ mass matrix.  His key observation is that the Schur complement $B^TR_V^{-1}B$, while completely dense, should converge to $M$ if the test space for $v$ is sufficiently large.  He uses $C_0$ basis functions for the trial space, but could have easily switched to $L^2$ basis functions instead.  
 
+Suppose now that we take the DPG approach to the above iteration.  Then, we can solve for the auxiliary variables $\widehat{u}$ instead of solving for $e$ via the system
+\[
+\arr{R_V}{\Bh}{\Bh^T}{}\vecttwo{e}{\uh} = \vecttwo{f-Bu}{0}
+\]
+which yields 
+\begin{align*}
+\uh &= (\Bh^TR_V^{-1}\Bh)^{-1} \Bh^T R_V^{-1}(f-Bu)\\
+e &= R_V^{-1}(f - Bu - \Bh \uh ).
+\end{align*}
+Supposing $M$ can be replaced by the positive definite matrix $B^TR_V^{-1}B$, we can rewrite Dahmen's iteration as the following: given $u^n$,
+\begin{align*}
+\uh^n &= (\Bh^TR_V^{-1}\Bh)^{-1} \Bh^T R_V^{-1}(f-Bu^n)\\
+e^{n+1} &= R_V^{-1}(f - Bu^n - \Bh \uh ^n) \\
+u^{n+1} &= u^n + (B^TR_V^{-1}B)^{-1}B^Te^{n+1}.
+\end{align*}
+We can eliminate $e^{n+1}$ to arrive at 
+\begin{align*}
+\uh^n &= (\Bh^TR_V^{-1}\Bh)^{-1} \Bh^T R_V^{-1}(f-Bu^n)\\
+u^{n+1} &= (B^TR_V^{-1}B)^{-1}B^TR_V^{-1}(f - \Bh \uh ^n) .
+\end{align*}
+Substituting in the definitions of $A_h, B_h,$ and $C_h$, we arrive at
+\begin{align*}
+\uh^n &= C_h^{-1} (g_h - B_h^T u^n)\\
+u^{n+1} &= A_h^{-1}(f_h - B_h \uh ^n) 
+\end{align*}
+which is nothing more than a block Jacobi iteration.  
+
+\subsubsection{Variational crimes}
+
 DPG commits two ``crimes'' compared to Dahmen's work.  
 \begin{itemize}
 \item Under the graph norm for DPG, we modify $R_V$ to be 
@@ -385,7 +410,7 @@ DPG commits two ``crimes'' compared to Dahmen's work.
 \]
 This makes $R_V$ a positive definite operator.  Dahmen relied on the fact that $R_V$ was invertible only under proper assumptions on the test space (i.e. boundary conditions on $V$).  However, this relies on $R_V$ being global.  
 
-We note that this relies on DPG using the graph norm.  It's not known whether or not the result holds for robust (but non-graph) test norms.  
+We note that this relies on DPG using the graph norm.  It's not known whether or not equivalent results hold for robust (but non-graph) test norms.  
 
 \item We use the primal hybrid formulation as a nonconforming method to approximate $e$.  $e$ is then condensed out to yield Lagrange multipliers $\uh$, which are appended to the the global system (much like FETI).  However, the condensation yields that the total system is now symmetric positive definite.  
 \end{itemize}
@@ -393,17 +418,49 @@ Convergence analysis of the Jacobi fixed-point iteration will depend on adapting
 
 Conjecture: convergence of the Jacobi scheme is dependent only on optimal test functions for interface unknowns being approximated sufficiently well.  Numerical results indicate that convergence is largely independent of $\Delta p$ or $N$ in the case where $N_{\rm flux} = 0$.  
 
+\section{Block triangular factorization vs fixed point iteration?}
+
+We can do a block triangular factorization of this system 
+\[
+A = \arr{I}{0}{B_h^TA_h^{-1}}{I}\arr{A_h}{0}{0}{S}\arr{I}{A_h^{-1}B_h}{0}{I}.
+\]
+where $S = C_h - B_h^TA_h^{-1}B_h$, the Schur complement.  The inverse can be explicitly written
+\[
+A^{-1} = \arr{I}{-A_h^{-1}B_h}{0}{I}\arr{A_h^{-1}}{0}{0}{S^{-1}}\arr{I}{0}{-B_h^TA_h^{-1}}{I}
+\]
+Preconditioners based on this factorization often involve an approximation of the Schur complement, which, in this case, is
+\[
+S = \hat{B}^TR_V^{-1}\hat{B} - \hat{B}^TR_V^{-1}{B}\LRp{B^TR_V^{-1}B}^{-1} B^TR_V^{-1}\hat{B}
+\]
+%Factoring out $\hat{B}$ on both sides gives
+%\[
+%S = \hat{B}^T\LRp{R_V^{-1} - R_V^{-1}{B}\LRp{B^TR_V^{-1}B}^{-1} B^TR_V^{-1}}\hat{B}
+%\]
+%Factoring out $\hat{B}^TR_V^{-1}$ on both the left and right gives
+%\[
+%S = \hat{B}^TR_V^{-1}\LRp{R_V-B\LRp{B^TR_V^{-1}B}^{-1}B^T}R_V^{-1}\hat{B}
+%\]
+%If we define $\tilde{B} = R_V^{-1/2}{B}$, then the above is
+%\[
+%S = \hat{B}^TR_V^{-1/2}\LRs{I - \tilde{B}(\tilde{B}^T\tilde{B})^{-1}\tilde{B}^T}R_V^{-1/2}\hat{B}.
+%\]
+%The matrix $\LRs{I - \tilde{B}(\tilde{B}^T\tilde{B})^{-1}\tilde{B}^T}$ is the orthogonal projector onto the kernel of $\tilde{B}^T$ - does this help? 
+Suppose we just wish to precondition $S$ with $C = \hat{B}^TR_V^{-1}\hat{B}$.  This assumes that $C^{-1}S = I - C^{-1}B^TA^{-1}B$ is close to an identity, or that $C^{-1}B^TA^{-1}B$ is nearly zero.  Numerical experiments with Poisson/convection-diffusion indicate this may holds independently of $h$, though convection-diffusion appears to have dependence on $N$ for $N>4$ and $\epsilon \ll 1$ or $\epsilon \gg 1$.  
+
+Suppose we apply just the rightmost two matrices to the DPG right hand side; we get
+\[
+\vecttwo{u^{n}}{\uh^{n+1}} = \arr{A_h^{-1}}{0}{0}{C_h^{-1}}\arr{I}{0}{-B_h^TA_h^{-1}}{I}\vecttwo{f_h}{g_h} = \vecttwo{A_h^{-1}f_h }{C_h^{-1}(g_h - B_hA_h^{-1}f_h)}= \vecttwo{A_h^{-1}f_h }{C_h^{-1}(g_h - B_hu^{n})}
+\]
+which we can recognize as one iteration of block Jacobi starting with $u^{n} = A_h^{-1}f_h$ and $\uh^n = 0$.  An application of the leftmost matrix then gives
+\[
+\arr{I}{-A_h^{-1}B_h}{0}{I}\vecttwo{A_h^{-1}f_h }{C_h^{-1}(g_h - B_hu^{n+1})} = \vecttwo{A_h^{-1}(f_h - B_h \uh^{n+1})}{\uh^{n+1}} = \vecttwo{u^{n+1}}{\uh^{n+1}}.
+\]
+
 \subsection{Etc notes}
 \begin{itemize}
-\item Flux sub-block
-\[
-\hat{B}R_V^{-1}\hat{B}
-\]
-is the exact same as system for primal hybrid method under the test norm.  Block preconditioner?
 \item Can we use the idea of reducing to field dofs?  i.e. turn the inversion of the flux matrix into just an outer product?  Make equiv to testing with null space of $\hat{B}^T$...
 \item Can we change the coupling to the mortar space for $e$?  i.e. add consistency/penalty/etc?
-\item Mesh dependent test norms: do they improve the flux subproblem?  
-\item Calderon preconditioners?
+\item Try boundary penalization in test norms.  
 \end{itemize}
 
 \end{document}
