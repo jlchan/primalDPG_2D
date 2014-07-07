@@ -5,3 +5,4 @@
 *.gz
 *.pdf 
 *.bbl
+Docs/figs/*.pdf
