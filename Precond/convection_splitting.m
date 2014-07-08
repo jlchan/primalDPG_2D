@@ -1,5 +1,6 @@
 function convection_splitting
-Nvec = 1:3;
+
+Nvec = [1  4 5];
 mesh = {'Maxwell05.neu','Maxwell025.neu'}%,'Maxwell0125.neu'}%,'Maxwell00625.neu'};
 C = hsv(length(mesh)*length(Nvec));
 
@@ -7,7 +8,7 @@ k = 1;
 leg = {};
 for i = 1:length(Nvec)
     N = Nvec(i);
-    for m = 1:length(mesh) 
+    for m = 1:length(mesh)
         run(N,mesh{m},C(k,:));
         leg{k} = ['N = ' num2str(N) ' on mesh ' num2str(m)];
         k = k+1;
@@ -49,14 +50,14 @@ b1 = 1; b2 = 0;
 % get block operators
 [M, Dx, Dy] = getBlockOps();
 [AK, BK] = getVolOp(M,Dx,Dy);
-f = 0*ones(Np*K,1);
+f = ones(Np*K,1);
 % f = y(:)<=0;
 % f = sin(pi*x(:)).*sin(pi*y(:));
 
 [R vmapBT] = getCGRestriction();
 [Rp Irp vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space
 Rr = Rp*Irp';
-Rr = Irp';
+% Rr = Irp'; % discontinuous 
 [Bhat vmapBF xf yf nxf nyf] = getMortarConstraint(Nflux);
 
 B = BK*Rr';   % form rectangular bilinear form matrix
@@ -72,7 +73,7 @@ if 1
     tic
     for i = 1:K % independently invert
         inds = (i-1)*Np + (1:Np);
-        Tblk{i} = AK(inds,inds)\Bh(inds,:);
+        Tblk{i} = AK(inds,inds)\Bh(inds,:);        
         disp(['on element ' num2str(i)])
         %             Tblk{i} = Bh(inds,:);
     end
@@ -113,7 +114,7 @@ U0 = [u0;uh0];
 
 % remove BCs on u on inflow for stability
 % vmapBTr(xr < -1+NODETOL) = [];
-  vmapBTr = []; % removes all Dirichlet BCs for testing....
+vmapBTr = []; % removes all Dirichlet BCs for testing....
 
 % BCs on U: ordered first
 b = b - A*U0;
@@ -132,48 +133,32 @@ A(bci,bci) = speye(length(bci));
 
 useDD = 1;
 if useDD
-    Uex = A\b;
-    uex = Uex(1:nU);
-    uh = zeros(nM,1);
-    nIter = 50;
-    r = zeros(nIter,1);
-    for k = 1:nIter
-        I1 = 1:nU;
-        I2 = nU + (1:nM);
-        A1 = A(I1,I1);
-        B = A(I1,I2);
-        C = A(I2,I2);
-        b1 = b(I1);
-        b2 = b(I2);
-        %         Mr = Rr*M*Rr';
-        %         D = blkdiag(A1,C);
-%         u =  (Rr*M*Rr')\(b1-B*uh);
-        u =  A1\(b1-B*uh);
-        uh = C\(b2-B'*u);
-%         levelsA1 = agmg_setup(A1);
-%         levelsC = agmg_setup(C);
-%         [u flag relres iter resvec] = agmg_solve(levelsA1, b1-B*uh, 10*N, 1e-6);
-%         [uh flag relres iter resvec] = agmg_solve(levelsC, b2-B'*u, 250, 1e-8);        
-        r(k) = norm(u-uex); 
+    nIter = 3;
+    %     [u r] = bJacobi(A,b,nU,nM,nIter);
+%     semilogy(r,'.-','color',c);hold on;    
+%[x,flag,relres,iter,resvec] = gmres(A,b,[],1e-6,25,@(x) bJacobi(A,x,nU,nM,nIter));
+%  [x,flag,relres,iter,resvec] = pcg(A,b,1e-6,50, @(x) bJacobi(A,x,nU,nM,nIter));
         
-%         u = Rr'*u;
-%         Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot);
-%         Nplot = 25; [xu,yu] = EquiNodes2D(Nplot);
-%         [ru, su] = xytors(xu,yu);
-%         Vu = Vandermonde2D(N,ru,su); Iu = Vu*invV;
-%         xu = 0.5*(-(ru+su)*VX(va)+(1+ru)*VX(vb)+(1+su)*VX(vc));
-%         yu = 0.5*(-(ru+su)*VY(va)+(1+ru)*VY(vb)+(1+su)*VY(vc));
-%         color_line3(xu,yu,Iu*reshape(u,Np,K),Iu*reshape(u,Np,K),'.');
-%         title(['k = ' num2str(k)])
-%         pause        
-    end          
-    semilogy(r,'.-','color',c);hold on;
-%     keyboard
+    ui = 1:nU; mi = nU + (1:nM);
+    D = blkdiag(A(ui,ui),A(mi,mi));
+    Av = A(ui,ui);Avf = A(ui,mi);
+    Af = A(mi,mi);
+    RTinv = @(x) [x(ui); x(mi) - Avf'*(Av\x(ui))];
+    Rinv = @(x) [x(ui)-Av\(Avf*x(mi)); x(mi)];    
+    levelsAf = agmg_setup(Af);
+%     Afinv = @(x) agmg_solve(levelsAf,x,50,1e-4);
+    Afinv = @(x) Af\x;
+    BlkDinv = @(x) [Av\x(ui); Afinv(x(mi))];
+        
+    Pre = @(x) Rinv(BlkDinv(RTinv(x)));
+%     [x,flag,relres,iter,resvec] = gmres(A,b,[],1e-6,50,@(x) Pre(x));
+[x,flag,relres,iter,resvec] = pcg(A,b,1e-6,50,@(x) Pre(x));
+
+    semilogy(resvec,'.-','color',c);hold on
+    %     keyboard
 else
     U = A\b;
-    u = Rr'*U(1:nU);
-
-    
+    u = Rr'*U(1:nU);        
     %     color_line3(x,y,u,u,'.');
     %     return
     
@@ -222,16 +207,8 @@ Globals2D
 blkDr = kron(speye(K),Dr);
 blkDs = kron(speye(K),Ds);
 
-%Filtered mass matrix
-% cut = 1;
-% f = [ones(cut,1); zeros(Np-cut,1)];
-% F = V*diag(f)*invV;
-% keyboard
-% MassMatrix = F'*MassMatrix*F;
-
 blkM = kron(speye(K),MassMatrix);
 
 M = spdiag(J(:))*blkM; % J = h^2
 Dx = spdiag(rx(:))*blkDr + spdiag(sx(:))*blkDs;
 Dy = spdiag(ry(:))*blkDr + spdiag(sy(:))*blkDs;
-

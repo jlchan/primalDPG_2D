@@ -451,7 +451,7 @@ which we can recognize as one iteration of block Jacobi starting with $u^{n} = A
 \]
 Thus, an application of this preconditioner is equivalent to a single symmetric application of the fixed point iteration.  
 
-Preliminary results applied to Poisson and convection-diffusion are given below.  
+Preliminary results applied to Poisson ($\beta = 0, \epsilon = 1$) and convection-diffusion are given below.  
 \begin{figure}
 \centering
 \subfigure[Poisson]{\includegraphics[width=.49\textwidth]{figs/ideal_poisson.eps}}
@@ -469,12 +469,22 @@ Convergence of convection-diffusion suffers at higher $N$ when diffusion is take
 
 \subsection{Approximate inverses}
 
-We assume that preconditioning the $A_h$ submatrix can roughly be done using similar techniques to preconditioning standard elliptic equations.  Initial numerical evidence appears to support this.  Options include
+We assume that preconditioning the $A_h$ submatrix can roughly be done using similar techniques to preconditioning standard elliptic equations.  Initial numerical evidence appears to support this.  Options include 
 \begin{itemize}
 \item Two-level additive Schwarz.  A coarse solve ($P_1$ elements with AGMG?) + (overlapping) block solves.  \textcolor{red}{Not working yet.}
 \item Direct AGMG preconditioning.  \textcolor{red}{Working for CG and DPG.}
 \item $P_1$ FEM preconditioning of nodal bases \textcolor{red}{Working for CG, not yet implemented for DPG.}
+\item Geometric multigrid.  
 \end{itemize}
+
+Preconditioning of the $C_h$ submatrix is more difficult conceptually; however, similar ideas can be leveraged
+\begin{itemize}
+\item Two-level additive Schwarz.  A coarse solve ($P_1$ elements with AGMG?) + (overlapping) block solves.  \textcolor{red}{Not working yet.}
+\item Direct AGMG preconditioning
+\item Geometric multigrid.  
+\end{itemize}
+$P_1$ FEM preconditioning is meant to sparsify the structure of the finite element matrix; however, since the $C_h$ submatrix is constructed in a Schur complement manner, replacing a nodal polynomial on an edge would not 
+
 
 \subsection{Etc notes}
 \begin{itemize}

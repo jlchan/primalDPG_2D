@@ -9,32 +9,36 @@ addpath ../Grid/Maxwell2D
 addpath ../Grid/Other
 
 plotFlag = 0;
-% grids = {'Maxwell05.neu','Maxwell025.neu','Maxwell0125.neu'};
-grids = {'Maxwell05.neu','Maxwell025.neu'};
+grids = {'Maxwell05.neu','Maxwell025.neu','Maxwell0125.neu'};
+% grids = {'Maxwell05.neu','Maxwell025.neu'};
 % grids = {'Maxwell00625.neu'};
-grids = {'Maxwell025.neu'};
-Ntrial = [2:6];
+% grids = {'Maxwell025.neu'};
+Ntrial = [1:5];
 NpTrials = (Ntrial+1).*(Ntrial+2)/2;
 
 % grids = {'Maxwell1.neu'};
 % Ntrial = 4;
 % plotFlag = 1;
 
-Ntest = Ntrial+2;
+Ntest = Ntrial+4;
 Nflux = Ntrial;
 resVecs = {};
 legendVec = {};
 for i = 1:length(grids)
     for j = 1:length(Ntrial)       
         NpTrial = NpTrials(j);
-%                 [A, b, nU, nM, Np, Rp, Irp, M] = primalDPG_poisson(grids{i},Ntrial(j),Ntest(j),Nflux(j),plotFlag);
-        [A, b, nU, nM, Np, Rp, Irp, M] = primalDPG_confusion(grids{i},Ntrial(j),Ntest(j),Nflux(j),plotFlag); 
-        if ~plotFlag
+        % for poisson, set b = 0, eps = 1
+        b = 0; eps = 1;
+%         b = 1; eps = 1e-6;        
+        [A, b, nU, nM, Np, Rp, Irp, M] = primalDPG_confusion(grids{i},Ntrial(j),Ntest(j),Nflux(j),plotFlag,b,eps); 
+        if plotFlag
+            pause
+        else
             
             Av = A(1:nU,1:nU); Af = A(nU+(1:nM),nU+(1:nM));Avf = A(1:nU,nU+(1:nM));            
 %             S = Af-Avf'*(Av\Avf);
             Sx = @(x) Af*x-Avf'*(Av\(Avf*x));
-            precondFlag = 'agmg';
+            precondFlag = 'ideal';
             switch precondFlag
                 case 'ideal'
                     % build true preconditioner
@@ -62,12 +66,13 @@ for i = 1:length(grids)
                     maxiterAv = 50;
                     tolAf = 1e-3;
                     maxiterAf = 50;
-                    %             [x flag relres iter resvec] = agmg_solve(levels, b, maxiter, tol);
-%                     AvPre = @(x) agmg_solve(levelsAv,x,maxiterAv,tolAv);
-                    AvPre = @(x) Av\x;
-%                     SPre = @(x) agmg_solve(levelsAf,x,maxiterAf,tolAf);                    
+%                     [x flag relres iter resvec] = agmg_solve(levels, b, maxiter, tol);
+                    AvPre = @(x) agmg_solve(levelsAv,x,maxiterAv,tolAv);
+%                     AvPre = @(x) Av\x;
+                    SPre = @(x) agmg_solve(levelsAf,x,maxiterAf,tolAf);                    
 %                     SPre = @(x) S\x;
-                    SPre = @(x) Af\x;
+%                     SPre = @(x) Af\x;                
+                    
                 case 'fem-agmg'
                     
             end
@@ -75,13 +80,14 @@ for i = 1:length(grids)
             % build block cholesky bits
             ui = 1:nU; mi = nU + (1:nM);
             RTinv = @(x) [x(ui); x(mi) - Avf'*AvPre(x(ui))];
-            Rinv = @(x) [x(ui)-AvPre(Avf*x(mi)); x(mi)];
+            Rinv = @(x) [x(ui)-AvPre(Avf*x(mi)); x(mi)];            
             
-            %
             PBlockDiag = @(x) [AvPre(x(1:nU)); SPre(x(mi))];          %[Av zeros(nU,nM);zeros(nM,nU) Af - Avf'*AvPre(Avf)];
             Pre = @(x) Rinv(PBlockDiag(RTinv(x)));
 %             Pre = @(x) PBlockDiag(x);
             %             keyboard
+%             nIter = 3;
+%             Pre = @(x) bJacobi(A,x,nU,nM,nIter);
             
             %% PCGGGGGGGGGGGGGG
             % [U, flag, relres, iter, resvec] = pcg(A,b,1e-7,250,Pre',Pre);

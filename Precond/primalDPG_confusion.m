@@ -1,4 +1,4 @@
-function [A b nU nM Np Rp Irp, M] = primalDPG_confusion(mesh,Ntrial,Ntest,Nflux,plotFlag)
+function [A b nU nM Np Rp Irp, M] = primalDPG_confusion(mesh,Ntrial,Ntest,Nflux,plotFlag,b,epsilon)
 
 Globals2D
 
@@ -13,17 +13,17 @@ StartUp2D;
 global b1
 global b2
 global ep
-b1 = 1; b2 = 1;ep = 1e-8;
+b1 = b; b2 = 0; ep = epsilon;
 
 % get block operators
 [M, Dx, Dy] = getBlockOps();
 [AK, BK] = getVolOp(M,Dx,Dy);
-f = 1*ones(Np*K,1);
+f = ones(Np*K,1);
 % f = y(:)<=0;
 % f = sin(pi*x(:)).*sin(pi*y(:));
 
 [R vmapBT] = getCGRestriction();
-[Rp Irp vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space
+[Rp Irp vmapBTr xr yr] = pRestrictCG(N,Ntrial); % restrict test to trial space
 Rr = Rp*Irp';
 [Bhat vmapBF xf yf nxf nyf] = getMortarConstraint(Nflux);
 
@@ -74,7 +74,7 @@ u0 = zeros(size(B,2),1);
 % BCs on flux
 uh0 = zeros(nM,1);
 bnf = nxf*b1 + nyf*b2; % beta_n, determines inflow vs outflow
-bmaskf = (bnf < NODETOL); % inflow = beta_n < 0
+bmaskf = xf < -1 + NODETOL; %(bnf < NODETOL); % inflow = beta_n < 0
 uh0(vmapBF) = bnf.*(yf<0).*(1+yf);  % BC data on flux = bn*u - eps*du/dn
 
 U0 = [u0;uh0];
@@ -91,10 +91,10 @@ A(vmapBTr,vmapBTr) = speye(length(vmapBTr));
 
 % homogeneous BCs on V are implied by mortars.
 % BCs on mortars removes BCs on test functions.
-vmapBF(bmaskf) = []; % do 0 Neumann outflow BCs on test fxns
+vmapBF(~bmaskf) = []; % do 0 Neumann outflow BCs on test fxns
 
 bci = nU + vmapBF; % skip over u dofs
-b(bci) = uh0(vmapBF);
+b(bci) = U0(bci);
 A(bci,:) = 0; A(:,bci)=0;
 A(bci,bci) = speye(length(bci));
 
