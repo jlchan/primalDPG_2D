@@ -273,13 +273,6 @@ where $A_h$ is the matrix corresponding to field (volume) variables, $C_h$ is th
 
 For a first pass, we consider the primal DPG method, which is probably the simplest DPG method available, where field variables are approximated with $C_0$-continuous piecewise polynomials and the flux variables are approximated using discontinuous mortar basis functions.  Test functions are approximated with disjoint discontinuous polynomials of higher order than the trial field variables.  (We may also wish to consider the DPG method with ultra-weak variational formulation (discontinuous field variables).  In this case, $A_h$ is also block diagonal.)
 
-We assume that preconditioning the $A_h$ submatrix can roughly be done using similar techniques to preconditioning standard elliptic equations.  Initial numerical evidence appears to support this.  Options include
-\begin{itemize}
-\item Two-level additive Schwarz.  A coarse solve ($P_1$ elements with AGMG?) + (overlapping) block solves.  \textcolor{red}{Not working yet.}
-\item Direct AGMG preconditioning.  \textcolor{red}{Working for CG and DPG.}
-\item $P_1$ FEM preconditioning of nodal bases \textcolor{red}{Working for CG, not yet implemented for DPG.}
-\end{itemize}
-
 \subsection{Block Jacobi}
 
 We can write the full DPG system in block form
@@ -327,16 +320,6 @@ Questions:
 \item Why do these results fail for Poisson's equation in the primal formulation?  
 \item \textbf{This has to be related to the fixed point/Uzawa iteration of Dahmen.}  Issues in generalization described below.
 \end{itemize}
-
-\subsection{GMRES preconditioner}
-
-An issue with preconditioning using a fixed point iteration is that the preconditioner is no longer symmetric positive-definite, though we can still take advantage of the positive-definite nature of the blocks in the block Jacobi iteration.  We therefore use the block Jacobi iteration as a GMRES preconditioner.  We chart the dependence of the method on $\alpha$ and the number of fixed point iterations below.  
-\begin{figure}
-\centering
-\subfigure[$\alpha = 1$]{\includegraphics[width=.49\textwidth]{figs/GMRES_bJacobi.eps}}
-\subfigure[$\alpha = .1$]{\includegraphics[width=.49\textwidth]{figs/GMRES_bJacobi_alpha10th.eps}}
-\caption{Block Jacobi fixed point iterations for pure convection used as a preconditioner for GMRES.}
-\end{figure}
 
 \section{Issues with this idea}
 
@@ -418,7 +401,18 @@ Convergence analysis of the Jacobi fixed-point iteration will depend on adapting
 
 Conjecture: convergence of the Jacobi scheme is dependent only on optimal test functions for interface unknowns being approximated sufficiently well.  Numerical results indicate that convergence is largely independent of $\Delta p$ or $N$ in the case where $N_{\rm flux} = 0$.  
 
-\section{Block triangular factorization vs fixed point iteration?}
+\subsection{GMRES preconditioner}
+
+An issue with preconditioning using a fixed point iteration is that the preconditioner is no longer symmetric positive-definite, though we can still take advantage of the positive-definite nature of the blocks in the block Jacobi iteration.  We therefore use the block Jacobi iteration as a GMRES preconditioner.  We chart the dependence of the method on $\alpha$ and the number of fixed point iterations below.  
+\begin{figure}
+\centering
+\subfigure[$\alpha = 1$]{\includegraphics[width=.49\textwidth]{figs/GMRES_bJacobi.eps}}
+\subfigure[$\alpha = .1$]{\includegraphics[width=.49\textwidth]{figs/GMRES_bJacobi_alpha10th.eps}}
+\caption{Block Jacobi fixed point iterations for pure convection used as a preconditioner for GMRES.}
+\end{figure}
+Counting the total number of solves in both inner and outer GMRES iterations, we can see that, while a larger number of inner iterations speeds up GMRES convergence, the most efficient method in terms of number of total solves is a single inner iteration.  Thus, we abandon the idea of a fixed point iteration in favor of a single step preconditioner.  Doing so will also allow us to construct a symmetric, positive-definite preconditioner for use in a conjugate gradient iteration.  
+
+\section{Block triangular factorization vs fixed point iteration}
 
 We can do a block triangular factorization of this system 
 \[
@@ -455,6 +449,32 @@ which we can recognize as one iteration of block Jacobi starting with $u^{n} = A
 \[
 \arr{I}{-A_h^{-1}B_h}{0}{I}\vecttwo{A_h^{-1}f_h }{C_h^{-1}(g_h - B_hu^{n+1})} = \vecttwo{A_h^{-1}(f_h - B_h \uh^{n+1})}{\uh^{n+1}} = \vecttwo{u^{n+1}}{\uh^{n+1}}.
 \]
+Thus, an application of this preconditioner is equivalent to a single symmetric application of the fixed point iteration.  
+
+Preliminary results applied to Poisson and convection-diffusion are given below.  
+\begin{figure}
+\centering
+\subfigure[Poisson]{\includegraphics[width=.49\textwidth]{figs/ideal_poisson.eps}}
+\subfigure[Convection-diffusion, $\epsilon = 10^{-1}$]{\includegraphics[width=.49\textwidth]{figs/ideal_confusion1e1.eps}}
+\caption{Triangular factorization preconditioners for Poisson and diffusion-dominated convection-diffusion.}
+\end{figure}
+
+Convergence of convection-diffusion suffers at higher $N$ when diffusion is taken to be $10^{-3}$; however, it recovers again when $\epsilon = 10^{-6}$.  At very small $\epsilon$, $A_h = B^TR_V^{-1}B \approx M$ again, and convergence of the fixed-point iteration is very fast.  
+\begin{figure}
+\centering
+\subfigure[Convection-diffusion, $\epsilon = 10^{-3}$]{\includegraphics[width=.49\textwidth]{figs/ideal_confusion1e3.eps}}
+\subfigure[Convection-diffusion, $\epsilon = 10^{-6}$]{\includegraphics[width=.49\textwidth]{figs/ideal_confusion1e6.eps}}
+\caption{Triangular factorization preconditioner for convection-diffusion.}
+\end{figure}
+
+\subsection{Approximate inverses}
+
+We assume that preconditioning the $A_h$ submatrix can roughly be done using similar techniques to preconditioning standard elliptic equations.  Initial numerical evidence appears to support this.  Options include
+\begin{itemize}
+\item Two-level additive Schwarz.  A coarse solve ($P_1$ elements with AGMG?) + (overlapping) block solves.  \textcolor{red}{Not working yet.}
+\item Direct AGMG preconditioning.  \textcolor{red}{Working for CG and DPG.}
+\item $P_1$ FEM preconditioning of nodal bases \textcolor{red}{Working for CG, not yet implemented for DPG.}
+\end{itemize}
 
 \subsection{Etc notes}
 \begin{itemize}

@@ -1,10 +1,10 @@
 % get interpolation matrix from N to Nr
 
-function Irp = pRestrict(N,Nr)
+function Irp = pRestrict(Norig,Nr)
 
 Globals2D
 
-[xo,yo] = Nodes2D(N); [ro, so] = xytors(xo,yo);
+[xo,yo] = Nodes2D(Norig); [ro, so] = xytors(xo,yo);
 
 [xr,yr] = Nodes2D(Nr); [rr, sr] = xytors(xr,yr);
 Vr = Vandermonde2D(Nr,rr,sr); 

@@ -2,7 +2,7 @@
 % block diagonal matrix Ak (of order N >= Nr). 
 % other return values: boundary indices (into reduced system) and nodal coordinates.
 % - vmapBT, xrestrict, yrestrict 
-function [Rp Irp vmapBT xrestrict yrestrict] = pRestrictCG(Nr)
+function [Rp Irp vmapBT xrestrict yrestrict] = pRestrictCG(Norig,Nr)
 
 Globals2D
 
@@ -29,5 +29,5 @@ N = Nold;
 saveFlag = 0;
 backupGlobals(saveFlag,a);
 
-Irp = pRestrict(N,Nr);
+Irp = pRestrict(Norig,Nr);
 % Rr = Rp*Irp';
