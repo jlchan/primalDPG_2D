@@ -479,12 +479,11 @@ We assume that preconditioning the $A_h$ submatrix can roughly be done using sim
 
 Preconditioning of the $C_h$ submatrix is more difficult conceptually; however, similar ideas can be leveraged
 \begin{itemize}
-\item Two-level additive Schwarz.  A coarse solve ($P_1$ elements with AGMG?) + (overlapping) block solves.  \textcolor{red}{Not working yet.}
-\item Direct AGMG preconditioning
-\item Geometric multigrid.  
+\item Two-level additive Schwarz.  A coarse solve ($P_1$ elements with AGMG?) + (overlapping) block solves. 
+\item Geometric multigrid + AGMG preconditioning.
+\item Direct AGMG preconditioning.  
 \end{itemize}
-$P_1$ FEM preconditioning is meant to sparsify the structure of the finite element matrix; however, since the $C_h$ submatrix is constructed in a Schur complement manner, replacing a nodal polynomial on an edge would not 
-
+$P_1$ FEM preconditioning is meant to sparsify the structure of the finite element matrix; however, since the $C_h$ submatrix is constructed in a Schur complement manner, replacing a nodal polynomial for $\uh$ on an edge with piecewise-$P_1$ FEM at nodal points would not decrease sparsity.  Breaking $\uh$ into discontinuous pieces would be possible, but then 
 
 \subsection{Etc notes}
 \begin{itemize}
