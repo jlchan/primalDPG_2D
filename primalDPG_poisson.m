@@ -5,7 +5,7 @@ Globals2D
 % Polynomial order used for approximation
 Ntrial = 2;
 Ntest = Ntrial+2;
-Nflux = Ntrial;
+Nflux = Ntrial-1;
 
 N = Ntest;
 
@@ -14,7 +14,7 @@ N = Ntest;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squareireg.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
-% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
+[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 
@@ -27,10 +27,11 @@ StartUp2D;
 f = ones(Np*K,1);
 b = M*f;
 
-[R vmapBT] = getCGRestriction();
-[Rp Irp vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space
+%[R vmapBT] = getCGRestriction();
+[Rp Irp vmapBTr xr yr] = pRestrictCG(Ntest,Ntrial); % restrict test to trial space
 Rr = Rp*Irp';
 [Bhat vmapBF xf yf nxf nyf] = getMortarConstraint(Nflux);
+xfB = xf(vmapBF); yfB = yf(vmapBF); nxf = nxf(vmapBF);nyf = nyf(vmapBF);
 
 B = BK*Rr';   % form rectangular bilinear form matrix
 
@@ -42,8 +43,9 @@ nTrial = nU + nM;
 bmask = abs(y(vmapB)) > 1 - NODETOL; % top/bottom boundaries
 [Mb Eb] = getBoundaryMatrix(bmask(:));
 u0tb = 1+x(vmapB);
-B = B + 1e6*Eb'*Mb*Eb*Rr'; % this adds a penalty term on u (or Robin condition)
-b = b + 1e6*Eb'*Mb*u0tb;
+pen = 1;
+B = B + pen*Eb'*Mb*Eb*Rr'; % this adds a penalty term on u (or Robin condition)
+b = b + pen*Eb'*Mb*u0tb;
 
 Bh = [B Bhat'];
 Tblk = cell(K,1);
@@ -90,11 +92,11 @@ bot = yr < -1+NODETOL;
 
 % BCs on flux
 uh0 = zeros(nM,1); 
-leftf = xf < -1+NODETOL; % right boundary
-rightf = xf > 1-NODETOL; % right boundary
-uh0(vmapBF) = -rightf.*nxf.*((yf<=0) - (yf>0));  % BC data on -du/dn
-topf = yf > 1-NODETOL;
-botf = yf < -1+NODETOL;
+leftf = xfB < -1+NODETOL; % right boundary
+rightf = xfB > 1-NODETOL; % right boundary
+uh0(vmapBF) = -rightf.*nxf.*((yfB<=0) - (yfB>0));  % BC data on -du/dn
+topf = yfB > 1-NODETOL;
+botf = yfB < -1+NODETOL;
 U0 = [u0;uh0];
 
 b = b - A*U0; % get lift
@@ -114,11 +116,39 @@ b(bci) = uh0(vmapBF);
 A(bci,:) = 0; A(:,bci)=0;
 A(bci,bci) = speye(length(bci));
 
+useDD = 0;
+if useDD
+    uh = zeros(nM,1);
+    for k = 1:25
+        I1 = 1:nU;
+        I2 = nU + (1:nM);
+        A1 = A(I1,I1);
+        B = A(I1,I2);
+        C = A(I2,I2);
+        b1 = b(I1);
+        b2 = b(I2);
+        u = A1\(b1-B*uh);
+        uh = C\(b2-B'*u);
+        u = Rr'*u;
+        % Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot);
+        Nplot = 25; [xu,yu] = EquiNodes2D(Nplot);
+        [ru, su] = xytors(xu,yu);
+        Vu = Vandermonde2D(N,ru,su); Iu = Vu*invV;
+        xu = 0.5*(-(ru+su)*VX(va)+(1+ru)*VX(vb)+(1+su)*VX(vc));
+        yu = 0.5*(-(ru+su)*VY(va)+(1+ru)*VY(vb)+(1+su)*VY(vc));
+        color_line3(xu,yu,Iu*reshape(u,Np,K),Iu*reshape(u,Np,K),'.');        
+        title(['k = ' num2str(k)])
+        pause        
+    end      
+end
 U = A\b;
 u = Rr'*U(1:nU);
+% uhat = U(nU+(1:nM));
+% figure
+% color_line3(xf,yf,uhat,uhat,'.');
 
-Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot); 
-% Nplot = 25; [xu,yu] = EquiNodes2D(Nplot); 
+% Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot); 
+Nplot = 25; [xu,yu] = EquiNodes2D(Nplot); 
 [ru, su] = xytors(xu,yu); 
 Vu = Vandermonde2D(N,ru,su); Iu = Vu*invV;
 xu = 0.5*(-(ru+su)*VX(va)+(1+ru)*VX(vb)+(1+su)*VX(vc));
@@ -128,7 +158,7 @@ color_line3(xu,yu,Iu*reshape(u,Np,K),Iu*reshape(u,Np,K),'.');
 
 title('DPG with fluxes and traces')
 
-% keyboard
+keyboard
 
 function [Test, Trial] = getVolOp(M,Dx,Dy)
 

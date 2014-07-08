@@ -4,10 +4,12 @@
 %  B  0]
 % where Ak is a block diagonal matrix and B enforces orthogonality of the
 % solution across faces to polynomials of order Nfr.
-% other return values: vmapBF, xf, yf, nxf, nyf = boundary info.
-function [B vmapBF xf yf nxf nyf] = getMortarConstraint(Nfr)
+% other return values: vmapBF, xfB, yfB, nxf, nyf = boundary info.
+% xf, yf = face coordinates
 
-Nfr = max(0,Nfr); 
+function [B vmapBF xf yf nxf nyf fmap] = getMortarConstraint(Nfr)
+
+Nfr = max(0,Nfr); % cannot have negative flux order
 
 Globals2D
 
@@ -52,26 +54,41 @@ vmapBF = zeros(Nfrp,NfacesU); vmapBF(:)= 1:Nfrp*NfacesU;
 bfaces = any(fM==fP); 
 vmapBF = vmapBF(:,bfaces); vmapBF = vmapBF(:);
 
-NfacesB = nnz(bfaces);% get boundary nodes: index into unique face nodes
-vmapB = reshape(vmapB,Nfp,NfacesB);
-xB = x(vmapB); yB = y(vmapB);
-xf = zeros(Nfrp,NfacesB); yf = zeros(Nfrp,NfacesB);
+% NfacesB = nnz(bfaces);% get boundary nodes: index into unique face nodes
+% vmapB = reshape(vmapB,Nfp,NfacesB);
+% xB = x(vmapB); yB = y(vmapB);
+% vmapB = vmapB(:);
+
+% xfB = zeros(Nfrp,NfacesB); yfB = zeros(Nfrp,NfacesB);
+xf = zeros(Nfrp,NfacesU); yf = zeros(Nfrp,NfacesU);
 if (Nfr==0)
-    xf(:) = (xB(1,:)+xB(Nfp,:))/2;
-    yf(:) = (yB(1,:)+yB(Nfp,:))/2;
+    xf(:) = (x(fM(1,:))+x(fM(Nfp,:)))/2;
+    yf(:) = (y(fM(1,:))+y(fM(Nfp,:)))/2;
+%     xfB(:) = (xB(1,:)+xB(Nfp,:))/2;
+%     yfB(:) = (yB(1,:)+yB(Nfp,:))/2;
 else % WARNING: only works for straight edge elements. 
     xi = (rfr+1)/2; % interp along 1D points
     for i = 1:Nfrp
-        xf(i,:) = xB(1,:) + xi(i)*(xB(Nfp,:)-xB(1,:));
-        yf(i,:) = yB(1,:) + xi(i)*(yB(Nfp,:)-yB(1,:));
+        xf(i,:) = x(fM(1,:)) + xi(i)*(x(fM(Nfp,:))-x(fM(1,:)));
+        yf(i,:) = y(fM(1,:)) + xi(i)*(y(fM(Nfp,:))-y(fM(1,:)));        
+%         xfB(i,:) = xB(1,:) + xi(i)*(xB(Nfp,:)-xB(1,:));
+%         yfB(i,:) = yB(1,:) + xi(i)*(yB(Nfp,:)-yB(1,:));
     end
 end
 nxf = reshape(nx,Nfp,Nfaces*K); nyf = reshape(ny,Nfp,Nfaces*K);
 nxf = nxf(:,fpairs(1,:)); nyf = nyf(:,fpairs(1,:));
-nxf = nxf(:,bfaces); nyf = nyf(:,bfaces);
+nxf = nxf(1:Nfrp,:); nyf = nyf(1:Nfrp,:); % WARNING: straight edge elem hack - take 1st Nfrp points, all nx/ny same.
+% keyboard
+% nxf = nxf(:,bfaces); nyf = nyf(:,bfaces);
 
-% WARNING: straight edge elem hack - take 1st Nfrp points, all nx/ny same.
-nxf = nxf(1:Nfrp,:); nyf = nyf(1:Nfrp,:);
+% xfB = xf(vmapBF); yfB = yf(vmapBF);
 
-vmapB = vmapB(:);
+
+% get fmap for connectivities
+sharedFaces = ~ismember(fpairs(2,:),fpairs(1,:));
+fmap = zeros(Nfrp,Nfaces*K);
+fmap(:,fpairs(1,:)) = reshape(1:Nfrp*NfacesU,Nfrp,NfacesU);
+fmap(:,fpairs(2,sharedFaces)) = fmap(:,fpairs(1,sharedFaces));
+fmap = reshape(fmap,Nfrp*Nfaces,K);
+
 return

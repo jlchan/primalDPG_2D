@@ -55,10 +55,11 @@ f = ones(Np*K,1);
 % f = sin(pi*x(:)).*sin(pi*y(:));
 
 [R vmapBT] = getCGRestriction();
-[Rp Irp vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space
+[Rp Irp vmapBTr xr yr] = pRestrictCG(N,Ntrial); % restrict test to trial space
 Rr = Rp*Irp';
 % Rr = Irp'; % discontinuous 
 [Bhat vmapBF xf yf nxf nyf] = getMortarConstraint(Nflux);
+xf = xf(vmapBF); yf = yf(vmapBF); nxf = nxf(vmapBF);nyf = nyf(vmapBF);
 
 B = BK*Rr';   % form rectangular bilinear form matrix
 % B = BK;

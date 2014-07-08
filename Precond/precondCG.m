@@ -48,7 +48,7 @@ preFlag = 'nodalfem';
 switch preFlag
     case 'oas'
         % OAS preconditioner + P1 coarse
-        [Rp, Irp, vmapBTr, xr, yr] = pRestrictCG(1); % restrict test to trial space
+        [Rp, Irp, vmapBTr, xr, yr] = pRestrictCG(N,1); % restrict test to trial space
         Rr = Rp*Irp'; % interp down to linears
         A1 = Rr*AK*Rr';
 
@@ -70,7 +70,7 @@ switch preFlag
         Pre = @(x) diag(1./sum(R,2))*R*(OAS\(R'*x)) + A1;
         keyboard
     case 'nodalfem'
-
+        
         [r c] = find(R); [ru i] = unique(r);
         xu = x(c(i)); yu = y(c(i));   % get unique nodes
         tri = delaunay(xu,yu);        
@@ -78,8 +78,12 @@ switch preFlag
         % make new mesh from delaunay
         EToV = tri; 
         K = size(tri,1);  Nv = length(xu);
-        VX = xu(:)';VY = yu(:)';
-        oldN = N;N = 1; StartUp2D;
+        VX = xu(:)';VY = yu(:)';        
+        
+        oldN = N;N = 1; 
+        globals = backupGlobals(1);
+        StartUp2D;
+        
         [M, Dx, Dy] = getBlockOps();
         AK1 = a*M + Dx'*M*Dx + Dy'*M*Dy;
         [R1, vmapBT] = getCGRestriction();
@@ -91,12 +95,13 @@ switch preFlag
         A1(vmapBT,:) = 0; A1(:,vmapBT) = 0;
         A1(vmapBT,vmapBT) = speye(length(vmapBT));
         %         u = R'*(A1\b);
+        backupGlobals(0, globals);
         
         %         plot(A\b);hold on;plot(A1\b,'r')
         levels = agmg_setup(A);
         levels1 = agmg_setup(A1);
-        maxiter = 5;
-        tol = 1e-4;
+        maxiter = 50;
+        tol = 1e-5;
         
         [x flag relres iter resvec1] = agmg_solve(levels1, b, maxiter, tol);
         [UD flag relres iter resvec] = agmg_solve(levels, b, maxiter, tol);

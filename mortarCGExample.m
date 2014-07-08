@@ -4,17 +4,17 @@ Globals2D;
 
 % Polynomial order used for approximation 
 if nargin<1
-    useCG = 1;
-    N = 5; % when N = even, Nf = N-1, fails?
-    Nf = N-1;
+    useCG = 0;
+    N = 3; % when N = even, Nf = N-1, fails?
+    Nf = 1;
     %     Read in Mesh
     [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
-    Nv = 3;
-    VX = VX(EToV(1,:)); VY = VY(EToV(1,:));
-    EToV = [3 1 2];
-    K = 1;
+%     Nv = 3;
+%     VX = VX(EToV(1,:)); VY = VY(EToV(1,:));
+%     EToV = [3 1 2];
+%     K = 1;
 %     [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
-    [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
+    [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
 
 else
     [Nv, VX, VY, K, EToV] = MeshReaderGambit2D(mesh);
@@ -60,8 +60,10 @@ if useCG
     u = R'*u;
 
 else
-    [B, vmapBF, xf, yf, nxf, nyf] = getMortarConstraint(Nf);
-                
+%     [B, vmapBF, xfb, yfb, nxf, nyf fmap xf yf] = getMortarConstraint(Nf);    
+    [B vmapBF xf yf nxf nyf fmap] = getMortarConstraint(Nf);        
+    xfb = xf(vmapBF);yfb = yf(vmapBF);
+    nxf = nxf(vmapBF);nyf = nyf(vmapBF);        
     nU = size(B,2); % num CG nodes
     nM = size(B,1); % num mortar nodes
     O = sparse(nM,nM);     
@@ -72,7 +74,8 @@ else
         
     um = Am\bm;
     u = um(1:Np*K);
-    
+    f = um(Np*K+1:end);
+        
 %     color_line3(x,y,u,u,'.')    
 %     hold on;PlotMesh2D
 end
@@ -91,8 +94,9 @@ if nargin<1
     hold on
 %     plot3(x(vmapB),y(vmapB),u(vmapB),'o','markersize',8)
     plot3(x(:),y(:),u(:),'o','markersize',8)
-    title(sprintf('N = %d, Nf = %d, err = %d',N, Nf, err))
+    title(sprintf('N = %d, Nf = %d, err = %d',N, Nf, err))        
 end
+keyboard
 
 function Vol = getVolOp(M,Dx,Dy)
 
@@ -114,35 +118,3 @@ Vol = M + Ks;
 % tau = 1/(norm([b1 b2])*(N+1))*spdiag(sqrt(J(:)));
 % As = tau*GLS;
 % bs = tau*L'*M*f;
-
-function [M, Dx, Dy] = getBlockOps()
-
-Globals2D
-
-blkDr = kron(speye(K),Dr);
-blkDs = kron(speye(K),Ds);
-blkM = kron(speye(K),MassMatrix);
-
-M = spdiag(J(:))*blkM; % J = h^2
-Dx = spdiag(rx(:))*blkDr + spdiag(sx(:))*blkDs;
-Dy = spdiag(ry(:))*blkDr + spdiag(sy(:))*blkDs;
-
-
-function plotNodes()
-Globals2D
-figure
-plot(x,y,'.');hold on;
-j = 1;
-for k = 1:K    
-    for i = 1:size(x,1)        
-        off = .2*((k-1)/K);
-        text(x(i,k)+off,y(i,k)+off,num2str(j),'fontsize',16)
-        j = j+1;
-    end
-end
-% PlotMesh2D
-
-function D = spdiag(d)
-n = length(d(:));
-D = spdiags(d(:),0,n,n);
-

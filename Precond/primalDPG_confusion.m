@@ -26,6 +26,7 @@ f = ones(Np*K,1);
 [Rp Irp vmapBTr xr yr] = pRestrictCG(N,Ntrial); % restrict test to trial space
 Rr = Rp*Irp';
 [Bhat vmapBF xf yf nxf nyf] = getMortarConstraint(Nflux);
+xf = xf(vmapBF); yf = yf(vmapBF); nxf = nxf(vmapBF);nyf = nyf(vmapBF);
 
 B = BK*Rr';   % form rectangular bilinear form matrix
 % B = BK;

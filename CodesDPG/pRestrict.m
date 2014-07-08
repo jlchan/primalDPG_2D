@@ -1,5 +1,4 @@
-% get interpolation matrix from N to Nr
-
+% get interpolation matrix from N to Nr, acting on all elements 
 function Irp = pRestrict(Norig,Nr)
 
 Globals2D

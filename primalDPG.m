@@ -14,9 +14,9 @@ N = Ntest;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squareireg.neu');
 [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('lshape.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
-% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
+[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('backdrop1.neu');
 
@@ -26,7 +26,7 @@ StartUp2D;
 global b1
 global b2
 global ep
-b1 = 1; b2 = 0;ep = 1e-3;
+b1 = 1; b2 = 0;ep = 1e-6;
 
 % get block operators
 [M, Dx, Dy] = getBlockOps();
@@ -36,9 +36,10 @@ f = 0*ones(Np*K,1);
 % f = sin(pi*x(:)).*sin(pi*y(:));
 
 [R vmapBT] = getCGRestriction();
-[Rp Irp vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space
+[Rp Irp vmapBTr xr yr] = pRestrictCG(N,Ntrial); % restrict test to trial space
 Rr = Rp*Irp';
 [Bhat vmapBF xf yf nxf nyf] = getMortarConstraint(Nflux);
+xf = xf(vmapBF); yf = yf(vmapBF); nxf = nxf(vmapBF);nyf = nyf(vmapBF);
 
 B = BK*Rr';   % form rectangular bilinear form matrix
 % B = BK;
@@ -114,6 +115,7 @@ A(bci,bci) = speye(length(bci));
 U = A\b;
 u = Rr'*U(1:nU);
 
+
 %     color_line3(x,y,u,u,'.');
 %     return
 
@@ -126,6 +128,7 @@ figure
 color_line3(xu,yu,Iu*reshape(u,Np,K),Iu*reshape(u,Np,K),'.');
 
 title('DPG with fluxes and traces')
+
 
 
 
