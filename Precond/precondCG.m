@@ -34,13 +34,7 @@ A(vmapBT,vmapBT) = speye(length(vmapBT));
     
 u = R'*(A\b);
 
-Nplot = 25;
-[xu,yu] = EquiNodes2D(Nplot); [ru, su] = xytors(xu,yu);
-Vu = Vandermonde2D(N,ru,su); Iu = Vu*invV;
-xu = 0.5*(-(ru+su)*VX(va)+(1+ru)*VX(vb)+(1+su)*VX(vc));
-yu = 0.5*(-(ru+su)*VY(va)+(1+ru)*VY(vb)+(1+su)*VY(vc));
-figure
-color_line3(xu,yu,Iu*reshape(u,Np,K),Iu*reshape(u,Np,K),'.')
+plotSol(u,25)
 
 preFlag = '';
 preFlag = 'nodalfem';
@@ -105,7 +99,7 @@ switch preFlag
         
         [x flag relres iter resvec1] = agmg_solve(levels1, b, maxiter, tol);
         [UD flag relres iter resvec] = agmg_solve(levels, b, maxiter, tol);
-        
+        figure
         semilogy(resvec,'.-');hold on;
         semilogy(resvec1,'r.-')
         %         legend('Inner iteration cost of AGMG')
@@ -130,10 +124,4 @@ break
 % UD = A\b;
 u = R'*UN;
 
-Nplot = 25;
-[xu,yu] = EquiNodes2D(Nplot); [ru, su] = xytors(xu,yu);
-Vu = Vandermonde2D(N,ru,su); Iu = Vu*invV;
-xu = 0.5*(-(ru+su)*VX(va)+(1+ru)*VX(vb)+(1+su)*VX(vc));
-yu = 0.5*(-(ru+su)*VY(va)+(1+ru)*VY(vb)+(1+su)*VY(vc));
-figure
-color_line3(xu,yu,Iu*reshape(u,Np,K),Iu*reshape(u,Np,K),'.')
+plotSol(u,25)
