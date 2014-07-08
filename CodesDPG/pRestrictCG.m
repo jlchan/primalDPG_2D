@@ -29,9 +29,5 @@ N = Nold;
 saveFlag = 0;
 backupGlobals(saveFlag,a);
 
-[xr,yr] = Nodes2D(Nr); [rr, sr] = xytors(xr,yr);
-Vr = Vandermonde2D(Nr,rr,sr); 
-Ir = Vandermonde2D(Nr,r,s)/Vr;  % interp from Nr to Np points
-
-Irp = kron(speye(K),Ir);
+Irp = pRestrict(N,Nr);
 % Rr = Rp*Irp';
