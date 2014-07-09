@@ -5,16 +5,16 @@ Globals2D;
 % Polynomial order used for approximation 
 if nargin<1
     useCG = 0;
-    N = 3; % when N = even, Nf = N-1, fails?
-    Nf = 1;
+    N = 1; % when N = even, Nf = N-1, fails?
+    Nf = 0;
     %     Read in Mesh
     [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
 %     Nv = 3;
 %     VX = VX(EToV(1,:)); VY = VY(EToV(1,:));
 %     EToV = [3 1 2];
 %     K = 1;
-%     [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
-    [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
+    [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
+%     [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 
 else
     [Nv, VX, VY, K, EToV] = MeshReaderGambit2D(mesh);
@@ -61,7 +61,8 @@ if useCG
 
 else
 %     [B, vmapBF, xfb, yfb, nxf, nyf fmap xf yf] = getMortarConstraint(Nf);    
-    [B vmapBF xf yf nxf nyf fmap] = getMortarConstraint(Nf);        
+    [B vmapBF xf yf nxf nyf fmap fpairs] = getMortarConstraint(Nf);        
+    
     xfb = xf(vmapBF);yfb = yf(vmapBF);
     nxf = nxf(vmapBF);nyf = nyf(vmapBF);        
     nU = size(B,2); % num CG nodes
@@ -76,8 +77,22 @@ else
     u = um(1:Np*K);
     f = um(Np*K+1:end);
         
-%     color_line3(x,y,u,u,'.')    
-%     hold on;PlotMesh2D
+    % build preconditioners    
+    S = B*(A\B'); bS = B*(A\b);
+    FToE = getFToE(fpairs);
+    NfacesU = size(fpairs,2);
+%         M = sparse(size(S,1),size(S,2));
+    Sf = cell(NfacesU,1);
+    Sfi = cell(NfacesU,1);
+    for f = 1:NfacesU
+        inds = unique(fmap(:,FToE(f,:)));
+%                 M(inds,inds) = M(inds,inds) + inv(S(inds,inds));
+        Sf{f} = S(inds,inds);
+        Sfi{f} = inds;
+    end    
+    [f, flag, relres, iter, resvec] = pcg(S,bS,1e-6,50,@(x) OAS(x,Sf,Sfi));
+    semilogy(resvec,'.-')
+    keyboard
 end
 
 err = u-uex;
@@ -100,12 +115,11 @@ Kb = (b1*Dx+b2*Dy)'*M*(b1*Dx+b2*Dy);
 
 % Vol = M + Kb + ep*Ks; % Convection-diffusion
 % Vol = M+ 1e-4*Ks + Kb;  % Poisson
-Vol = M + Ks;
+Vol = M + .01*Ks;
 % Vol = M + Kb;
 
-% b1 = 1; b2 = 1;ep = 1e-1;
-% L = (Dx*b1 + Dy*b2) - ep*(Dx^2 + Dy^2); 
-% GLS = L'*M*L;
-% tau = 1/(norm([b1 b2])*(N+1))*spdiag(sqrt(J(:)));
-% As = tau*GLS;
-% bs = tau*L'*M*f;
+function b = OAS(x,Sf,Sfi)
+b = zeros(size(x));
+for f = 1:length(Sfi)
+    b(Sfi{f}) = b(Sfi{f}) +  Sf{f}\x(Sfi{f});
+end
