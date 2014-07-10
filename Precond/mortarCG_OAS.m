@@ -5,13 +5,13 @@ Globals2D;
 % Polynomial order used for approximation 
 if nargin<1
     useCG = 1;
-    N = 4; % when N = even, Nf = N-1, fails?
-    Nf = 2;
+    N = 2; % when N = even, Nf = N-1, fails?
+    Nf = 0;
     %     Read in Mesh 
     mesh = 'squarereg.neu';
     mesh = 'Maxwell0125.neu';
 %     mesh = 'Maxwell1.neu';
-mesh = 'lshape.neu';
+% mesh = 'lshape.neu';
     [Nv, VX, VY, K, EToV] = MeshReaderGambit2D(mesh);
     %Nv = 3; VX = VX(EToV(1,:)); VY = VY(EToV(1,:)); EToV = [3 1 2]; K = 1;
     
@@ -68,7 +68,7 @@ if useCG
 %     keyboard
 
     % coarse grid solver
-    Rs = diag(1./sum(R,2))*R; % divide by shared nodal contributions - undo assembly
+    Rs = spdiag(1./sum(R,2))*R; % divide by shared nodal contributions - undo assembly
     [Rc1 Ir1 vmapBT1 xr1 yr1] = pRestrictCG(N,1); % interp down
     Rp1 = Rc1*Ir1';
     R1 = Rs*Rp1'; % interp down to P1
@@ -86,10 +86,11 @@ if useCG
 %     levels = agmg_setup(A1);
 %     [x flag relres iter resvec1] = agmg_solve(levels, b1, 50, 1e-6);
 %     semilogy(resvec1,'.-')
-%     keyboard
 
-    [u, flag, relres, iter, resvec] = pcg(A,b,1e-6,50,@(x) OAS(x,Ak,Aki) + P1(x));   
-    semilogy(resvec,'.-'); hold on;
+    [u, flag, relres, iter, resvec] = pcg(A,b,1e-6,75,@(x) OAS(x,Ak,Aki) + P1(x));   
+%     [u, flag, relres, iter, resvec] = gmres(A,b,[],1e-6,50,@(x) OAS(x,Ak,Aki) + P1(x));   
+
+semilogy(resvec,'.-'); hold on;
     title('OAS for CG')
     
     u = R'*u;    
@@ -105,8 +106,7 @@ else
     Am = [AK B';B O];
     
     b = M*f;
-    bm = [b;zeros(nM,1)];
-        
+    bm = [b;zeros(nM,1)];        
     um = Am\bm;
     u = um(1:Np*K);
     f = um(Np*K+1:end);
@@ -139,7 +139,8 @@ else
 %     semilogy(resvec1,'.-')
 %     keyboard
     
-    [f, flag, relres, iter, resvec] = pcg(S,bS,1e-6,50,@(x) OAS(x,Sf,Sfi) + P1(x));
+    [f, flag, relres, iter, resvec] = pcg(S,bS,1e-6,75,@(x) OAS(x,Sf,Sfi) + P1(x));
+%     [f, flag, relres, iter, resvec] = gmres(S,bS,[],1e-6,50,@(x) OAS(x,Sf,Sfi) + P1(x));   
     semilogy(resvec,'.-');    hold on
     title(sprintf('OAS for mortars with N = %d, mesh = %s',N,mesh))    
     
@@ -148,7 +149,7 @@ end
 
 err = u-uex;
 err = sqrt(err'*M*err);
-
+return
 if nargin<1
     plotSol(u,25);    
     title(sprintf('N = %d, Nf = %d, err = %d',N, Nf, err))        
