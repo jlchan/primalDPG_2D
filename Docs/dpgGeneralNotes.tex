@@ -459,7 +459,7 @@ Preliminary results applied to Poisson ($\beta = 0, \epsilon = 1$) and convectio
 \caption{Triangular factorization preconditioners for Poisson and diffusion-dominated convection-diffusion.}
 \end{figure}
 
-Convergence of convection-diffusion suffers at higher $N$ when diffusion is taken to be $10^{-3}$; however, it recovers again when $\epsilon = 10^{-6}$.  At very small $\epsilon$, $A_h = B^TR_V^{-1}B \approx M$ again, and convergence of the fixed-point iteration is very fast.  
+Convergence of convection-diffusion suffers at higher $N$ when diffusion is taken to be $10^{-3}$; however, it recovers again when $\epsilon = 10^{-6}$.  At very small $\epsilon$, $A_h = B^TR_V^{-1}B \approx M$ again, and convergence of the fixed-point iteration is very fast.  We note that this is independent of whether or not a boundary layer exists in the solution or not.  
 \begin{figure}
 \centering
 \subfigure[Convection-diffusion, $\epsilon = 10^{-3}$]{\includegraphics[width=.49\textwidth]{figs/ideal_confusion1e3.eps}}
@@ -471,25 +471,50 @@ Convergence of convection-diffusion suffers at higher $N$ when diffusion is take
 
 We assume that preconditioning the $A_h$ submatrix can roughly be done using similar techniques to preconditioning standard elliptic equations.  Initial numerical evidence appears to support this.  Options include 
 \begin{itemize}
-\item Two-level additive Schwarz.  A coarse solve ($P_1$ elements with AGMG?) + (overlapping) block solves.  \textcolor{red}{Not working yet.}
-\item Direct AGMG preconditioning.  \textcolor{red}{Working for CG and DPG.}
-\item $P_1$ FEM preconditioning of nodal bases \textcolor{red}{Working for CG, not yet implemented for DPG.}
+\item Two-level additive Schwarz.  A coarse solve ($P_1$ elements with AGMG?) + (overlapping) block solves. 
+\item Direct AGMG preconditioning.  
+\item $P_1$ FEM preconditioning of nodal bases 
 \item Geometric multigrid.  
 \end{itemize}
 
 Preconditioning of the $C_h$ submatrix is more difficult conceptually; however, similar ideas can be leveraged
 \begin{itemize}
-\item Two-level additive Schwarz.  A coarse solve ($P_1$ elements with AGMG?) + (overlapping) block solves. 
-\item Geometric multigrid + AGMG preconditioning.
+\item Two-level additive Schwarz.  A coarse solve ($P_0$ elements with AGMG?) + (overlapping) block solves. 
+\item Geometric multigrid + AGMG preconditioning.  
 \item Direct AGMG preconditioning.  
 \end{itemize}
-$P_1$ FEM preconditioning is meant to sparsify the structure of the finite element matrix; however, since the $C_h$ submatrix is constructed in a Schur complement manner, replacing a nodal polynomial for $\uh$ on an edge with piecewise-$P_1$ FEM at nodal points would not decrease sparsity.  Breaking $\uh$ into discontinuous pieces would be possible, but then 
+$P_1$ FEM preconditioning is meant to sparsify the structure of the finite element matrix; however, since the $C_h$ submatrix is constructed in a Schur complement manner, replacing a nodal polynomial for $\uh$ on an edge with piecewise-$P_1$ FEM at nodal points would not decrease sparsity.  \textbf{Sparsity of the fluxes $\uh$ depends on the underlying test space: all fluxes bordering an element will be coupled together regardless of connectivity pattern so long as the test space over the element is coupled as well.}  
+
+\subsubsection{OAS with coarse grid}
+
+\begin{figure}
+\centering
+\subfigure[Poisson w/pure OAS]{\includegraphics[width=.49\textwidth]{figs/oas_poisson.eps}}
+\subfigure[Poisson w/OAS + 2 CG iterations]{\includegraphics[width=.49\textwidth]{figs/oascg2_poisson.eps}}
+\subfigure[Poisson w/OAS + 5 CG iterations]{\includegraphics[width=.49\textwidth]{figs/oascg5_poisson.eps}}
+\subfigure[Poisson w/OAS + 10 CG iterations]{\includegraphics[width=.49\textwidth]{figs/oascg10_poisson.eps}}
+\end{figure}
+
+\begin{itemize}
+\item A flexible PCG method is needed when using an inner PCG iteration.
+\item The approximate preconditioner appears to be relatively $h$-independent, 
+\item The $N$-dependency comes as a consequence of the triangular factorization involving $A^{-1}$, but can be controlled by a small number of PCG iterations in the inner iteration for $A^{-1}$.  
+\end{itemize}
+The block preconditioner is not robust for convection-diffusion, due to the fact that the $C_h$ block corresponds to the mortar discretization of 
+\[
+u - \div((\epsilon I + \beta\beta^T)\grad(u))
+\]
+for which mortar methods do poorly, since the coercivity constant of the above problem is $\epsilon$, and there is only a streamline diffusion along the $\beta$ direction.  The field preconditioner converges as fast or faster than for Poisson.  
+\begin{figure}
+\centering
+\subfigure[Convection-diffusion, $\epsilon = 1e-6$]{\includegraphics[width=.49\textwidth]{figs/oascg5_confusion.eps}}
+\subfigure[Convection-diffusion, individual block solves for $N=2$]{\includegraphics[width=.49\textwidth]{figs/oas_confusionBlocks.eps}}
+\end{figure}
 
 \subsection{Etc notes}
 \begin{itemize}
 \item Can we use the idea of reducing to field dofs?  i.e. turn the inversion of the flux matrix into just an outer product?  Make equiv to testing with null space of $\hat{B}^T$...
 \item Can we change the coupling to the mortar space for $e$?  i.e. add consistency/penalty/etc?
-\item Try boundary penalization in test norms.  
 \end{itemize}
 
 \end{document}
