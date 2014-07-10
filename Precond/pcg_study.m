@@ -10,10 +10,11 @@ addpath ../Grid/Other
 
 plotFlag = 0;
 grids = {'Maxwell05.neu','Maxwell025.neu','Maxwell0125.neu'};
-% grids = {'Maxwell05.neu','Maxwell025.neu'};
+grids = {'Maxwell1.neu','Maxwell05.neu'};
 % grids = {'Maxwell00625.neu'};
 % grids = {'Maxwell025.neu'};
 Ntrial = [1:5];
+Ntrial = 2;
 NpTrials = (Ntrial+1).*(Ntrial+2)/2;
 
 % grids = {'Maxwell1.neu'};
@@ -34,30 +35,38 @@ for i = 1:length(grids)
         if plotFlag
             pause
         else
-            
-            Av = A(1:nU,1:nU); Af = A(nU+(1:nM),nU+(1:nM));Avf = A(1:nU,nU+(1:nM));            
+            ui = 1:nU; mi = nU + (1:nM);
+            Av = A(ui,ui); Af = A(mi,mi);Avf = A(ui,mi);            
 %             S = Af-Avf'*(Av\Avf);
-            Sx = @(x) Af*x-Avf'*(Av\(Avf*x));
-            precondFlag = 'ideal';
+%             Sx = @(x) Af*x-Avf'*(Av\(Avf*x));
+            precondFlag = 'oas';
             switch precondFlag
                 case 'ideal'
                     % build true preconditioner
                     AvPre = @(x) Av\x;
-                    SPre = @(x) Af\x; % ignore Schur complement...
+                    SPre = @(x) Af\x; % ignore Schur complement...                    
 %                     SPre = @(x) S\x;
 %                     SPre = @(x) Mfaces\x;
                 case 'oas'
-                    % build OAS preconditioner
-                    RAv = Rp'*Av*Rp; % expand out to local dofs
-                    K = max(size(Rp))/NpTrial;
-                    OAS = {};
-                    for k = 1:K
-                        inds = NpTrial*(k-1) + (1:NpTrial);
-                        OAS{k} = RAv(inds,inds);
-                    end
-                    OAS = blkdiag(OAS{:});
-                    AvPre = @(x) Rp*(OAS\(Rp'*x));
-                    SPre = @(x) S\x; 
+%                     % build OAS preconditioner
+%                     RAv = Rp'*Av*Rp; % expand out to local dofs
+%                     K = max(size(Rp))/NpTrial;
+%                     OAS = {};
+%                     for k = 1:K
+%                         inds = NpTrial*(k-1) + (1:NpTrial);
+%                         OAS{k} = RAv(inds,inds);
+%                     end
+%                     OAS = blkdiag(OAS{:});
+%                     AvPre = @(x) Rp*(OAS\(Rp'*x));
+%                     SPre = @(x) S\x; 
+
+                    AvPre = buildOAS_CG(Rp,Av,Ntrial(j));                     
+                    SPre = buildOAS_mortar(Af,Nflux(j));
+                    bu = rand(size(Av,1),1); 
+                    bf = rand(size(Af,1),1); 
+                    [u, flag, relres, iter, resvecu] = pcg(Av,bu,1e-7,50,@(x) AvPre(x));
+                    [f, flag, relres, iter, resvecf] = pcg(Af,b(mi),1e-7,50,@(x) SPre(x));
+                    keyboard
                 case 'agmg'
                     % use AMG preconditioner
                     levelsAv = agmg_setup(Av);
@@ -77,8 +86,7 @@ for i = 1:length(grids)
                     
             end
             
-            % build block cholesky bits
-            ui = 1:nU; mi = nU + (1:nM);
+            % build block cholesky bits            
             RTinv = @(x) [x(ui); x(mi) - Avf'*AvPre(x(ui))];
             Rinv = @(x) [x(ui)-AvPre(Avf*x(mi)); x(mi)];            
             
