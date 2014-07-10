@@ -11,7 +11,7 @@ Norderp = (Norder+1)*(Norder+2)/2;
 [r c] = find(R); r = reshape(r,Norderp,K);
 Ak = cell(K,1);Aki = cell(K,1);
 for k = 1:K
-    % nbr = unique([k EToE(k,:)]); % 1 elem overlap
+%     nbr = unique([k EToE(k,:)]); % 1 elem overlap
     nbr = k; % no overlap
     inds = unique(r(:,nbr));
     Aki{k} = inds;

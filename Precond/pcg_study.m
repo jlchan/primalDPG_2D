@@ -10,11 +10,10 @@ addpath ../Grid/Other
 
 plotFlag = 0;
 grids = {'Maxwell05.neu','Maxwell025.neu','Maxwell0125.neu'};
-grids = {'Maxwell1.neu','Maxwell05.neu'};
+grids = {'Maxwell05.neu','Maxwell025.neu'};
 % grids = {'Maxwell00625.neu'};
 % grids = {'Maxwell025.neu'};
-Ntrial = [1:5];
-Ntrial = 2;
+Ntrial = [2:5];
 NpTrials = (Ntrial+1).*(Ntrial+2)/2;
 
 % grids = {'Maxwell1.neu'};
@@ -29,8 +28,8 @@ for i = 1:length(grids)
     for j = 1:length(Ntrial)       
         NpTrial = NpTrials(j);
         % for poisson, set b = 0, eps = 1
-        b = 0; eps = 1;
-%         b = 1; eps = 1e-6;        
+%         b = 0; eps = 1;
+        b = 1; eps = 1e-6;        
         [A, b, nU, nM, Np, Rp, Irp, M] = primalDPG_confusion(grids{i},Ntrial(j),Ntest(j),Nflux(j),plotFlag,b,eps); 
         if plotFlag
             pause
@@ -60,12 +59,15 @@ for i = 1:length(grids)
 %                     AvPre = @(x) Rp*(OAS\(Rp'*x));
 %                     SPre = @(x) S\x; 
 
-                    AvPre = buildOAS_CG(Rp,Av,Ntrial(j));                     
+%                     AvPre = buildOAS_CG(Rp,Av,Ntrial(j));%                     
+%                     AvPre = @(x) Av\x;
+%                     SPre = @(x) Af\x; % ignore Schur complement...
                     SPre = buildOAS_mortar(Af,Nflux(j));
-                    bu = rand(size(Av,1),1); 
-                    bf = rand(size(Af,1),1); 
-                    [u, flag, relres, iter, resvecu] = pcg(Av,bu,1e-7,50,@(x) AvPre(x));
-                    [f, flag, relres, iter, resvecf] = pcg(Af,b(mi),1e-7,50,@(x) SPre(x));
+                    AvPre = @(b) fpcg(Av,b,1e-16, 5, buildOAS_CG(Rp,Av,Ntrial(j)));
+%                     SPre  = @(b) pcg(Af,b,1e-6, 2, buildOAS_mortar(Af,Nflux(j)));
+                    bu = rand(size(Av,1),1); bf = rand(size(Af,1),1); 
+                    [u, flag, relres, iter, resvecu] = pcg(Av,bu,1e-7,100,@(x) AvPre(x));
+                    [f, flag, relres, iter, resvecf] = pcg(Af,b(mi),1e-7,100,@(x) SPre(x));
                     keyboard
                 case 'agmg'
                     % use AMG preconditioner
@@ -99,7 +101,7 @@ for i = 1:length(grids)
             
             %% PCGGGGGGGGGGGGGG
             % [U, flag, relres, iter, resvec] = pcg(A,b,1e-7,250,Pre',Pre);
-            [U, flag, relres, iter, resvec] = pcg(A,b,1e-7,50,@(x) Pre(x));
+            [U, flag, relres, iter, resvec] = fpcg(A,b,1e-6,100,@(x) Pre(x));
             resVecs{i,j} = resvec;            
         end
     end

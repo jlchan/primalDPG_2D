@@ -4,15 +4,26 @@ Globals2D;
 
 % build OAS preconditioner
 useOverlap = 0;
-if nargin==3
+if nargin>2    
     FToE = getFToE(fpairs);
     useOverlap = 1;
 else
     FToE = [];
+    fpairs = [];
+    fmap = [];
 end
 % NfacesU = size(fpairs,2); %
 nM = size(S,1);
 NfacesU = nM/(Nf+1);
+
+if (nargin>2)
+    Nfrp = Nf+1;
+    sharedFaces = ~ismember(fpairs(2,:),fpairs(1,:));
+    fmap = zeros(Nfrp,Nfaces*K);
+    fmap(:,fpairs(1,:)) = reshape(1:Nfrp*NfacesU,Nfrp,NfacesU);
+    fmap(:,fpairs(2,sharedFaces)) = fmap(:,fpairs(1,sharedFaces));
+    fmap = reshape(fmap,Nfrp*Nfaces,K);
+end
 
 fmapU = reshape(1:(Nf+1)*NfacesU,Nf+1,NfacesU);
 %         M = sparse(size(S,1),size(S,2));
