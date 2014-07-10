@@ -104,11 +104,7 @@ if ~plotFlag
 else
     U = A\b;
     u = Rr'*U(1:nU);
-
-%     color_line3(x,y,u,u,'.');
-%     return
-    plotSol(u,25);
-    
+    plotSol(u,25);    
     title('DPG with fluxes and traces')
 end
 
