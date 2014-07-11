@@ -1,4 +1,4 @@
-function mixedDPG
+function mixedDPG_confusion
 
 Globals2D
 
