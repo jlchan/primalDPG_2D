@@ -1,16 +1,18 @@
 function err= mortarCG_OAS(N,Nf,mesh)
+%function mortarCG_OAS
 
 Globals2D;
 
+useCG = 1;
+
 % Polynomial order used for approximation
 if nargin<1
-    useCG = 0;
-    N = 8; % when N = even, Nf = N-1, fails?
-    Nf = 4;
+    N = 4;  % when N = even, Nf = N-1, fails?
+    Nf = 2;
     %     Read in Mesh
     mesh = 'squarereg.neu';
-    mesh = 'Maxwell05.neu';
-    %     mesh = 'Maxwell1.neu';
+    mesh = 'Maxwell025.neu';
+%         mesh = 'Maxwell1.neu';
     % mesh = 'lshape.neu';
     [Nv, VX, VY, K, EToV] = MeshReaderGambit2D(mesh);
     %Nv = 3; VX = VX(EToV(1,:)); VY = VY(EToV(1,:)); EToV = [3 1 2]; K = 1;
@@ -52,11 +54,11 @@ if useCG
     %     semilogy(resvec1,'.-')
     
     Pre = buildOAS_CG(R,A);
-    [u, flag, relres, iter, resvec] = pcg(A,b,1e-6,75,@(x) Pre(x));
+    [u, flag, relres, iter, resvec] = pcg(A,b,1e-7,75,@(x) Pre(x));
     %[u, flag, relres, iter, resvec] = pcg(A,b,1e-6,75,@(x) OAS(x,Ak,Aki)+ P1(x));
     %     [u, flag, relres, iter, resvec] = gmres(A,b,[],1e-6,50,@(x) OAS(x,Ak,Aki) + P1(x));
     
-    semilogy(resvec,'.-'); hold on;
+    semilogy(resvec,'ro-'); hold on;
     title('OAS for CG')
     
     u = R'*u;
@@ -70,26 +72,43 @@ else
     nM = size(B,1); % num mortar nodes
     O = sparse(nM,nM);
     Am = [AK B';B O];
-    
     b = M*f;
+    bm = [b;zeros(nM,1)];
+    
+    % homogeneous BCs on V are implied by mortars.
+    % BCs on mortars removes BCs on test functions.    
+    vmapBF(xfb > -1 + NODETOL) = [];     
+
+    bci = nU + vmapBF; % skip over u dofs
+    bm(bci) = 0;
+    Am(bci,:) = 0; Am(:,bci)=0;
+    Am(bci,bci) = speye(length(bci));
+
+    C = Am(nU + (1:nM),nU + (1:nM));
+    B = Am(nU + (1:nM),1:nU);
+    AK = Am(1:nU,1:nU);
+    b = bm(1:nU);
+    c = bm(nU+(1:nM));
+
     %     bm = [b;zeros(nM,1)];
     %     um = Am\bm;
     %     u = um(1:Np*K);
     %     f = um(Np*K+1:end);
     
-    S = B*(AK\B'); bS = B*(AK\b);
+    S = C-B*(AK\B'); bS = c-B*(AK\b);
+
     Pre = buildOAS_mortar(S,Nf);
     %     levels1 = agmg_setup(S1);
     %     [x flag relres iter resvec1] = agmg_solve(levels1, bS1, 50, 1e-6);
     %     semilogy(resvec1,'.-')
     %     keyboard
     
-    [f, flag, relres, iter, resvec] = pcg(S,bS,1e-6,75,@(x) Pre(x));
+    [f, flag, relres, iter, resvec] = pcg(-S,-bS,1e-6,75,@(x) Pre(x));
     %[f, flag, relres, iter, resvec] = pcg(S,bS,1e-6,75,@(x) OAS(x,Sf,Sfi) + P1(x));
     %     [f, flag, relres, iter, resvec] = gmres(S,bS,[],1e-6,50,@(x) OAS(x,Sf,Sfi) + P1(x));
     semilogy(resvec,'.-');    hold on
     title(sprintf('OAS for mortars with N = %d, mesh = %s',N,mesh))
-    
+
     u = AK\(b-B'*f);
 end
 

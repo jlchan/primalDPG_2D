@@ -27,16 +27,15 @@ end
 
 fmapU = reshape(1:(Nf+1)*NfacesU,Nf+1,NfacesU);
 %         M = sparse(size(S,1),size(S,2));
-Sf = cell(NfacesU,1);
-Sfi = cell(NfacesU,1);
+Sf = cell(NfacesU,2);
 for f = 1:NfacesU
     if useOverlap
         inds = unique(fmap(:,FToE(f,:))); % 1 element overlap
     else
         inds = fmapU(:,f); % no overlap
     end
-    Sf{f} = S(inds,inds);
-    Sfi{f} = inds;
+    Sf{f,1} = inds;
+    Sf{f,2} = S(inds,inds);    
 end
 
 % build coarse grid solver
@@ -45,4 +44,4 @@ If1 = kron(speye(NfacesU),If1);
 S1 = If1'*S*If1; %bS1 = If1'*bS;
 
 P1 = @(bS) If1*(S1\(If1'*bS));
-Mhandle = @(x) P1(x) + OAS(x,Sf,Sfi); % coarse solver + OAS solver
+Mhandle = @(x) P1(x) + OAS(x,Sf); % coarse solver + OAS solver

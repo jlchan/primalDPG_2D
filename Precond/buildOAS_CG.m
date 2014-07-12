@@ -8,16 +8,32 @@ end
 
 % build OAS preconditioner algebraically:
 Norderp = (Norder+1)*(Norder+2)/2;
-[r c] = find(R); r = reshape(r,Norderp,K);
-Ak = cell(K,1);Aki = cell(K,1);
-for k = 1:K
-%     nbr = unique([k EToE(k,:)]); % 1 elem overlap
-    nbr = k; % no overlap
-    inds = unique(r(:,nbr));
-    Aki{k} = inds;
-    Ak{k} = eye(numel(inds));%A(inds,inds);
-end
+[rr cc] = find(R); rr = reshape(rr,Norderp,K);cc = reshape(cc,Norderp,K);
 
+patches = 1;
+if patches
+    % build patches around vertices
+    vertices = rr([1 Norder+1 Norderp],:);
+    vnodes = unique(vertices(:));
+    Nverts = length(vnodes);    
+    Ak = cell(Nverts,2);
+    for i = 1:length(vnodes)
+        [~, elems] = find(vnodes(i)==vertices);
+        inds = unique(rr(:,elems));
+        Ak{i,1} = inds;
+        Ak{i,2} = A(inds,inds);               
+    end
+else
+    % no overlap/face overlap only
+    Ak = cell(K,2);
+    for k = 1:K
+        %     nbr = unique([k EToE(k,:)]); % face overlap only
+        nbr = k; % no overlap
+        inds = unique(rr(:,nbr));
+        Ak{k,1} = inds;
+        Ak{k,2} = A(inds,inds);
+    end
+end
 % coarse grid solver
 [Rc1 Ir1 vmapBT1 xr1 yr1] = pRestrictCG(Norder,1); % interp down
 Rp1 = Rc1*Ir1';
@@ -25,5 +41,4 @@ Rs = spdiag(1./sum(R,2))*R; % divide by shared nodal contributions - undo assemb
 R1 = Rs*Rp1'; % interp down to P1
 P1 = @(b) R1*((R1'*A*R1)\(R1'*b)); % should be able to "ignore" BC imposition - pcg acts on residual e(vmapBT) = 0
 
-Mhandle = @(x) P1(x) + OAS(x,Ak,Aki); % coarse solver + OAS solver
-
+Mhandle = @(x) P1(x) + OAS(x,Ak); % coarse solver + OAS solver
