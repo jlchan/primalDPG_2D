@@ -76,7 +76,7 @@ u0 = zeros(size(B,2),1);
 % BCs on flux
 uh0 = zeros(nM,1);
 bnf = nxf*b1 + nyf*b2; % beta_n, determines inflow vs outflow
-bmaskf = xf < -1 + NODETOL; %(bnf < NODETOL); % inflow = beta_n < 0
+bmaskf = xf < -1 + NODETOL & nxf < -NODETOL; %(bnf < NODETOL); % inflow = beta_n < 0
 uh0(vmapBF) = bnf.*(yf<0).*(1+yf);  % BC data on flux = bn*u - eps*du/dn
 
 U0 = [u0;uh0];

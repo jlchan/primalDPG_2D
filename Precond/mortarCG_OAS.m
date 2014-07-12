@@ -3,12 +3,12 @@ function err= mortarCG_OAS(N,Nf,mesh)
 
 Globals2D;
 
-useCG = 1;
+useCG = 0;
 
 % Polynomial order used for approximation
 if nargin<1
-    N = 4;  % when N = even, Nf = N-1, fails?
-    Nf = 2;
+    N = 6;  % when N = even, Nf = N-1, fails?
+    Nf = 4;
     %     Read in Mesh
     mesh = 'squarereg.neu';
     mesh = 'Maxwell025.neu';
@@ -77,7 +77,8 @@ else
     
     % homogeneous BCs on V are implied by mortars.
     % BCs on mortars removes BCs on test functions.    
-    vmapBF(xfb > -1 + NODETOL) = [];     
+    bmaskf = (xfb < -1 + NODETOL) & (nxf < -NODETOL);
+    vmapBF(~bmaskf) = [];         
 
     bci = nU + vmapBF; % skip over u dofs
     bm(bci) = 0;
@@ -97,7 +98,7 @@ else
     
     S = C-B*(AK\B'); bS = c-B*(AK\b);
 
-    Pre = buildOAS_mortar(S,Nf);
+    Pre = buildOAS_mortar(S,Nf,fpairs);
     %     levels1 = agmg_setup(S1);
     %     [x flag relres iter resvec1] = agmg_solve(levels1, bS1, 50, 1e-6);
     %     semilogy(resvec1,'.-')
@@ -106,7 +107,7 @@ else
     [f, flag, relres, iter, resvec] = pcg(-S,-bS,1e-6,75,@(x) Pre(x));
     %[f, flag, relres, iter, resvec] = pcg(S,bS,1e-6,75,@(x) OAS(x,Sf,Sfi) + P1(x));
     %     [f, flag, relres, iter, resvec] = gmres(S,bS,[],1e-6,50,@(x) OAS(x,Sf,Sfi) + P1(x));
-    semilogy(resvec,'.-');    hold on
+    semilogy(resvec,'r.-');    hold on
     title(sprintf('OAS for mortars with N = %d, mesh = %s',N,mesh))
 
     u = AK\(b-B'*f);

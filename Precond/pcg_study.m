@@ -13,7 +13,7 @@ grids = {'Maxwell05.neu','Maxwell025.neu','Maxwell0125.neu'};
 grids = {'Maxwell05.neu','Maxwell025.neu'};
 % grids = {'Maxwell00625.neu'};
 % grids = {'Maxwell025.neu'};
-Ntrial = [2 8];
+Ntrial = [2 6];
 NpTrials = (Ntrial+1).*(Ntrial+2)/2;
 
 % grids = {'Maxwell1.neu'};
@@ -60,16 +60,16 @@ for i = 1:length(grids)
                 %                     AvPre = @(x) Rp*(OAS\(Rp'*x));
                 %                     SPre = @(x) S\x;
                 
-                AvPre = buildOAS_CG(Rp,Av,Ntrial(j));%
+%                 AvPre = buildOAS_CG(Rp,Av,Ntrial(j));%
 %                 AvPre = @(x) Av\x;
 %                                     SPre = @(x) Af\x; % ignore Schur complement...
                 SPre = buildOAS_mortar(Af,Nflux(j));
-%                 AvPre = @(b) fpcg(Av,b,1e-16, 2, buildOAS_CG(Rp,Av,Ntrial(j)));
+                AvPre = @(b) fpcg(Av,b,1e-16, 2, buildOAS_CG(Rp,Av,Ntrial(j)));
 %                 SPre  = @(b) fpcg(Af,b,1e-6, 2, buildOAS_mortar(Af,Nflux(j)));
-                bu = rand(size(Av,1),1); bf = rand(size(Af,1),1);
-                [u, flag, relres, iter, resvecu] = fpcg(Av,bu,1e-7,100,@(x) AvPre(x));
-                [f, flag, relres, iter, resvecf] = fpcg(Af,bf,1e-7,100,@(x) SPre(x));
-                keyboard
+%                 bu = rand(size(Av,1),1); bf = rand(size(Af,1),1);
+%                 [u, flag, relres, iter, resvecu] = fpcg(Av,bu,1e-7,100,@(x) AvPre(x));
+%                 [f, flag, relres, iter, resvecf] = fpcg(Af,bf,1e-7,100,@(x) SPre(x));
+%                 keyboard
             case 'agmg'
                 % use AMG preconditioner
                 levelsAv = agmg_setup(Av);
