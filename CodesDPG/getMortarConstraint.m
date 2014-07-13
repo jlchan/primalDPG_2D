@@ -7,22 +7,14 @@
 % other return values: vmapBF, xfB, yfB, nxf, nyf = boundary info.
 % xf, yf = face coordinates
 
-function [B vmapBF xf yf nxf nyf fmap fpairs] = getMortarConstraint(Nfr)
+function [B vmapBF xf yf nxf nyf fpairs] = getMortarConstraint(Nfr)
 
 Nfr = max(0,Nfr); % cannot have negative flux order
 
 Globals2D
 
-fM = reshape(vmapM,Nfp,Nfaces*K); fP = reshape(vmapP,Nfp,Nfaces*K); 
-
-% sort by node id in face and then get unique pairs of columns 
-[tf, loc] = ismember(sort(fM,1)',sort(fP,1)','rows'); 
-fpairs = [(1:length(loc))' loc(:)];
-fpairs = unique(sort(fpairs,2),'rows')'; 
+[fM fP fpairs] = getFaceInfo();
 NfacesU = size(fpairs,2);
-
-% fpairs(2,:) are duplicated face nodes, ignore them
-fM = fM(:,fpairs(1,:)); fP = fP(:,fpairs(1,:));
 
 % map field to interface dofs
 NfpT = numel(fM); % or fP...
@@ -34,47 +26,28 @@ Ef = Efm-Efp; % jump matrix (maps volume nodes to jumps over faces) modified to 
 r1D = JacobiGL(0,0,N); V1D = Vandermonde1D(N,r1D);
 M1D = inv(V1D*V1D'); % 1D stiffness matrix from GLL nodes for faces
 
+% get flux ids on boundaries
+[rfr xf yf nxf nyf] = getFaceNodes(Nfr,fM,fpairs);
+Nfrp = Nfr+1;
+
 % degree of hybrid unknown - Nfr = restricted N
 if (Nfr==0)
     R1D = ones(Nfp,1)/sqrt(Nfp); % interpolate constant to multiple nodes
 else    
-    rfr = JacobiGL(0,0,Nfr);V1Dfr = Vandermonde1D(Nfr,rfr);
+    V1Dfr = Vandermonde1D(Nfr,rfr);
     V1Df = Vandermonde1D(Nfr,r1D);                   
-    R1D = V1Df*inv(V1Dfr); % interpolate lower order polynomial to order Nf polynomial    
+    R1D = V1Df/V1Dfr; % interpolate lower order polynomial to order Nf polynomial    
 end
 
-sJReduc = reshape(sJ,Nfp,Nfaces*K); 
+sJReduc = reshape(sJ,Nfp,Nfaces*K);
 sJReduc = sJReduc(:,fpairs(1,:)); % get unique faces
 SJ = spdiag(sJReduc(:));
 B = kron(speye(NfacesU),R1D'*M1D)*SJ*Ef; % for fluxes
 
-% get flux ids on boundaries
-Nfrp = Nfr+1;
+% boundary nodes
 vmapBF = zeros(Nfrp,NfacesU); vmapBF(:)= 1:Nfrp*NfacesU;
 bfaces = any(fM==fP); 
 vmapBF = vmapBF(:,bfaces); vmapBF = vmapBF(:);
 
-xf = zeros(Nfrp,NfacesU); yf = zeros(Nfrp,NfacesU);
-if (Nfr==0)
-    xf(:) = (x(fM(1,:))+x(fM(Nfp,:)))/2;
-    yf(:) = (y(fM(1,:))+y(fM(Nfp,:)))/2;
-else % WARNING: only works for straight edge elements. 
-    xi = (rfr+1)/2; % interp along 1D points
-    for i = 1:Nfrp
-        xf(i,:) = x(fM(1,:)) + xi(i)*(x(fM(Nfp,:))-x(fM(1,:)));
-        yf(i,:) = y(fM(1,:)) + xi(i)*(y(fM(Nfp,:))-y(fM(1,:)));        
-    end
-end
-nxf = reshape(nx,Nfp,Nfaces*K); nyf = reshape(ny,Nfp,Nfaces*K);
-nxf = nxf(:,fpairs(1,:)); nyf = nyf(:,fpairs(1,:));
-nxf = nxf(1:Nfrp,:); nyf = nyf(1:Nfrp,:); % WARNING: straight edge elem hack - take 1st Nfrp points, all nx/ny same.
-
-
-% get fmap for connectivities
-sharedFaces = ~ismember(fpairs(2,:),fpairs(1,:));
-fmap = zeros(Nfrp,Nfaces*K);
-fmap(:,fpairs(1,:)) = reshape(1:Nfrp*NfacesU,Nfrp,NfacesU);
-fmap(:,fpairs(2,sharedFaces)) = fmap(:,fpairs(1,sharedFaces));
-fmap = reshape(fmap,Nfrp*Nfaces,K);
 
 return

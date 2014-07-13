@@ -64,7 +64,7 @@ if useCG
     u = R'*u;
 else
     %     [B, vmapBF, xfb, yfb, nxf, nyf fmap xf yf] = getMortarConstraint(Nf);
-    [B vmapBF xf yf nxf nyf fmap fpairs] = getMortarConstraint(Nf);
+    [B vmapBF xf yf nxf nyf fpairs] = getMortarConstraint(Nf);
     
     xfb = xf(vmapBF);yfb = yf(vmapBF);
     nxf = nxf(vmapBF);nyf = nyf(vmapBF);
