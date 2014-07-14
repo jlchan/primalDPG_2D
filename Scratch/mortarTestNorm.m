@@ -27,7 +27,7 @@ Adj_h = [I2 Grad;
          Div O];
      
 M3 = blkdiag(M2,M);
-RV = Adj_h'*M3*Adj_h + blkdiag(M,M,M); % regularize on v
+RV = Adj_h'*M3*Adj_h + 1e-0*blkdiag(M,M,M); % regularize on v
 f = ones(Np*K,1);
 ftau = 0*[f;f];
 fv = f;
@@ -35,7 +35,7 @@ b = Adj_h'*M3*[ftau;fv];
 
 [Btau vmapBFd xfd yfd nxfd nyfd] = getMortarConstraintDiv(Nfdiv);
 xfdb = xfd(vmapBFd);yfdb = yfd(vmapBFd);
-Btau(vmapBFd(abs(1-xfdb.^2)<NODETOL | abs(1-yfdb.^2) < NODETOL),:) = [];
+Btau(vmapBFd(abs(1-xfdb.^2)<NODETOL | abs(1-yfdb.^2) < NODETOL),:) = []; %remove constraints for fluxes
 [Bv vmapBF xf yf nxf nyf] = getMortarConstraint(Nf);
 xfb = xf(vmapBF);yfb = yf(vmapBF);
 nxf = nxf(vmapBF);nyf = nyf(vmapBF);

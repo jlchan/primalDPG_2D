@@ -1,11 +1,5 @@
-% gets the constraint matrix B for a mortar discretization corresponding to
-% the block system
-% [Ak B'
-%  B  0]
-% where Ak is a block diagonal matrix and B enforces orthogonality of the
-% solution across faces to polynomials of order Nfr.
-% other return values: vmapBF, xfB, yfB, nxf, nyf = boundary info.
-% xf, yf = face coordinates
+% returns constraint matrix for Hdiv vector elements in (qx,qy) ordering
+% currently using discontinuous traces (should be continuous)
 
 function [B vmapBF xf yf nxf nyf fpairs] = getMortarConstraintDiv(Nfr)
 
