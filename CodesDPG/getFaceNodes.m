@@ -8,16 +8,17 @@ function [rfr xf yf nxf nyf] = getFaceNodes(Nfr,fM,fpairs)
 Globals2D
 
 % reference face nodes
-rfr = JacobiGL(0,0,Nfr);
 
 NfacesU = size(fpairs,2);
 Nfrp = Nfr+1;
 
 xf = zeros(Nfrp,NfacesU); yf = zeros(Nfrp,NfacesU);
 if (Nfr==0)
+    rfr = 1; 
     xf(:) = (x(fM(1,:))+x(fM(Nfp,:)))/2;
-    yf(:) = (y(fM(1,:))+y(fM(Nfp,:)))/2;
+    yf(:) = (y(fM(1,:))+y(fM(Nfp,:)))/2;    
 else % WARNING: only works for straight edge elements. 
+    rfr = JacobiGL(0,0,Nfr);
     xi = (rfr+1)/2; % interp along 1D points
     for i = 1:Nfrp
         xf(i,:) = x(fM(1,:)) + xi(i)*(x(fM(Nfp,:))-x(fM(1,:)));
