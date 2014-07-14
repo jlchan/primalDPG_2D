@@ -13,7 +13,7 @@ if nargin<1
 %     VX = VX(EToV(1,:)); VY = VY(EToV(1,:));
 %     EToV = [3 1 2];
 %     K = 1;
-    [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
+    [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
 %     [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 
 else
@@ -29,7 +29,7 @@ A = getVolOp(M,Dx,Dy);
 uex = @(x,y) sin(pi*x).*sin(pi*y);
 uex = project_fxn(uex,25);
 f = uex*(1+2*pi^2);
-% f = ones(size(x(:)));
+f = ones(size(x(:)));
 
 if useCG
     [R vmapBT] = getCGRestriction();        
@@ -74,6 +74,7 @@ err = sqrt(err'*M*err);
 
 if nargin<1
     plotSol(u,25);    
+    plotSol(sqrt((Dx*u).^2 + (Dy*u).^2),25)    
     title(sprintf('N = %d, Nf = %d, err = %d',N, Nf, err))        
 end
 keyboard
