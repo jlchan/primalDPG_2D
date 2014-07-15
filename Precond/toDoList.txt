@@ -17,7 +17,8 @@ results for primal DPG (poisson)
 - fixed point block Jacobi iteration = speeds up GMRES but doesn't save # of global solves
 - fGMRES/fPCG indistinguishable
 
-to try
-- ultra-weak formulation - "exact A" solve, but coupled C solve
+to try/think
+- overlap for hybrid form?
+- ultra-weak formulation - "exact A" solve, but coupled C solve. How to deal?
 - proving convergence of graph norm?
 - proving convergence of hybridized graph norm?
