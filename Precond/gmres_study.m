@@ -16,7 +16,7 @@ grids = {'Maxwell05.neu','Maxwell025.neu','Maxwell0125.neu'};
 grids = {'Maxwell05.neu','Maxwell025.neu'};
 % grids = {'Maxwell00625.neu'};
 % grids = {'Maxwell025.neu'};
-Ntrial = [2 5 6];
+Ntrial = [2 6];
 NpTrials = (Ntrial+1).*(Ntrial+2)/2;
 
 % grids = {'Maxwell1.neu'};
@@ -48,8 +48,7 @@ for i = 1:length(grids)
                 % build true preconditioner
                 AvPre = @(x) Av\x;
                 SPre = @(x) Af\x; % ignore Schur complement...
-            case 'oas'
-                
+            case 'oas'                
                 AvPre = buildOAS_CG(Rp,Av,Ntrial(j));%
 %                 AvPre = @(x) Av\x;
 %                 SPre = @(x) Af\x; % ignore Schur complement...
@@ -80,6 +79,7 @@ for i = 1:length(grids)
         %% Define fixed point iteration precond
         iters = 1;
         Pre = @(x) fixedPoint(x,AvPre,Avf,SPre,ui,mi,iters);
+        
         %% GMRES        
         [U, flag, relres, iter, resvec] = fgmres(A,b,1e-6,100,@(x) Pre(x));
         resVecs{i,j} = resvec;
@@ -106,8 +106,10 @@ function x = fixedPoint(b,Ainv,B,Cinv,I1,I2,iters)
 
 f = b(I1);
 g = b(I2);
-u1 = zeros(length(I1),1);
-u2 = zeros(length(I2),1);
+% u1 = zeros(length(I1),1);
+% u2 = zeros(length(I2),1);
+u1 = f;
+u2 = g;
 for i = 1:iters
     tmp = (b - [B*u2;B'*u1]);
     x = [Ainv(tmp(I1)); Cinv(tmp(I2))];

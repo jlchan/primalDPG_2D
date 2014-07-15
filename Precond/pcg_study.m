@@ -63,7 +63,6 @@ for i = 1:length(grids)
 %                 AvPre = @(x) Av\x;
 %                                     SPre = @(x) Af\x; % ignore Schur complement...
                 SPre = buildOAS_mortar(Af,Nflux(j),fpairs);
-                 
 % S = Af-Avf'*(Av\Avf);SPre = buildOAS_mortar(S,Nflux(j),fpairs);                
 %                 AvPre = @(b) fpcg(Av,b,1e-16, 2, buildOAS_CG(Rp,Av,Ntrial(j)));
 %                 SPre  = @(b) fpcg(Af,b,1e-6, 2, buildOAS_mortar(Af,Nflux(j)));
@@ -103,15 +102,15 @@ for i = 1:length(grids)
         
         %% PCGGGGGGGGGGGGGG
         % [U, flag, relres, iter, resvec] = pcg(A,b,1e-7,250,Pre',Pre);
-        [U, flag, relres, iter, resvec] = fpcg(A,b,1e-6,100,@(x) Pre(x));
+        [U, flag, relres, iter, resvec] = fgmres(A,b,1e-6,100,@(x) Pre(x));
         resVecs{i,j} = resvec;
     end
 end
 
 [m n] = size(resVecs);
 C = hsv(n*m);
-figure
-gcf;semilogy(0,0)
+% figure
+semilogy(0,0)
 for i = 1:m
     for j = 1:n
         semilogy(resVecs{i,j},'.-','color',C((i-1)*n+j,:));
