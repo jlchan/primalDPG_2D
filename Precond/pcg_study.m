@@ -30,7 +30,7 @@ for i = 1:length(grids)
         % for poisson, set b = 0, eps = 1
         b = 0; eps = 1;
 %         b = 1; eps = 0e-6;
-        [A, b, nU, nM, Np, Rp, Irp, M] = primalDPG_confusion(grids{i},Ntrial(j),Ntest(j),Nflux(j),plotFlag,b,eps);        
+        [A, b, nU, nM, Np, Rp, Irp, M, fpairs] = primalDPG_confusion(grids{i},Ntrial(j),Ntest(j),Nflux(j),plotFlag,b,eps);        
         if plotFlag            
             keyboard
             S = Af-Avf'*(Av\Avf);
@@ -60,11 +60,11 @@ for i = 1:length(grids)
                 %                     AvPre = @(x) Rp*(OAS\(Rp'*x));
                 %                     SPre = @(x) S\x;
                 
-%                 AvPre = buildOAS_CG(Rp,Av,Ntrial(j));%
+                AvPre = buildOAS_CG(Rp,Av,Ntrial(j));%
 %                 AvPre = @(x) Av\x;
 %                                     SPre = @(x) Af\x; % ignore Schur complement...
-                SPre = buildOAS_mortar(Af,Nflux(j));
-                AvPre = @(b) fpcg(Av,b,1e-16, 2, buildOAS_CG(Rp,Av,Ntrial(j)));
+                SPre = buildOAS_mortar(Af,Nflux(j),fpairs);
+%                 AvPre = @(b) fpcg(Av,b,1e-16, 2, buildOAS_CG(Rp,Av,Ntrial(j)));
 %                 SPre  = @(b) fpcg(Af,b,1e-6, 2, buildOAS_mortar(Af,Nflux(j)));
 %                 bu = rand(size(Av,1),1); bf = rand(size(Af,1),1);
 %                 [u, flag, relres, iter, resvecu] = fpcg(Av,bu,1e-7,100,@(x) AvPre(x));
@@ -102,15 +102,15 @@ for i = 1:length(grids)
         
         %% PCGGGGGGGGGGGGGG
         % [U, flag, relres, iter, resvec] = pcg(A,b,1e-7,250,Pre',Pre);
-        [U, flag, relres, iter, resvec] = fpcg(A,b,1e-6,100,@(x) Pre(x));
+        [U, flag, relres, iter, resvec] = fgmres(A,b,1e-6,100,@(x) Pre(x));
         resVecs{i,j} = resvec;
     end
 end
 
 [m n] = size(resVecs);
 C = hsv(n*m);
-figure
-gcf;semilogy(0,0)
+% figure
+semilogy(0,0)
 for i = 1:m
     for j = 1:n
         semilogy(resVecs{i,j},'.-','color',C((i-1)*n+j,:));
