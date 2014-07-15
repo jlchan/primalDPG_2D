@@ -22,3 +22,4 @@ to try/think
 - ultra-weak formulation - "exact A" solve, but coupled C solve. How to deal?
 - proving convergence of graph norm?
 - proving convergence of hybridized graph norm?
+ 
