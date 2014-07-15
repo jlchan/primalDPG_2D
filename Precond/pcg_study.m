@@ -30,7 +30,7 @@ for i = 1:length(grids)
         % for poisson, set b = 0, eps = 1
         b = 0; eps = 1;
 %         b = 1; eps = 0e-6;
-        [A, b, nU, nM, Np, Rp, Irp, M] = primalDPG_confusion(grids{i},Ntrial(j),Ntest(j),Nflux(j),plotFlag,b,eps);
+        [A, b, nU, nM, Np, Rp, Irp, M] = primalDPG_confusion(grids{i},Ntrial(j),Ntest(j),Nflux(j),plotFlag,b,eps);        
         if plotFlag            
             keyboard
             S = Af-Avf'*(Av\Avf);

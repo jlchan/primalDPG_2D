@@ -1,5 +1,8 @@
-function [A b nU nM Np Rp Irp, M] = primalDPG_confusion(mesh,Ntrial,Ntest,Nflux,plotFlag,b,epsilon)
+function [A b nU nM Np Rp Irp, M, fpairs] = primalDPG_confusion(mesh,Ntrial,Ntest,Nflux,plotFlag,b,epsilon)
 
+if nargin<8
+    noJacobians = 0;
+end
 Globals2D
 
 N = Ntest;
@@ -26,7 +29,7 @@ f = ones(Np*K,1);
 [Rp Irp vmapBTr xr yr] = pRestrictCG(N,Ntrial); % restrict test to trial space
 Rr = Rp*Irp';
 % Rr = Irp'; warning('discontinuous discretization!')
-[Bhat vmapBF xf yf nxf nyf] = getMortarConstraint(Nflux);
+[Bhat vmapBF xf yf nxf nyf fpairs] = getMortarConstraint(Nflux);
 xf = xf(vmapBF); yf = yf(vmapBF); nxf = nxf(vmapBF);nyf = nyf(vmapBF);
 
 B = BK*Rr';   % form rectangular bilinear form matrix
@@ -108,7 +111,6 @@ else
     plotSol(u,25);    
     title('DPG with fluxes and traces')
 end
-
 
 
 function [Test, Trial] = getVolOp(M,Dx,Dy)
