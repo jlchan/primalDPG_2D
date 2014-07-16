@@ -3,15 +3,15 @@ function err= mortarCG_OAS(N,Nf,mesh)
 
 Globals2D;
 
-useCG = 0;
+useCG = 1;
 
 % Polynomial order used for approximation
 if nargin<1
-    N = 6;  % when N = even, Nf = N-1, fails?
-    Nf = 4;
+    N = 8;  % when N = even, Nf = N-1, fails?
+    Nf = 1;
     %     Read in Mesh
     mesh = 'squarereg.neu';
-    mesh = 'Maxwell025.neu';
+    mesh = 'Maxwell05.neu';
 %         mesh = 'Maxwell1.neu';
     % mesh = 'lshape.neu';
     [Nv, VX, VY, K, EToV] = MeshReaderGambit2D(mesh);
@@ -133,7 +133,7 @@ Ks = Dx'*M*Dx + Dy'*M*Dy;
 
 % Vol = M + Kb + ep*Ks; % Convection-diffusion
 % Vol = M+ 1e-4*Ks + Kb;  % Poisson
-Vol = M + Ks;
+Vol = Ks;
 % Vol = M + Kb;
 
 

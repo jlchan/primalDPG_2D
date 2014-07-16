@@ -8,9 +8,10 @@ end
 
 % build OAS preconditioner algebraically:
 Norderp = (Norder+1)*(Norder+2)/2;
-[rr cc] = find(R); rr = reshape(rr,Norderp,K);cc = reshape(cc,Norderp,K);
+[rr cc] = find(R); 
+rr = reshape(rr,Norderp,K);cc = reshape(cc,Norderp,K);
 
-patches = 1;
+patches = 0;
 if patches
     % build patches around vertices
     vertices = rr([1 Norder+1 Norderp],:);
@@ -19,19 +20,26 @@ if patches
     Ak = cell(Nverts,2);
     for i = 1:length(vnodes)
         [~, elems] = find(vnodes(i)==vertices);
-        inds = unique(rr(:,elems));
+        inds = unique(rr(:,elems));        
         Ak{i,1} = inds;
-        Ak{i,2} = A(inds,inds);               
+        Ak{i,2} = A(inds,inds);          
     end
 else
     % no overlap/face overlap only
     Ak = cell(K,2);
     for k = 1:K
-        %     nbr = unique([k EToE(k,:)]); % face overlap only
-        nbr = k; % no overlap
-        inds = unique(rr(:,nbr));
+        %   elems = unique([k EToE(k,:)]); % face overlap only
+        elems = k; % no overlap
+        inds = unique(rr(:,elems));
         Ak{k,1} = inds;
         Ak{k,2} = A(inds,inds);
+%         if (k==30)
+%             clf;
+%             ti = cc(:,elems);
+%             plotVerts;hold on
+%             plot(x(ti),y(ti),'ro')
+%             keyboard
+%         end
     end
 end
 % coarse grid solver

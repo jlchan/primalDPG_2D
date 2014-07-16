@@ -5,10 +5,25 @@ if nargin<8
 end
 Globals2D
 
-N = Ntest;
-
-% Read in Mesh
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D(mesh);
+if nargin==0
+    [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
+    Nv = 3;
+    VX = VX(EToV(1,:)); VY = VY(EToV(1,:));
+    EToV = [3 1 2];
+    K = 1;
+%     [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
+    
+    Ntrial = 2;
+    N = Ntrial+4; % Ntest
+    Nflux = Ntrial;
+    plotFlag = 1;
+    b = 0; epsilon = 1; % poisson, w/beta = 0
+else
+    N = Ntest;
+    
+    % Read in Mesh
+    [Nv, VX, VY, K, EToV] = MeshReaderGambit2D(mesh);
+end
 
 % Initialize solver and construct grid and metric
 StartUp2D;
@@ -22,6 +37,7 @@ b1 = b; b2 = 0; ep = epsilon;
 [M, Dx, Dy] = getBlockOps();
 [AK, BK] = getVolOp(M,Dx,Dy);
 f = ones(Np*K,1);
+keyboard
 % f = y(:)<=0;
 % f = sin(pi*x(:)).*sin(pi*y(:));
 
@@ -30,6 +46,7 @@ f = ones(Np*K,1);
 Rr = Rp*Irp';
 % Rr = Irp'; warning('discontinuous discretization!')
 [Bhat vmapBF xf yf nxf nyf fpairs] = getMortarConstraint(Nflux);
+xF = xf;yF = yf;
 xf = xf(vmapBF); yf = yf(vmapBF); nxf = nxf(vmapBF);nyf = nyf(vmapBF);
 
 B = BK*Rr';   % form rectangular bilinear form matrix
@@ -103,6 +120,14 @@ b(bci) = U0(bci);
 A(bci,:) = 0; A(:,bci)=0;
 A(bci,bci) = speye(length(bci));
 
+% Pre = buildOAS_primalDPG(Rp,A,Ntrial,Nflux,fpairs,xF,yF,b1,b2);
+% b = rand(nU,1);
+% [U, flag, relres, iter, resvec] = fpcg(A,b,1e-6,100,@(x) Pre(x));
+
+% b = b*0;
+% b(nU + round(nM/2)) = 1;
+% b(round(nU*.9)) = 1;
+% keyboard
 if ~plotFlag
     return
 else
@@ -110,6 +135,7 @@ else
     u = Rr'*U(1:nU);
     plotSol(u,25);    
     title('DPG with fluxes and traces')
+    color_line3(xF,yF,U(nU+(1:nM)),U(nU+(1:nM)),'o')
 end
 
 

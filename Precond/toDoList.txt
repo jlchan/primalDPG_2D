@@ -16,10 +16,7 @@ results for primal DPG (poisson)
 - block Jacobi = cheapest when using both inexact A, C solves
 - fixed point block Jacobi iteration = speeds up GMRES but doesn't save # of global solves
 - fGMRES/fPCG indistinguishable
+- andrew barker/brenner paper on DPG + OAS beats us by 1/2 of the iterations, though both are h/N indep
 
 to try/think
-- overlap for hybrid form?
-- ultra-weak formulation - "exact A" solve, but coupled C solve. How to deal?
-- proving convergence of graph norm?
-- proving convergence of hybridized graph norm?
- 
+- substructuring of solution

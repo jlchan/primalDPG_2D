@@ -88,31 +88,31 @@ if useDD
     DxTr = ITr'*Dx*ITr;
     uh = rand(Nfp,1);
     for k = 1:25
-        %         I1 = find(xTr<1+tol);
-        %         I2 = find(xTr>1-tol);
-        %         A1 = A(I1,I1);
-        %         A2 = A(I2,I2);
+        I1 = find(xTr<1+tol);
+        I2 = find(xTr>1-tol);
+        A1 = A(I1,I1);
+        A2 = A(I2,I2);
         
         I3 = size(A,1)-Nfp+1:size(A,1);
-        %         B1 = A(I1,I3);
-%         B2 = A(I2,I3);
+        B1 = A(I1,I3);
+        B2 = A(I2,I3);
         C = A(I3,I3);
-%         b1 = b(I1)-B1*uh;
-%         b2 = b(I2)-B2*uh;                
-%         u1 = A1\b1;
-%         u2 = A2\b2;
+        b1 = b(I1)-B1*uh;
+        b2 = b(I2)-B2*uh;
+        u1 = A1\b1;
+        u2 = A2\b2;
         A1 = A(1:NpTrK,1:NpTrK);
-        B = A(1:NpTrK,NpTrK + (1:Nfp));        
+        B = A(1:NpTrK,NpTrK + (1:Nfp));
         b1 = b(1:NpTrK);
         u = A1\(b1 - B*uh);
         b3 = b(I3);
         uh = C\(b3 - B'*u);        
         
         % mix
-        iface = I1(ismember(I1,I2));
-        dudx = Reduce*[DxTr*u1; -0*DxTr*u2];
-        a = .5;
-        uh = a*uh + (1-a)*dudx(iface);
+%         iface = I1(ismember(I1,I2));
+%         dudx = Reduce*[DxTr*u1; -0*DxTr*u2];
+%         a = 1;
+%         uh = a*uh + (1-a)*(-dudx(iface));
 
 %         uh = C\(b3 - B1'*u1 - B2'*u2);       
 

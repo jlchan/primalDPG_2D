@@ -38,7 +38,8 @@ for i = 1:length(grids)
         Av = A(ui,ui); Af = A(mi,mi);Avf = A(ui,mi);
         %             
         %             Sx = @(x) Af*x-Avf'*(Av\(Avf*x));
-        precondFlag = 'oas';
+        precondFlag = 'oas_block';
+        precondFlag = 'oasDPG'; 
         switch precondFlag
             case 'ideal'
                 % build true preconditioner
@@ -46,7 +47,7 @@ for i = 1:length(grids)
                 SPre = @(x) Af\x; % ignore Schur complement...
                 %                     SPre = @(x) S\x;
                 %                     SPre = @(x) Mfaces\x;
-            case 'oas'
+            case 'oas_block'
                 %                     % build OAS preconditioner
                 %                     RAv = Rp'*Av*Rp; % expand out to local dofs
                 %                     K = max(size(Rp))/NpTrial;
@@ -66,10 +67,9 @@ for i = 1:length(grids)
 % S = Af-Avf'*(Av\Avf);SPre = buildOAS_mortar(S,Nflux(j),fpairs);                
 %                 AvPre = @(b) fpcg(Av,b,1e-16, 2, buildOAS_CG(Rp,Av,Ntrial(j)));
 %                 SPre  = @(b) fpcg(Af,b,1e-6, 2, buildOAS_mortar(Af,Nflux(j)));
-                bu = rand(size(Av,1),1); bf = rand(size(Af,1),1);
-                [u, flag, relres, iter, resvecu] = fpcg(Av,bu,1e-7,100,@(x) AvPre(x));
-                [f, flag, relres, iter, resvecf] = fpcg(Af,bf,1e-7,100,@(x) SPre(x));
-                keyboard
+%                 bu = rand(size(Av,1),1); bf = rand(size(Af,1),1);
+%                 [u, flag, relres, iter, resvecu] = fpcg(Av,bu,1e-7,100,@(x) AvPre(x));
+%                 [f, flag, relres, iter, resvecf] = fpcg(Af,bf,1e-7,100,@(x) SPre(x));                
             case 'agmg'
                 % use AMG preconditioner
                 levelsAv = agmg_setup(Av);
@@ -88,13 +88,16 @@ for i = 1:length(grids)
             case 'fem-agmg'
                 
         end
-        
-        % build block cholesky bits
-        RTinv = @(x) [x(ui); x(mi) - Avf'*AvPre(x(ui))];
-        Rinv = @(x) [x(ui)-AvPre(Avf*x(mi)); x(mi)];
-        
-        PBlockDiag = @(x) [AvPre(x(1:nU)); SPre(x(mi))];          %[Av zeros(nU,nM);zeros(nM,nU) Af - Avf'*AvPre(Avf)];
-        Pre = @(x) Rinv(PBlockDiag(RTinv(x)));
+        if strcmp(precondFlag,'oasDPG')
+            Pre = buildOAS_primalDPG(Rp,A,Ntrial(j),Nflux(j),fpairs);
+        else
+            % build block cholesky bits
+            RTinv = @(x) [x(ui); x(mi) - Avf'*AvPre(x(ui))];
+            Rinv = @(x) [x(ui)-AvPre(Avf*x(mi)); x(mi)];
+            
+            PBlockDiag = @(x) [AvPre(x(1:nU)); SPre(x(mi))];          %[Av zeros(nU,nM);zeros(nM,nU) Af - Avf'*AvPre(Avf)];
+            Pre = @(x) Rinv(PBlockDiag(RTinv(x)));
+        end
         %             Pre = @(x) PBlockDiag(x);
         %             keyboard
         %             nIter = 3;
