@@ -1,10 +1,11 @@
 function mortarTestNorm
 
 Globals2D;
+FaceGlobals2D
 
-N = 3; % when N = even, Nf = N-1, fails?
-Nf = 1;
-Nfdiv = 2;
+N = 4; % when N = even, Nf = N-1, fails?
+Nf = 2; % = N trial
+Nt = 3; % = 
 %     Read in Mesh
 [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
 %     Nv = 3;
@@ -15,7 +16,7 @@ Nfdiv = 2;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 
 % Initialize solver and construct grid and metric
-StartUp2D;
+StartUp2D;FaceStartUp2D
 
 [M, Dx, Dy] = getBlockOps();
 Div = [Dx Dy];
@@ -27,18 +28,18 @@ Adj_h = [I2 Grad;
          Div O];
      
 M3 = blkdiag(M2,M);
-RV = Adj_h'*M3*Adj_h + 1e-0*blkdiag(M,M,M); % regularize on v
+RV = Adj_h'*M3*Adj_h + blkdiag(M,M,M); % regularize on v
 f = ones(Np*K,1);
 ftau = 0*[f;f];
 fv = f;
 b = Adj_h'*M3*[ftau;fv];
 
-[Btau vmapBFd xfd yfd nxfd nyfd] = getMortarConstraintDiv(Nfdiv);
-xfdb = xfd(vmapBFd);yfdb = yfd(vmapBFd);
-Btau(vmapBFd(abs(1-xfdb.^2)<NODETOL | abs(1-yfdb.^2) < NODETOL),:) = []; %remove constraints for fluxes
-[Bv vmapBF xf yf nxf nyf] = getMortarConstraint(Nf);
-xfb = xf(vmapBF);yfb = yf(vmapBF);
-nxf = nxf(vmapBF);nyf = nyf(vmapBF);
+Btau = getMortarConstraintDiv();
+% fmapBd = fmapB;xfd = xf;yfd = yf; 
+xtb = xt(tmapB);ytb = yt(tmapB);
+
+Btau(tmapB(abs(1-xtb.^2)<NODETOL | abs(1-ytb.^2) < NODETOL),:) = []; %remove constraints for fluxes
+Bv = getMortarConstraint();
 
 [mtau ntau] = size(Btau);
 [mv nv] = size(Bv);
