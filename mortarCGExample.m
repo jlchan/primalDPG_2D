@@ -1,6 +1,7 @@
 function err=mortarCGExample(N,Nf,mesh)
 
 Globals2D;
+FaceGlobals2D
 
 % Polynomial order used for approximation 
 if nargin<1
@@ -22,6 +23,7 @@ end
 
 % Initialize solver and construct grid and metric
 StartUp2D;
+FaceStartUp2D
 
 [M, Dx, Dy] = getBlockOps();
 A = getVolOp(M,Dx,Dy);
@@ -51,13 +53,12 @@ if useCG
     u = R'*u;
 
 else
-%     [B, vmapBF, xfb, yfb, nxf, nyf fmap xf yf] = getMortarConstraint(Nf);    
-    [B vmapBF xf yf nxf nyf fpairs] = getMortarConstraint(Nf);        
+    B = getMortarConstraint();        
     
-    xfb = xf(vmapBF);yfb = yf(vmapBF);
-    nxf = nxf(vmapBF);nyf = nyf(vmapBF);        
-    nU = size(B,2); % num CG nodes
-    nM = size(B,1); % num mortar nodes
+%     xfb = xf(fmapB);yfb = yf(fmapB);
+%     nxf = nxf(fmapB);nyf = nyf(fmapB);        
+    nU = Np*K; % num CG nodes
+    nM = Nfrp*NfacesU; % num mortar nodes
     O = sparse(nM,nM);     
     Am = [A B';B O];
     
@@ -77,7 +78,6 @@ if nargin<1
     plotSol(sqrt((Dx*u).^2 + (Dy*u).^2),25)    
     title(sprintf('N = %d, Nf = %d, err = %d',N, Nf, err))        
 end
-keyboard
 
 function Vol = getVolOp(M,Dx,Dy)
 

@@ -1,11 +1,12 @@
-function primalDPG
+function primalDPG_confusion
 
 Globals2D
+FaceGlobals2D;
 
 % Polynomial order used for approximation
 Ntrial = 3;
 Ntest = Ntrial + 2;
-Nflux = Ntrial;
+Nf = Ntrial;
 
 N = Ntest;
 
@@ -21,7 +22,7 @@ N = Ntest;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('backdrop1.neu');
 
 % Initialize solver and construct grid and metric
-StartUp2D;
+StartUp2D;FaceStartUp2D
 
 global b1
 global b2
@@ -38,8 +39,8 @@ f = 0*ones(Np*K,1);
 [R vmapBT] = getCGRestriction();
 [Rp Irp vmapBTr xr yr] = pRestrictCG(N,Ntrial); % restrict test to trial space
 Rr = Rp*Irp';
-[Bhat vmapBF xf yf nxf nyf] = getMortarConstraint(Nflux);
-xf = xf(vmapBF); yf = yf(vmapBF); nxf = nxf(vmapBF);nyf = nyf(vmapBF);
+Bhat = getMortarConstraint();
+xfb = xf(fmapB); yfb = yf(fmapB); nxfb = nxf(fmapB);nyfb = nyf(fmapB);
 
 B = BK*Rr';   % form rectangular bilinear form matrix
 % B = BK;
@@ -87,9 +88,9 @@ u0 = zeros(size(B,2),1);
 
 % BCs on flux
 uh0 = zeros(nM,1);
-bnf = nxf*b1 + nyf*b2; % beta_n, determines inflow vs outflow
+bnf = nxfb*b1 + nyfb*b2; % beta_n, determines inflow vs outflow
 bmaskf = (bnf < NODETOL); % inflow = beta_n < 0
-uh0(vmapBF) = bnf.*(yf<0).*(1+yf);  % BC data on flux = bn*u - eps*du/dn
+uh0(fmapB) = bnf.*(yfb<0).*(1+yfb);  % BC data on flux = bn*u - eps*du/dn
 
 U0 = [u0;uh0];
 
@@ -105,10 +106,10 @@ A(vmapBTr,vmapBTr) = speye(length(vmapBTr));
 
 % homogeneous BCs on V are implied by mortars.
 % BCs on mortars removes BCs on test functions.
-vmapBF(bmaskf) = []; % do 0 Neumann outflow BCs on test fxns
+fmapB(bmaskf) = []; % do 0 Neumann outflow BCs on test fxns
 
-bci = nU + vmapBF; % skip over u dofs
-b(bci) = uh0(vmapBF);
+bci = nU + fmapB; % skip over u dofs
+b(bci) = uh0(fmapB);
 A(bci,:) = 0; A(:,bci)=0;
 A(bci,bci) = speye(length(bci));
 

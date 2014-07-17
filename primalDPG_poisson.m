@@ -1,11 +1,12 @@
 function primalDPG_poisson
 
 Globals2D
+FaceGlobals2D
 
 % Polynomial order used for approximation
 Ntrial = 2;
 Ntest = Ntrial+2;
-Nflux = Ntrial-1;
+Nf = Ntrial-1;
 
 N = Ntest;
 
@@ -19,7 +20,7 @@ N = Ntest;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 
 % Initialize solver and construct grid and metric
-StartUp2D;
+StartUp2D;FaceStartUp2D
 
 % get block operators
 [M, Dx, Dy] = getBlockOps();
@@ -30,8 +31,8 @@ b = M*f;
 %[R vmapBT] = getCGRestriction();
 [Rp Irp vmapBTr xr yr] = pRestrictCG(Ntest,Ntrial); % restrict test to trial space
 Rr = Rp*Irp';
-[Bhat vmapBF xf yf nxf nyf] = getMortarConstraint(Nflux);
-xfB = xf(vmapBF); yfB = yf(vmapBF); nxf = nxf(vmapBF);nyf = nyf(vmapBF);
+Bhat = getMortarConstraint();
+xfB = xf(fmapB); yfB = yf(fmapB); nxf = nxf(fmapB);nyf = nyf(fmapB);
 
 B = BK*Rr';   % form rectangular bilinear form matrix
 
@@ -94,7 +95,7 @@ bot = yr < -1+NODETOL;
 uh0 = zeros(nM,1); 
 leftf = xfB < -1+NODETOL; % right boundary
 rightf = xfB > 1-NODETOL; % right boundary
-uh0(vmapBF) = -rightf.*nxf.*((yfB<=0) - (yfB>0));  % BC data on -du/dn
+uh0(fmapB) = -rightf.*nxf.*((yfB<=0) - (yfB>0));  % BC data on -du/dn
 topf = yfB > 1-NODETOL;
 botf = yfB < -1+NODETOL;
 U0 = [u0;uh0];
@@ -109,33 +110,13 @@ A(vmapBTr,vmapBTr) = speye(length(vmapBTr));
 
 % homogeneous BCs on V are implied by mortars.
 % BCs on mortars removes BCs on test functions.
-vmapBF(leftf) = [];
-% vmapBF = [];
-bci = nU + vmapBF; % skip over u dofs
-b(bci) = uh0(vmapBF);
+fmapB(leftf) = [];
+% fmapB = [];
+bci = nU + fmapB; % skip over u dofs
+b(bci) = uh0(fmapB);
 A(bci,:) = 0; A(:,bci)=0;
 A(bci,bci) = speye(length(bci));
 
-useDD = 0;
-if useDD
-    uh = zeros(nM,1);
-    for k = 1:25
-        I1 = 1:nU;
-        I2 = nU + (1:nM);
-        A1 = A(I1,I1);
-        B = A(I1,I2);
-        C = A(I2,I2);
-        b1 = b(I1);
-        b2 = b(I2);
-        u = A1\(b1-B*uh);
-        uh = C\(b2-B'*u);
-        u = Rr'*u;
-        % Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot);
-        plotSol(u,25);
-        title(['k = ' num2str(k)])
-        pause        
-    end      
-end
 U = A\b;
 u = Rr'*U(1:nU);
 % uhat = U(nU+(1:nM));
