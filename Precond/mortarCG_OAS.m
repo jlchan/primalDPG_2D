@@ -2,13 +2,14 @@ function err= mortarCG_OAS(N,Nf,mesh)
 %function mortarCG_OAS
 
 Globals2D;
+FaceGlobals2D
 
-useCG = 1;
+useCG = 0;
 
 % Polynomial order used for approximation
-if nargin<1
+if nargin<3
     N = 8;  % when N = even, Nf = N-1, fails?
-    Nf = 1;
+    Nf = 6;
     %     Read in Mesh
     mesh = 'squarereg.neu';
     mesh = 'Maxwell05.neu';
@@ -16,14 +17,12 @@ if nargin<1
     % mesh = 'lshape.neu';
     [Nv, VX, VY, K, EToV] = MeshReaderGambit2D(mesh);
     %Nv = 3; VX = VX(EToV(1,:)); VY = VY(EToV(1,:)); EToV = [3 1 2]; K = 1;
-    
-else
-    [Nv, VX, VY, K, EToV] = MeshReaderGambit2D(mesh);
 end
+    [Nv, VX, VY, K, EToV] = MeshReaderGambit2D(mesh);
 
 
 % Initialize solver and construct grid and metric
-StartUp2D;
+StartUp2D;FaceStartUp2D
 
 [M, Dx, Dy] = getBlockOps();
 AK = getVolOp(M,Dx,Dy);
@@ -63,13 +62,12 @@ if useCG
     
     u = R'*u;
 else
-    %     [B, vmapBF, xfb, yfb, nxf, nyf fmap xf yf] = getMortarConstraint(Nf);
-    [B vmapBF xf yf nxf nyf fpairs] = getMortarConstraint(Nf);
+    B = getMortarConstraint();
     
-    xfb = xf(vmapBF);yfb = yf(vmapBF);
-    nxf = nxf(vmapBF);nyf = nyf(vmapBF);
-    nU = size(B,2); % num CG nodes
-    nM = size(B,1); % num mortar nodes
+    xfb = xf(fmapB);yfb = yf(fmapB);
+    nxf = nxf(fmapB);nyf = nyf(fmapB);
+    nU = Np*K; % num CG nodes
+    nM = Nfrp*NfacesU; % num mortar nodes
     O = sparse(nM,nM);
     Am = [AK B';B O];
     b = M*f;
@@ -78,13 +76,16 @@ else
     % homogeneous BCs on V are implied by mortars.
     % BCs on mortars removes BCs on test functions.    
     bmaskf = (xfb < -1 + NODETOL) & (nxf < -NODETOL);
-    vmapBF(~bmaskf) = [];         
+    fmapB(~bmaskf) = [];         
 
-    bci = nU + vmapBF; % skip over u dofs
+    bci = nU + fmapB; % skip over u dofs
     bm(bci) = 0;
     Am(bci,:) = 0; Am(:,bci)=0;
     Am(bci,bci) = speye(length(bci));
 
+%     U = Am\bm;
+%     u = U(1:nU);
+    
     C = Am(nU + (1:nM),nU + (1:nM));
     B = Am(nU + (1:nM),1:nU);
     AK = Am(1:nU,1:nU);
@@ -98,13 +99,14 @@ else
     
     S = C-B*(AK\B'); bS = c-B*(AK\b);
 
-    Pre = buildOAS_mortar(S,Nf,fpairs);
+    Pre = buildOAS_mortar(S);
     %     levels1 = agmg_setup(S1);
     %     [x flag relres iter resvec1] = agmg_solve(levels1, bS1, 50, 1e-6);
     %     semilogy(resvec1,'.-')
     %     keyboard
     
     [f, flag, relres, iter, resvec] = pcg(-S,-bS,1e-6,75,@(x) Pre(x));
+    
     %[f, flag, relres, iter, resvec] = pcg(S,bS,1e-6,75,@(x) OAS(x,Sf,Sfi) + P1(x));
     %     [f, flag, relres, iter, resvec] = gmres(S,bS,[],1e-6,50,@(x) OAS(x,Sf,Sfi) + P1(x));
     semilogy(resvec,'r.-');    hold on
@@ -133,7 +135,7 @@ Ks = Dx'*M*Dx + Dy'*M*Dy;
 
 % Vol = M + Kb + ep*Ks; % Convection-diffusion
 % Vol = M+ 1e-4*Ks + Kb;  % Poisson
-Vol = Ks;
+Vol = M + Ks;
 % Vol = M + Kb;
 
 

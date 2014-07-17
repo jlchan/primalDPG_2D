@@ -4,6 +4,7 @@ if nargin<8
     noJacobians = 0;
 end
 Globals2D
+FaceGlobals2D
 
 if nargin==0
     [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
@@ -11,22 +12,23 @@ if nargin==0
     VX = VX(EToV(1,:)); VY = VY(EToV(1,:));
     EToV = [3 1 2];
     K = 1;
-%     [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
+    [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
     
     Ntrial = 2;
     N = Ntrial+4; % Ntest
-    Nflux = Ntrial;
+    Nf = Ntrial;
     plotFlag = 1;
     b = 0; epsilon = 1; % poisson, w/beta = 0
 else
     N = Ntest;
-    
+    Nf = Nflux;
+
     % Read in Mesh
     [Nv, VX, VY, K, EToV] = MeshReaderGambit2D(mesh);
 end
 
 % Initialize solver and construct grid and metric
-StartUp2D;
+StartUp2D;FaceStartUp2D
 
 global b1
 global b2
@@ -37,7 +39,7 @@ b1 = b; b2 = 0; ep = epsilon;
 [M, Dx, Dy] = getBlockOps();
 [AK, BK] = getVolOp(M,Dx,Dy);
 f = ones(Np*K,1);
-keyboard
+
 % f = y(:)<=0;
 % f = sin(pi*x(:)).*sin(pi*y(:));
 
@@ -45,9 +47,8 @@ keyboard
 [Rp Irp vmapBTr xr yr] = pRestrictCG(N,Ntrial); % restrict test to trial space
 Rr = Rp*Irp';
 % Rr = Irp'; warning('discontinuous discretization!')
-[Bhat vmapBF xf yf nxf nyf fpairs] = getMortarConstraint(Nflux);
-xF = xf;yF = yf;
-xf = xf(vmapBF); yf = yf(vmapBF); nxf = nxf(vmapBF);nyf = nyf(vmapBF);
+Bhat = getMortarConstraint();
+xfb = xf(fmapB); yfb = yf(fmapB); nxfb = nxf(fmapB);nyfb = nyf(fmapB);
 
 B = BK*Rr';   % form rectangular bilinear form matrix
 % B = BK;
@@ -95,9 +96,9 @@ u0 = zeros(size(B,2),1);
 
 % BCs on flux
 uh0 = zeros(nM,1);
-bnf = nxf*b1 + nyf*b2; % beta_n, determines inflow vs outflow
-bmaskf = xf < -1 + NODETOL & nxf < -NODETOL; %(bnf < NODETOL); % inflow = beta_n < 0
-uh0(vmapBF) = bnf.*(yf<0).*(1+yf);  % BC data on flux = bn*u - eps*du/dn
+bnf = nxfb*b1 + nyfb*b2; % beta_n, determines inflow vs outflow
+bmaskf = xfb < -1 + NODETOL & nxfb < -NODETOL; %(bnf < NODETOL); % inflow = beta_n < 0
+uh0(fmapB) = bnf.*(yfb<0).*(1+yfb);  % BC data on flux = bn*u - eps*du/dn
 
 U0 = [u0;uh0];
 
@@ -113,14 +114,14 @@ A(vmapBTr,vmapBTr) = speye(length(vmapBTr));
 
 % homogeneous BCs on V are implied by mortars.
 % BCs on mortars removes BCs on test functions.
-vmapBF(~bmaskf) = []; % do 0 Neumann outflow BCs on test fxns
+fmapB(~bmaskf) = []; % do 0 Neumann outflow BCs on test fxns
 
-bci = nU + vmapBF; % skip over u dofs
+bci = nU + fmapB; % skip over u dofs
 b(bci) = U0(bci);
 A(bci,:) = 0; A(:,bci)=0;
 A(bci,bci) = speye(length(bci));
 
-% Pre = buildOAS_primalDPG(Rp,A,Ntrial,Nflux,fpairs,xF,yF,b1,b2);
+% Pre = buildOAS_primalDPG(Rp,A,Ntrial,Nf,fpairs,xF,yF,b1,b2);
 % b = rand(nU,1);
 % [U, flag, relres, iter, resvec] = fpcg(A,b,1e-6,100,@(x) Pre(x));
 
@@ -135,7 +136,7 @@ else
     u = Rr'*U(1:nU);
     plotSol(u,25);    
     title('DPG with fluxes and traces')
-    color_line3(xF,yF,U(nU+(1:nM)),U(nU+(1:nM)),'o')
+%     color_line3(xF,yF,U(nU+(1:nM)),U(nU+(1:nM)),'o')
 end
 
 
