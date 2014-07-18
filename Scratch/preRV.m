@@ -1,12 +1,13 @@
 Globals2D
 addpath('../Precond')
+[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squareireg.neu');
 [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell00625.neu');
 % Nv = 3;
 % VX = VX(EToV(1,:)); VY = VY(EToV(1,:));
 % EToV = [3 1 2];
 % K = 1;
 
-Nvec = 3:6;
+Nvec = 3:8;
 kvec = randperm(K);
 kvec = kvec(1:5);
 
@@ -24,7 +25,18 @@ for N = Nvec; % Ntest
     % mass matrix
     MK = MassMatrix;
     GradK = [Dr;Ds]; M2K = blkdiag(MK,MK);
+    AK = GradK'*blkdiag(MK,MK)*GradK;
+    e = ones(Np,1)/Np;
+    %     [U S V] = svd(AK);r = nnz(diag(S)>1e-8);
+    %     U = U(:,1:r); D = S(1:r,1:r);
+    %     P = inv(MK) - inv(MK)*U*inv(diag(1./diag(D)) + U'*inv(MK)*U)*U'*inv(MK);
+    %     keyboard
+    %     P = eye(size(AK));
+    %     Pre = @(x) P*x;
+%         Pre = @(x,h) (1/h)*MK\x + h*inv(V)'*pinv(V'*AK*V)*inv(V)*x;
     
+%     Pre = @(x,h) (1/h)*MK\x + h*(1e-3*MK + GradK'*M2K*GradK)\x;
+    Pre = @(x,h) (1/h)*MK\x + h*(GradK'*M2K*GradK + e*e')\x;
     for k = kvec
         inds = (k-1)*Np+(1:Np);
         M = Mh(inds,inds);Dx = Dxh(inds,inds);Dy = Dyh(inds,inds);
@@ -35,8 +47,7 @@ for N = Nvec; % Ntest
         
         h = J(1,k); % assumes affine
         b = rand(size(RV,1),1);
-        Pre = @(x) (1/h)*MK\x + h*(MK + GradK'*M2K*GradK)\x;
-        [U, flag, relres, iter, resvec] = pcg(RV,b,1e-7,50,Pre);
+        [U, flag, relres, iter, resvec] = pcg(RV,b,1e-7,50,@(x) Pre(x,h));
         semilogy(resvec,'.-','color',C(i,:));hold on
         i = i+1;
     end
