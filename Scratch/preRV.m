@@ -6,13 +6,14 @@ addpath('../Precond')
 % EToV = [3 1 2];
 % K = 1;
 
-Nvec = 3:6;
+Nvec = [3 6 9];
 kvec = randperm(K);
-kvec = kvec(1:5);
+kvec = kvec(1:3);
 
 Nchoices = length(Nvec)*length(kvec);
 C = hsv(Nchoices);
 i = 1;
+leg = {};
 for N = Nvec; % Ntest
     
     % Initialize solver and construct grid and metric
@@ -35,9 +36,13 @@ for N = Nvec; % Ntest
         
         h = J(1,k); % assumes affine
         b = rand(size(RV,1),1);
-        Pre = @(x) (1/h)*MK\x + h*(MK + GradK'*M2K*GradK)\x;
+        Pre = @(x) 1/h*MK\x + h*(MK + GradK'*M2K*GradK)\x;
+%         Pre = @(x) x./(h*diag(MK) + 1/h*diag(GradK'*M2K*GradK));        
         [U, flag, relres, iter, resvec] = pcg(RV,b,1e-7,50,Pre);
         semilogy(resvec,'.-','color',C(i,:));hold on
+        leg{i} = ['Matrix size ', num2str(size(RV,1))];
         i = i+1;
     end
 end
+
+legend(leg)
