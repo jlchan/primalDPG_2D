@@ -3,7 +3,7 @@
 
 function iA = spai(A,tol)
 
-[m n] = size(A);
+[m, n] = size(A);
 iA = sparse(m,n);
 for k = 1:n % assume all diags nonzero   
     J = k; % start initial sparsity = diagonal
@@ -12,9 +12,8 @@ for k = 1:n % assume all diags nonzero
     r = A(:,k)*mk - e;    
     r2 = r'*r;
     % add more indices 
-    while r2 > tol*tol
-        L = find(r);
-        [~, Jh] = find(A(L,:));                
+    while r2 > tol*tol        
+        [~, Jh] = find(A(abs(r)> 10*eps,:));                
         Jh = setdiff(unique(Jh),J); 
         
         % find new indices by optimizing over residual reduction
@@ -22,9 +21,10 @@ for k = 1:n % assume all diags nonzero
         rho = zeros(length(Jh),1);
         for j = 1:length(Jh)
             rho(j) = r2 - (rTAej(j)/norm(A(:,Jh(j))))^2;
-        end        
-        i = find(abs(rho-min(rho)) < 1e-8);
-        J = unique([J;Jh(i(:))]);
+        end                        
+        newJ = Jh(abs(rho-min(rho)) < 1e-8);        
+        J = [J;newJ(:)];
+        J = unique(J);
         
         mk = A(:,J)\e;
         r = A(:,J)*mk - e; 
