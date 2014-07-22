@@ -18,7 +18,7 @@ cW = cW(:);
 cV = InterpMatrixuad2D(cR, cS);
   
 % 1.2 Evaluate derivatives of Lagrange interpolants at cubature nodes
-[cDr,cDs] = DmatricesQuad2D(N, cR, cS, V);
+[cDr,cDs] = Dmatrices2D(N, cR, cS, V);
 
 % differentiate coordinates
 xr = Dr*x; yr = Dr*y;

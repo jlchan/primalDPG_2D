@@ -8,7 +8,7 @@ function [F] = BuildOverlap2D()
   r = JacobiGL(0, 0, N)*ones(1,N+1);
   s = r';
   r = r(:); s = s(:);
-  V = VandermondeQuad2D(N, r, s);
+  V = Vandermonde2D(N, r, s);
   
   tol = 1e-13;
 

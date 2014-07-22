@@ -1,4 +1,4 @@
-function [Vr, Vs] = VandermondeQuad2D(N, r, s)
+function [Vr, Vs] = GradVandermonde2D(N, r, s)
 
   sk = 1;
   Vr = zeros(length(r), (N+1)*(N+1));

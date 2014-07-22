@@ -1,4 +1,4 @@
-function V = VandermondeQuad2D(N, r, s)
+function V = Vandermonde2D(N, r, s)
 
   sk = 1;
   V = zeros(length(r), (N+1)*(N+1));

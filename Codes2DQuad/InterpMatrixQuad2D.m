@@ -6,7 +6,7 @@ function [IM] = InterpMatrix2D(rout, sout)
 Globals2D;
  
 % compute Vandermonde at (rout,sout)
-Vout = VandermondeQuad2D(N, rout, sout);
+Vout = Vandermonde2D(N, rout, sout);
 
 % build interpolation matrix (Interp = Vout*inv(V) => Interp*V*V' = Vout*V' => Interp = Vout*V'/(V*V')
 IM = Vout/V;

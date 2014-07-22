@@ -11,10 +11,10 @@ face1r =  gauss.z;         face2r =  ones(NGauss,1); face3r = -gauss.z;         
 face1s = -ones(NGauss, 1); face2s =  gauss.z;        face3s =  ones(NGauss, 1);   face4s = -gauss.z;
 
 gauss.finterp = zeros(NGauss,Np,Nfaces);
-V1 = VandermondeQuad2D(N, face1r, face1s);   gauss.finterp(:,:,1) = V1*invV;
-V2 = VandermondeQuad2D(N, face2r, face2s);   gauss.finterp(:,:,2) = V2*invV;
-V3 = VandermondeQuad2D(N, face3r, face3s);   gauss.finterp(:,:,3) = V3*invV;
-V4 = VandermondeQuad2D(N, face4r, face4s);   gauss.finterp(:,:,4) = V4*invV;
+V1 = Vandermonde2D(N, face1r, face1s);   gauss.finterp(:,:,1) = V1*invV;
+V2 = Vandermonde2D(N, face2r, face2s);   gauss.finterp(:,:,2) = V2*invV;
+V3 = Vandermonde2D(N, face3r, face3s);   gauss.finterp(:,:,3) = V3*invV;
+V4 = Vandermonde2D(N, face4r, face4s);   gauss.finterp(:,:,4) = V4*invV;
 
 gauss.interp = [gauss.finterp(:,:,1); gauss.finterp(:,:,2); gauss.finterp(:,:,3);gauss.finterp(:,:,4)];
 gauss.mapM = reshape(1:NGauss*Nfaces*K, NGauss*Nfaces, K);		    

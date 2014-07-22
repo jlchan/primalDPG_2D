@@ -13,11 +13,11 @@ s = r';
 r = r(:); s = s(:);
 
 % Build reference element matrices
-V = VandermondeQuad2D(N,r,s);
+V = Vandermonde2D(N,r,s);
 invV = inv(V);
 
 % MassMatrix = invV'*invV;
-[Dr,Ds] = DmatricesQuad2D(N, r, s, V);
+[Dr,Ds] = Dmatrices2D(N, r, s, V);
 
 % build coordinates of all the nodes
 va = EToV(:,1)'; vb = EToV(:,2)'; 
