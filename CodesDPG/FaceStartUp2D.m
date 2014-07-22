@@ -32,6 +32,9 @@ fmapB = fmapB(:);
 
 %% set up trace data - discontinuous for now
 if exist('Nt')
+    Nt = [];
+end
+if ~isempty(Nt)   
    Ntrp = Nt+1;
    
    % get flux ids on boundaries
