@@ -15,7 +15,7 @@ N = 4;
 % [Nv, VX, VY, K, EToV] = MeshToQuad2D();
 
 % [Nv, VX, VY, K, EToV] = MakeQuads2D(1);
-[Nv, VX, VY, K, EToV] = QuadMesh2D(8);
+[Nv, VX, VY, K, EToV] = QuadMesh2D(16);
 StartUpQuad2D;
 
 EQ = sin(pi*x).*sin(pi*y);
@@ -27,3 +27,4 @@ FinalTime = 1;
 HQ = 0*rand(Np, K, 2);
 EQ = exp(-30*(x.^2+y.^2));% +.1*rand(Np, K);
 [HQ, EQ] = MaxwellQuadBasic2D(HQ, EQ, FinalTime);
+

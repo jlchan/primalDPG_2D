@@ -1,4 +1,4 @@
-function [HQ,EQ,time] = Maxwell2D(HQ, EQ, FinalTime)
+function [HQ,EQ,time] = MaxwellQuadBasic2D(HQ, EQ, FinalTime)
 
 % function [HQ,EQ] = Maxwell2D(HQ, EQ, FinalTime)
 % Purpose  : Integrate TM-mode Maxwell's until FinalTime starting with
@@ -37,9 +37,9 @@ while (time<FinalTime)
    time = time+dt;
 
    tstep = tstep+1;
-   if(mod(tstep, 4)==0)
-     tstep
+   if(mod(tstep, 4)==0)     
      PlotFieldQuad2D(N, x, y, EQ); axis([-1 1 -1 1 -1 1])
+     title(['t = ', num2str(time)])
      drawnow; pause(.01);
    end
  end

@@ -8,7 +8,7 @@ Nv = Nxp*Nyp;
 K = Nx*Ny;
 
 x1D = linspace(-1,1,Nxp);
-[x y] = meshgrid(x1D);
+[y x] = meshgrid(x1D);
 [I J] = meshgrid(1:Nxp);
 inds = (I-1)*Ny + (J+I-1);
 EToV = zeros(K,4);
