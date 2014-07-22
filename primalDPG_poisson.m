@@ -15,7 +15,8 @@ N = Ntest;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squareireg.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
+[Nv, VX, VY, K, EToV] = QuadMesh2D(4);
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 
