@@ -6,18 +6,13 @@ global Dr Ds LIFT MassMatrix
 global Fx Fy nx ny jac Fscale J
 global vmapM vmapP vmapB mapB Fmask
 global BCType mapI mapO mapW mapF mapC mapS mapM mapP mapD mapN
-%global vmapI vmapO vmapW vmapO vmapC vmapS vmapD vmapN
 global rx ry sx sy J sJ
 global Nfaces EToE EToF EToV
-
-global rk4a rk4b rk4c
 global V invV
 global x y NODETOL VX VY
+global gauss
 
-% Some curved mesh and cubature quadrature specific data
-% global cub gauss straight curved
-
-In = 1; Out = 2; Wall = 3; Far = 4; Cyl = 5; Dirichlet = 6; Neuman = 7; Slip = 8;
+global rk4a rk4b rk4c
 
 % Low storage Runge-Kutta coefficients
 rk4a = [            0.0 ...
@@ -34,5 +29,9 @@ rk4c = [             0.0  ...
          1432997174477.0/9575080441755.0 ...
          2526269341429.0/6820363962896.0 ...
          2006345519317.0/3224310063776.0 ...
-         2802321613138.0/2924317926251.0]; 
+         2802321613138.0/2924317926251.0 ...
+                     1.0];
+
+
+
 
