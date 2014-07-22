@@ -7,13 +7,14 @@ addpath('../Precond')
 % EToV = [3 1 2];
 % K = 1;
 
-Nvec = [3 4 10 16];
+Nvec = [3 6 9];
 kvec = randperm(K);
 kvec = kvec(1:3);
 
 Nchoices = length(Nvec)*length(kvec);
 C = hsv(Nchoices);
 i = 1;
+leg = {};
 for N = Nvec; % Ntest
     
     % Initialize solver and construct grid and metric
@@ -55,6 +56,9 @@ for N = Nvec; % Ntest
         b = rand(size(RV,1),1);
         [U, flag, relres, iter, resvec] = pcg(RV,b,1e-7,50,@(x) Pre(x,h));
         semilogy(resvec,'.-','color',C(i,:));hold on
+        leg{i} = ['Matrix size ', num2str(size(RV,1))];
         i = i+1;
     end
 end
+
+legend(leg)

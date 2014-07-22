@@ -20,3 +20,4 @@ results for primal DPG (poisson)
 
 to try/think
 - substructuring of solution
+- memory/operation time efficient DPG implementations

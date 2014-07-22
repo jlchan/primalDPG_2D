@@ -20,7 +20,7 @@ N = Ntest;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 
 % Initialize solver and construct grid and metric
-StartUp2D;FaceStartUp2D
+StartUp2D;FaceStartUp2D 
 
 % get block operators
 [M, Dx, Dy] = getBlockOps();
@@ -127,7 +127,6 @@ u = Rr'*U(1:nU);
 plotSol(u,25)
 title('DPG with fluxes and traces')
 
-keyboard
 
 function [Test, Trial] = getVolOp(M,Dx,Dy)
 

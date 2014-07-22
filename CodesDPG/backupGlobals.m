@@ -16,7 +16,7 @@ if saveFlag
     a.s = s;
     a.Dr = Dr;
     a.Ds = Ds;
-    if 1
+    if 0
         a.LIFT =LIFT;
         a.Drw = Drw;
         A.Dsw=Dsw;
