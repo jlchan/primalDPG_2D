@@ -1,4 +1,4 @@
-function [rhsHQ, rhsEQ] = MaxwellRHS2D(refc, HQ,EQ)
+function [rhsHQ, rhsEQ] = MaxwellQuadBasicRHS2D(refc, HQ,EQ)
 
   % function [rhsHQ, rhsEQ] = MaxwellRHS2D(refc, HQ,EQ)
 % Purpose  : Evaluate RHS flux in 2D Maxwell TM form 
