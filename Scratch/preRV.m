@@ -7,9 +7,9 @@ addpath('../Precond')
 % EToV = [3 1 2];
 % K = 1;
 
-Nvec = 3:8;
+Nvec = [3 4 10 16];
 kvec = randperm(K);
-kvec = kvec(1:5);
+kvec = kvec(1:3);
 
 Nchoices = length(Nvec)*length(kvec);
 C = hsv(Nchoices);
@@ -25,21 +25,27 @@ for N = Nvec; % Ntest
     % mass matrix
     MK = MassMatrix;
     GradK = [Dr;Ds]; M2K = blkdiag(MK,MK);
-    AK = GradK'*blkdiag(MK,MK)*GradK;
-    e = ones(Np,1)/Np;
-    %     [U S V] = svd(AK);r = nnz(diag(S)>1e-8);
-    %     U = U(:,1:r); D = S(1:r,1:r);
-    %     P = inv(MK) - inv(MK)*U*inv(diag(1./diag(D)) + U'*inv(MK)*U)*U'*inv(MK);
-    %     keyboard
-    %     P = eye(size(AK));
-    %     Pre = @(x) P*x;
-%         Pre = @(x,h) (1/h)*MK\x + h*inv(V)'*pinv(V'*AK*V)*inv(V)*x;
-    
-%     Pre = @(x,h) (1/h)*MK\x + h*(1e-3*MK + GradK'*M2K*GradK)\x;
-    Pre = @(x,h) (1/h)*MK\x + h*(GradK'*M2K*GradK + e*e')\x;
+    AK = GradK'*M2K*GradK;
+    %     e = ones(Np,1)/Np;
+    [U S V] = svd(AK);r = nnz(diag(S)>1e-8);
+    Z = U(:,r+1:end);
+    Pre = @(x,h) (1/h)*MK\x + h*(AK + Z*Z')\x;
+
+            
     for k = kvec
         inds = (k-1)*Np+(1:Np);
         M = Mh(inds,inds);Dx = Dxh(inds,inds);Dy = Dyh(inds,inds);
+                
+        RVK = MK + AK;
+        iRV = spai(RVK,.1);
+        
+        [M1 Dx1 Dy1] = getFEMOps(N);%x(:,k),y(:,k));
+        Grad1 = [Dx1;Dy1];
+        RV1K = M1 + Grad1'*blkdiag(M1,M1)*Grad1;               
+        iRV1 = spai(RV1K,.01);
+        
+        return
+        
         Grad = [Dx;Dy];
         M2 = blkdiag(M,M);
         
