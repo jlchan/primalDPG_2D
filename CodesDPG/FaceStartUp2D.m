@@ -31,7 +31,7 @@ fmapB = fmapB(:,bfaces);
 fmapB = fmapB(:); 
 
 %% set up trace data - discontinuous for now
-if exist('Nt')
+if ~exist('Nt')
     Nt = [];
 end
 if ~isempty(Nt)   
