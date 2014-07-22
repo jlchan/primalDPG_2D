@@ -16,7 +16,7 @@ N = 4;
 
 % [Nv, VX, VY, K, EToV] = MakeQuads2D(1);
 [Nv, VX, VY, K, EToV] = QuadMesh2D(16);
-StartUpQuad2D;
+StartUp2D;
 
 EQ = sin(pi*x).*sin(pi*y);
 PlotFieldQuad2D(N, x, y, EQ);
