@@ -4,7 +4,7 @@ Globals2D
 FaceGlobals2D
 
 % Polynomial order used for approximation
-Ntrial = 1;
+Ntrial = 2;
 Ntest = Ntrial+1;
 Nf = Ntrial-1;
 
@@ -16,7 +16,11 @@ N = Ntest;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
+
 [Nv, VX, VY, K, EToV] = QuadMesh2D(2);
+Nv = 6; VX = [-1 -1 0 0 1 1]; VY = [-1 1 -1 1 -1 1]; K = 2;
+EToV = [1 3 4 2;3 5 6 4];
+
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 
@@ -126,8 +130,7 @@ u = Rr'*U(1:nU);
 
 % Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot); 
 plotSol(u,55)
-keyboard
-% color_line3(x,y,u,u,'.')
+color_line3(x,y,u,u,'.')
 title('DPG with fluxes and traces')
 
 
