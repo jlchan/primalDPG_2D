@@ -7,18 +7,20 @@ Globals2D
 FaceGlobals2D
 
 if nargin==0
-    [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
-    Nv = 3;
-    VX = VX(EToV(1,:)); VY = VY(EToV(1,:));
-    EToV = [3 1 2];
-    K = 1;
-    [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
-    
+    quads = size(EToV,2)==4;
+    if quads
+        [Nv, VX, VY, K, EToV] = QuadMesh2D(8);
+    else
+        [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
+        Nv = 3; VX = VX(EToV(1,:)); VY = VY(EToV(1,:));
+        EToV = [3 1 2];    K = 1;
+        [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
+    end
     Ntrial = 2;
-    N = Ntrial+4; % Ntest
+    N = Ntrial+2; % Ntest
     Nf = Ntrial;
     plotFlag = 1;
-    b = 0; epsilon = 1; % poisson, w/beta = 0
+    b = 1; epsilon = 1e-4; % poisson, w/beta = 0
 else
     N = Ntest;
     Nf = Nflux;

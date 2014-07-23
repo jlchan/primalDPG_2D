@@ -27,6 +27,8 @@ N = Ntest;
 % Initialize solver and construct grid and metric
 StartUp2D;FaceStartUp2D 
 
+keyboard
+
 % get block operators
 [M, Dx, Dy] = getBlockOps();
 [AK, BK] = getVolOp(M,Dx,Dy);

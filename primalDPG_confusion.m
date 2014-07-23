@@ -4,20 +4,21 @@ Globals2D
 FaceGlobals2D;
 
 % Polynomial order used for approximation
-Ntrial = 3;
+Ntrial = 2;
 Ntest = Ntrial + 2;
 Nf = Ntrial;
 
 N = Ntest;
 
 % Read in Mesh
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squareireg.neu');
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('lshape.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('lshape.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
+[Nv, VX, VY, K, EToV] = QuadMesh2D(8);
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('backdrop1.neu');
 
@@ -80,6 +81,13 @@ end
 T = cell2mat(Tblk);
 A = T'*Bh;
 
+Grad = [Dx;Dy];
+Mxy = M;
+reg = Grad'*blkdiag(Mxy,Mxy)*Grad;
+h = spdiag(J(:));
+% reg = M;
+A(1:nU,1:nU) = A(1:nU,1:nU) + 0*Rr*h*reg*Rr';
+
 % forcing
 b = T'*M*f;
 
@@ -116,17 +124,11 @@ A(bci,bci) = speye(length(bci));
 U = A\b;
 u = Rr'*U(1:nU);
 
-
 %     color_line3(x,y,u,u,'.');
 %     return
 
 Nplot = 25;
-[xu,yu] = EquiNodes2D(Nplot); [ru, su] = xytors(xu,yu);
-Vu = Vandermonde2D(N,ru,su); Iu = Vu*invV;
-xu = 0.5*(-(ru+su)*VX(va)+(1+ru)*VX(vb)+(1+su)*VX(vc));
-yu = 0.5*(-(ru+su)*VY(va)+(1+ru)*VY(vb)+(1+su)*VY(vc));
-figure
-color_line3(xu,yu,Iu*reshape(u,Np,K),Iu*reshape(u,Np,K),'.');
+plotSol(u,Nplot);
 
 title('DPG with fluxes and traces')
 
