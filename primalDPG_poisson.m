@@ -17,9 +17,9 @@ N = Ntest;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
 
-[Nv, VX, VY, K, EToV] = QuadMesh2D(2);
-Nv = 6; VX = [-1 -1 0 0 1 1]; VY = [-1 1 -1 1 -1 1]; K = 2;
-EToV = [1 3 4 2;3 5 6 4];
+[Nv, VX, VY, K, EToV] = QuadMesh2D(8);
+% Nv = 6; VX = [-1 -1 0 0 1 1]; VY = [-1 1 -1 1 -1 1]; K = 2;
+% EToV = [1 3 4 2;3 5 6 4];
 
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
@@ -87,6 +87,7 @@ A = T'*Bh;
 % forcing
 b = T'*b;
 
+
 % BCs on u
 u0 = zeros(size(B,2),1);
 left = xr < -1+NODETOL;
@@ -129,8 +130,9 @@ u = Rr'*U(1:nU);
 % color_line3(xf,yf,uhat,uhat,'.');
 
 % Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot); 
-plotSol(u,55)
-color_line3(x,y,u,u,'.')
+plotSol(u,25)
+% color_line3(x,y,u,u,'.')
+keyboard
 title('DPG with fluxes and traces')
 
 

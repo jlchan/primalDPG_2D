@@ -6,10 +6,10 @@ Globals2D;FaceGlobals2D;
 % Polynomial order used for approximation
 N = 2;
 Nf = 0;
-[Nv, VX, VY, K, EToV] = QuadMesh2D(2);
+[Nv, VX, VY, K, EToV] = QuadMesh2D(4);
 
 StartUp2D;FaceStartUp2D
-CG = 1;
+CG = 0;
 [M, Dx, Dy] = getBlockOps();
 Grad = [Dx;Dy];
 A = M + Grad'*blkdiag(M,M)*Grad;    
