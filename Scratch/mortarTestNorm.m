@@ -3,17 +3,20 @@ function mortarTestNorm
 Globals2D;
 FaceGlobals2D
 
-N = 7; % when N = even, Nf = N-1, fails?
-Nf = 6; % = N trial
-Nt = 7; % = 
+N = 4; % when N = even, Nf = N-1, fails?
+Nf = N-2; % = N trial
+Nt = N-1; % = 
 %     Read in Mesh
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
 %     Nv = 3;
 %     VX = VX(EToV(1,:)); VY = VY(EToV(1,:));
 %     EToV = [3 1 2];
 %     K = 1;
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu'); 
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
+
+[Nv, VX, VY, K, EToV] = QuadMesh2D(24);
+
 
 % Initialize solver and construct grid and metric
 StartUp2D; FaceStartUp2D
@@ -24,7 +27,7 @@ Grad = [Dx;Dy];
 M2 = blkdiag(M,M);
 I2 = speye(size(M2));
 I = speye(size(M));
-O = zeros(size(M));
+O = sparse(size(M,1),size(M,2));
 
 % % Poisson
 % Adj_h = [I2 Grad;
@@ -36,16 +39,17 @@ O = zeros(size(M));
 %          Div -Dx];
 
 % Helmholtz
-k = 25;
+px = sqrt(K)*(N+1);
+k = px/4;
 Adj_h = [1i*k*I2 Grad;
          Div 1i*k*I];
 
 M3 = blkdiag(M2,M);
-RV = Adj_h'*M3*Adj_h + 1e-4*blkdiag(M,M,M); % regularize on v
+RV = Adj_h'*M3*Adj_h + 0*blkdiag(M,M,M); % regularize on v
 
 f = x(:).^0;
 btau = M2*[f;f];
-bv = M*f*0;
+bv = M*f;
 % bv = bv*0;
 % bv(end-10) = 1;
 b = Adj_h'*[btau;bv];
@@ -62,14 +66,14 @@ Bf(fmapB(abs(1+xfb)<NODETOL & abs(nxfb+1)<NODETOL),:) = []; %remove constraints 
 
 [mtau ntau] = size(Bt);
 [mv nv] = size(Bf);
-B = [Bt zeros(mtau,nv);
-     zeros(mv,ntau) Bf];
+B = [Bt sparse(mtau,nv);
+     sparse(mv,ntau) Bf];
  
 nU = size(B,2); % num CG nodes
 nM = size(B,1); % num mortar nodes
 
 Am = [RV B'
-    B zeros(nM)];
+    B sparse(nM,nM)];
 bm = [b;zeros(nM,1)];
 um = Am\bm;
 
@@ -84,5 +88,7 @@ tau2 = U(I2);
 v = U(I3);
 
 taunorm = sqrt(tau1.^2 + tau2.^2);
-plotSol(taunorm,25);title('norm of tau')
-plotSol(v,25);title('v')
+plotSol(taunorm,25);title(['norm of tau, px = ', num2str(px)])
+plotSol(v,25);title(['v, px = ', num2str(px)])
+% figure;semilogy(svd(full(Adj_h)))
+keyboard
