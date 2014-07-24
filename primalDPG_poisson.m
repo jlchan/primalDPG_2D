@@ -17,7 +17,7 @@ N = Ntest;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
 
-[Nv, VX, VY, K, EToV] = QuadMesh2D(8);
+[Nv, VX, VY, K, EToV] = QuadMesh2D(4);
 % Nv = 6; VX = [-1 -1 0 0 1 1]; VY = [-1 1 -1 1 -1 1]; K = 2;
 % EToV = [1 3 4 2;3 5 6 4];
 
@@ -26,8 +26,6 @@ N = Ntest;
 
 % Initialize solver and construct grid and metric
 StartUp2D;FaceStartUp2D 
-
-keyboard
 
 % get block operators
 [M, Dx, Dy] = getBlockOps();
@@ -134,7 +132,7 @@ u = Rr'*U(1:nU);
 % Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot); 
 plotSol(u,25)
 % color_line3(x,y,u,u,'.')
-keyboard
+
 title('DPG with fluxes and traces')
 
 

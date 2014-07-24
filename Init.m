@@ -1,8 +1,13 @@
 % Initializes absolute paths
-function Init(useQuads)
-if nargin<1
-    useQuads = 0; % default to triangles
+% function Init(useQuads)
+
+% if nargin<1
+% useQuads = 0; % default to triangles
+% end
+if ~exist('useQuads')
+    useQuads = 0;
 end
+
 addpath .
 addpath(genpath(fullfile(pwd,'Codes1D')))
 if useQuads
@@ -10,6 +15,7 @@ if useQuads
 else
     addpath(genpath(fullfile(pwd,'Codes2D')));rmpath(genpath(fullfile(pwd,'Codes2DQuad')));
 end
-addpath(genpath(fullfile(pwd,'CodesDPG')))
 addpath(genpath(fullfile(pwd,'ServiceRoutines')))
 addpath(genpath(fullfile(pwd,'Grid'))) % recursive path
+addpath(genpath(fullfile(pwd,'CodesDPG')))
+addpath(genpath(fullfile(pwd,'Precond')))
