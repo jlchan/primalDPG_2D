@@ -1,4 +1,4 @@
-function [A b nU nM Np Rp Irp, M, fpairs] = primalDPG_confusion(mesh,Ntrial,Ntest,Nflux,plotFlag,b,epsilon)
+function [A b nU nM Np Rp Irp, M, fpairs] = primalDPG_confusion(mesh,Ntrial,Ntest,Nflux,plotFlag,b,epsilon,quads)
 
 if nargin<8
     noJacobians = 0;
@@ -6,15 +6,14 @@ end
 Globals2D
 FaceGlobals2D
 
-if nargin==0
-    quads = size(EToV,2)==4;
+if nargin<8
     if quads
         [Nv, VX, VY, K, EToV] = QuadMesh2D(8);
     else
         [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
         Nv = 3; VX = VX(EToV(1,:)); VY = VY(EToV(1,:));
         EToV = [3 1 2];    K = 1;
-        [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
+        [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell00625.neu');        
     end
     Ntrial = 2;
     N = Ntrial+2; % Ntest
@@ -26,7 +25,11 @@ else
     Nf = Nflux;
 
     % Read in Mesh
-    [Nv, VX, VY, K, EToV] = MeshReaderGambit2D(mesh);
+    if quads
+        [Nv, VX, VY, K, EToV] = QuadMesh2D(2^(1+mesh)); % assume mesh = 1 at smallest - 4, 8, 16
+    else
+        [Nv, VX, VY, K, EToV] = MeshReaderGambit2D(mesh);
+    end    
 end
 
 % Initialize solver and construct grid and metric

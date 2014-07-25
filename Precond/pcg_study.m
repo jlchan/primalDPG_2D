@@ -8,17 +8,18 @@ addpath ../Grid/
 addpath ../Grid/Maxwell2D
 addpath ../Grid/Other
 
+Globals2D;FaceGlobals2D
+
 plotFlag = 0;
-grids = {'Maxwell05.neu','Maxwell025.neu','Maxwell0125.neu'};
-grids = {'Maxwell05.neu','Maxwell025.neu'};
+grids = {'Maxwell05.neu','Maxwell025.neu','Maxwell0125.neu'}%,'Maxwell00625.neu'};
+% grids = {'Maxwell05.neu','Maxwell025.neu'};
 % grids = {'Maxwell00625.neu'};
 % grids = {'Maxwell05.neu'};
-Ntrial = [2 4];
+Ntrial = [3 6 12];
 NpTrials = (Ntrial+1).*(Ntrial+2)/2;
 
-% grids = {'Maxwell1.neu'};
-% Ntrial = 4;
-% plotFlag = 1;
+useQuads = 0; run('../Init')
+
 
 Ntest = Ntrial+4;
 Nflux = Ntrial;
@@ -29,8 +30,12 @@ for i = 1:length(grids)
         NpTrial = NpTrials(j);
         % for poisson, set b = 0, eps = 1
         b = 0; eps = 1;
-%         b = 1; eps = 0e-6;
-        [A, b, nU, nM, Np, Rp, Irp, M, fpairs] = primalDPG_confusion(grids{i},Ntrial(j),Ntest(j),Nflux(j),plotFlag,b,eps);        
+        %         b = 1; eps = 0e-6;
+        if ~useQuads
+            [A, b, nU, nM, Np, Rp, Irp, M, fpairs] = primalDPG_confusion(grids{i},Ntrial(j),Ntest(j),Nflux(j),plotFlag,b,eps,useQuads);
+        else
+            [A, b, nU, nM, Np, Rp, Irp, M, fpairs] = primalDPG_confusion(i,Ntrial(j),Ntest(j),Nflux(j),plotFlag,b,eps,useQuads);
+        end
         if plotFlag            
             keyboard            
         end
@@ -38,7 +43,7 @@ for i = 1:length(grids)
         Av = A(ui,ui); Af = A(mi,mi);Avf = A(ui,mi);
         %             
         %             Sx = @(x) Af*x-Avf'*(Av\(Avf*x));
-        precondFlag = 'oas_block';
+%         precondFlag = 'oas_block';
         precondFlag = 'oasDPG'; 
         switch precondFlag
             case 'ideal'
@@ -48,17 +53,6 @@ for i = 1:length(grids)
                 %                     SPre = @(x) S\x;
                 %                     SPre = @(x) Mfaces\x;
             case 'oas_block'
-                %                     % build OAS preconditioner
-                %                     RAv = Rp'*Av*Rp; % expand out to local dofs
-                %                     K = max(size(Rp))/NpTrial;
-                %                     OAS = {};
-                %                     for k = 1:K
-                %                         inds = NpTrial*(k-1) + (1:NpTrial);
-                %                         OAS{k} = RAv(inds,inds);
-                %                     end
-                %                     OAS = blkdiag(OAS{:});
-                %                     AvPre = @(x) Rp*(OAS\(Rp'*x));
-                %                     SPre = @(x) S\x;
                 
                 AvPre = buildOAS_CG(Rp,Av,Ntrial(j));%
 %                 AvPre = @(x) Av\x;
@@ -89,7 +83,8 @@ for i = 1:length(grids)
                 
         end
         if strcmp(precondFlag,'oasDPG')
-            Pre = buildOAS_primalDPG(Rp,A,Ntrial(j),Nflux(j),fpairs);
+            patches = 1;
+            Pre = buildOAS_primalDPG(Rp,A,Ntrial(j),patches);
         else
             % build block cholesky bits
             RTinv = @(x) [x(ui); x(mi) - Avf'*AvPre(x(ui))];
@@ -109,10 +104,10 @@ for i = 1:length(grids)
         resVecs{i,j} = resvec;
     end
 end
-
+%%
 [m n] = size(resVecs);
 C = hsv(n*m);
-% figure
+figure
 semilogy(0,0)
 for i = 1:m
     for j = 1:n

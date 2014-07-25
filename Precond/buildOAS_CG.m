@@ -7,7 +7,12 @@ if nargin<3
 end
 
 % build OAS preconditioner algebraically:
-Norderp = (Norder+1)*(Norder+2)/2;
+if (size(EToV,2)==4) % if quad
+    Norderp = (Norder+1)^2;
+else
+   Norderp = (Norder+1)*(Norder+2)/2;
+end
+
 [rr cc] = find(R); 
 rr = reshape(rr,Norderp,K);cc = reshape(cc,Norderp,K);
 
