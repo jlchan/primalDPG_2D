@@ -16,3 +16,4 @@ figure
 color_line3(xu,yu,Iu*reshape(u,Np,K),Iu*reshape(u,Np,K),'.');
 hold on
 % plot3(x(:),y(:),u(:),'o','markersize',8);
+axis square
