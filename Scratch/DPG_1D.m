@@ -61,5 +61,6 @@ u = A\b;
 
 plot(x(:),R'*u(1:NpT),'.')
 
+
 return
 

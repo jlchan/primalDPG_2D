@@ -15,7 +15,7 @@ Nt = N-1; % =
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu'); 
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 
-[Nv, VX, VY, K, EToV] = QuadMesh2D(8);
+[Nv, VX, VY, K, EToV] = QuadMesh2D(1);
 
 
 % Initialize solver and construct grid and metric
