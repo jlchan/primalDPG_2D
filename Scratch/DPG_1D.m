@@ -1,13 +1,13 @@
 function DPG_1D
 
-N = 2;
+N = 3;
 NT = N+2; % test order
 K = 8;
 r = JacobiGL(0,0,N);
 
 % local ops
 V = Vandermonde1D(N,r); 
-% D = Dmatrix1D(N,r,V); M = inv(V*V'); Ks = D'*M*D;
+D = Dmatrix1D(N,r,V); M = inv(V*V'); Ks = D'*M*D;
 
 % restriction op
 rT = JacobiGL(0,0,NT); VT = Vandermonde1D(NT,rT); 
@@ -18,10 +18,12 @@ IT = Vandermonde1D(N,rT) * inv(V);
 Np = N+1; 
 VX = linspace(-1,1,K+1);
 x = ones(Np,1)*VX(1:K) + 0.5*(r+1)*(VX(2:K+1)-VX(1:K));
+xT = ones(NT+1,1)*VX(1:K) + 0.5*(rT+1)*(VX(2:K+1)-VX(1:K));
 h = diff(VX);h=h(1);
 
 % define operators
 Ks = (1/h)*kron(speye(K),KT);
+Mtr = h*kron(speye(K),M);
 M = h*kron(speye(K),MT);
 RV = h*M + (1/h)*Ks;
 B = (1/h)*kron(speye(K),KT*IT); % poisson
@@ -59,8 +61,19 @@ A(NpT,:) = 0;A(:,NpT) = 0; A(NpT,NpT) = 1;
 b(1) = 0;b(NpT) = 0;
 u = A\b;
 
-plot(x(:),R'*u(1:NpT),'.')
+plot(x(:),R'*u(1:NpT),'.-')
 
+% [X Y] = meshgrid(x(:));
+% % plot(X,Y,'.')
+% 
+% K2 = kron(A,M) + kron(M,A);
+% % T2 = (kron(T'*M,M) + kron(M,T'*M));
+% 
+% b2 = zeros(size(K2,1),1);
+% b2(1)= 1;
+% U = K2\b2;
+% u = U(1:NpT^2);
+% color_line3(X(:),Y(:),u,u,'.');
 
 return
 

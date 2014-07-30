@@ -27,8 +27,8 @@ K1D = D1D'*M1D*D1D;
 
 % 1D BCs8
 K1D(1,:) = 0;K1D(:,1) = 0;K1D(1,1) = 1; 
-K1D(Np1D,:) = 0;K1D(:,Np1D) = 0;K1D(Np1D,Np1D) = 1;
 M1D(1,:) = 0;M1D(:,1) = 0;M1D(1,1) = 1;
+K1D(Np1D,:) = 0;K1D(:,Np1D) = 0;K1D(Np1D,Np1D) = 1;
 M1D(Np1D,:) = 0;M1D(:,Np1D) = 0;M1D(Np1D,Np1D) = 1;
 
 a = 1;

@@ -531,9 +531,9 @@ which is then easy to invert.  This technique is especially efficient when tenso
 
 \begin{figure}
 \centering
-\subfigure[Poisson OAS (elem)]{\includegraphics[width=.49\textwidth]{figs/oaselem_large.eps}}
-\subfigure[Poisson  OAS (face neighbors)]{\includegraphics[width=.49\textwidth]{figs/oasface_large.eps}}
-\subfigure[Poisson  OAS (patch)]{\includegraphics[width=.49\textwidth]{figs/oaspatch_large.eps}}
+\subfigure[Poisson OAS (subdomain: elem)]{\includegraphics[width=.49\textwidth]{figs/oaselem_large.eps}}
+\subfigure[Poisson  OAS (subdomain: elem + face neighbors)]{\includegraphics[width=.49\textwidth]{figs/oasface_large.eps}}
+\subfigure[Poisson  OAS (subdomain: vertex patches)]{\includegraphics[width=.49\textwidth]{figs/oaspatch_large.eps}}
 \caption{Behavior of OAS for different subdomains (element, neighbors, and one-ring patches).  All cases include a $P_1/P_0$ coarse solver.}
 \end{figure}
 
@@ -551,15 +551,11 @@ With DPG for Poisson, the stiffness matrix over one element is given by $B^TR_V^
 \[
 B^TR_V^{-1}B = (I_N^{N+\Delta N}\otimes I_N^{N+\Delta N})^T (Q^{-1}\otimes Q^{-1}) (\tilde{\Lambda}) (Q^{-T}\otimes Q^{-T})(I_N^{N+\Delta N}\otimes I_N^{N+\Delta N})
 \]
-where $\tilde{\Lambda} = (\Lambda\oplus \Lambda) (I \otimes I + \Lambda \oplus \Lambda)^{-1}(\Lambda\oplus \Lambda)$.  
-
-Unfortunately, due to the presence of the $(I_N^{N+\Delta N}\otimes I_N^{N+\Delta N})$ matrices, it is difficult to invert this exactly.  
-
-\subsection{Etc notes}
-\begin{itemize}
-\item Can we use the idea of reducing to field dofs?  i.e. turn the inversion of the flux matrix into just an outer product?  Make equiv to testing with null space of $\hat{B}^T$...
-\item Can we change the coupling to the mortar space for $e$?  i.e. add consistency/penalty/etc?
-\end{itemize}
+where $\tilde{\Lambda} = (\Lambda\oplus \Lambda) (I \otimes I + \Lambda \oplus \Lambda)^{-1}(\Lambda\oplus \Lambda)$, or
+\[
+\tilde{\Lambda}_{ij} = 1 + \lambda_i + \lambda_j.
+\]
+Unfortunately, due to the presence of the $(I_N^{N+\Delta N}\otimes I_N^{N+\Delta N})$ matrices, it is difficult to invert this directly.  Can we break up $\tilde{\Lambda}$ into a tensor product structure as well?  If so, then we could break down a 2D DPG method into 1D lines.  
 
 \end{document}
 
