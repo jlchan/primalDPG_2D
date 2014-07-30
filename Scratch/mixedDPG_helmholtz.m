@@ -8,7 +8,7 @@ function mixedDPG_poisson
 Globals2D
 
 % Polynomial order used for approximation
-Ntrial = 4;
+Ntrial = 3;
 Ntest = Ntrial+2;
 
 N = Ntest;
@@ -21,8 +21,8 @@ k = 1;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
-% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
+[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 
 % Initialize solver and construct grid and metric
 StartUp2D;
@@ -30,7 +30,7 @@ StartUp2D;
 NpTrial = (Ntrial+1);
 NpTest = (Ntest+1);
 PPB = numel(vmapB)*(NpTrial/NpTest)/4 % 4 boundaries - points per boundary of trial
-PPW = 2;
+PPW = 4;
 k = PPB/PPW
 % keyboard
 % PPW = PPB/k
@@ -58,22 +58,24 @@ dudx0f = @(x,y) 1i*k*cos(t)*exp(1i*k*(cos(t)*x + sin(t)*y));
 dudy0f = @(x,y) 1i*k*sin(t)*exp(1i*k*(cos(t)*x + sin(t)*y));
 
 %%
-% compute projections of exact solutions for bdata
-Corder = 25;
-[cubR,cubS,cubW, Ncub] = Cubature2D(Corder); Vcub = Vandermonde2D(N,cubR,cubS);
-xcub = 0.5*(-(cubR+cubS)*VX(va)+(1+cubR)*VX(vb)+(1+cubS)*VX(vc));
-ycub = 0.5*(-(cubR+cubS)*VY(va)+(1+cubR)*VY(vb)+(1+cubS)*VY(vc));
-
-Interp = Vcub*invV; % interp to cubature points
-Wcub = diag(cubW);
-Minv = V*V';
-u0 = Minv*Interp'*Wcub*u0f(xcub,ycub);
-dudx0 = Minv*Interp'*Wcub*dudx0f(xcub,ycub);
-dudy0 = Minv*Interp'*Wcub*dudy0f(xcub,ycub);
-
-% u0 = u0f(x(:),y(:));
-% dudx0 = dudx0f(x(:),y(:));
-% dudy0 = dudy0f(x(:),y(:));
+if 1
+    % compute projections of exact solutions for bdata
+    Corder = 25;
+    [cubR,cubS,cubW, Ncub] = Cubature2D(Corder); Vcub = Vandermonde2D(N,cubR,cubS);
+    xcub = 0.5*(-(cubR+cubS)*VX(va)+(1+cubR)*VX(vb)+(1+cubS)*VX(vc));
+    ycub = 0.5*(-(cubR+cubS)*VY(va)+(1+cubR)*VY(vb)+(1+cubS)*VY(vc));
+    
+    Interp = Vcub*invV; % interp to cubature points
+    Wcub = diag(cubW);
+    Minv = V*V';
+    u0 = Minv*Interp'*Wcub*u0f(xcub,ycub);
+    dudx0 = Minv*Interp'*Wcub*dudx0f(xcub,ycub);
+    dudy0 = Minv*Interp'*Wcub*dudy0f(xcub,ycub);
+else
+    u0 = u0f(x(:),y(:));
+    dudx0 = dudx0f(x(:),y(:));
+    dudy0 = dudy0f(x(:),y(:));
+end
 dudn0 = nx(mapB).*dudx0(vmapB) + ny(mapB).*dudy0(vmapB);
 
 %%
@@ -103,7 +105,7 @@ neum = abs(nx(mapB)-1) < NODETOL | abs(ny(mapB)-1) < NODETOL;
 b = b + R*Eb'*Mb*dudn0;
 
 % add boundary trace?
-[Mb Eb] = getBoundaryMatrix(robin);
+% [Mb Eb] = getBoundaryMatrix(robin);
 % RV = RV + k*(1i'*R*Eb'*Mb*Eb*R' + + R*Eb'*Mb*Eb*R'*1i);
 % RV = B*B' + 1e-4*R*M*R';
 % DuDnB = (spdiag(nx(mapB(:)))*Eb*Dx + spdiag(ny(mapB(:)))*Eb*Dy)*R';
@@ -137,13 +139,19 @@ Iuh = Iu*reshape(u,Np,K);Iuh = Iuh(:);
 Ie = Iu*reshape(e,Np,K);Ie = Ie(:); % rescale by J for integration
 % title('Mixed form of DPG')
 ax = [-1 1 -1 1 -1 1];
-subplot(2,1,1);color_line3(xu,yu,Iuh,Iuh,'.');axis(ax);view(2);%view(0,0)
-subplot(2,1,2);color_line3(xu,yu,Iu0,Iu0,'.');axis(ax);view(2);%view(0,0)
-figure
-subplot(2,1,1);color_line3(xu,yu,Ie,Ie,'.');%axis([-1 1 -1 1 -.1 .1])
+subplot(3,1,1);color_line3(xu,yu,Iuh,Iuh,'.');axis(ax);view(2);%view(0,0)
+title('DPG solution')
+subplot(3,1,2);color_line3(xu,yu,Iu0,Iu0,'.');axis(ax);view(2);%view(0,0)
+title('Exact solution')
+
+subplot(3,1,3);color_line3(xu,yu,Iuh-Iu0,Iuh-Iu0,'.');%axis([-1 1 -1 1 -.1 .1])
 colorbar;view(2);%view(0,0);
-subplot(2,1,2);color_line3(xu,yu,Iuh-Iu0,Iuh-Iu0,'.');%axis([-1 1 -1 1 -.1 .1])
-colorbar;view(2);%view(0,0);
+
+% figure
+% subplot(2,1,1);color_line3(xu,yu,Ie,Ie,'.');%axis([-1 1 -1 1 -.1 .1])
+% colorbar;view(2);%view(0,0);
+% subplot(2,1,2);color_line3(xu,yu,Iuh-Iu0,Iuh-Iu0,'.');%axis([-1 1 -1 1 -.1 .1])
+% colorbar;view(2);%view(0,0);
 
 Vu = Vandermonde2D(Nplot,ru,su);
 Mu = inv(Vu*Vu'); Nplotp = (Nplot+1)*(Nplot+2)/2;
@@ -154,7 +162,7 @@ J = repmat(J,Nplotp,1);
 
 err = abs(err);tmp = J.*(Mu*err);
 L2err = sqrt(abs(err(:)'*tmp(:)));
-subplot(2,1,1);title(['L2 error = ' num2str(L2err) ' at k = ' num2str(k) ' and ' num2str(PPW) ' ppw.'])
+title(['L2 error = ' num2str(L2err) ' at k = ' num2str(k) ' and ' num2str(PPW) ' ppw.'])
 
 function [Test, Trial] = getVolOp(M,Dx,Dy)
 

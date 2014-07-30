@@ -10,7 +10,7 @@ M = MassMatrix;
 f = ones(Np,1);
 % f = randn(Np,1);
 b = M*f;
-% b(vmapB)=0;
+b(vmapB)=0;
 
 %% ref sol
 Kh = Dr'*M*Dr + Ds'*M*Ds;
@@ -27,6 +27,7 @@ K1D = D1D'*M1D*D1D;
 
 a = 1;
 Kk = a*kron(M1D,M1D) + kron(M1D,K1D) + kron(K1D,M1D);
+% Kk(vmapB,:) = 0;Kk(:,vmapB) = 0;Kk(vmapB,vmapB) = speye(length(vmapB));
 uT=Kk\b;
 
 %% bc data
@@ -34,9 +35,14 @@ tol = 1e-12;
 r = reshape(r,Np1D,Np1D);
 s = reshape(s,Np1D,Np1D);
 gr = r<-1+tol;
-b(:) = gr*M1D;
-gs = s<-1+tol;
+% b(:) = gr*M1D;
+gs = (s<-1+tol).*r;
 b(:) = M1D*gs;
+
+% K1D(1,:) = 0;K1D(:,1) = 0;K1D(1,1) = 1; 
+% M1D(1,:) = 0;M1D(:,1) = 0;M1D(1,1) = 1;
+% K1D(Np1D,:) = 0;K1D(:,Np1D) = 0;K1D(Np1D,Np1D) = 1;
+% M1D(Np1D,:) = 0;M1D(:,Np1D) = 0;M1D(Np1D,Np1D) = 1;
 
 %% diagonalization sol
 % only need one set of eigvectors for isotropic poisson

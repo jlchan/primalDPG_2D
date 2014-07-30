@@ -8,7 +8,7 @@ function cg_helmholtz
 Globals2D
 
 % Polynomial order used for approximation
-N = 2;
+N = 3;
 
 global k
 k = 1;
@@ -19,8 +19,8 @@ k = 1;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu'); % 8 elements
-% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu'); % 16 elements
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu'); % 8 elements
+[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu'); % 16 elements
 % Initialize solver and construct grid and metric
 StartUp2D;
 
@@ -52,6 +52,7 @@ dudy0f = @(x,y) 1i*k*sin(t)*exp(1i*k*(cos(t)*x + sin(t)*y));
 
 %%
 % compute projections of exact solutions for bdata
+if 1
 Corder = 25;
 [cubR,cubS,cubW, Ncub] = Cubature2D(Corder); Vcub = Vandermonde2D(N,cubR,cubS);
 xcub = 0.5*(-(cubR+cubS)*VX(va)+(1+cubR)*VX(vb)+(1+cubS)*VX(vc));
@@ -63,10 +64,11 @@ Minv = V*V';
 u0 = Minv*Interp'*Wcub*u0f(xcub,ycub);
 dudx0 = Minv*Interp'*Wcub*dudx0f(xcub,ycub);
 dudy0 = Minv*Interp'*Wcub*dudy0f(xcub,ycub);
-
+else
 u0 = u0f(x(:),y(:));
 dudx0 = dudx0f(x(:),y(:));
 dudy0 = dudy0f(x(:),y(:));
+end
 dudn0 = nx(mapB).*dudx0(vmapB) + ny(mapB).*dudy0(vmapB);
 
 %%
@@ -94,7 +96,7 @@ u = R'*U;
 
 % Nplot = 25; [xu,yu] = EquiNodes2D(Nplot);
 % Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot);
-Nplot = 25; [xu,yu] = Nodes2D(Nplot);
+Nplot = 30; [xu,yu] = Nodes2D(Nplot);
 [ru, su] = xytors(xu,yu);
 Vu = Vandermonde2D(N,ru,su); Iu = Vu*invV;
 xu = 0.5*(-(ru+su)*VX(va)+(1+ru)*VX(vb)+(1+su)*VX(vc));
@@ -107,7 +109,9 @@ figure
 Iuh = Iu*reshape(u,Np,K);Iuh = Iuh(:);
 ax = [-1 1 -1 1 -1 1];
 subplot(3,1,1);color_line3(xu,yu,Iuh,Iuh,'.');axis(ax);view(2);%view(0,0)
+title('CG solution')
 subplot(3,1,2);color_line3(xu,yu,Iu0,Iu0,'.');axis(ax);view(2);%view(0,0)
+title('Exact solution')
 subplot(3,1,3);color_line3(xu,yu,Iuh-Iu0,Iuh-Iu0,'.');%axis([-1 1 -1 1 -.1 .1])
 colorbar;view(2);%view(0,0);
 
