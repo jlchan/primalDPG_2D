@@ -1,4 +1,4 @@
-function Mhandle = buildOAS_primalDPG(R,A,Norder,patches)%,xF,yF,b1,b2)
+function [Mhandle Ak] = buildOAS_primalDPG(R,A,Norder,patches)
 
 Globals2D;FaceGlobals2D
 
@@ -16,15 +16,6 @@ fmap = zeros(Nfrp,Nfaces*K);
 fmap(:,fpairs(1,:)) = reshape(1:Nfrp*NfacesU,Nfrp,NfacesU);
 fmap(:,fpairs(2,sharedFaces)) = fmap(:,fpairs(1,sharedFaces));
 fmap = reshape(fmap,Nfrp*Nfaces,K); %fmap = elem to hybrid nodes
-
-% hacky hacky...turn xf/nxf into elem-local storage
-% xf = zeros(Nfrp,Nfaces*K);yf = zeros(Nfrp,K*Nfaces);
-% xf(:,fpairs(1,:)) = xF;yf(:,fpairs(1,:)) = yF;
-% xf(:,fpairs(2,:)) = xF;yf(:,fpairs(2,:)) = yF;
-% xf = reshape(xf,Nfrp*Nfaces,K); yf = reshape(yf,Nfrp*Nfaces,K);
-% nxf = reshape(nx,Nfp,Nfaces*K);nyf = reshape(ny,Nfp,Nfaces*K);
-% nxf = nxf(1:Nfrp,:);nyf = nyf(1:Nfrp,:);
-% nxf = reshape(nxf,Nfrp*Nfaces,K); nyf = reshape(nyf,Nfrp*Nfaces,K);
 
 % build OAS preconditioner algebraically:
 if (size(EToV,2)==4) % if quad
@@ -83,7 +74,7 @@ elseif patches == 2 % take face stencil
         Ak{i,1} = inds;
         Ak{i,2} = A(inds,inds);
     end
-else
+else % take just a single element
     for i = 1:K
         inds = unique(rr(:,i));
         fInds = nU + fmap(:,i);
