@@ -3,7 +3,7 @@ function mortarTestNorm
 Globals2D;
 FaceGlobals2D
 
-N = 2; % when N = even, Nf = N-1, fails?
+N = 4; % when N = even, Nf = N-1, fails?
 Nf = N-2; % = N trial
 Nt = N-1; % = 
 %     Read in Mesh
@@ -15,12 +15,7 @@ Nt = N-1; % =
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu'); 
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 
-<<<<<<< HEAD
-[Nv, VX, VY, K, EToV] = QuadMesh2D(32);
-=======
-[Nv, VX, VY, K, EToV] = QuadMesh2D(1);
->>>>>>> ac8ddfbecdade9bc00cdf3578d7cb2efbfb9b521
-
+[Nv, VX, VY, K, EToV] = QuadMesh2D(8);
 
 % Initialize solver and construct grid and metric
 StartUp2D; FaceStartUp2D
@@ -38,7 +33,7 @@ O = sparse(size(M,1),size(M,2));
 %          Div O];
 
 % % convection-diffusion
-ep = .0001;
+ep = .01;
 Adj_h = [(1/ep)*I2 Grad;
          Div -Dx];
 
@@ -98,7 +93,7 @@ v = U(I3);
 taunorm = sqrt(tau1.^2 + tau2.^2);
 plotSol(taunorm,25);%title(['norm of tau, px = ', num2str(px)])
 plotSol(v,25);%title(['v, px = ', num2str(px)])
-if (Np*K<1000)
+if (Np*K<500)
     figure;semilogy(svd(full(Adj_h)))
 end
 % keyboard
