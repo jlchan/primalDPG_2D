@@ -1,3 +1,5 @@
+% builds a simple mesh of NK-by-NK quad elements 
+
 function [Nv, VX, VY, K, EToV] = QuadMesh2D(NK)
 
 Nx = NK;Ny = NK;
