@@ -1,15 +1,21 @@
-function DPG_1D
+% gets 1D DPG operator for poisson on a uniform grid of K elements, with
+% test order NT and trial order N
 
-N = 3;
-NT = N+2; % test order
-K = 8;
+function [A fieldInds fluxInds] = DPG_1D(N,NT,K)
+
+if nargin<3
+    N = 2;
+    NT = N+2; % test order    
+    K = 8;
+end
+
 r = JacobiGL(0,0,N);
 
 % local ops
 V = Vandermonde1D(N,r); 
 D = Dmatrix1D(N,r,V); M = inv(V*V'); Ks = D'*M*D;
 
-% restriction op
+% restriction from test to trial space
 rT = JacobiGL(0,0,NT); VT = Vandermonde1D(NT,rT); 
 DT = Dmatrix1D(NT,rT,VT); MT = inv(VT*VT'); KT = DT'*MT*DT;
 IT = Vandermonde1D(N,rT) * inv(V);
@@ -28,7 +34,7 @@ M = h*kron(speye(K),MT);
 RV = h*M + (1/h)*Ks;
 B = (1/h)*kron(speye(K),KT*IT); % poisson
 
-% topological ops
+% topological operators
 NpT = N*K+1; R = sparse(NpT,Np*K);
 for k = 1:K
     inds1 = (k-1)*N + (1:Np);
@@ -49,20 +55,23 @@ Bhat = (Em-Ep)';
 % stiffness
 T = RV\[B*R' Bhat];
 A = T'*[B*R' Bhat];
-% A = R*(M+Ks)*R';
 
-f = ones((NT+1)*K,1);     
-b = [M*f; zeros(K+1,1)];
-b = T'*M*f;
+if nargin<3
+    f = ones((NT+1)*K,1);
+    b = [M*f; zeros(K+1,1)];
+    b = T'*M*f;
+    
+    %bcs
+    A(1,:) = 0;A(:,1) = 0; A(1,1) = 1;
+    A(NpT,:) = 0;A(:,NpT) = 0; A(NpT,NpT) = 1;
+    b(1) = 0;b(NpT) = 0;
+    u = A\b;
+    
+    plot(x(:),R'*u(1:NpT),'.-')
+end
 
-%bcs
-A(1,:) = 0;A(:,1) = 0; A(1,1) = 1;
-A(NpT,:) = 0;A(:,NpT) = 0; A(NpT,NpT) = 1;
-b(1) = 0;b(NpT) = 0;
-u = A\b;
-
-plot(x(:),R'*u(1:NpT),'.-')
-
+fieldInds = 1:NpT;
+fluxInds = NpT+1:size(A,1);
 % [X Y] = meshgrid(x(:));
 % % plot(X,Y,'.')
 % 
