@@ -18,7 +18,7 @@ N = Ntest;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
-[Nv, VX, VY, K, EToV] = QuadMesh2D(8);
+[Nv, VX, VY, K, EToV] = QuadMesh2D(16);
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('backdrop1.neu');
 
@@ -28,7 +28,7 @@ StartUp2D;FaceStartUp2D
 global b1
 global b2
 global ep
-b1 = 1; b2 = 0;ep = 1e-6;
+b1 = 1; b2 = .5;ep = 1e-6;
 
 % get block operators
 [M, Dx, Dy] = getBlockOps();
@@ -81,12 +81,12 @@ end
 T = cell2mat(Tblk);
 A = T'*Bh;
 
-Grad = [Dx;Dy];
-Mxy = M;
-reg = Grad'*blkdiag(Mxy,Mxy)*Grad;
-h = spdiag(J(:));
+% Grad = [Dx;Dy];
+% Mxy = M;
+% reg = Grad'*blkdiag(Mxy,Mxy)*Grad;
+% h = spdiag(J(:));
 % reg = M;
-A(1:nU,1:nU) = A(1:nU,1:nU) + 0*Rr*h*reg*Rr';
+% A(1:nU,1:nU) = A(1:nU,1:nU) + Rr*h*reg*Rr';
 
 % forcing
 b = T'*M*f;
@@ -99,11 +99,14 @@ uh0 = zeros(nM,1);
 bnf = nxfb*b1 + nyfb*b2; % beta_n, determines inflow vs outflow
 bmaskf = (bnf < NODETOL); % inflow = beta_n < 0
 uh0(fmapB) = bnf.*(yfb<0).*(1+yfb);  % BC data on flux = bn*u - eps*du/dn
+% uh0(fmapB) = bnf;  % BC data on flux = bn*u - eps*du/dn
 
 U0 = [u0;uh0];
 
 % remove BCs on u on inflow for stability
 vmapBTr(xr < -1+NODETOL) = [];
+% wall = (abs(yr+1)<NODETOL) & (xr > -NODETOL);
+% vmapBTr(~wall) = [];
 %   vmapBTr = []; % removes all Dirichlet BCs for testing....
 
 % BCs on U: ordered first
@@ -115,6 +118,8 @@ A(vmapBTr,vmapBTr) = speye(length(vmapBTr));
 % homogeneous BCs on V are implied by mortars.
 % BCs on mortars removes BCs on test functions.
 fmapB(bmaskf) = []; % do 0 Neumann outflow BCs on test fxns
+% fmapB = [];
+% fmapB = fmapB(bmaskf);
 
 bci = nU + fmapB; % skip over u dofs
 b(bci) = uh0(fmapB);
@@ -123,13 +128,13 @@ A(bci,bci) = speye(length(bci));
 
 U = A\b;
 u = Rr'*U(1:nU);
-
+f = U(nU+(1:nM));
 %     color_line3(x,y,u,u,'.');
 %     return
 
 Nplot = 25;
 plotSol(u,Nplot);
-
+plotFlux(f)
 title('DPG with fluxes and traces')
 
 
