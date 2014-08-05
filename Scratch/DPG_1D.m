@@ -1,7 +1,7 @@
 % gets 1D DPG operator for poisson on a uniform grid of K elements, with
 % test order NT and trial order N
 
-function [A fieldInds fluxInds] = DPG_1D(N,NT,K)
+function [A Mtr] = DPG_1D(N,NT,K)
 
 if nargin<3
     N = 2;
@@ -56,17 +56,18 @@ Bhat = (Em-Ep)';
 T = RV\[B*R' Bhat];
 A = T'*[B*R' Bhat];
 
+f = ones((NT+1)*K,1);
+b = [M*f; zeros(K+1,1)];
+b = T'*M*f;
+
+%bcs
+A(1,:) = 0;A(:,1) = 0; A(1,1) = 1;
+A(NpT,:) = 0;A(:,NpT) = 0; A(NpT,NpT) = 1;
+b(1) = 0;b(NpT) = 0;
+
 if nargin<3
-    f = ones((NT+1)*K,1);
-    b = [M*f; zeros(K+1,1)];
-    b = T'*M*f;
-    
-    %bcs
-    A(1,:) = 0;A(:,1) = 0; A(1,1) = 1;
-    A(NpT,:) = 0;A(:,NpT) = 0; A(NpT,NpT) = 1;
-    b(1) = 0;b(NpT) = 0;
     u = A\b;
-    
+    figure
     plot(x(:),R'*u(1:NpT),'.-')
 end
 
