@@ -1,7 +1,7 @@
 primalDPG_2D
 ============
 
-An implementation of 2D nodal DPG methods in Matlab, based off of the nodal DG codes of Tim Warburton and Jan Hesthaven and the primal DPG method of Leszek Demkowicz and Jay Gopalakrishnan.
+An implementation of 2D nodal DPG methods in Matlab, based off of the nodal DG codes of Tim Warburton and Jan Hesthaven and the primal DPG method of Leszek Demkowicz and Jay Gopalakrishnan. Both quad and triangle meshes are supported, as well as adaptivity on triangle meshes. 
 
 Both the mixed/saddle point formulation (Dahmen et al) and DPG with fluxes are implemented. 
 
