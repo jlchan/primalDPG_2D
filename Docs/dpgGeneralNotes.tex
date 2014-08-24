@@ -313,22 +313,22 @@ which is then easy to invert.  This technique is especially efficient when tenso
 %\end{itemize}
 %
 %Convergence of the fixed point solution to the exact solution is shown here.
-%\begin{figure}
-%\centering
-%\subfigure[$N_{\rm flux} = 1, \Delta N = 2$]{\includegraphics[width=.49\textwidth]{figs/Nflux1_DP2.eps}}
-%\subfigure[$N_{\rm flux} = 1, \Delta N = 4$]{\includegraphics[width=.49\textwidth]{figs/Nflux1_DP4.eps}}
-%\subfigure[$N_{\rm flux} = 0, \Delta N = 4$]{\includegraphics[width=.49\textwidth]{figs/Nflux0_DP2.eps}}
-%\subfigure[$N_{\rm flux} = 0, \Delta N = 2$]{\includegraphics[width=.49\textwidth]{figs/Nflux0_DP4.eps}}
-%\caption{Block Jacobi fixed point iterations for pure convection with $\beta = (1,0)$, ultra-weak formulation.}
-%\end{figure}
-%
-%We note that these results are sensitive also to the regularization parameter $\alpha$ --- smaller $\alpha$ results in faster convergence, but obviously worse conditioning of the local problem.  
-%\begin{figure}
-%\centering
-%\subfigure[$N_{\rm flux} = 0$]{\includegraphics[width=.49\textwidth]{figs/Nflux0_compare.eps}}
-%\subfigure[$N_{\rm flux} = N_{\rm trial}$]{\includegraphics[width=.49\textwidth]{figs/NfluxTrial_compare.eps}}
-%\caption{Block Jacobi fixed point iterations for pure convection - dependence on $\alpha$ regularization parameter.  ``Mass matrix'' means that the solution of $B^TR_V^{-1}B$ was replaced by the inversion of an $\L$ mass matrix instead.}
-%\end{figure}
+\begin{figure}
+\centering
+\subfigure[$N_{\rm flux} = 1, \Delta N = 2$]{\includegraphics[width=.49\textwidth]{figs/Nflux1_DP2.eps}}
+\subfigure[$N_{\rm flux} = 1, \Delta N = 4$]{\includegraphics[width=.49\textwidth]{figs/Nflux1_DP4.eps}}
+\subfigure[$N_{\rm flux} = 0, \Delta N = 4$]{\includegraphics[width=.49\textwidth]{figs/Nflux0_DP2.eps}}
+\subfigure[$N_{\rm flux} = 0, \Delta N = 2$]{\includegraphics[width=.49\textwidth]{figs/Nflux0_DP4.eps}}
+\caption{Block Jacobi fixed point iterations for pure convection with $\beta = (1,0)$, ultra-weak formulation.}
+\end{figure}
+
+We note that these results are sensitive also to the regularization parameter $\alpha$ --- smaller $\alpha$ results in faster convergence, but obviously worse conditioning of the local problem.  
+\begin{figure}
+\centering
+\subfigure[$N_{\rm flux} = 0$]{\includegraphics[width=.49\textwidth]{figs/Nflux0_compare.eps}}
+\subfigure[$N_{\rm flux} = N_{\rm trial}$]{\includegraphics[width=.49\textwidth]{figs/NfluxTrial_compare.eps}}
+\caption{Block Jacobi fixed point iterations for pure convection - dependence on $\alpha$ regularization parameter.  ``Mass matrix'' means that the solution of $B^TR_V^{-1}B$ was replaced by the inversion of an $\L$ mass matrix instead.}
+\end{figure}
 %
 %Questions: 
 %\begin{itemize}
@@ -417,16 +417,16 @@ which is then easy to invert.  This technique is especially efficient when tenso
 %
 %Conjecture: convergence of the Jacobi scheme is dependent only on optimal test functions for interface unknowns being approximated sufficiently well.  Numerical results indicate that convergence is largely independent of $\Delta p$ or $N$ in the case where $N_{\rm flux} = 0$.  
 %
-%\subsection{GMRES preconditioner}
-%
-%An issue with preconditioning using a fixed point iteration is that the preconditioner is no longer symmetric positive-definite, though we can still take advantage of the positive-definite nature of the blocks in the block Jacobi iteration.  We therefore use the block Jacobi iteration as a GMRES preconditioner.  We chart the dependence of the method on $\alpha$ and the number of fixed point iterations below.  
-%\begin{figure}
-%\centering
-%\subfigure[$\alpha = 1$]{\includegraphics[width=.49\textwidth]{figs/GMRES_bJacobi.eps}}
-%\subfigure[$\alpha = .1$]{\includegraphics[width=.49\textwidth]{figs/GMRES_bJacobi_alpha10th.eps}}
-%\caption{Block Jacobi fixed point iterations for pure convection used as a preconditioner for GMRES.}
-%\end{figure}
-%Counting the total number of solves in both inner and outer GMRES iterations, we can see that, while a larger number of inner iterations speeds up GMRES convergence, the most efficient method in terms of number of total solves is a single inner iteration.  Thus, we abandon the idea of a fixed point iteration in favor of a single step preconditioner.  Doing so will also allow us to construct a symmetric, positive-definite preconditioner for use in a conjugate gradient iteration.  
+\subsection{GMRES preconditioner}
+
+An issue with preconditioning using a fixed point iteration is that the preconditioner is no longer symmetric positive-definite, though we can still take advantage of the positive-definite nature of the blocks in the block Jacobi iteration.  We therefore use the block Jacobi iteration as a GMRES preconditioner.  We chart the dependence of the method on $\alpha$ and the number of fixed point iterations below.  
+\begin{figure}
+\centering
+\subfigure[$\alpha = 1$]{\includegraphics[width=.49\textwidth]{figs/GMRES_bJacobi.eps}}
+\subfigure[$\alpha = .1$]{\includegraphics[width=.49\textwidth]{figs/GMRES_bJacobi_alpha10th.eps}}
+\caption{Block Jacobi fixed point iterations for pure convection used as a preconditioner for GMRES.}
+\end{figure}
+Counting the total number of solves in both inner and outer GMRES iterations, we can see that, while a larger number of inner iterations speeds up GMRES convergence, the most efficient method in terms of number of total solves is a single inner iteration.  Thus, we abandon the idea of a fixed point iteration in favor of a single step preconditioner.  Doing so will also allow us to construct a symmetric, positive-definite preconditioner for use in a conjugate gradient iteration.  
 %
 %\subsection{Block triangular factorization vs fixed point iteration}
 %
@@ -555,7 +555,7 @@ where $\tilde{\Lambda} = (\Lambda\oplus \Lambda) (I \otimes I + \Lambda \oplus \
 \[
 \tilde{\Lambda}_{ij} = 1 + \lambda_i + \lambda_j.
 \]
-Unfortunately, due to the presence of the $(I_N^{N+\Delta N}\otimes I_N^{N+\Delta N})$ matrices, it is difficult to invert this directly.  Can we break up $\tilde{\Lambda}$ into a tensor product structure as well?  If so, then we could break down a 2D DPG method into 1D lines.  
+Unfortunately, due to the presence of the $(I_N^{N+\Delta N}\otimes I_N^{N+\Delta N})$ matrices, it is difficult to invert this in closed form.  Likewise, due to the $ij$-coupled nature of $\tilde{\Lambda}$, we can no longer utilize a tensor product structure for the resulting matrix $B^TR_V^{-1}B$.  
 
 \end{document}
 

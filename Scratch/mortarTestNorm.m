@@ -3,9 +3,9 @@ function mortarTestNorm
 Globals2D;
 FaceGlobals2D
 
-N = 4; % when N = even, Nf = N-1, fails?
-Nf = N-2; % = N trial
-Nt = N-1; % = 
+N = 6; % when N = even, Nf = N-1, fails?
+Nf = 2; % = N trial
+Nt = 3; % = 
 %     Read in Mesh
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
 %     Nv = 3;
@@ -15,7 +15,8 @@ Nt = N-1; % =
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu'); 
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 
-[Nv, VX, VY, K, EToV] = QuadMesh2D(8);
+[Nv, VX, VY, K, EToV] = QuadMesh2D(4);
+% [Nv, VX, VY, K, EToV] = MakeQuads2D(8);
 
 % Initialize solver and construct grid and metric
 StartUp2D; FaceStartUp2D
@@ -33,25 +34,31 @@ O = sparse(size(M,1),size(M,2));
 %          Div O];
 
 % % convection-diffusion
-ep = .01;
-Adj_h = [(1/ep)*I2 Grad;
-         Div -Dx];
+% ep = .01;
+% Adj_h = [(1/ep)*I2 Grad;
+%          Div -Dx];
 
 % Helmholtz
 % px = sqrt(K)*(N+1);
-% k = sqrt(K);
+% k = 10;
 % Adj_h = [1i*k*I2 Grad;
 %          Div 1i*k*I];
 
 M3 = blkdiag(M2,M);
 RV = Adj_h'*M3*Adj_h + 0*blkdiag(M,M,M); % regularize on v
 
+% time-dependent heat eqn
+ep = .01;
+Adj_h = [(1/ep)*I2 blkdiag(Dx);
+         Div O];
+
+
 f = x(:).^0;
-btau = M2*[f;f]*0;
+btau = M2*[f;f];
 bv = M*f;
 % bv = bv*0;
 % bv(end-10) = 1;
-b = Adj_h'*[btau;bv];
+b = Adj_h'*M3*[btau;bv];
 
 Bt = getMortarConstraintDiv();
 % fmapBd = fmapB;xfd = xf;yfd = yf; 

@@ -1,10 +1,10 @@
-function pDPG_conf_ref
+function pDPG_poisson_ref
 
 Globals2D
 FaceGlobals2D;
 
 % Polynomial order used for approximation
-Ntrial = 3;
+Ntrial = 2;
 Ntest = Ntrial + 2;
 Nf = Ntrial-1;
 
@@ -13,7 +13,7 @@ N = Ntest;
 % Read in Mesh
 [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squareireg.neu');
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('lshape.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('lshape.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
@@ -25,7 +25,7 @@ N = Ntest;
 % Initialize solver and construct grid and metric
 StartUp2D;FaceStartUp2D
 
-Nref = 1;
+Nref = 6;
 for rr = 1:Nref    
     % get block operators
     [M, Dx, Dy] = getBlockOps();
@@ -39,7 +39,7 @@ for rr = 1:Nref
     Bhat = getMortarConstraint();
     xfb = xf(fmapB); yfb = yf(fmapB); nxfb = nxf(fmapB);nyfb = nyf(fmapB);
     
-    B = BK*Rr';   % form rectangular bilinear form matrix
+    B = BK*Rr';  % form rectangular bilinear form matrix
     % B = BK;
     
     [nV nU] = size(B); % num test nodes, num trial nodes
@@ -54,10 +54,10 @@ for rr = 1:Nref
     for i = 1:K % independently invert
         inds = (i-1)*Np + (1:Np);
         Tblk{i} = AK(inds,inds)\Bh(inds,:);
-        disp(['on element ' num2str(i)])
+%         disp(['on element ' num2str(i)])
         %             Tblk{i} = Bh(inds,:);
     end
-    disp(['time for test function computation = ', num2str(toc)])
+%     disp(['time for test function computation = ', num2str(toc)])
 
     T = cell2mat(Tblk);
     A = T'*Bh;
@@ -71,8 +71,6 @@ for rr = 1:Nref
     
     % BCs on flux
     uh0 = zeros(nM,1);        
-%     uh0(fmapB) = inflow.*bnf.*(yfb<0).*(1+yfb);  % BC data on flux = bn*u - eps*du/dn    
-%     uh0(fmapB) = inflow.*bnf.*sin(yfb*pi*2);  % BC data on flux = bn*u - eps*du/dn    
     U0 = [u0;uh0];
     
     % remove BCs on u on inflow for stability
@@ -97,29 +95,30 @@ for rr = 1:Nref
     A(bci,bci) = speye(length(bci));
         
     U = A\b;
-    
-    if (rr < Nref) % don't refine on the last step
         
-        res = Bh*U-bh;
+    PlotMesh2D        
+    if (rr < Nref) % don't refine on the last step        
+        res = Bh*U-bh; 
         eK = zeros(K,1);
         eRep = zeros(Np*K,1);
         for i = 1:K % independently invert
             inds = (i-1)*Np + (1:Np);
             eRep(inds) = AK(inds,inds)\res(inds);
             eK(i) = res(inds)'*eRep(inds);            
-            disp(['on element ' num2str(i)])            
+%             disp(['on element ' num2str(i)])            
         end
         
-        ref = eK > .0*max(eK);
-        
-%         % Dorfler
-%         theta = .2;
-%         nRef = 0;
-%         while nRef==0  
-%             ref = eK > theta*sum(eK);
-%             nRef = nnz(ref);
-%             theta = theta/2;            
-%         end        
+        ref = eK > .15*max(eK);
+        nRef = nnz(ref)
+
+        %         % Dorfler
+        %         theta = .2;
+        %         nRef = 0;
+        %         while nRef==0
+        %             ref = eK > theta*sum(eK);
+        %             nRef = nnz(ref);
+        %             theta = theta/2;
+        %         end
         
         
 %         plotSol(Rr'*U(1:nU),25)
@@ -130,15 +129,12 @@ for rr = 1:Nref
 %         for k = 1:K
 %             eKplot(:,k) = eK(k);
 %         end
-%         plotSol(eKplot,25)
-        
-        PlotMesh2D        
+%         plotSol(eKplot,25)                
         
         % refine mesh
         eflag = zeros(K,3);
         eflag(ref,:) = 1;
-        Refine2D(eflag);
-        
+        Refine2D(eflag);        
     end
 end
 
@@ -163,9 +159,3 @@ Ks = Dx'*M*Dx + Dy'*M*Dy;
 % Poisson
 Test = M + Ks;
 Trial = Ks;
-
-% Helmholtz
-% k = 10;
-% Test = k^2*M + Ks;
-% Trial = -k^2*M + Ks;
-

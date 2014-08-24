@@ -8,12 +8,11 @@ function mixedDPG_poisson
 Globals2D
 
 % Polynomial order used for approximation
-Ntrial = 3;
+Ntrial = 2;
 Ntest = Ntrial+2;
 
 N = Ntest;
 global k
-k = 1;
 
 % Read in Mesh
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
@@ -21,8 +20,8 @@ k = 1;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
-% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
+[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 
 % Initialize solver and construct grid and metric
 StartUp2D;
@@ -44,7 +43,7 @@ f = zeros(Np*K,1);
 
 % make CG operators
 [R vmapBT] = getCGRestriction();
-[Rp Irp vmapBTr xr yr] = pRestrictCG(Ntrial); % restrict test to trial space
+[Rp Irp vmapBTr xr yr] = pRestrictCG(N,Ntrial); % restrict test to trial space
 Rr = Rp*Irp';
 B = R*BK*Rr';
 RV = R*AK*R';
@@ -179,7 +178,7 @@ Trial = -k^2*M + Ks;
 % Test = (1/k^2)*M + Ks;
 % L = -k^2*speye(size(M)) - Dx*Dx - Dy*Dy;
 % Test = Ks + k^2*L'*M*L + 1e-6*M;
-Test = M + (k^2)*Ks;%+ Ks;
+Test = M + Ks;%+ Ks;
 % blkiM = kron(speye(K),inv(MassMatrix));
 % invM = spdiag(1./J(:))*blkiM; % J = h^2
 % Test = Trial*blkiM*Trial' + 1e-6*M;%(1/k^2)*M;

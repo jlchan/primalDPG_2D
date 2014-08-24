@@ -4,15 +4,15 @@ Globals2D
 FaceGlobals2D;
 
 % Polynomial order used for approximation
-Ntrial = 3;
+Ntrial = 2;
 Ntest = Ntrial + 2;
 Nf = Ntrial;
 
 N = Ntest;
 
 % Read in Mesh
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
-% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squareireg.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
+[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squareireg.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('lshape.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
@@ -30,14 +30,14 @@ global b2
 global ep
 b1 = 1; b2 = 0;ep = 1e-4;
 
-Nref = 3;
+Nref = 7;
 for rr = 1:Nref    
     % get block operators
     [M, Dx, Dy] = getBlockOps();
     [AK, BK] = getVolOp(M,Dx,Dy);
-    f = 0*ones(Np*K,1);
+%     f = ones(Np*K,1);
     
-%     f = y(:)<=0;
+    f = y(:)<=0;
 %     f = sin(pi*x(:)).*sin(pi*y(:));
     
     [R vmapBT] = getCGRestriction();
@@ -81,7 +81,7 @@ for rr = 1:Nref
     uh0 = zeros(nM,1);
     bnf = nxfb*b1 + nyfb*b2; % beta_n, determines inflow vs outflow
     inflow = (bnf < -NODETOL); % inflow = beta_n < 0
-    uh0(fmapB) = inflow.*bnf.*(yfb<0).*(1+yfb);  % BC data on flux = bn*u - eps*du/dn    
+    uh0(fmapB) = 0*inflow.*bnf.*(yfb<0).*(1+yfb);  % BC data on flux = bn*u - eps*du/dn    
 %     uh0(fmapB) = inflow.*bnf.*sin(yfb*pi*2);  % BC data on flux = bn*u - eps*du/dn    
     U0 = [u0;uh0];
     
@@ -89,7 +89,7 @@ for rr = 1:Nref
     vmapBTr(xr < -1+NODETOL) = [];
     % wall = (abs(yr+1)<NODETOL) & (xr > -NODETOL);
     % vmapBTr(~wall) = [];
-    vmapBTr = []; % removes all Dirichlet BCs for testing....
+%     vmapBTr = []; % removes all Dirichlet BCs for testing....
     
     % BCs on U: ordered first
     b = b - A*U0;    

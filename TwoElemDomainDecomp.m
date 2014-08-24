@@ -5,7 +5,7 @@ function TwoElemDomainDecomp
 
 % set up 1D operations
 N = 12; Np = N+1; Np2 = Np^2;
-Nf = 3; Nfp = Nf+1;
+Nf = 2; Nfp = Nf+1;
 
 [r1D] = JacobiGL(0,0,N);
 [r s] = meshgrid(r1D);r = r(:);s = s(:);
@@ -58,6 +58,8 @@ a = 1;
 uex = @(x,y) sin(a*pi*x).*cos(pi*y);
 f = (1+(1+a^2)*pi^2)*uex(x,y);
 % f = [-(s<0); (s>0)];
+% f = [-(r<0); (r>0)];
+% f = ones(2*Np2,1);
 b = blkM*f; 
 bf = zeros(Nfp,1); %bf(round(Nfp/2)) = 1;
 b = [b; bf];
@@ -81,8 +83,8 @@ u = u(1:Np2*2);
 Vu = Vander2D(ru,su,N); Iu = Vu*invV; 
 figure
 subplot(2,1,1)
-% color_line3(ru,su,Iu*u1,Iu*u1,'.');
-% color_line3(ru+2+.075,su,Iu*u2,Iu*u2,'o');
+color_line3(ru,su,Iu*u1,Iu*u1,'.');
+color_line3(ru+2+.075,su,Iu*u2,Iu*u2,'o');
 
 [rcub scub wcub] = cub2D(25);
 Vc = Vander2D(rcub,scub,N); Ic = Vc*invV;
@@ -93,8 +95,8 @@ err2 = sqrt(e2'*(wcub.*e2));
 
 e1 = uex(r,s) - u1;
 e2 = uex(r+2,s) - u2;
-color_line3(ru,su,Iu*e1,Iu*e1,'.');
-color_line3(ru+2+.075,su,Iu*e2,Iu*e2,'o');
+% color_line3(ru,su,Iu*e1,Iu*e1,'.');
+% color_line3(ru+2+.075,su,Iu*e2,Iu*e2,'o');
 
 
 B = A(2*Np2+(1:Nfp),1:2*Np2);
