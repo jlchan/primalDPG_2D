@@ -16,9 +16,9 @@ N = Ntest;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('lshape.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
-% [Nv, VX, VY, K, EToV] = QuadMesh2D(16);
+[Nv, VX, VY, K, EToV] = QuadMesh2D(8);
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('backdrop1.neu');
 
@@ -28,7 +28,7 @@ StartUp2D;FaceStartUp2D
 global b1
 global b2
 global ep
-b1 = 1; b2 = .5;ep = 1e-6;
+b1 = 1; b2 = 0;ep = 1e-6;
 
 % get block operators
 [M, Dx, Dy] = getBlockOps();
@@ -37,15 +37,13 @@ f = 0*ones(Np*K,1);
 % f = y(:)<=0;
 % f = sin(pi*x(:)).*sin(pi*y(:));
 
-[R vmapBT] = getCGRestriction();
-[Rp Irp vmapBTr xr yr] = pRestrictCG(N,Ntrial); % restrict test to trial space
-Rr = Rp*Irp';
 Bhat = getMortarConstraint();
 xfb = xf(fmapB); yfb = yf(fmapB); nxfb = nxf(fmapB);nyfb = nyf(fmapB);
 
+NpTest = Np;
+[Rp Irp vmapBT] = pRestrictCG(N,Ntrial); % restrict test to trial space
+Rr = Rp*Irp';
 B = BK*Rr';   % form rectangular bilinear form matrix
-% B = BK;
-
 [nV nU] = size(B); % num test nodes, num trial nodes
 nM = size(Bhat,1); % num mortar nodes
 nTrial = nU + nM;
@@ -55,7 +53,7 @@ Tblk = cell(K,1);
 if 1
     tic
     for i = 1:K % independently invert
-        inds = (i-1)*Np + (1:Np);
+        inds = (i-1)*NpTest + (1:NpTest);
         Tblk{i} = AK(inds,inds)\Bh(inds,:);
         disp(['on element ' num2str(i)])
         %             Tblk{i} = Bh(inds,:);
@@ -104,16 +102,16 @@ uh0(fmapB) = bnf.*(yfb<0).*(1+yfb);  % BC data on flux = bn*u - eps*du/dn
 U0 = [u0;uh0];
 
 % remove BCs on u on inflow for stability
-vmapBTr(xr < -1+NODETOL) = [];
+vmapBT(x(vmapB) < -1+NODETOL) = [];
 % wall = (abs(yr+1)<NODETOL) & (xr > -NODETOL);
 % vmapBTr(~wall) = [];
 %   vmapBTr = []; % removes all Dirichlet BCs for testing....
 
 % BCs on U: ordered first
 b = b - A*U0;
-b(vmapBTr) = U0(vmapBTr);
-A(vmapBTr,:) = 0; A(:,vmapBTr) = 0;
-A(vmapBTr,vmapBTr) = speye(length(vmapBTr));
+b(vmapBT) = U0(vmapBT);
+A(vmapBT,:) = 0; A(:,vmapBT) = 0;
+A(vmapBT,vmapBT) = speye(length(vmapBT));
 
 % homogeneous BCs on V are implied by mortars.
 % BCs on mortars removes BCs on test functions.
@@ -127,7 +125,7 @@ A(bci,:) = 0; A(:,bci)=0;
 A(bci,bci) = speye(length(bci));
 
 U = A\b;
-u = Rr'*U(1:nU);
+u = Rp'*U(1:nU);
 f = U(nU+(1:nM));
 %     color_line3(x,y,u,u,'.');
 %     return
