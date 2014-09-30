@@ -8,7 +8,7 @@ function cg_helmholtz
 Globals2D
 
 % Polynomial order used for approximation
-N = 3;
+N = 10;
 
 global k
 k = 1;
@@ -18,16 +18,15 @@ k = 1;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squareireg.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('block2.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
-% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
+[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu'); % 8 elements
-[Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu'); % 16 elements
+% [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu'); % 16 elements
 % Initialize solver and construct grid and metric
+
+[Nv, VX, VY, K, EToV] = QuadMesh2D(1);
 StartUp2D;
 
-
-PPB = numel(vmapB)/4 % 4 boundaries - points per boundary
-PPW = 4;
-k = PPB/PPW
+k = 5;
 % keyboard
 % PPW = PPB/k
 
@@ -52,22 +51,22 @@ dudy0f = @(x,y) 1i*k*sin(t)*exp(1i*k*(cos(t)*x + sin(t)*y));
 
 %%
 % compute projections of exact solutions for bdata
-if 1
-Corder = 25;
-[cubR,cubS,cubW, Ncub] = Cubature2D(Corder); Vcub = Vandermonde2D(N,cubR,cubS);
-xcub = 0.5*(-(cubR+cubS)*VX(va)+(1+cubR)*VX(vb)+(1+cubS)*VX(vc));
-ycub = 0.5*(-(cubR+cubS)*VY(va)+(1+cubR)*VY(vb)+(1+cubS)*VY(vc));
-
-Interp = Vcub*invV; % interp to cubature points
-Wcub = diag(cubW);
-Minv = V*V';
-u0 = Minv*Interp'*Wcub*u0f(xcub,ycub);
-dudx0 = Minv*Interp'*Wcub*dudx0f(xcub,ycub);
-dudy0 = Minv*Interp'*Wcub*dudy0f(xcub,ycub);
+if 0
+    Corder = 25;
+    [cubR,cubS,cubW, Ncub] = Cubature2D(Corder); Vcub = Vandermonde2D(N,cubR,cubS);
+    xcub = 0.5*(-(cubR+cubS)*VX(va)+(1+cubR)*VX(vb)+(1+cubS)*VX(vc));
+    ycub = 0.5*(-(cubR+cubS)*VY(va)+(1+cubR)*VY(vb)+(1+cubS)*VY(vc));
+    
+    Interp = Vcub*invV; % interp to cubature points
+    Wcub = diag(cubW);
+    Minv = V*V';
+    u0 = Minv*Interp'*Wcub*u0f(xcub,ycub);
+    dudx0 = Minv*Interp'*Wcub*dudx0f(xcub,ycub);
+    dudy0 = Minv*Interp'*Wcub*dudy0f(xcub,ycub);
 else
-u0 = u0f(x(:),y(:));
-dudx0 = dudx0f(x(:),y(:));
-dudy0 = dudy0f(x(:),y(:));
+    u0 = u0f(x(:),y(:));
+    dudx0 = dudx0f(x(:),y(:));
+    dudy0 = dudy0f(x(:),y(:));
 end
 dudn0 = nx(mapB).*dudx0(vmapB) + ny(mapB).*dudy0(vmapB);
 
@@ -77,6 +76,7 @@ dudn0 = nx(mapB).*dudx0(vmapB) + ny(mapB).*dudy0(vmapB);
 % robin = y(vmapB) > 1 - NODETOL | x(vmapB) > 1-NODETOL; % top/right boundaries
 robin = abs(nx(mapB)+1) < NODETOL | abs(ny(mapB)+1) < NODETOL;
 % robin = zeros(size(vmapB));
+robin = ones(size(vmapB));
 [Mb Eb] = getBoundaryMatrix(robin);
 B = B - 1i*k*R*Eb'*Mb*Eb*R';
 b = b + R*Eb'*Mb*(-1i*k*u0(vmapB) + dudn0);
@@ -85,23 +85,20 @@ b = b + R*Eb'*Mb*(-1i*k*u0(vmapB) + dudn0);
 % onlyLeft = (x(vmapB) < -1 + NODETOL) & (y(vmapB) < 1-NODETOL);
 % onlyBot = (y(vmapB) < -1 + NODETOL) & (x(vmapB) < 1-NODETOL);
 % neum = onlyLeft | onlyBot; % left/bottom boundary
-neum = abs(nx(mapB)-1) < NODETOL | abs(ny(mapB)-1) < NODETOL;
-% neum = ones(size(vmapB))*0;
-[Mb Eb] = getBoundaryMatrix(neum(:));
-b = b + R*Eb'*Mb*dudn0;
-
+if 0
+    neum = abs(nx(mapB)-1) < NODETOL | abs(ny(mapB)-1) < NODETOL;
+    [Mb Eb] = getBoundaryMatrix(neum(:));
+    b = b + R*Eb'*Mb*dudn0;
+end
 % solve and prolong solution u to local storage
 U = (B\b);
 u = R'*U;
 
 % Nplot = 25; [xu,yu] = EquiNodes2D(Nplot);
 % Nplot = Ntrial; [xu,yu] = Nodes2D(Nplot);
-Nplot = 30; [xu,yu] = Nodes2D(Nplot);
-[ru, su] = xytors(xu,yu);
-Vu = Vandermonde2D(N,ru,su); Iu = Vu*invV;
-xu = 0.5*(-(ru+su)*VX(va)+(1+ru)*VX(vb)+(1+su)*VX(vc));
-yu = 0.5*(-(ru+su)*VY(va)+(1+ru)*VY(vb)+(1+su)*VY(vc));
-
+Nplot = 25;
+plotSol(u,Nplot);
+return
 % figure
 Iu0 = u0f(xu(:),yu(:));
 

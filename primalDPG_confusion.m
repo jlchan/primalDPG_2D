@@ -4,7 +4,7 @@ Globals2D
 FaceGlobals2D;
 
 % Polynomial order used for approximation
-Ntrial = 2;
+Ntrial = 6;
 Ntest = Ntrial + 2;
 Nf = Ntrial;
 
@@ -18,7 +18,8 @@ N = Ntest;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
-[Nv, VX, VY, K, EToV] = QuadMesh2D(8);
+[Nv, VX, VY, K, EToV] = QuadMesh2D(3);
+% [Nv, VX, VY, K, EToV] = MakeQuads2D(4);
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('backdrop1.neu');
 
@@ -105,7 +106,7 @@ U0 = [u0;uh0];
 vmapBT(x(vmapB) < -1+NODETOL) = [];
 % wall = (abs(yr+1)<NODETOL) & (xr > -NODETOL);
 % vmapBTr(~wall) = [];
-%   vmapBTr = []; % removes all Dirichlet BCs for testing....
+% vmapBT = []; % removes all Dirichlet BCs for testing....
 
 % BCs on U: ordered first
 b = b - A*U0;

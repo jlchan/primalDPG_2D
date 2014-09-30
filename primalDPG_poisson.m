@@ -43,7 +43,7 @@ b = b + pen*Eb'*Mb*u0tb;
 
 % switches to Ntrial globals
 [Rp Irp vmapBT] = pRestrictCG(Ntest,Ntrial); % restrict test to trial space
-Rr = Rp*Irp';
+Rr = Rp*Irp'; 
 B = BK*Rr';   % form rectangular bilinear form matrix
 [nV nU] = size(B); % num test nodes, num trial nodes
 nM = size(Bhat,1); % num mortar nodes

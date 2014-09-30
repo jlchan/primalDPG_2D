@@ -8,7 +8,7 @@
 % - vmapBT, xrestrict, yrestrict 
 
 % todo: make this version the default one...
-function [Rp Irp vmapBT] = pRestrictCG(Norig,Nr)
+function [Rp Irp vmapBT a] = pRestrictCG(Norig,Nr,resetGlobals)
 
 Globals2D
 
@@ -16,15 +16,23 @@ saveFlag = 1;
 a = backupGlobals(saveFlag);
 
 % restart with trial Globals2D instead
-Nold = N; N = Nr; %save old N 
+N = Nr; %switch to restricted N
 StartUp2D; % FaceStartUp2D; 
 
 Rp = getCGRestriction();
-[i j] = find(round(Rp));
+[i ~] = find(round(Rp));
 % give back new boundary nodes
 vmapBT = i(vmapB);
 
 Irp = pRestrict(Norig,Nr);
+
+if nargin < 3
+    resetGlobals = 0;
+end
+if resetGlobals
+    saveFlag = 0;
+    backupGlobals(saveFlag,a);
+end
 
 % don't reset Globals2D!  Switch to trial globals...
 
