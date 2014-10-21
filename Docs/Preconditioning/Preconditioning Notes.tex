@@ -121,6 +121,8 @@ The \emph{graph norm} on the test space for this formulation is given by
 \label{sec:convergenceStokesUniformMeshes}
 To begin, we use $k_{\rm fine} = 4, k_{\rm coarse} = 0$ and a tolerance of $\epsilon = 10^{-8}$ on some uniform meshes for 2D lid-driven cavity flow.  The number of iterations required for convergence and the estimated condition number are of interest.  (The estimated condition number is a feature of Aztec's conjugate gradient solver.)  Note that, because of the additive Schwarz smoother we use, the performance may depend on the number of MPI ranks used---for 1 MPI rank, the smoother will be exactly $A^{-1}$; the more MPI ranks, the worse we expect the smoother to perform.  The results for 4 MPI ranks are shown in Table \ref{table:stokesConditioningStudyUniformMesh4Ranks}.  The results for 16 MPI ranks are shown in Table \ref{table:stokesConditioningStudyUniformMesh16Ranks}.  As expected, condition number estimates and iterations counts are somewhat higher for the larger number of MPI ranks, but the difference is not extreme.  Importantly, the iteration counts and condition numbers do not appear to increase as the mesh is refined.
 
+We repeat the experiments for a level-1 Schwarz overlap; the results are shown in Tables \ref{table:stokesConditioningStudyUniformMesh4RanksOverlap1} and \ref{table:stokesConditioningStudyUniformMesh16RanksOverlap1}.  In both cases, the number of iterations required for convergence is substantially less than that required for the zero overlap case.
+
 % Sample CLI invocation:
 % time mpirun -np 4 ./drivers/Stokes/StokesCavityFlowGMGDriver --k_coarse=0 --azOutput=100 --enforceOneIrregularity --gmgMaxIterations=10000 --printRefinementDetails --relativeTol=1e-8 --dontUseScaledGraphNorm --dontUseDiagonalScaling --polyOrder=4 --numRefs=0 --numCells=64
 \begin{table}
@@ -134,7 +136,7 @@ $16 \times 16$	&55680		&2.20e-01		&74	&8.84e+03\\
 $32 \times 32$	&221440		&7.93e-02		&73	&8.77e+03\\
 $64 \times 64$	&883200		&5.24e-02		&70	& 8.75e+03\\
 \end{tabular}
-\caption{Iteration counts and estimated condition numbers for the cavity flow problem on uniform meshes on 4 MPI ranks.}
+\caption{Iteration counts and estimated condition numbers for the cavity flow problem on uniform meshes on 4 MPI ranks with Schwarz overlap level 0.}
 \label{table:stokesConditioningStudyUniformMesh4Ranks}
 \end{table}
 
@@ -146,10 +148,40 @@ $4 \times 4$	&95	&1.63e+04\\
 $8 \times 8$	&88	&1.06e+04\\
 $16 \times 16$	&84	&9.23e+03\\
 $32 \times 32$	&81	&8.81e+03\\
-$64 \times 64$	&	&\\
 \end{tabular}
-\caption{Iteration counts and estimated condition numbers for the cavity flow problem on uniform meshes on 16 MPI ranks.}
+\caption{Iteration counts and estimated condition numbers for the cavity flow problem on uniform meshes on 16 MPI ranks with Schwarz overlap level 0.}
 \label{table:stokesConditioningStudyUniformMesh16Ranks}
+\end{table}
+
+%cetus CLI invocation:
+%qsub -t 60 -n 4 --mode c1 ../StokesCavityFlowGMGDriver --k_coarse=0 --azOutput=100 --enforceOneIrregularity --gmgMaxIterations=10000 --relativeTol=1e-8 --minTol=1e-8 --polyOrder=4 --numRefs=0 --numCells=64 --smootherOverlap=1
+\begin{table}
+\begin{tabular}{ c  c  c  c  c  c }
+elements	& Num. Global dofs	&Energy Error	&Num. Iterations	&Condest.		\\
+\hline
+$2 \times 2$	&940		&1.18e+00	&29	&5.61e+03\\
+$4 \times 4$	&3600		&6.33e-01		&36	&1.08e+04\\
+$8 \times 8$	&14080		&4.35e-01		&41	&1.10e+04\\
+$16 \times 16$	&55680		&2.20e-01		&47	&1.10e+04\\
+$32 \times 32$	&221440		&7.93e-02		&55	&1.09e+04\\
+$64 \times 64$	&883200		&5.24e-02		&61	&1.09e+04\\
+\end{tabular}
+\caption{Iteration counts and estimated condition numbers for the cavity flow problem on uniform meshes on 4 MPI ranks with Schwarz overlap level 1.}
+\label{table:stokesConditioningStudyUniformMesh4RanksOverlap1}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ c  c  c  c  c  c }
+elements	&Num. Iterations	&Condest.\\
+\hline
+$4 \times 4$	&56	&2.36e+04\\
+$8 \times 8$	&58	&1.37e+04\\
+$16 \times 16$	&63	&1.12e+04\\
+$32 \times 32$	&70	&1.10e+04\\
+$64 \times 64$	&75	&1.09e+04\\
+\end{tabular}
+\caption{Iteration counts and estimated condition numbers for the cavity flow problem on uniform meshes on 16 MPI ranks with Schwarz overlap level 1.}
+\label{table:stokesConditioningStudyUniformMesh16RanksOverlap1}
 \end{table}
 
 \subsection{Condition Numbers and Convergence on $h$-refined Meshes}
@@ -175,7 +207,7 @@ Ref. Number	&Num. Elements	& Num. Global dofs		&Energy Error	&Num. Iterations	&C
 9	&154	&33210	&4.07e-03	&   52	&1.09e+02\\
 10 	&190	&40910	&2.43e-03	&  761	&9.07e+07\\
 \end{tabular}
-\caption{Iteration counts and estimated condition numbers for the cavity flow problem on adaptively refined meshes on 4 MPI ranks.}
+\caption{Iteration counts and estimated condition numbers for the cavity flow problem on adaptively refined meshes on 4 MPI ranks with Schwarz overlap level 0.}
 \label{table:stokesConditioningStudyAdaptiveMeshes4Ranks}
 \end{table}
 
@@ -196,7 +228,7 @@ Ref. Number	&Num. Iterations	&Condest.\\
 9	&911	&2.27e+07\\
 10 	&2375	&5.96e+07\\
 \end{tabular}
-\caption{Iteration counts and estimated condition numbers for the cavity flow problem on adaptively refined meshes on 16 MPI ranks.}
+\caption{Iteration counts and estimated condition numbers for the cavity flow problem on adaptively refined meshes on 16 MPI ranks with Schwarz overlap level 0.}
 \label{table:stokesConditioningStudyAdaptiveMeshes16Ranks}
 \end{table}
 
@@ -256,7 +288,7 @@ Ref. Number	&Num. Iterations	&Condest.\\
 9	&$27^*$	&7.93e+04$^*$\\
 10 	&$61^*$	&1.87e+04$^*$\\
 \end{tabular}
-\caption{Iteration counts and estimated condition numbers using GMRES for the cavity flow problem on adaptively refined meshes on 4 MPI ranks.  Here the Schwarz smoother has level 1 overlap.  For the entries marked with a $^*$, Aztec warned that the recursive residual indicated convergence even though the true residual was too small.  For these, we report the total number of iterations after one restart after the error was generated, and the estimated condition number for the initial GMRES run (which in each case was the one with the greatest number of iterations).}
+\caption{Iteration counts and estimated condition numbers using GMRES for the cavity flow problem on adaptively refined meshes on 4 MPI ranks.  Here the Schwarz smoother has level 1 overlap.  For the entries marked with a $^*$, Aztec warned that the recursive residual indicated convergence even though the true residual was too small.  For these, we restarted with the solution thus far as initial guess, and we report the total number of iterations and the estimated condition number for the initial GMRES run (which in each case was the one with the greatest number of iterations).}
 \label{table:stokesConditioningStudyAdaptiveMeshes4RanksGMRES}
 \end{table}
 
@@ -276,7 +308,7 @@ Ref. Number	&Num. Iterations	&Condest.\\
 9	&$97^*$	&2.23e+04$^*$\\
 10 	&$103^*$	&9.27e+03$^*$\\
 \end{tabular}
-\caption{Iteration counts and estimated condition numbers using GMRES for the cavity flow problem on adaptively refined meshes on 16 MPI ranks.  Here the Schwarz smoother has level 1 overlap.  For the entries marked with a $^*$, Aztec warned that the recursive residual indicated convergence even though the true residual was too small.  For these, we report the total number of iterations after one restart after the error was generated, and the estimated condition number for the initial GMRES run (which in each case was the one with the greatest number of iterations).}
+\caption{Iteration counts and estimated condition numbers using GMRES for the cavity flow problem on adaptively refined meshes on 16 MPI ranks.  Here the Schwarz smoother has level 1 overlap.  For the entries marked with a $^*$, Aztec warned that the recursive residual indicated convergence even though the true residual was too small.  For these, we restarted with the solution thus far as initial guess, and we report the total number of iterations and the estimated condition number for the initial GMRES run (which in each case was the one with the greatest number of iterations).}
 \label{table:stokesConditioningStudyAdaptiveMeshes16RanksGMRES}
 \end{table}
 
