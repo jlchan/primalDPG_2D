@@ -312,6 +312,43 @@ Ref. Number	&Num. Iterations	&Condest.\\
 \label{table:stokesConditioningStudyAdaptiveMeshes16RanksGMRES}
 \end{table}
 
+\subsection{Stokes 3D with $h$-refinements}
+For our next experiment, we again examine Stokes driven cavity flow, but now in 3 dimensions, with $k_{\rm fine}=2$ and $k_{\rm coarse}=0$.  (We ran this on Argonne's Cetus.)  Results with an adaptive tolerance and zero overlap are in Table \ref{table:stokesConditioningStudyAdaptiveMeshes3DOverlap0}.  Results with fixed tolerance of $10^{-8}$ and level-1 overlap are in Table \ref{table:stokesConditioningStudyAdaptiveMeshes3DOverlap1}.
+
+\begin{table}
+\begin{tabular}{ c  c  c  c  c  c c}
+Ref. Number	&Num. Elements	& Num. Global dofs		&Energy Error	&Num. Iterations	&Condest.\\
+\hline
+0	&8		&4752	&1.41e+00	&92		&1.34e+04\\
+1	&36		&19764	&1.43e+00	&102		&1.13e+04\\
+2	&120		&63504	&8.82e-01		&104		&5.12e+03\\
+3	&316		&164700	&6.70e-01		&110		&4.18e+03\\
+4	&540		&279936	&5.04e-01		&134		&4.08e+03\\
+5	&1268	&655020	&3.13e-01		&211		&1.16e+04\\
+6	&4880	&2512188	&1.54e-01		&342		&1.34e+04\\
+\end{tabular}
+\caption{Iteration counts and estimated condition numbers for the 3D cavity flow problem on adaptively refined meshes on 2048 MPI ranks, with Schwarz overlap level 0.}
+\label{table:stokesConditioningStudyAdaptiveMeshes3DOverlap0}
+\end{table}
+
+%qsub -t 60 -n 128 --mode c16 -A Camellia ../StokesCavityFlowGMGDriver --k_coarse=0 --azOutput=100 --enforceOneIrregularity --gmgMaxIterations=10000 --relativeTol=1e-8 --minTol=1e-8 --polyOrder=2 --delta_k=1 --numRefs=6 --numCells=2 --smootherOverlap=1 --use3D
+\begin{table}
+\begin{tabular}{ c  c  c  c  c  c c}
+Ref. Number	&Num. Elements	& Num. Global dofs		&Energy Error	&Num. Iterations	&Condest.\\
+\hline
+0	&8		&4752	&1.40e+00	&47	&1.60e+04\\
+1	&36		&19764	&1.43e+00	&	&\\
+2	&120		&63504	&8.82e-01		&	&\\
+3	&316		&164700	&6.70e-01		&	&\\
+4	&540		&279936	&5.04e-01		&	&\\
+5	&1268	&655020	&3.13e-01		&	&\\
+6	&4880	&2512188	&1.54e-01		&	&\\
+\end{tabular}
+\caption{Iteration counts and estimated condition numbers for the 3D cavity flow problem on adaptively refined meshes on 2048 MPI ranks, with Schwarz overlap level 1.}
+\label{table:stokesConditioningStudyAdaptiveMeshes3DOverlap1}
+\end{table}
+
+
 % following has to do with the earlier Jacobi smoothing
 %\subsection{Initial Conditioning Study}
 %We have encountered some curious issues with convergence: for the Stokes system above, it appears that
