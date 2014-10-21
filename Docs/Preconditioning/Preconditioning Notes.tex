@@ -1,0 +1,314 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage[english]{babel}
+\usepackage{times}
+\usepackage{enumerate}
+\usepackage{a4wide}
+%\usepackage{showlabels}
+\usepackage{amssymb}
+\usepackage{amsbsy}
+\usepackage{pgf}
+\usepackage[textsize=footnotesize,color=yellow]{todonotes}
+\usepackage{subfigure}
+\usepackage{url}		% Allows good typesetting of web URLs.
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[space]{grffile}
+\usepackage{forloop}
+
+\usepackage{afterpage}
+
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\input{nate_commands}
+
+\title{Notes on Preconditioning}
+\author{Nathan V. Roberts}
+\date{\today}
+%\date{}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+%\section{}
+%\subsection{}
+
+\section{Introduction}
+We seek a general iterative solve strategy for DPG systems.  Because the DPG system matrices are SPD, we will use preconditioned conjugate gradient.  Suppose that the system we seek to solve on the fine grid is of the form
+\begin{align*}
+A \vect{x} = \vect{b}.
+\end{align*}
+For an approximate solution $\vect{x}_k$, the residual will be
+\begin{align*}
+\vect{r}_k = A \vect{x}_k - \vect{b}.
+\end{align*}
+The problem solved on each CG iteration is for the preconditioned residual $\vect{z}_k = M^{-1}\vect{r}_k$.  We define the preconditioner $M^{-1}$ by
+\begin{align*}
+M^{-1}\vect{r}_k = P M_c^{-1} P^T \vect{r}_k + S^{-1}\vect{r}_k,
+\end{align*}
+where $M_c^{-1}$ is an operator (in what follows, $M_c^{-1} = (P^T A P)^{-1}$) on the coarse grid, $P$ is a prolongation operator converting coefficient data on the coarse grid into coefficient data on the fine grid, and $S^{-1}$ is a \emph{smoother} for $A$.  In what follows, we use additive Schwarz with zero overlap or level-1 overlap\footnote{It is worth noting that we have also experimented with Jacobi smoothers (i.e. $S=D$, the diagonal of $A$), and that these did not perform well; here, the condition number of $AM^{-1}$ appeared to grow with $h^{-2}$.  It is also worth noting that the zero-overlap Schwarz smoother we use is communication-avoiding, and locally greedy---that is, only local coefficients are used for the block matrices that are inverted, and \emph{all} local coefficients are used for the block.  Level-1 overlap means that columns with nonzero entries for the local rank's rows are imported as rows to the local rank, and included in the additive Schwarz block.  To maintain symmetry, we use the ``Add'' combine mode within the IfPack Schwarz preconditioner.} for $S^{-1}$.
+
+%\subsection{More than Two Grids}
+%The extension of the above to more grids is straightforward, and takes the same form.  Consider a sequence of three meshes $\Omega_h^0, \Omega_h^1, \Omega_h^2$, with corresponding stiffness matrices $A_0, A_1, A_2$, with prolongation operators $P_1$ going from the discretization on $\Omega_h^0$ to that on $\Omega_h^1$, and $P_2$ going from $\Omega_h^1$ to $\Omega_h^2$.  Then we have
+%\begin{align*}
+%A_0 &= P_1^T A_1 P_1 \\
+%A_1 &= P_2^T A_2 P_2,
+%\end{align*}
+%so that
+%\begin{align*}
+%A_0 &= P_1^T P_2^T A_2 P_2 P_1 = (P_2 P_1)^T A_2 (P_2 P_1).
+%\end{align*}
+%One consequence is that when refining, we may compute the prolongation from the previous mesh to the current one, and compose with the previously computed prolongation operator (supposing that we want to use the same coarse mesh).  Another consequence is that, on the above strategy, there is no particular advantage to employing intermediate meshes in addition to the coarse and the fine mesh.\footnote{There may be advantages to using finer or coarser coarse meshes, however; we expect convergence in fewer iterations with a finer mesh, but greater computational expense for each iteration.  Given this tradeoff and the fact that our smoother imposes a computational expense on each iteration that is independent of the choice of coarse mesh, one might seek a coarse mesh that approximately tracks the cost of the smoother.}
+
+% As of this writing (10-20-14), symmetric diagonalization is still supported, but I haven't yet found a situation in which it helps.  So I'm commenting this section out for now.
+%\subsection{Symmetric Diagonalization}
+%For reasons of conditioning, it may be desirable to scale $A$ such that the scaled matrix has unit diagonal.  In order to do this in a way that preserves symmetry, we scale the problem as follows:
+%\begin{align*}
+%\left(D^{-1/2} A D^{-1/2}\right) D^{1/2} \vect{x} = D^{-1/2} \vect{b}.
+%\end{align*}
+%The job of the preconditioner then becomes to approximate $(D^{-1/2} A D^{-1/2})^{-1} = D^{1/2} A^{-1} D^{1/2}.$  Given a preconditioner $M^{-1}$ that approximates $A^{-1}$, the preconditioner for the scaled system is given by
+%\begin{align*}
+%D^{1/2} M^{-1} D^{1/2}.
+%\end{align*}
+%That is, we simply premultiply the input to the preconditioner by $D^{1/2}$, and also postmultiply its output by  $D^{1/2}$.
+
+\subsection{Convergence Criterion}
+We measure the residual of the system $\vect{r}_k$ in a scaled $\ell_2$ norm:
+\begin{align*}
+\norm{\vect{r}_k} = \frac{\norm{\vect{r}_k}_2}{\norm{\vect{b}}_2}.
+\end{align*}
+Because we are less concerned with precise convergence on coarse meshes, our usual approach is as follows:
+\begin{enumerate}
+\item Set initial mesh convergence threshold, $\epsilon = \epsilon_0$.
+\item Measure the energy error $e_0$ of a zero solution on the coarse mesh.
+\item Perform conjugate gradient iterations until $\norm{\vect{r}} < \epsilon$.
+\item Measure the energy error $e$---a proxy for the $L^2$ error.
+\item Refine the mesh according to the energy error on each element.
+\item Set $\epsilon = {\rm max} \, \left(\epsilon_0 \, \frac{e}{e_0}, \epsilon_{\rm min}\right)$.
+%\item Set $\epsilon = {\rm max} \, \left(\epsilon_0 \, e, \epsilon_{\rm min}\right)$.
+\item Repeat steps 3-6 as required.
+\end{enumerate}
+$\epsilon_0$ and $\epsilon_{\rm min}$ are user-definable tolerances indicating the convergence criterion on the coarse mesh, and a minimal tolerance.  As the mesh is refined and the energy error goes to zero, the tolerance becomes more restrictive until it reaches the minimal tolerance.
+
+\section{Example: Stokes System}
+In our research, we often apply DPG to incompressible flow problems.  Therefore, a natural place to start experimenting is the Stokes system.  We have generally used an ultraweak velocity-gradient-pressure (VGP) formulation, which is as follows:
+\begin{align*}
+b((u,\widehat{u}),v) = \left(\NVRtensor{\sigma} - p \NVRtensor{I}, \NVRgrad \vect{v} \right)_{\Omega_{h}} - \left\langle \widehat{\vect{t}}_{n}, \vect{v} \right\rangle_{\Gamma_{h}} &\notag\\
++\left(\vect{u}, \NVRgrad q \right)_{\Omega_{h}} -  \left\langle \widehat{\vect{u}} \cdot \vect{n}, q  \right\rangle_{\Gamma_{h}} &\label{NVR:eqn:variationalForm}\\
++ \left( \NVRtensor{\sigma}, \NVRtensor{\tau} \right)_{\Omega_{h}} + \left( \vect{u}, \NVRdiv \NVRtensor{\tau} \right)_{\Omega_{h}} - \left\langle \widehat{\vect{u}}, \NVRtensor{\tau} \vect{n}  \right\rangle_{\Gamma_{h}} &= (\vect{f}, \vect{v} )_{\Omega_{h}} = l(v).\notag
+\end{align*}
+Here, the group variables $u$ and $\widehat{u}$ refer to our field and trace variables\footnote{By field variables, we mean those trial space unknowns defined on element interiors; by trace variables, we mean those defined on the mesh skeleton.  In ultraweak formulations, the field variables are discontinuous across inter-element boundaries.}, respectively, while the group variable $v$ refers to our test variables.  The field variables $\vect{u}$, $p$, and $\NVRtensor{\sigma}$ are the velocity, pressure, and gradient variables, respectively---the tensor $\NVRtensor{\sigma}$ is defined as the gradient of vector $\vect{u}$.  The trace variables \dots
+
+The \emph{graph norm} on the test space for this formulation is given by
+
+\begin{align*}
+\norm{(\vect{v},q,\tens{\tau})}_{\rm graph}^{2} = \norm{\NVRdiv \vect{v}}^{2} + \norm{ \NVRtensor{\tau} - \NVRgrad{\vect{v}}}^{2} + \norm{\NVRdiv \NVRtensor{\tau} + \NVRgrad q}^{2} + \norm{\vect{v}}^{2} + \norm{q}^{2} + \norm{\NVRtensor{\tau}}^{2}.
+\end{align*}
+
+\subsection{Condition Numbers and Convergence on Uniform Meshes}
+\label{sec:convergenceStokesUniformMeshes}
+To begin, we use $k_{\rm fine} = 4, k_{\rm coarse} = 0$ and a tolerance of $\epsilon = 10^{-8}$ on some uniform meshes for 2D lid-driven cavity flow.  The number of iterations required for convergence and the estimated condition number are of interest.  (The estimated condition number is a feature of Aztec's conjugate gradient solver.)  Note that, because of the additive Schwarz smoother we use, the performance may depend on the number of MPI ranks used---for 1 MPI rank, the smoother will be exactly $A^{-1}$; the more MPI ranks, the worse we expect the smoother to perform.  The results for 4 MPI ranks are shown in Table \ref{table:stokesConditioningStudyUniformMesh4Ranks}.  The results for 16 MPI ranks are shown in Table \ref{table:stokesConditioningStudyUniformMesh16Ranks}.  As expected, condition number estimates and iterations counts are somewhat higher for the larger number of MPI ranks, but the difference is not extreme.  Importantly, the iteration counts and condition numbers do not appear to increase as the mesh is refined.
+
+% Sample CLI invocation:
+% time mpirun -np 4 ./drivers/Stokes/StokesCavityFlowGMGDriver --k_coarse=0 --azOutput=100 --enforceOneIrregularity --gmgMaxIterations=10000 --printRefinementDetails --relativeTol=1e-8 --dontUseScaledGraphNorm --dontUseDiagonalScaling --polyOrder=4 --numRefs=0 --numCells=64
+\begin{table}
+\begin{tabular}{ c  c  c  c  c  c }
+elements	& Num. Global dofs	&Energy Error	&Num. Iterations	&Condest.		\\
+\hline
+$2 \times 2$	&940		&1.18e+00	&75	&1.34e+04\\
+$4 \times 4$	&3600		&6.33e-01		&79	&1.01e+04\\
+$8 \times 8$	&14080		&4.35e-01		&77	&9.12e+03\\
+$16 \times 16$	&55680		&2.20e-01		&74	&8.84e+03\\
+$32 \times 32$	&221440		&7.93e-02		&73	&8.77e+03\\
+$64 \times 64$	&883200		&5.24e-02		&70	& 8.75e+03\\
+\end{tabular}
+\caption{Iteration counts and estimated condition numbers for the cavity flow problem on uniform meshes on 4 MPI ranks.}
+\label{table:stokesConditioningStudyUniformMesh4Ranks}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ c  c  c  c  c  c }
+elements	&Num. Iterations	&Condest.\\
+\hline
+$4 \times 4$	&95	&1.63e+04\\
+$8 \times 8$	&88	&1.06e+04\\
+$16 \times 16$	&84	&9.23e+03\\
+$32 \times 32$	&81	&8.81e+03\\
+$64 \times 64$	&	&\\
+\end{tabular}
+\caption{Iteration counts and estimated condition numbers for the cavity flow problem on uniform meshes on 16 MPI ranks.}
+\label{table:stokesConditioningStudyUniformMesh16Ranks}
+\end{table}
+
+\subsection{Condition Numbers and Convergence on $h$-refined Meshes}
+Our second test begins with precisely the $2 \times 2$ mesh for the problem in Section \ref{sec:convergenceStokesUniformMeshes}, with initial and minimum tolerances set $\epsilon_0 = \epsilon_{\rm min} = 10^{-8}$, for the sake of full comparability to the uniform case.  We use an adaptive tolerance of $\theta=0.20$.  The results for the 4-rank case are shown in Table \ref{table:stokesConditioningStudyAdaptiveMeshes4Ranks}; those for the 16-rank case are shown in Table \ref{table:stokesConditioningStudyAdaptiveMeshes16Ranks}.
+
+Although the increase in estimated condition number is not uniform, both the iteration count and the condition number do generally appear to be increasing somewhat as we refine.  Moreover, the results are substantially worse for the 16-rank case.  The conjugate gradient convergence history---specifically, the fact that the decrease of the residual was not monotonic in some instances---suggests that numerically, the operator $A M^{-1}$ is no longer SPD.  Therefore, we repeat the experiment, but this time using an overlap level of 1 for the Schwarz smoother.\footnote{Level 1 overlap means that columns with nonzero entries for the local rank's rows are imported as rows to the local rank, and included in the additive Schwarz block.  Thus far, we have not succeeded in combining non-zero overlap with conjugate gradient---this also behaves as though the preconditioned operator is no longer SPD.}  The results for 4 MPI ranks are shown in Table \ref{table:stokesConditioningStudyAdaptiveMeshes4RanksOverlap1}; those for 16 MPI ranks are shown in Table \ref{table:stokesConditioningStudyAdaptiveMeshes16RanksOverlap1}.
+
+For comparison, we repeat the 1-overlap experiment using GMRES, again using a level-1 overlap for the Schwarz smoother.  The 4-rank results are shown in Table \ref{table:stokesConditioningStudyAdaptiveMeshes4RanksGMRES}; 16-rank results are shown in Table \ref{table:stokesConditioningStudyAdaptiveMeshes16RanksGMRES}.  In both cases, the number of iterations and the condition numbers appear to be fairly stable under refinement.
+
+\begin{table}
+\begin{tabular}{ c  c  c  c  c  c c}
+Ref. Number	&Num. Elements	& Num. Global dofs		&Energy Error	&Num. Iterations	&Condest.\\
+\hline
+0	&4	&940	&1.18e+00	&   75	&1.34e+04\\
+1	&10	&2250	&6.33e-01	&  115	&6.57e+03\\
+2	&16	&3540	&4.35e-01	&  173	&7.19e+03\\
+3	&22	&4830	&2.21e-01	&  170	&6.74e+03\\
+4	&28	&6120	&8.09e-02	&  106	&5.77e+03\\
+5	&34	&7410	&5.58e-02	&  156	&2.08e+04\\
+6	&70	&15170	&2.97e-02	&  239	&8.84e+04\\
+7	&118	&25550	&1.36e-02	&  220	&1.03e+05\\
+8	&136	&29380	&7.09e-03	&  374	&5.68e+06\\
+9	&154	&33210	&4.07e-03	&   52	&1.09e+02\\
+10 	&190	&40910	&2.43e-03	&  761	&9.07e+07\\
+\end{tabular}
+\caption{Iteration counts and estimated condition numbers for the cavity flow problem on adaptively refined meshes on 4 MPI ranks.}
+\label{table:stokesConditioningStudyAdaptiveMeshes4Ranks}
+\end{table}
+
+
+\begin{table}
+\begin{tabular}{ c  c  c  c  c  c c}
+Ref. Number	&Num. Iterations	&Condest.\\
+\hline
+0	&75	&1.34e+04\\
+1	&134	&1.68e+04\\
+2	&227	&1.71e+04\\
+3	&277	&1.59e+04\\
+4	&393	&2.45e+04\\
+5	&612	&8.42e+04\\
+6	&749	&1.05e+05\\
+7	&1720	&1.47e+06\\
+8	&1216	&5.67e+06\\
+9	&911	&2.27e+07\\
+10 	&2375	&5.96e+07\\
+\end{tabular}
+\caption{Iteration counts and estimated condition numbers for the cavity flow problem on adaptively refined meshes on 16 MPI ranks.}
+\label{table:stokesConditioningStudyAdaptiveMeshes16Ranks}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ c  c  c  c  c  c c}
+Ref. Number	&Num. Elements	& Num. Global dofs		&Energy Error	&Num. Iterations	&Condest.\\
+\hline
+0	&4	&940	&1.18E+000	&29	&5.62e+03\\
+1	&10	&2250	&6.33E-001	&32	&4.43e+03\\
+2	&16	&3540	&4.35E-001	&29	&3.52e+03\\
+3	&22	&4830	&2.21E-001	&30	&3.44e+03\\
+4	&28	&6120	&8.09E-002	&30	&3.38e+03\\
+5	&34	&7410	&5.58E-002	&29	&3.36e+03\\
+6	&70	&15170	&2.97E-002	&40	&4.33e+03\\
+7	&118	&25550	&1.36E-002	&42	&3.67e+03\\
+8	&136	&29380	&7.09E-003	&43	&4.07e+03\\
+9	&154	&33210	&4.07E-003	&15	&4.07e+03\\
+10	&190	&40910	&2.43E-003	&41	&4.05e+03\\
+\end{tabular}
+\caption{Iteration counts and estimated condition numbers for the cavity flow problem on adaptively refined meshes on 4 MPI ranks, with Schwarz overlap level 1.}
+\label{table:stokesConditioningStudyAdaptiveMeshes4RanksOverlap1}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ c  c  c  c  c  c c}
+Ref. Number	&Num. Iterations	&Condest.\\
+\hline
+0	&29	&5.62e+03\\
+1	&46	&1.81e+04\\
+2	&55	&1.90e+04\\
+3	&40	&4.76e+01\\
+4	&53	&6.06e+03\\
+5	&49	&1.21e+04\\
+6	&64	&1.22e+04\\
+7	&60	&6.42e+03\\
+8	&60	&1.29e+04\\
+9	&54	&6.41e+03\\
+10 	&44	&4.47e+01\\
+\end{tabular}
+\caption{Iteration counts and estimated condition numbers for the cavity flow problem on adaptively refined meshes on 16 MPI ranks, with Schwarz overlap level 1.}
+\label{table:stokesConditioningStudyAdaptiveMeshes16RanksOverlap1}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ c  c  c  c  c  c c}
+Ref. Number	&Num. Iterations	&Condest.\\
+\hline
+0	&44	&3.74e+05\\
+1	&56	&8.96e+04\\
+2	&51	&1.78e+05\\
+3	&48	&2.83e+05\\
+4	&45	&2.85e+05\\
+5	&44	&4.89e+05\\
+6	&58	&1.86e+05\\
+7	&53	&7.04e+04\\
+8	&60	&4.50e+05\\
+9	&$27^*$	&7.93e+04$^*$\\
+10 	&$61^*$	&1.87e+04$^*$\\
+\end{tabular}
+\caption{Iteration counts and estimated condition numbers using GMRES for the cavity flow problem on adaptively refined meshes on 4 MPI ranks.  Here the Schwarz smoother has level 1 overlap.  For the entries marked with a $^*$, Aztec warned that the recursive residual indicated convergence even though the true residual was too small.  For these, we report the total number of iterations after one restart after the error was generated, and the estimated condition number for the initial GMRES run (which in each case was the one with the greatest number of iterations).}
+\label{table:stokesConditioningStudyAdaptiveMeshes4RanksGMRES}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ c  c  c  c  c  c c}
+Ref. Number	&Num. Iterations	&Condest.\\
+\hline
+0	&44	&3.74e+05\\
+1	&70	&2.82e+05\\
+2	&94	&5.21e+05\\
+3	&94	&7.36e+05\\
+4	&98	&3.09e+06\\
+5	&97	&7.60e+05\\
+6	&114	&9.64e+04\\
+7	&$99^*$	&1.63e+04$^*$\\
+8	&$97^*$	&3.22e+04$^*$\\
+9	&$97^*$	&2.23e+04$^*$\\
+10 	&$103^*$	&9.27e+03$^*$\\
+\end{tabular}
+\caption{Iteration counts and estimated condition numbers using GMRES for the cavity flow problem on adaptively refined meshes on 16 MPI ranks.  Here the Schwarz smoother has level 1 overlap.  For the entries marked with a $^*$, Aztec warned that the recursive residual indicated convergence even though the true residual was too small.  For these, we report the total number of iterations after one restart after the error was generated, and the estimated condition number for the initial GMRES run (which in each case was the one with the greatest number of iterations).}
+\label{table:stokesConditioningStudyAdaptiveMeshes16RanksGMRES}
+\end{table}
+
+% following has to do with the earlier Jacobi smoothing
+%\subsection{Initial Conditioning Study}
+%We have encountered some curious issues with convergence: for the Stokes system above, it appears that
+%\begin{align*}
+%\kappa (M) =  O\left(\left(\frac{h_{\rm max}}{h_{\rm min}}\right)^2\right).
+%\end{align*}
+%We apply the Stokes formulation above to a simple cavity flow problem.  The BCs are Dirichlet on the velocity\footnote{As is common practice, in the top BC for $u_1$, we introduce a small ``ramp,'' of width $\frac{1}{64}$ to interpolate between the zero velocity condition at the walls and the unit velocity condition on the lid.}; for the pressure condition, we simply impose a zero point value.
+%
+%We use a fine mesh with field order of $k=2$ and a coarse mesh with $k=0$; the two meshes are refined identically in $h$.  Our initial mesh is $2 \times 2$.  We output the matrices $P$ and $A$ to disk, and use this to compute $M^{-1} = P (P^T A P)^{-1} P^T + D^{-1}$ and its condition number using octave.  We adaptively refine the mesh, and repeat.  The results are shown in Table \ref{table:stokesConditioningStudy}.
+%
+%\begin{table}
+%\begin{tabular}{ c  c  c  c  c  c }
+%$k_{\rm coarse}$	&$k_{\rm fine}$	&elements	&$\frac{h_{\rm max}}{h_{\rm min}}$	&$\kappa$	&ratio\\
+%\hline
+%0	&2	&1	&1	&86	&-\\
+%0	&2	&4	&1	&4197.7	&4.87E+01\\
+%0	&2	&10	&2	&2.48E+04	&5.91E+00\\
+%0	&2	&16	&4	&6.61E+04	&2.66E+00\\
+%0	&2	&22	&8	&2.31E+05	&3.50E+00\\
+%0	&2	&28	&16	&9.01E+05	&3.90E+00\\
+%\end{tabular}
+%\caption{Condition numbers of $M^{-1}$ for the cavity flow problem under adaptive refinements.}
+%\label{table:stokesConditioningStudy}
+%\end{table}
+
+
+%We have also experimented with an $h$-scaled graph norm, given by
+% \begin{align*}
+%\norm{(\vect{v},q,\tens{\tau})}_{h-{\rm graph}}^{2} =& \norm{\NVRdiv \vect{v}}^{2} +\norm{\tens{\tau}- \NVRgrad \vect{v}}^{2} +\norm{h \NVRgrad q + h \NVRdiv \tens{\tau}}^{2} + \norm{\frac{1}{h} \vect{v}}^{2} + \norm{q}^{2} + \norm{\tens{\tau}}^{2}.
+%\end{align*}
+
+\end{document}  
