@@ -1,0 +1,88 @@
+\newcommand{\vect}[1]{\ensuremath\boldsymbol{#1}}
+\newcommand{\NVRtensor}[1]{\vect{#1}}
+\newcommand{\tens}[1]{\NVRtensor{#1}}
+%\newcommand{\NVRtensor}[1]{\underline{\vect{#1}}}
+\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
+\newcommand{\NVRgrad}{\nabla}
+\newcommand{\NVRdiv}{\NVRgrad \cdot}
+\newcommand{\NVRpd}[2]{\frac{\partial#1}{\partial#2}}
+\newcommand{\NVRpdd}[2]{\frac{\partial^2#1}{\partial#2^2}}
+\newcommand{\NVReqdef}{\stackrel{\text{\tiny def}}{=}} 
+\newcommand{\eqdef}{\stackrel{\text{\tiny def}}{=}} 
+
+\newcommand{\pd}[2]{\frac{\partial#1}{\partial#2}}
+\newcommand{\pdd}[2]{\frac{\partial^2#1}{\partial#2^2}}
+
+\newcommand{\NVRcurl}{\nabla \times}
+\newcommand{\NVRHgrad}{H(\text{grad})}
+\newcommand{\NVRHcurl}{\ensuremath H(\text{curl})}
+\newcommand{\NVRHdiv}{\ensuremath H(\text{\rm div})\,}
+\newcommand{\NVRVectorHdiv}{\ensuremath \vect{H}(\text{\rm div})\,}
+\newcommand{\NVRsumm}[2]{\ensuremath\displaystyle\sum\limits_{#1}^{#2}}
+
+\newcommand{\HdivK}{\ensuremath H(\text{\rm div}, K)\,}
+\newcommand{\VectorHdivK}{\ensuremath \vect{H}(\text{\rm div, K})\,}
+
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\deal}{\code{deal.II}\,}
+\newcommand{\pforest}{\code{p4est}\,}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\definecolor{lightlightgray}{gray}{0.95}
+\definecolor{lightlightblue}{rgb}{0.4,0.4,0.95}
+\definecolor{lightlightgreen}{rgb}{0.8,1,0.8}
+\lstset{language=C++,
+           frame=single,
+           basicstyle=\ttfamily\footnotesize,
+           keywordstyle=\color{black}\textbf,
+           backgroundcolor=\color{lightlightgray},
+           commentstyle=\color{blue},
+           frame=single
+           }
+
+% Tan's commands, I think, follow
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\tanbui}[2]{\textcolor{blue}{\underline{#1}} \textcolor{red}{#2}}
+\newcommand{\note}[1]{\noindent\emph{\textcolor{blue}{#1\,}}}
+\newcommand{\LRp}[1]{\left( #1 \right)}
+\newcommand{\LRs}[1]{\left[ #1 \right]}
+\newcommand{\LRa}[1]{\left< #1 \right>}
+\newcommand{\LRc}[1]{\left\{ #1 \right\}}
+
+\newcommand{\eqnlab}[1]{\label{eq:#1}}
+\newcommand{\eqnref}[1]{\eqref{eq:#1}}
+\newcommand{\prolab}[1]{\label{pro:#1}}
+\newcommand{\proref}[1]{\ref{pro:#1}}
+\newcommand{\theolab}[1]{\label{theo:#1}}
+\newcommand{\theoref}[1]{\ref{theo:#1}}
+\newcommand{\lemlab}[1]{\label{lem:#1}}
+\newcommand{\lemref}[1]{\ref{lem:#1}}
+\newcommand{\seclab}[1]{\label{sec:#1}}
+\newcommand{\secref}[1]{\ref{sec:#1}}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\nor}[1]{\left\| #1 \right\|}
+\newcommand{\jump}[1] {\ensuremath{[\![#1]\!]}}
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+\newcommand{\Grad} {\ensuremath{\nabla}}
+\newcommand{\Div} {\ensuremath{\nabla\cdot}}
+\newcommand{\pO}{\partial \Omega}
+\newcommand{\eval}[2][\right]{\relax
+  \ifx#1\right\relax \left.\fi#2#1\rvert}
+
+\newcommand{\A}{A}
+\newcommand{\As}{A^\ast}
+\newcommand{\HA}{H_\A}
+\newcommand{\HAs}{H_{\As}}
+\newcommand{\T}{T}
+\renewcommand{\L}{L^2\LRp{\Omega}}
+\newcommand{\Tt}{T^\ast}
+\newcommand{\B}{\mc{B}}
+\newcommand{\M}{\mc{M}}
+\newcommand{\Bs}{\mc{B}^\ast}
+\newcommand{\Ms}{\mc{M}^\ast}
+\newcommand{\V}{V}
+\newcommand{\Vs}{\V^\ast}
+
+\newcommand{\centercell}[1]{\multicolumn{1}{C}{#1}}
