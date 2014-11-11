@@ -26,14 +26,15 @@ xT = ones(NT+1,1)*VX(1:K) + 0.5*(rT+1)*(VX(2:K+1)-VX(1:K));
 h = diff(VX);h=h(1); J = h/2;
 
 % define test operators
-ST = kron(speye(K),-DT'*MT);
+IT = kron(speye(K),IT);
 DT = (1/J)*kron(speye(K),DT);
 MT = J*kron(speye(K),MT);
 RV = J*MT + (1/J)*DT'*MT*DT;
 
 % poisson = restricted
-B = ST*kron(speye(K),IT); 
+B = -DT'*MT*IT;
 
+% jumps
 Em = sparse(K+1,(NT+1)*K);Ep = sparse(K+1,(NT+1)*K);
 for v = 2:K
     offm = (v-2)*(NT+1);
@@ -44,6 +45,7 @@ end
 Em(1,1) = 1;
 Ep(K+1,(NT+1)*K) = 1;
 Bhat = (Em-Ep)';
+% Bhat = blkdiag(Bhat,Bhat);
 
 % stiffness
 T = RV\[B Bhat];
