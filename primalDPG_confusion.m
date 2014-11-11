@@ -4,7 +4,7 @@ Globals2D
 FaceGlobals2D;
 
 % Polynomial order used for approximation
-Ntrial = 6;
+Ntrial = 3;
 Ntest = Ntrial + 2;
 Nf = Ntrial;
 
@@ -18,7 +18,7 @@ N = Ntest;
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell05.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu');
-[Nv, VX, VY, K, EToV] = QuadMesh2D(3);
+[Nv, VX, VY, K, EToV] = QuadMesh2D(8);
 % [Nv, VX, VY, K, EToV] = MakeQuads2D(4);
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell0125.neu');
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('backdrop1.neu');
@@ -29,7 +29,7 @@ StartUp2D;FaceStartUp2D
 global b1
 global b2
 global ep
-b1 = 1; b2 = 0;ep = 1e-6;
+b1 = 1; b2 = 0;ep = 0e-6;
 
 % get block operators
 [M, Dx, Dy] = getBlockOps();
@@ -110,9 +110,9 @@ vmapBT(x(vmapB) < -1+NODETOL) = [];
 
 % BCs on U: ordered first
 b = b - A*U0;
-b(vmapBT) = U0(vmapBT);
-A(vmapBT,:) = 0; A(:,vmapBT) = 0;
-A(vmapBT,vmapBT) = speye(length(vmapBT));
+% b(vmapBT) = U0(vmapBT);
+% A(vmapBT,:) = 0; A(:,vmapBT) = 0;
+% A(vmapBT,vmapBT) = speye(length(vmapBT));
 
 % homogeneous BCs on V are implied by mortars.
 % BCs on mortars removes BCs on test functions.

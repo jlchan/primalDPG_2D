@@ -250,69 +250,69 @@ R_V = Q^{-T} (\alpha I + \Lambda) Q^{-1}
 \]
 which is then easy to invert.  This technique is especially efficient when tensor-product techniques are applicable, reducing the generalized eigenvalue problem to one for a one-dimensional discretization.  
 
-%\subsection{Primal hybrid formulation: why it works for DPG}
+\subsection{Primal hybrid formulation: why it works for DPG}
+
+The primal hybrid formulation for a symmetric, positive-definite variational form is to enforce a weak continuity using mortar-like basis functions on element interfaces.
+\begin{align*}
+\sum_K (a_K(u,v) + \LRa{\lambda, v}_{\partial K}) = (f,v)_{\L}\\
+\sum_K \LRa{\mu, u}_{\partial K} = 0.
+\end{align*}
+The weak continuity is enforced by noticing that $\sum_K \LRa{\mu, u}_{\partial K} = \LRa{\mu,\jump{u}}_{\Gamma_h}$, where $\Gamma_h$ is the union of mesh interfaces.
+
+The primal hybrid formulation gives Crouziex-Raviart elements for lowest order $N=1$, with flux order $N_f = N-1$.  However, this does not work in defining elements for $N>1$; for $N$ even and $N_f = N-1$, the Lagrange multiplier constraint set will not be linearly independent.   Proof: on triangles, the jump constraints for $N$ odd will imply that the solution must be an orthogonal polynomial of order $N$ over the edge.  Since $N$ is odd, in 2D, the values at both vertices will be equal, and the trace on the edge will be continuous.  Taking $u$ to be any polynomial over $T$ with this trace gives that $Bu = 0$, but $u\neq 0$.  (I believe Jay Gopalakrishnan also noticed this independently.)
+
+If you take $N$ arbitrary and $N_f \leq N-2$, however, things work fine.  This is roughly the situation with DPG - consider primal DPG, with $N_{\rm trial}$, $N_{\rm test} = N_{\rm trial} + 2$, and $N_f = N_{\rm trial} - 1$.  
+
+%\section{Ideas from domain decomposition}
 %
-%The primal hybrid formulation for a symmetric, positive-definite variational form is to enforce a weak continuity using mortar-like basis functions on element interfaces.
-%\begin{align*}
-%\sum_K (a_K(u,v) + \LRa{\lambda, v}_{\partial K}) = (f,v)_{\L}\\
-%\sum_K \LRa{\mu, u}_{\partial K} = 0.
-%\end{align*}
-%The weak continuity is enforced by noticing that $\sum_K \LRa{\mu, u}_{\partial K} = \LRa{\mu,\jump{u}}_{\Gamma_h}$, where $\Gamma_h$ is the union of mesh interfaces.
-%
-%The primal hybrid formulation gives Crouziex-Raviart elements for lowest order $N=1$, with flux order $N_f = N-1$.  However, this does not work in defining elements for $N>1$; for $N$ even and $N_f = N-1$, the Lagrange multiplier constraint set will not be linearly independent.   Proof: on triangles, the jump constraints for $N$ odd will imply that the solution must be an orthogonal polynomial of order $N$ over the edge.  Since $N$ is odd, in 2D, the values at both vertices will be equal, and the trace on the edge will be continuous.  Taking $u$ to be any polynomial over $T$ with this trace gives that $Bu = 0$, but $u\neq 0$.  (I believe Jay Gopalakrishnan also noticed this independently.)
-%
-%If you take $N$ arbitrary and $N_f \leq N-2$, however, things work fine.  This is roughly the situation with DPG - consider primal DPG, with $N_{\rm trial}$, $N_{\rm test} = N_{\rm trial} + 2$, and $N_f = N_{\rm trial} - 1$.  
-%
-%%\section{Ideas from domain decomposition}
-%%
-%%The DPG method can be considered a 
-%%\begin{figure}
-%%\centering
-%%\includegraphics[width=.6\textwidth]{figs/DDdiagram.png}
-%%\end{figure}
-%
-%\section{Block preconditioning}
-%
-%The DPG system can be reordered 
-%\[
-%A = \left[\begin{array}{c c}
-%B^TR_V^{-1}B & B^TR_V^{-1}\hat{B}\\
-%\hat{B}^TR_V^{-1}B & \hat{B}^TR_V^{-1}\hat{B}
-%\end{array}
-%\right]\vecttwo{u}{\uh} = \arr{A_h}{B_h}{B_h^T}{C_h}\vecttwo{u}{\uh} = \vecttwo{f_h}{g_h}
-%\]
-%where 
-%\[
-%\vecttwo{f_h}{g_h} = \vecttwo{B^TR_V^{-1} f}{\hat{B}^TR_V^{-1}f}.
-%\]
-%where $A_h$ is the matrix corresponding to field (volume) variables, $C_h$ is the submatrix corresponding to flux (surface/mortar) variables, and $B_h$ couples the system together.  
-%
-%For a first pass, we consider the primal DPG method, which is probably the simplest DPG method available, where field variables are approximated with $C_0$-continuous piecewise polynomials and the flux variables are approximated using discontinuous mortar basis functions.  Test functions are approximated with disjoint discontinuous polynomials of higher order than the trial field variables.  (We may also wish to consider the DPG method with ultra-weak variational formulation (discontinuous field variables).  In this case, $A_h$ is also block diagonal.)
-%
-%\subsection{Block Jacobi}
-%
-%We can write the full DPG system in block form
-%\[
-%\arr{A_h}{B_h}{B_h^T}{C_h}\vecttwo{u}{\uh} = \vecttwo{f_h}{g_h}.
-%\]
-%We could naively break the system up into two blocks and use a fixed point iterative scheme
-%\begin{align*}
-%u^{n+1} &= A_h^{-1}(f_h-B_h\uh^{n})\\
-%\uh^{n+1} &= C_h^{-1}(g_h-B_h^Tu^{n+1}).
-%\end{align*}
-%or equivalently
-%\[
-%\vecttwo{u^{n+1}}{\uh^{n+1}} = \arr{A_h^{-1}}{}{}{C_h^{-1}}\LRp{\vecttwo{f_h}{g_h} - \arr{}{B_h}{B_h^T}{}\vecttwo{u^n}{\uh^n}}
-%\]
-%which we can recognize as a block Jacobi iteration.  This may be preferrable in a matrix-free environment, as both $A_h$ and $C_h$ can be computed in a matrix-free fashion ($C_h\uh$ can be computed using local inversions of the Riesz product with $\uh$ as boundary data).  As far as I can tell, the Schur complement $S = C_h-B_h^TA_h^{-1}B_h$ for a general DPG system cannot, due to the non-explicit nature of $A_h = B_h^TR_V^{-1}B_h$.
-%
-%This iteration was tested on pure convection under both the ultra-weak and primal formulations.  As there was no observable difference in the primal formulation, we just show ultra-weak results here.  Test norm was taken to be $\nor{v}_V^2 = \alpha\nor{v}_{\L}^2 + \nor{\beta\cdot\grad v}_{\L}^2$.  
-%\begin{itemize}
-%\item Convergence depends on $\Delta N$ and $N_{\rm flux}$.  
-%\item If $N_{\rm flux} = 0$, convergence is roughly independent of $\Delta N$.  If $N_{\rm flux} > 0$, the convergence is both slower than with $N_{\rm flux} = 0$ and more sensitive to $N$ and $\Delta N$.
-%\end{itemize}
-%
-%Convergence of the fixed point solution to the exact solution is shown here.
+%The DPG method can be considered a 
+%\begin{figure}
+%\centering
+%\includegraphics[width=.6\textwidth]{figs/DDdiagram.png}
+%\end{figure}
+
+\section{Block preconditioning}
+
+The DPG system can be reordered 
+\[
+A = \left[\begin{array}{c c}
+B^TR_V^{-1}B & B^TR_V^{-1}\hat{B}\\
+\hat{B}^TR_V^{-1}B & \hat{B}^TR_V^{-1}\hat{B}
+\end{array}
+\right]\vecttwo{u}{\uh} = \arr{A_h}{B_h}{B_h^T}{C_h}\vecttwo{u}{\uh} = \vecttwo{f_h}{g_h}
+\]
+where 
+\[
+\vecttwo{f_h}{g_h} = \vecttwo{B^TR_V^{-1} f}{\hat{B}^TR_V^{-1}f}.
+\]
+where $A_h$ is the matrix corresponding to field (volume) variables, $C_h$ is the submatrix corresponding to flux (surface/mortar) variables, and $B_h$ couples the system together.  
+
+For a first pass, we consider the primal DPG method, which is probably the simplest DPG method available, where field variables are approximated with $C_0$-continuous piecewise polynomials and the flux variables are approximated using discontinuous mortar basis functions.  Test functions are approximated with disjoint discontinuous polynomials of higher order than the trial field variables.  (We may also wish to consider the DPG method with ultra-weak variational formulation (discontinuous field variables).  In this case, $A_h$ is also block diagonal.)
+
+\subsection{Block Jacobi}
+
+We can write the full DPG system in block form
+\[
+\arr{A_h}{B_h}{B_h^T}{C_h}\vecttwo{u}{\uh} = \vecttwo{f_h}{g_h}.
+\]
+We could naively break the system up into two blocks and use a fixed point iterative scheme
+\begin{align*}
+u^{n+1} &= A_h^{-1}(f_h-B_h\uh^{n})\\
+\uh^{n+1} &= C_h^{-1}(g_h-B_h^Tu^{n+1}).
+\end{align*}
+or equivalently
+\[
+\vecttwo{u^{n+1}}{\uh^{n+1}} = \arr{A_h^{-1}}{}{}{C_h^{-1}}\LRp{\vecttwo{f_h}{g_h} - \arr{}{B_h}{B_h^T}{}\vecttwo{u^n}{\uh^n}}
+\]
+which we can recognize as a block Jacobi iteration.  This may be preferrable in a matrix-free environment, as both $A_h$ and $C_h$ can be computed in a matrix-free fashion ($C_h\uh$ can be computed using local inversions of the Riesz product with $\uh$ as boundary data).  As far as I can tell, the Schur complement $S = C_h-B_h^TA_h^{-1}B_h$ for a general DPG system cannot, due to the non-explicit nature of $A_h = B_h^TR_V^{-1}B_h$.
+
+This iteration was tested on pure convection under both the ultra-weak and primal formulations.  As there was no observable difference in the primal formulation, we just show ultra-weak results here.  Test norm was taken to be $\nor{v}_V^2 = \alpha\nor{v}_{\L}^2 + \nor{\beta\cdot\grad v}_{\L}^2$.  
+\begin{itemize}
+\item Convergence depends on $\Delta N$ and $N_{\rm flux}$.  
+\item If $N_{\rm flux} = 0$, convergence is roughly independent of $\Delta N$.  If $N_{\rm flux} > 0$, the convergence is both slower than with $N_{\rm flux} = 0$ and more sensitive to $N$ and $\Delta N$.
+\end{itemize}
+
+Convergence of the fixed point solution to the exact solution is shown here.
 \begin{figure}
 \centering
 \subfigure[$N_{\rm flux} = 1, \Delta N = 2$]{\includegraphics[width=.49\textwidth]{figs/Nflux1_DP2.eps}}
@@ -483,49 +483,49 @@ Counting the total number of solves in both inner and outer GMRES iterations, we
 %\caption{Triangular factorization preconditioner for convection-diffusion.}
 %\end{figure}
 %
-%\subsection{Approximate inverses}
-%
-%We assume that preconditioning the $A_h$ submatrix can roughly be done using similar techniques to preconditioning standard elliptic equations.  Initial numerical evidence appears to support this.  Options include 
-%\begin{itemize}
-%\item Two-level additive Schwarz.  A coarse solve ($P_1$ elements with AGMG?) + (overlapping) block solves. 
-%\item Direct AGMG preconditioning.  
-%\item $P_1$ FEM preconditioning of nodal bases 
-%\item Geometric multigrid.  
-%\end{itemize}
-%
-%Preconditioning of the $C_h$ submatrix is more difficult conceptually; however, similar ideas can be leveraged
-%\begin{itemize}
-%\item Two-level additive Schwarz.  A coarse solve ($P_0$ elements with AGMG?) + (overlapping) block solves. 
-%\item Geometric multigrid + AGMG preconditioning.  
-%\item Direct AGMG preconditioning.  
-%\end{itemize}
-%$P_1$ FEM preconditioning is meant to sparsify the structure of the finite element matrix; however, since the $C_h$ submatrix is constructed in a Schur complement manner, replacing a nodal polynomial for $\uh$ on an edge with piecewise-$P_1$ FEM at nodal points would not decrease sparsity.  \textbf{Sparsity of the fluxes $\uh$ depends on the underlying test space: all fluxes bordering an element will be coupled together regardless of connectivity pattern so long as the test space over the element is coupled as well.}  
-%
-%\subsection{OAS with coarse grid}
-%
-%\begin{figure}
-%\centering
-%\subfigure[Poisson w/pure OAS]{\includegraphics[width=.49\textwidth]{figs/oas_poisson.eps}}
-%\subfigure[Poisson w/OAS + 2 CG iterations]{\includegraphics[width=.49\textwidth]{figs/oascg2_poisson.eps}}
-%\subfigure[Poisson w/OAS + 5 CG iterations]{\includegraphics[width=.49\textwidth]{figs/oascg5_poisson.eps}}
-%\subfigure[Poisson w/OAS + 10 CG iterations]{\includegraphics[width=.49\textwidth]{figs/oascg10_poisson.eps}}
-%\end{figure}
-%
-%\begin{itemize}
-%\item A flexible PCG method is needed when using an inner PCG iteration.
-%\item The approximate preconditioner appears to be relatively $h$-independent, 
-%\item The $N$-dependency comes as a consequence of the triangular factorization involving $A^{-1}$, but can be controlled by a small number of PCG iterations in the inner iteration for $A^{-1}$.  
-%\end{itemize}
-%The block preconditioner is not robust for convection-diffusion, due to the fact that the $C_h$ block corresponds to the mortar discretization of 
-%\[
-%u - \div((\epsilon I + \beta\beta^T)\grad(u))
-%\]
-%for which mortar methods do poorly, since the coercivity constant of the above problem is $\epsilon$, and there is only a streamline diffusion along the $\beta$ direction.  The field preconditioner converges as fast or faster than for Poisson.  
-%\begin{figure}
-%\centering
-%\subfigure[Convection-diffusion, $\epsilon = 1e-6$]{\includegraphics[width=.49\textwidth]{figs/oascg5_confusion.eps}}
-%\subfigure[Convection-diffusion, individual block solves for $N=2$]{\includegraphics[width=.49\textwidth]{figs/oas_confusionBlocks.eps}}
-%\end{figure}
+\subsection{Approximate inverses}
+
+We assume that preconditioning the $A_h$ submatrix can roughly be done using similar techniques to preconditioning standard elliptic equations.  Initial numerical evidence appears to support this.  Options include 
+\begin{itemize}
+\item Two-level additive Schwarz.  A coarse solve ($P_1$ elements with AGMG?) + (overlapping) block solves. 
+\item Direct AGMG preconditioning.  
+\item $P_1$ FEM preconditioning of nodal bases 
+\item Geometric multigrid.  
+\end{itemize}
+
+Preconditioning of the $C_h$ submatrix is more difficult conceptually; however, similar ideas can be leveraged
+\begin{itemize}
+\item Two-level additive Schwarz.  A coarse solve ($P_0$ elements with AGMG?) + (overlapping) block solves. 
+\item Geometric multigrid + AGMG preconditioning.  
+\item Direct AGMG preconditioning.  
+\end{itemize}
+$P_1$ FEM preconditioning is meant to sparsify the structure of the finite element matrix; however, since the $C_h$ submatrix is constructed in a Schur complement manner, replacing a nodal polynomial for $\uh$ on an edge with piecewise-$P_1$ FEM at nodal points would not decrease sparsity.  \textbf{Sparsity of the fluxes $\uh$ depends on the underlying test space: all fluxes bordering an element will be coupled together regardless of connectivity pattern so long as the test space over the element is coupled as well.}  
+
+\subsection{OAS with coarse grid}
+
+\begin{figure}
+\centering
+\subfigure[Poisson w/pure OAS]{\includegraphics[width=.49\textwidth]{figs/oas_poisson.eps}}
+\subfigure[Poisson w/OAS + 2 CG iterations]{\includegraphics[width=.49\textwidth]{figs/oascg2_poisson.eps}}
+\subfigure[Poisson w/OAS + 5 CG iterations]{\includegraphics[width=.49\textwidth]{figs/oascg5_poisson.eps}}
+\subfigure[Poisson w/OAS + 10 CG iterations]{\includegraphics[width=.49\textwidth]{figs/oascg10_poisson.eps}}
+\end{figure}
+
+\begin{itemize}
+\item A flexible PCG method is needed when using an inner PCG iteration.
+\item The approximate preconditioner appears to be relatively $h$-independent, 
+\item The $N$-dependency comes as a consequence of the triangular factorization involving $A^{-1}$, but can be controlled by a small number of PCG iterations in the inner iteration for $A^{-1}$.  
+\end{itemize}
+The block preconditioner is not robust for convection-diffusion, due to the fact that the $C_h$ block corresponds to the mortar discretization of 
+\[
+u - \div((\epsilon I + \beta\beta^T)\grad(u))
+\]
+for which mortar methods do poorly, since the coercivity constant of the above problem is $\epsilon$, and there is only a streamline diffusion along the $\beta$ direction.  The field preconditioner converges as fast or faster than for Poisson.  
+\begin{figure}
+\centering
+\subfigure[Convection-diffusion, $\epsilon = 1e-6$]{\includegraphics[width=.49\textwidth]{figs/oascg5_confusion.eps}}
+\subfigure[Convection-diffusion, individual block solves for $N=2$]{\includegraphics[width=.49\textwidth]{figs/oas_confusionBlocks.eps}}
+\end{figure}
 
 \section{OAS of Barker et. al}
 

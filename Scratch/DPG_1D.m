@@ -73,6 +73,7 @@ end
 
 fieldInds = 1:NpT;
 fluxInds = NpT+1:size(A,1);
+
 % [X Y] = meshgrid(x(:));
 % % plot(X,Y,'.')
 % 
