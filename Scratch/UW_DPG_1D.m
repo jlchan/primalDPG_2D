@@ -15,7 +15,7 @@ D = Dmatrix1D(N,r,V); M = inv(V*V'); Ks = D'*M*D;
 
 % restriction from test to trial space
 rT = JacobiGL(0,0,NT); VT = Vandermonde1D(NT,rT);
-DT = Dmatrix1D(NT,rT,VT); MT = inv(VT*VT'); KT = -DT'*MT;
+DT = Dmatrix1D(NT,rT,VT); MT = inv(VT*VT'); ST = -DT'*MT;
 IT = Vandermonde1D(N,rT) * inv(V);
 
 % define mesh
@@ -23,15 +23,16 @@ Np = N+1;
 VX = linspace(-1,1,K+1);
 x = ones(Np,1)*VX(1:K) + 0.5*(r+1)*(VX(2:K+1)-VX(1:K));
 xT = ones(NT+1,1)*VX(1:K) + 0.5*(rT+1)*(VX(2:K+1)-VX(1:K));
-h = diff(VX);h=h(1);
+h = diff(VX);h=h(1); J = h/2;
 
 % define test operators
-KT = kron(speye(K),KT);
-MT = h*kron(speye(K),MT);
-RV = h*MT + (1/h)*KT;
+ST = kron(speye(K),-DT'*MT);
+DT = (1/J)*kron(speye(K),DT);
+MT = J*kron(speye(K),MT);
+RV = J*MT + (1/J)*DT'*MT*DT;
 
 % poisson = restricted
-B = (1/h)*KT*kron(speye(K),IT); 
+B = ST*kron(speye(K),IT); 
 
 Em = sparse(K+1,(NT+1)*K);Ep = sparse(K+1,(NT+1)*K);
 for v = 2:K
