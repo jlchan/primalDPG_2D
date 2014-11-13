@@ -3,9 +3,10 @@ function mortarTestNorm
 Globals2D;
 FaceGlobals2D
 
-N = 6; % when N = even, Nf = N-1, fails?
+N = 3; % when N = even, Nf = N-1, fails?
 Nf = 2; % = N trial
 Nt = 3; % = 
+
 %     Read in Mesh
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('squarereg.neu');
 %     Nv = 3;
@@ -15,7 +16,7 @@ Nt = 3; % =
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell025.neu'); 
 % [Nv, VX, VY, K, EToV] = MeshReaderGambit2D('Maxwell1.neu');
 
-[Nv, VX, VY, K, EToV] = QuadMesh2D(4);
+[Nv, VX, VY, K, EToV] = QuadMesh2D(6);
 % [Nv, VX, VY, K, EToV] = MakeQuads2D(8);
 
 % Initialize solver and construct grid and metric
@@ -30,8 +31,8 @@ I = speye(size(M));
 O = sparse(size(M,1),size(M,2));
 
 % % Poisson
-% Adj_h = [I2 Grad;
-%          Div O];
+Adj_h = [I2 Grad;
+         Div O];
 
 % % convection-diffusion
 % ep = .01;
@@ -47,14 +48,13 @@ O = sparse(size(M,1),size(M,2));
 M3 = blkdiag(M2,M);
 RV = Adj_h'*M3*Adj_h + 0*blkdiag(M,M,M); % regularize on v
 
-% time-dependent heat eqn
-ep = .01;
-Adj_h = [(1/ep)*I2 blkdiag(Dx);
-         Div O];
-
+% % time-dependent heat eqn
+% ep = .01;
+% Adj_h = [(1/ep)*I2 blkdiag(Dx);
+%          Div O];
 
 f = x(:).^0;
-btau = M2*[f;f];
+btau = M2*[f;f]*0;
 bv = M*f;
 % bv = bv*0;
 % bv(end-10) = 1;
@@ -63,12 +63,12 @@ b = Adj_h'*M3*[btau;bv];
 Bt = getMortarConstraintDiv();
 % fmapBd = fmapB;xfd = xf;yfd = yf; 
 xtb = xt(tmapB);ytb = yt(tmapB); nxtb = nxt(tmapB);
-Bt(tmapB((abs(1-xtb)<NODETOL | abs(1-ytb.^2) < NODETOL) & nxtb > -NODETOL),:) = []; %remove constraints for fluxes
-% Bt(tmapB,:) = [];
+% Bt(tmapB((abs(1-xtb)<NODETOL | abs(1-ytb.^2) < NODETOL) & nxtb > -NODETOL),:) = []; %remove constraints for fluxes
+Bt(tmapB,:) = [];
 
 Bf = getMortarConstraint();
-xfb = xf(fmapB); yfb = yf(fmapB); nxfb = nxf(fmapB);
-Bf(fmapB(abs(1+xfb)<NODETOL & abs(nxfb+1)<NODETOL),:) = []; %remove constraints for fluxes
+% xfb = xf(fmapB); yfb = yf(fmapB); nxfb = nxf(fmapB);
+% Bf(fmapB(abs(1+xfb)<NODETOL & abs(nxfb+1)<NODETOL),:) = []; %remove constraints for fluxes
 
 [mtau ntau] = size(Bt);
 [mv nv] = size(Bf);
@@ -100,7 +100,7 @@ v = U(I3);
 taunorm = sqrt(tau1.^2 + tau2.^2);
 plotSol(taunorm,25);%title(['norm of tau, px = ', num2str(px)])
 plotSol(v,25);%title(['v, px = ', num2str(px)])
-if (Np*K<500)
-    figure;semilogy(svd(full(Adj_h)))
-end
+% if (Np*K<500)
+%     figure;semilogy(svd(full(Adj_h)))
+% end
 % keyboard

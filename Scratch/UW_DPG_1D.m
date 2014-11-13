@@ -1,12 +1,10 @@
-% gets 1D DPG ultra-weak operator for poisson on a uniform grid of K
-% elements, with test order NT and trial order N
+function [A b ids] = UW_DPG_1D(N,K)
 
-% UW_DPG_1D(N,NT,K)
-clear
-
-N = 4;
+if nargin==0
+    N = 2;
+    K = 8;
+end
 NT = N+2; % test order
-K = 2;
 
 r = JacobiGL(0,0,N);
 
@@ -46,12 +44,15 @@ Ep(K+1,(NT+1)*K) = 1;
 Bhat = (Em-Ep)';
 
 % poisson = restricted
-% B = -DT'*MT*IT;
-RV = J*MT + (1/J)*DT'*MT*DT;
 
-B = [MT*IT -DT'*MT*IT;
-    -DT'*MT*IT 0*IT];
-RV = blkdiag(RV,RV);
+B = [MT -DT'*MT;
+    -DT'*MT 0*MT];
+% RV = MT + DT'*MT*DT;
+% RV = blkdiag(RV,RV);
+O = zeros(size(MT)); I = speye(size(MT));
+RV = blkdiag(MT,MT) + blkdiag(DT'*MT*DT,O) + [I DT]'*MT*[I DT];
+B = B*blkdiag(IT,IT);
+
 Bhat = blkdiag(Bhat,Bhat);
 
 % stiffness
@@ -59,6 +60,7 @@ T = RV\[B Bhat];
 A = T'*[B Bhat];
 
 f = ones((NT+1)*K,1);
+% f = randn((NT+1)*K,1);
 b = T'*[zeros((NT+1)*K,1);MT*f];
 
 %bcs - left trace
@@ -73,7 +75,7 @@ A(bc,:) = 0; A(:,bc) = 0;
 A(bc,bc) = 1;
 b(bc) = 0;
 
-if 0
+if nargin==0
     u = A\b;
     figure
     plot(x(:),u(Np*K+1:2*Np*K),'.-')
@@ -81,19 +83,6 @@ if 0
     hold on;plot(xp,.5*(1+xp).*(1-xp),'r-')
 end
 
-P = sparse(size(A,1),size(A,2));
 for e = 1:K
-    ids{e} = [(1:Np) + Np*(e-1), (1:Np) + Np*(e-1) + Np*K, 2*Np*K + (e:e+1), 2*Np*K + K + 1 + (e:e+1)]; 
-    P(ids{e},ids{e}) = P(ids{e},ids{e}) + inv(A(ids{e},ids{e}));
+    ids{e} = [(1:Np) + Np*(e-1), (1:Np) + Np*(e-1) + Np*K, 2*Np*K + (e:e+1), 2*Np*K + K + 1 + (e:e+1)];
 end
-cond(A)
-cond(P*A)
-
-
-
-
-
-
-
-
-
