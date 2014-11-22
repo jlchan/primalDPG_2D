@@ -184,6 +184,66 @@ $64 \times 64$	&75	&1.09e+04\\
 \label{table:stokesConditioningStudyUniformMesh16RanksOverlap1}
 \end{table}
 
+Next, we perform a similar experiment now with a Poisson problem (a smooth manufactured solution) under uniform refinements, again with $k_{\rm fine} = 4, k_{\rm coarse} = 0$.  The results for 4 MPI ranks with Schwarz overlap of 0 are shown in Table \ref{table:poissonConditioningStudyUniformMesh4RanksOverlap0}.  For 16 MPI ranks and level 0, the results are shown in Table \ref{table:poissonConditioningStudyUniformMesh16RanksOverlap0}.  The level 1 results are in Tables \ref{table:poissonConditioningStudyUniformMesh4RanksOverlap1} and \ref{table:poissonConditioningStudyUniformMesh16RanksOverlap1}.
+
+\begin{table}
+\begin{tabular}{ c  c  c  c  c  c }
+elements	& Num. Global dofs	&Energy Error	&Num. Iterations	&Condest.		\\
+\hline
+$2 \times 2$	&420			&1.14e-03		&20		&2.08e+01\\
+$4 \times 4$	&1600		&1.87e-04		&28		&2.28e+01\\
+$8 \times 8$	&6240		&2.32e-05		&36		&4.83e+01\\
+$16 \times 16$	&24640		&2.91e-06		&45		&1.54e+02\\
+$32 \times 32$	&97920		&3.22e-06		&75		&5.83e+02\\
+$64 \times 64$	&390400		&2.61e-04		&127		&2.31e+03\\
+\end{tabular}
+\caption{Iteration counts and estimated condition numbers for Poisson manufactured solution on uniform meshes on 4 MPI ranks, with Schwarz overlap level 0.  Note that the convergence criterion in each case has a tolerance of $10^{-6}$; this explains the fact that the energy error does not continue to go down monotonically as we refine further.}
+\label{table:poissonConditioningStudyUniformMesh4RanksOverlap0}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ c  c  c  c  c  c }
+elements	&Num. Iterations	&Condest.		\\
+\hline
+$4 \times 4$			&33		&2.96e+01\\
+$8 \times 8$			&41		&5.46e+01\\
+$16 \times 16$			&56		&1.72e+02\\
+$32 \times 32$			&103		&6.50e+02\\
+$64 \times 64$			&189 	&2.57e+03\\
+\end{tabular}
+\caption{Iteration counts and estimated condition numbers for Poisson manufactured solution on uniform meshes on 16 MPI ranks, with Schwarz overlap level 0.}
+\label{table:poissonConditioningStudyUniformMesh16RanksOverlap0}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ c  c  c  c  c  c }
+elements	&Num. Iterations	&Condest.		\\
+\hline
+$2 \times 2$		&13	&5.00e+00\\
+$4 \times 4$		&17	&8.38e+00\\
+$8 \times 8$		&22	&2.71e+01\\
+$16 \times 16$		&30	&1.19e+02\\
+$32 \times 32$		&45	&5.88e+02\\
+$64 \times 64$		&112	& 2.81e+03\\
+\end{tabular}
+\caption{Iteration counts and estimated condition numbers for Poisson manufactured solution on uniform meshes on 4 MPI ranks, with Schwarz overlap level 1.}
+\label{table:poissonConditioningStudyUniformMesh4RanksOverlap1}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ c  c  c  c  c  c }
+elements	&Num. Iterations	&Condest.		\\
+\hline
+$4 \times 4$		&21		&1.28e+01\\
+$8 \times 8$		&26		&3.51e+01\\
+$16 \times 16$ 		&40		&1.57e+02\\
+$32 \times 32$		&74		&7.42e+02\\
+$64 \times 64$		&168 	&3.39e+03\\
+\end{tabular}
+\caption{Iteration counts and estimated condition numbers for Poisson manufactured solution on uniform meshes on 16 MPI ranks, with Schwarz overlap level 1.}
+\label{table:poissonConditioningStudyUniformMesh16RanksOverlap1}
+\end{table}
+
 \subsection{Condition Numbers and Convergence on $h$-refined Meshes}
 Our second test begins with precisely the $2 \times 2$ mesh for the problem in Section \ref{sec:convergenceStokesUniformMeshes}, with initial and minimum tolerances set $\epsilon_0 = \epsilon_{\rm min} = 10^{-8}$, for the sake of full comparability to the uniform case.  We use an adaptive tolerance of $\theta=0.20$.  The results for the 4-rank case are shown in Table \ref{table:stokesConditioningStudyAdaptiveMeshes4Ranks}; those for the 16-rank case are shown in Table \ref{table:stokesConditioningStudyAdaptiveMeshes16Ranks}.
 
@@ -313,8 +373,9 @@ Ref. Number	&Num. Iterations	&Condest.\\
 \end{table}
 
 \subsection{Stokes 3D with $h$-refinements}
-For our next experiment, we again examine Stokes driven cavity flow, but now in 3 dimensions, with $k_{\rm fine}=2$ and $k_{\rm coarse}=0$.  (We ran this on Argonne's Cetus.)  Results with an adaptive tolerance and zero overlap are in Table \ref{table:stokesConditioningStudyAdaptiveMeshes3DOverlap0}.  Results with fixed tolerance of $10^{-8}$ and level-1 overlap are in Table \ref{table:stokesConditioningStudyAdaptiveMeshes3DOverlap1}.
+For our next experiment, we again examine Stokes driven cavity flow, but now in 3 dimensions, with $k_{\rm fine}=2$ and $k_{\rm coarse}=0$.  (We ran this on Argonne's Cetus.)  Results with an adaptive tolerance and zero overlap are in Table \ref{table:stokesConditioningStudyAdaptiveMeshes3DOverlap0}.  These results employ an adaptive threshold of 0.5  Results with fixed tolerance of $10^{-8}$ and level-1 overlap are in Table \ref{table:stokesConditioningStudyAdaptiveMeshes3DOverlap1}.
 
+%qsub -t 60 -n 128 --mode c16 -A Camellia ../StokesCavityFlowDriver3D --polyOrder=2 --delta_k=1 --numCells=2 --numRefs=20 --useNonConformingTraces --refinementThreshold=0.50 --useStandardSolve --useGMG --globalSolver=SLU --maxCellsPerRank=8 --relativeTol=1e-8
 \begin{table}
 \begin{tabular}{ c  c  c  c  c  c c}
 Ref. Number	&Num. Elements	& Num. Global dofs		&Energy Error	&Num. Iterations	&Condest.\\
@@ -331,21 +392,38 @@ Ref. Number	&Num. Elements	& Num. Global dofs		&Energy Error	&Num. Iterations	&C
 \label{table:stokesConditioningStudyAdaptiveMeshes3DOverlap0}
 \end{table}
 
-%qsub -t 60 -n 128 --mode c16 -A Camellia ../StokesCavityFlowGMGDriver --k_coarse=0 --azOutput=100 --enforceOneIrregularity --gmgMaxIterations=10000 --relativeTol=1e-8 --minTol=1e-8 --polyOrder=2 --delta_k=1 --numRefs=6 --numCells=2 --smootherOverlap=1 --use3D
+%qsub -t 60 -n 128 --mode c16 -A Camellia ../StokesCavityFlowGMGDriver --k_coarse=0 --azOutput=100 --enforceOneIrregularity --gmgMaxIterations=10000 --relativeTol=1e-8 --minTol=1e-8 --polyOrder=2 --delta_k=1  --numRefs=6 --numCells=2 --smootherOverlap=1 --use3D --globalSolver=SLU --refinementThreshold=0.5
 \begin{table}
 \begin{tabular}{ c  c  c  c  c  c c}
 Ref. Number	&Num. Elements	& Num. Global dofs		&Energy Error	&Num. Iterations	&Condest.\\
 \hline
 0	&8		&4752	&1.40e+00	&47	&1.60e+04\\
-1	&36		&19764	&1.43e+00	&	&\\
-2	&120		&63504	&8.82e-01		&	&\\
-3	&316		&164700	&6.70e-01		&	&\\
-4	&540		&279936	&5.04e-01		&	&\\
-5	&1268	&655020	&3.13e-01		&	&\\
-6	&4880	&2512188	&1.54e-01		&	&\\
+1	&36		&19764	&1.43e+00	&90	&4.01e+04\\
+2	&120		&63504	&8.65e-01		&126	&2.92e+04\\
+3	&316		&164700	&6.42e-01		&139	&2.62e+04\\
+4	&540		&279936	&4.77e-01		&140	&2.77e+04\\
+5	&1296	&670032	&3.09e-01		&171	&3.21e+04\\
+6	&5188	&2668248	&-	&-	&-\\
 \end{tabular}
 \caption{Iteration counts and estimated condition numbers for the 3D cavity flow problem on adaptively refined meshes on 2048 MPI ranks, with Schwarz overlap level 1.}
 \label{table:stokesConditioningStudyAdaptiveMeshes3DOverlap1}
+\end{table}
+
+%qsub -t 60 -n 128 --mode c4 -A Camellia ../StokesCavityFlowGMGDriver --k_coarse=0 --azOutput=1 --enforceOneIrregularity --gmgMaxIterations=10000 --relativeTol=1e-8 --minTol=1e-8 --polyOrder=4 --delta_k=1  --numRefs=6 --numCells=2 --smootherOverlap=1 --use3D --globalSolver=SLU --refinementThreshold=0.5
+\begin{table}
+\begin{tabular}{ c  c  c  c  c  c c}
+Ref. Number	&Num. Elements	& Num. Global dofs		&Energy Error	&Num. Iterations	&Condest.\\
+\hline
+0	&	&	&	&&\\
+1	&	&	&	&&\\
+2	&	&	&	&	&\\
+3	&	&	&	&	&\\
+4	&	&	&	&	&\\
+5	&	&	&	&	&\\
+6	&	&	&-	&-	&-\\
+\end{tabular}
+\caption{Iteration counts and estimated condition numbers for the 3D cavity flow problem on adaptively refined quartic meshes on 512 MPI ranks, with Schwarz overlap level 1.}
+\label{table:stokesConditioningStudyAdaptiveMeshes3DQuarticOverlap1}
 \end{table}
 
 

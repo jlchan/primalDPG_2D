@@ -54,6 +54,8 @@ As we will see in the results, while this is a reasonable approximation to a geo
 
 We can also use either of the Schwarz smoothers on its own as a preconditioner.  We do this for a simple Poisson problem, with homogeneous boundary conditions and unit forcing, in 1, 2, and 3 space dimensions.  Because our objective is to study the convergence behavior and because both versions of the Schwarz smoother use blocks that exhaust the locally owned degrees of freedom, in each test we ensure that at most one cell belongs to each MPI node.  We ran these tests on ALCF's Cetus machine.
 
+Because at present our construction of the prolongation operator relies on an assumption that trace variables are not conforming (i.e. these lie in an $L^2$ space defined on the side, even when they are traces of variables with higher regularity), for each of our tests (including those that do not employ the prolongation operator), we use non-conforming variables.  In 1D this makes no difference; in 2D and 3D, it means that overlapping algebraic Schwarz will be less ``greedy''---imports are done along $(d-1)$-dimensional interfaces, rather than from vertices on up.  Other things being equal, this makes for a computationally cheaper preconditioner, but for iteration counts that are slightly larger.  (The ``greediness'' of geometric Schwarz remains the same, on our definition of overlap.)
+
 \newcommand{\plotscaling}{1.1}
 \newcommand{\meshwidthindex}{4}
 \newcommand{\iterationcountindex}{6}
@@ -96,16 +98,16 @@ We can also use either of the Schwarz smoothers on its own as a preconditioner. 
 			    xtick=data,
 			    xticklabels={2,,,,,64,128,256,512}
 			  ]
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=1, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=2, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=3, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=4, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=5, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=1, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks_conforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=2, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks_conforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=3, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks_conforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=4, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks_conforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=5, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks_conforming.dat};
 %			\end{loglogaxis}
 			\end{axis}
 			\end{tikzpicture}
 		    }
-	\caption{Poisson 1D: number of iterations to reduce error by a factor of $10^{10}$, with no preconditioner.  Note that for the $k=16$, 512-element mesh, the solver exceeded our maximum iteration count of 10000.}
+	\caption{Poisson 1D: number of iterations to reduce error by a factor of $10^{10}$, with no preconditioner.}
 	\label{fig:Poisson1DNoPreconditioner}
 	\end{figure}
 \end{center}
@@ -127,16 +129,16 @@ We can also use either of the Schwarz smoothers on its own as a preconditioner. 
 			  ]
 			  \setcounter{algebraiccounter}{\PoissonOneDSchwarzAlgebraicStart}
 			  \setcounter{geometriccounter}{\PoissonOneDSchwarzGeometricStart}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks_conforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks_conforming.dat};
 			  \addtocounter{geometriccounter}{\PoissonOneDStride}
 			  \addtocounter{algebraiccounter}{\PoissonOneDStride}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks_conforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks_conforming.dat};
 			  \addtocounter{geometriccounter}{\PoissonOneDStride}
 			  \addtocounter{algebraiccounter}{\PoissonOneDStride}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks_conforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks_conforming.dat};
 			\end{axis}
 			\end{tikzpicture}
 		}
@@ -160,16 +162,16 @@ We can also use either of the Schwarz smoothers on its own as a preconditioner. 
 			  ]
 			  \setcounter{algebraiccounter}{\PoissonOneDGMGSchwarzAlgebraicStart}
 			  \setcounter{geometriccounter}{\PoissonOneDGMGSchwarzGeometricStart}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks_conforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks_conforming.dat};
 			  \addtocounter{geometriccounter}{\PoissonOneDStride}
 			  \addtocounter{algebraiccounter}{\PoissonOneDStride}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks_conforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks_conforming.dat};
 			  \addtocounter{geometriccounter}{\PoissonOneDStride}
 			  \addtocounter{algebraiccounter}{\PoissonOneDStride}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks_conforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonOneDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonOneDStride}{\maxmyrows}]{data/PoissonDriver1D_results_512_ranks_conforming.dat};
 			\end{axis}
 			\end{tikzpicture}
 		}
@@ -194,9 +196,9 @@ We can also use either of the Schwarz smoothers on its own as a preconditioner. 
 			    xtick=data,
 			    xticklabels={2,4,8,16}
 			  ]
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=1, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=2, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=3, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=1, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=2, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=3, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
 %			\end{loglogaxis}
 			\end{axis}
 			\end{tikzpicture}
@@ -223,16 +225,16 @@ We can also use either of the Schwarz smoothers on its own as a preconditioner. 
 			  ]
 			  \setcounter{algebraiccounter}{\PoissonTwoDSchwarzAlgebraicStart}
 			  \setcounter{geometriccounter}{\PoissonTwoDSchwarzGeometricStart}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
 			  \addtocounter{geometriccounter}{\PoissonTwoDStride}
 			  \addtocounter{algebraiccounter}{\PoissonTwoDStride}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
 			  \addtocounter{geometriccounter}{\PoissonTwoDStride}
 			  \addtocounter{algebraiccounter}{\PoissonTwoDStride}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
 			\end{axis}
 			\end{tikzpicture}
 		}
@@ -256,16 +258,16 @@ We can also use either of the Schwarz smoothers on its own as a preconditioner. 
 			  ]
 			  \setcounter{algebraiccounter}{\PoissonTwoDGMGSchwarzAlgebraicStart}
 			  \setcounter{geometriccounter}{\PoissonTwoDGMGSchwarzGeometricStart}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
 			  \addtocounter{geometriccounter}{\PoissonTwoDStride}
 			  \addtocounter{algebraiccounter}{\PoissonTwoDStride}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
 			  \addtocounter{geometriccounter}{\PoissonTwoDStride}
 			  \addtocounter{algebraiccounter}{\PoissonTwoDStride}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
 			\end{axis}
 			\end{tikzpicture}
 		}
@@ -291,8 +293,8 @@ We can also use either of the Schwarz smoothers on its own as a preconditioner. 
 			    xtick=data,
 			    xticklabels={2,4,8}
 			  ]
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=1, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=2, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=1, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=2, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks_nonconforming.dat};
 %			\end{loglogaxis}
 			\end{axis}
 			\end{tikzpicture}
@@ -319,12 +321,12 @@ We can also use either of the Schwarz smoothers on its own as a preconditioner. 
 			  ]
 			  \setcounter{algebraiccounter}{\PoissonThreeDSchwarzAlgebraicStart}
 			  \setcounter{geometriccounter}{\PoissonThreeDSchwarzGeometricStart}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks_nonconforming.dat};
 			  \addtocounter{geometriccounter}{\PoissonThreeDStride}
 			  \addtocounter{algebraiccounter}{\PoissonThreeDStride}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks_nonconforming.dat};
 			\end{axis}
 			\end{tikzpicture}
 		}
@@ -348,17 +350,233 @@ We can also use either of the Schwarz smoothers on its own as a preconditioner. 
 			  ]
 			  \setcounter{algebraiccounter}{\PoissonThreeDGMGSchwarzAlgebraicStart}
 			  \setcounter{geometriccounter}{\PoissonThreeDGMGSchwarzGeometricStart}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks_nonconforming.dat};
 			  \addtocounter{geometriccounter}{\PoissonThreeDStride}
 			  \addtocounter{algebraiccounter}{\PoissonThreeDStride}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonThreeDStride}{\maxmyrows}]{data/PoissonDriver3D_results_512_ranks_nonconforming.dat};
 			\end{axis}
 			\end{tikzpicture}
 		}
 	\caption{Poisson 3D: number of iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid preconditioners with the indicated type of Schwarz smoother for $k=2$.  The results for $k=1$ are essentially identical.}
 	\label{fig:Poisson3Dk1GMG}
+	\end{figure}
+\end{center}
+
+\pagebreak
+
+\section{Stokes}
+We now perform a similar experiment with a Stokes manufactured solution in 2 and 3 space dimensions.  In 2D, we use:
+\begin{align*}
+u_1 &= - e^x \left( y \cos y + \sin y \right) \\
+u_2 &= e^x y \sin y \\
+p &= 2 e^{x} \sin y 
+\end{align*}
+on domain $(-1,1)^2$.  In 3D, we similarly use
+\begin{align*}
+u_1 &= - e^x \left( y \cos y + \sin y \right) \\
+u_2 &= e^x y \sin y + e^z y \cos y \\ 
+u_3 &= - e^z \left( y \sin y - \cos y \right) \\
+p &= 2 e^{x} \sin y + 2 e^z \cos y
+\end{align*}
+on the domain $(-1,1)^3$.
+
+
+\newcommand{\StokesTwoDNthPoint}{3} %corresponds to the number of polynomial orders for which we ran the driver--here, 1,2,4
+\newcommand{\StokesThreeDNthPoint}{2} %corresponds to the number of polynomial orders for which we ran the driver--here, 1,2
+\newcommand{\StokesTwoDStride}{12}
+\newcommand{\StokesThreeDStride}{6}
+\newcommand{\StokesTwoDSchwarzAlgebraicStart}{87} %for the k=4 results; technically, start is on 88, but 87 is the number we skip
+\newcommand{\StokesTwoDSchwarzGeometricStart}{123}
+\newcommand{\StokesTwoDGMGSchwarzAlgebraicStart}{15} %for the k=4 results
+\newcommand{\StokesTwoDGMGSchwarzGeometricStart}{51}
+\newcommand{\StokesThreeDSchwarzAlgebraicStart}{32} %for the k=2 results
+\newcommand{\StokesThreeDSchwarzGeometricStart}{44}
+\newcommand{\StokesThreeDGMGSchwarzAlgebraicStart}{8} %for the k=2 results
+\newcommand{\StokesThreeDGMGSchwarzGeometricStart}{20}
+
+\begin{center}
+	\begin{figure}[ht]
+	\centering
+		    \scalebox{\plotscaling}{
+			\begin{tikzpicture}
+			\begin{axis}[
+%			\begin{loglogaxis}[
+			    title={Stokes 2D, No Preconditioner}, 
+			    xlabel={Mesh Width (\# Elements)}, 
+			    ylabel={Iteration Count}, 
+			    grid=major,
+			    legend entries={$k=1$,$k=2$,$k=4$},
+			    legend pos=outer north east,
+			    xtick=data,
+			    xticklabels={2,4,8,16}
+			  ]
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesTwoDNthPoint, skip first n=1, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesTwoDStride}{\maxmyrows}]{data/StokesDriver2D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesTwoDNthPoint, skip first n=2, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesTwoDStride}{\maxmyrows}]{data/StokesDriver2D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesTwoDNthPoint, skip first n=3, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesTwoDStride}{\maxmyrows}]{data/StokesDriver2D_results_512_ranks_nonconforming.dat};
+%			\end{loglogaxis}
+			\end{axis}
+			\end{tikzpicture}
+		    }
+	\caption{Stokes 2D: number of iterations to reduce error by a factor of $10^{10}$, with no preconditioner.}
+	\label{fig:Stokes2DNoPreconditioner}
+	\end{figure}
+\end{center}
+
+\begin{center}
+	\begin{figure}[ht]
+	\centering
+		\scalebox{\plotscaling}{
+			\begin{tikzpicture}
+			\begin{axis}[
+			    title={Stokes 2D, Schwarz Preconditioners, $k=4$}, 
+			    xlabel={Mesh Width (\# Elements)}, 
+			    ylabel={Iteration Count}, 
+			    grid=major,
+			    legend entries={0 overlap (algebraic), 0 overlap (geometric), 1 overlap (algebraic), 1 overlap (geometric), 2 overlap (algebraic), 2 overlap (geometric)},
+			    legend pos=outer north east,
+			    xtick=data,
+			    xticklabels={2,4,8,16}
+			  ]
+			  \setcounter{algebraiccounter}{\StokesTwoDSchwarzAlgebraicStart}
+			  \setcounter{geometriccounter}{\StokesTwoDSchwarzGeometricStart}
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesTwoDStride}{\maxmyrows}]{data/StokesDriver2D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesTwoDStride}{\maxmyrows}]{data/StokesDriver2D_results_512_ranks_nonconforming.dat};
+			  \addtocounter{geometriccounter}{\StokesTwoDStride}
+			  \addtocounter{algebraiccounter}{\StokesTwoDStride}
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesTwoDStride}{\maxmyrows}]{data/StokesDriver2D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesTwoDStride}{\maxmyrows}]{data/StokesDriver2D_results_512_ranks_nonconforming.dat};
+			  \addtocounter{geometriccounter}{\StokesTwoDStride}
+			  \addtocounter{algebraiccounter}{\StokesTwoDStride}
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesTwoDStride}{\maxmyrows}]{data/StokesDriver2D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesTwoDStride}{\maxmyrows}]{data/StokesDriver2D_results_512_ranks_nonconforming.dat};
+			\end{axis}
+			\end{tikzpicture}
+		}
+	\caption{Stokes 2D: number of iterations to reduce error by a factor of $10^{10}$ using Schwarz preconditioners for $k=4$.  The results for $k=1$ and $k=2$ are essentially identical.}
+	\label{fig:Stokes2Dk1Schwarz}
+	\end{figure}
+	
+	\begin{figure}[ht]
+	\centering
+		\scalebox{\plotscaling}{
+			\begin{tikzpicture}
+			\begin{axis}[
+			    title={Stokes 2D, $p$-multigrid Preconditioners, $k=4$}, 
+			    xlabel={Mesh Width (\# Elements)}, 
+			    ylabel={Iteration Count}, 
+			    grid=major,
+			    legend entries={0 overlap (algebraic), 0 overlap (geometric), 1 overlap (algebraic), 1 overlap (geometric), 2 overlap (algebraic), 2 overlap (geometric)},
+			    legend pos=outer north east,
+			    xtick=data,
+			    xticklabels={2,4,8,16}
+			  ]
+			  \setcounter{algebraiccounter}{\StokesTwoDGMGSchwarzAlgebraicStart}
+			  \setcounter{geometriccounter}{\StokesTwoDGMGSchwarzGeometricStart}
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesTwoDStride}{\maxmyrows}]{data/StokesDriver2D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesTwoDStride}{\maxmyrows}]{data/StokesDriver2D_results_512_ranks_nonconforming.dat};
+			  \addtocounter{geometriccounter}{\StokesTwoDStride}
+			  \addtocounter{algebraiccounter}{\StokesTwoDStride}
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesTwoDStride}{\maxmyrows}]{data/StokesDriver2D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesTwoDStride}{\maxmyrows}]{data/StokesDriver2D_results_512_ranks_nonconforming.dat};
+			  \addtocounter{geometriccounter}{\StokesTwoDStride}
+			  \addtocounter{algebraiccounter}{\StokesTwoDStride}
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesTwoDStride}{\maxmyrows}]{data/StokesDriver2D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesTwoDStride}{\maxmyrows}]{data/StokesDriver2D_results_512_ranks_nonconforming.dat};
+			\end{axis}
+			\end{tikzpicture}
+		}
+	\caption{Stokes 2D: number of iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid preconditioners with the indicated type of Schwarz smoother for $k=4$.  The results for $k=1$ and $k=2$ are essentially identical.}
+	\label{fig:Stokes2Dk1GMG}
+	\end{figure}
+\end{center}
+
+
+\begin{center}
+	\begin{figure}[ht]
+	\centering
+		    \scalebox{\plotscaling}{
+			\begin{tikzpicture}
+			\begin{axis}[
+%			\begin{loglogaxis}[
+			    title={Stokes 3D, No Preconditioner}, 
+			    xlabel={Mesh Width (\# Elements)}, 
+			    ylabel={Iteration Count}, 
+			    grid=major,
+			    legend entries={$k=1$,$k=2$},
+			    legend pos=outer north east,
+			    xtick=data,
+			    xticklabels={2,4,8}
+			  ]
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesThreeDNthPoint, skip first n=1, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesThreeDStride}{\maxmyrows}]{data/StokesDriver3D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesThreeDNthPoint, skip first n=2, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesThreeDStride}{\maxmyrows}]{data/StokesDriver3D_results_512_ranks_nonconforming.dat};
+%			\end{loglogaxis}
+			\end{axis}
+			\end{tikzpicture}
+		    }
+	\caption{Stokes 3D: number of iterations to reduce error by a factor of $10^{10}$, with no preconditioner.}
+	\label{fig:Stokes3DNoPreconditioner}
+	\end{figure}
+\end{center}
+
+\begin{center}
+	\begin{figure}[ht]
+	\centering
+		\scalebox{\plotscaling}{
+			\begin{tikzpicture}
+			\begin{axis}[
+			    title={Stokes 3D, Schwarz Preconditioners, $k=2$}, 
+			    xlabel={Mesh Width (\# Elements)}, 
+			    ylabel={Iteration Count}, 
+			    grid=major,
+			    legend entries={0 overlap (algebraic), 0 overlap (geometric), 1 overlap (algebraic), 1 overlap (geometric)},
+			    legend pos=outer north east,
+			    xtick=data,
+			    xticklabels={2,4,8}
+			  ]
+			  \setcounter{algebraiccounter}{\StokesThreeDSchwarzAlgebraicStart}
+			  \setcounter{geometriccounter}{\StokesThreeDSchwarzGeometricStart}
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesThreeDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesThreeDStride}{\maxmyrows}]{data/StokesDriver3D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesThreeDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesThreeDStride}{\maxmyrows}]{data/StokesDriver3D_results_512_ranks_nonconforming.dat};
+			  \addtocounter{geometriccounter}{\StokesThreeDStride}
+			  \addtocounter{algebraiccounter}{\StokesThreeDStride}
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesThreeDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesThreeDStride}{\maxmyrows}]{data/StokesDriver3D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesThreeDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesThreeDStride}{\maxmyrows}]{data/StokesDriver3D_results_512_ranks_nonconforming.dat};
+			\end{axis}
+			\end{tikzpicture}
+		}
+	\caption{Stokes 3D: number of iterations to reduce error by a factor of $10^{10}$ using Schwarz preconditioners for $k=2$.  The results for $k=1$ are similar.}
+	\label{fig:Stokes3Dk1Schwarz}
+	\end{figure}
+	
+	\begin{figure}[ht]
+	\centering
+		\scalebox{\plotscaling}{
+			\begin{tikzpicture}
+			\begin{axis}[
+			    title={Stokes 3D, $p$-multigrid Preconditioners, $k=2$}, 
+			    xlabel={Mesh Width (\# Elements)}, 
+			    ylabel={Iteration Count}, 
+			    grid=major,
+			    legend entries={0 overlap (algebraic), 0 overlap (geometric), 1 overlap (algebraic), 1 overlap (geometric)},
+			    legend pos=outer north east,
+			    xtick=data,
+			    xticklabels={2,4,8}
+			  ]
+			  \setcounter{algebraiccounter}{\StokesThreeDGMGSchwarzAlgebraicStart}
+			  \setcounter{geometriccounter}{\StokesThreeDGMGSchwarzGeometricStart}
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesThreeDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesThreeDStride}{\maxmyrows}]{data/StokesDriver3D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesThreeDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesThreeDStride}{\maxmyrows}]{data/StokesDriver3D_results_512_ranks_nonconforming.dat};
+			  \addtocounter{geometriccounter}{\StokesThreeDStride}
+			  \addtocounter{algebraiccounter}{\StokesThreeDStride}
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesThreeDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesThreeDStride}{\maxmyrows}]{data/StokesDriver3D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesThreeDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\StokesThreeDStride}{\maxmyrows}]{data/StokesDriver3D_results_512_ranks_nonconforming.dat};
+			\end{axis}
+			\end{tikzpicture}
+		}
+	\caption{Stokes 3D: number of iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid preconditioners with the indicated type of Schwarz smoother for $k=2$.  The results for $k=1$ are similar.}
+	\label{fig:Stokes3Dk1GMG}
 	\end{figure}
 \end{center}
 
