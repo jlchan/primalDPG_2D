@@ -65,6 +65,7 @@ Because at present our construction of the prolongation operator relies on an as
 \newcommand{\PoissonThreeDNthPoint}{2} %corresponds to the number of polynomial orders for which we ran the driver--here, 1,2
 \newcommand{\PoissonOneDStride}{45}
 \newcommand{\PoissonTwoDStride}{12}
+\newcommand{\PoissonTwoDStrideGMG}{18}
 \newcommand{\PoissonThreeDStride}{6}
 \newcommand{\PoissonOneDSchwarzAlgebraicStart}{320} %for the k=16 results; technically, start is on 51, but 50 is the number we skip
 \newcommand{\PoissonOneDSchwarzGeometricStart}{455}
@@ -72,8 +73,8 @@ Because at present our construction of the prolongation operator relies on an as
 \newcommand{\PoissonOneDGMGSchwarzGeometricStart}{185}
 \newcommand{\PoissonTwoDSchwarzAlgebraicStart}{87} %for the k=4 results; technically, start is on 88, but 87 is the number we skip
 \newcommand{\PoissonTwoDSchwarzGeometricStart}{123}
-\newcommand{\PoissonTwoDGMGSchwarzAlgebraicStart}{15} %for the k=4 results
-\newcommand{\PoissonTwoDGMGSchwarzGeometricStart}{51}
+\newcommand{\PoissonTwoDGMGSchwarzAlgebraicStart}{3} %for the k=4 results, in a separate AllGMG file
+\newcommand{\PoissonTwoDGMGSchwarzGeometricStart}{55}
 \newcommand{\PoissonThreeDSchwarzAlgebraicStart}{32} %for the k=2 results
 \newcommand{\PoissonThreeDSchwarzGeometricStart}{44}
 \newcommand{\PoissonThreeDGMGSchwarzAlgebraicStart}{8} %for the k=2 results
@@ -241,7 +242,7 @@ Because at present our construction of the prolongation operator relies on an as
 	\caption{Poisson 2D: number of iterations to reduce error by a factor of $10^{10}$ using Schwarz preconditioners for $k=4$.  The results for $k=1$ and $k=2$ are essentially identical.}
 	\label{fig:Poisson2Dk1Schwarz}
 	\end{figure}
-	
+
 	\begin{figure}[ht]
 	\centering
 		\scalebox{\plotscaling}{
@@ -254,26 +255,59 @@ Because at present our construction of the prolongation operator relies on an as
 			    legend entries={0 overlap (algebraic), 0 overlap (geometric), 1 overlap (algebraic), 1 overlap (geometric), 2 overlap (algebraic), 2 overlap (geometric)},
 			    legend pos=outer north east,
 			    xtick=data,
-			    xticklabels={2,4,8,16}
+			    xticklabels={2,,8,16,32,64}
 			  ]
 			  \setcounter{algebraiccounter}{\PoissonTwoDGMGSchwarzAlgebraicStart}
 			  \setcounter{geometriccounter}{\PoissonTwoDGMGSchwarzGeometricStart}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
-			  \addtocounter{geometriccounter}{\PoissonTwoDStride}
-			  \addtocounter{algebraiccounter}{\PoissonTwoDStride}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
-			  \addtocounter{geometriccounter}{\PoissonTwoDStride}
-			  \addtocounter{algebraiccounter}{\PoissonTwoDStride}
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStrideGMG}{\maxmyrows}]{data/PoissonDriver2D_results_AllGMG_4096_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStrideGMG}{\maxmyrows}]{data/PoissonDriver2D_results_AllGMG_4096_ranks_nonconforming.dat};
+			  \addtocounter{geometriccounter}{\PoissonTwoDStrideGMG}
+			  \addtocounter{algebraiccounter}{\PoissonTwoDStrideGMG}
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStrideGMG}{\maxmyrows}]{data/PoissonDriver2D_results_AllGMG_4096_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStrideGMG}{\maxmyrows}]{data/PoissonDriver2D_results_AllGMG_4096_ranks_nonconforming.dat};
+			  \addtocounter{geometriccounter}{\PoissonTwoDStrideGMG}
+			  \addtocounter{algebraiccounter}{\PoissonTwoDStrideGMG}
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStrideGMG}{\maxmyrows}]{data/PoissonDriver2D_results_AllGMG_4096_ranks_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStrideGMG}{\maxmyrows}]{data/PoissonDriver2D_results_AllGMG_4096_ranks_nonconforming.dat};
 			\end{axis}
 			\end{tikzpicture}
 		}
 	\caption{Poisson 2D: number of iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid preconditioners with the indicated type of Schwarz smoother for $k=4$.  The results for $k=1$ and $k=2$ are essentially identical.}
 	\label{fig:Poisson2Dk1GMG}
 	\end{figure}
+	
+%	\begin{figure}[ht]
+%	\centering
+%		\scalebox{\plotscaling}{
+%			\begin{tikzpicture}
+%			\begin{axis}[
+%			    title={Poisson 2D, $p$-multigrid Preconditioners, $k=4$}, 
+%			    xlabel={Mesh Width (\# Elements)}, 
+%			    ylabel={Iteration Count}, 
+%			    grid=major,
+%			    legend entries={0 overlap (algebraic), 0 overlap (geometric), 1 overlap (algebraic), 1 overlap (geometric), 2 overlap (algebraic), 2 overlap (geometric)},
+%			    legend pos=outer north east,
+%			    xtick=data,
+%			    xticklabels={2,4,8,16}
+%			  ]
+%			  \setcounter{algebraiccounter}{\PoissonTwoDGMGSchwarzAlgebraicStart}
+%			  \setcounter{geometriccounter}{\PoissonTwoDGMGSchwarzGeometricStart}
+%			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
+%			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
+%			  \addtocounter{geometriccounter}{\PoissonTwoDStride}
+%			  \addtocounter{algebraiccounter}{\PoissonTwoDStride}
+%			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
+%			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
+%			  \addtocounter{geometriccounter}{\PoissonTwoDStride}
+%			  \addtocounter{algebraiccounter}{\PoissonTwoDStride}
+%			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{algebraiccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
+%			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonTwoDNthPoint, skip first n=\value{geometriccounter}, filter discard warning=false, unbounded coords=discard, skip coords between index={\PoissonTwoDStride}{\maxmyrows}]{data/PoissonDriver2D_results_512_ranks_nonconforming.dat};
+%			\end{axis}
+%			\end{tikzpicture}
+%		}
+%	\caption{Poisson 2D: number of iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid preconditioners with the indicated type of Schwarz smoother for $k=4$.  The results for $k=1$ and $k=2$ are essentially identical.}
+%	\label{fig:Poisson2Dk1GMG}
+%	\end{figure}
 \end{center}
 
 

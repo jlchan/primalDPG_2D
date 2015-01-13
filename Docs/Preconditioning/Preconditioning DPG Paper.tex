@@ -1,0 +1,94 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage[english]{babel}
+\usepackage{times}
+\usepackage{enumerate}
+\usepackage{a4wide}
+%\usepackage{showlabels}
+\usepackage{amssymb}
+\usepackage{amsbsy}
+\usepackage{pgf}
+\usepackage[textsize=footnotesize,color=yellow]{todonotes}
+\usepackage{subfigure}
+\usepackage{url}		% Allows good typesetting of web URLs.
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[space]{grffile}
+\usepackage{forloop}
+
+\usepackage{calc}
+
+\pgfplotsset{compat=1.8}
+
+\usepackage{afterpage}
+
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\input{nate_commands}
+
+\title{Preconditioners for DPG System Matrices}
+\author[anl]{Nathan V. Roberts}
+\author[rice]{Jesse Chan}
+\address[anl]{Argonne Leadership Computing Facility, Argonne National Laboratory, Argonne, IL, USA.}
+\address[rice]{Rice University, Houston, TX, USA.}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The discontinuous Petrov-Galerkin methodology with optimal test functions (DPG) of Demkowicz and Gopalakrishnan \cite{DPG1,DPG2} guarantees the optimality of the solution in an energy norm, and provides several features facilitating adaptive schemes. Whereas Bubnov-Galerkin methods use identical trial and test spaces, Petrov-Galerkin methods allow these function spaces to differ. In DPG, test functions are computed on the fly and are chosen to realize the supremum in the inf-sup condition; the method is equivalent to a minimum residual method. For well-posed problems with sufficiently regular solutions, DPG can be shown to converge at optimal rates---the inf-sup constants governing the convergence are mesh-independent, and of the same order as those governing the continuous problem \cite{DPGStokes}. DPG also provides an accurate mechanism for measuring the error, and this can be used to drive adaptive mesh refinements.
+
+We survey several preconditioning strategies for the system matrices arising from DPG problems, performing numerical experiments with several DPG formulations to examine the efficacy of each.  For DPG system matrices arising from non-conforming meshes for ultraweak variational formulations, our best preconditioners are optimal in the sense that iteration counts do not increase under uniform $h$-refinement.
+\end{abstract}
+
+{\bf Key words:}
+Discontinuous Petrov Galerkin, adaptive finite elements, preconditioning, iterative solvers
+
+{\bf AMS subject classification:} % 65N30, 35L15 % not sure of these, so commenting out for now.
+
+\section{Introduction} % so far, unassigned
+
+\section{Literature Review}
+\input{litReview.tex}
+
+\section{Preconditioning Approaches}
+\subsection{Primal DPG: Two-level Solvers with $p$-Multigrid}
+\input{primalApproaches.tex} % Jesse
+\subsection{Ultraweak DPG: Two-level Solvers with $p$-Multigrid}
+\input{ultraweakApproachesP.tex} % Nate
+\subsection{Ultraweak DPG: Two-level Solvers with $hp$-Multigrid}
+\input{ultraweakApproachesHP.tex} % Nate
+
+\section{Numerical Results}
+\subsection{Primal DPG}
+\input{primalResults.tex} % Jesse
+
+\subsection{Ultraweak DPG}
+\input{ultraweakResults.tex} % Nate
+
+\subsection{Scalability: Camellia}
+\input{CamelliaScalability.tex} % Nate
+
+\section{Conclusions}
+\input{conclusions.tex} % Jesse
+
+\clearpage
+
+\bibliography{./dpg}
+\bibliographystyle{plain}
+
+
+\end{document}  
