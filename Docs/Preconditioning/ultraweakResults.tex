@@ -417,7 +417,7 @@ Figure \ref{fig:Poisson3DNoPreconditioner} shows the Poisson results for 3D with
 
 %%%%%%%%%                       STOKES 2D                  %%%%%%%%%
 \subsubsection{Stokes}
-As with Poisson, we use a smooth non-polynomial manufactured solution for Stokes, and perform conjugate gradient iterations until the residual is reduced by a factor of $10^{-10}$.
+As with Poisson, we use a smooth non-polynomial manufactured solution for Stokes, and perform conjugate gradient iterations until the residual is reduced by a factor of $10^{-10}$.  We employ the ultraweak velocity-gradient-pressure (VGP) Stokes formulation analyzed in \cite{DPGStokes}.
 
 \paragraph{Stokes 2D Results}
 Figure \ref{fig:Stokes2DNoPreconditioner} shows the 2D Stokes results with no preconditioner for meshes up to $16 \times 16$ elements and up to $k=4$.  The $h$- and $k$-dependence are significant, requiring as many as 10,469 iterations to achieve the desired convergence.  Figure \ref{fig:Stokes2Dk1Schwarz} shows the results for the OAS preconditioners for $k=4$; we do observe some modest $k$-dependence,\footnote{For instance, the whereas for the algebraic 0-overlap case with $k=4$ we require 1,271 iterations to converge, for $k=1$ we require only 1,072.} but essentially the situation is much as it was with Poisson: OAS is a good $p$-preconditioner, but the iteration counts still grow significantly in $h$.  For Stokes, however, the distinction among the various flavors of OAS is more significant: the best OAS preconditioner (which is also the most expensive) requires just 64 iterations on the finest mesh, while the worst requires 1,271.
@@ -682,7 +682,6 @@ Figure \ref{fig:Stokes3DNoPreconditioner} shows the Stokes results for 3D with n
 	\label{fig:Stokes3DExtras}
 \end{figure}
 
-%Dependence on overlap region.  
 %Poisson, variable diffusion (high contrast?) Poisson, Stokes in 2D/3D 
 %Automatically adapted meshes 
 %Navier Stokes?
