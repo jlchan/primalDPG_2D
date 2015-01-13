@@ -1,0 +1,5 @@
+Preconditioner	Smoother	Overlap	num_cells	mesh_width	k	Iterations
+GMG	Schwarz(geometric)	1	8	2	2	46
+GMG	Schwarz(geometric)	1	64	4	2	108
+GMG	Schwarz(geometric)	1	512	8	2	164
+GMG	Schwarz(geometric)	1	4096	16	2	197

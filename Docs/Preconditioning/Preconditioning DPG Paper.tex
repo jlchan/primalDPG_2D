@@ -1,6 +1,7 @@
-\documentclass[11pt]{amsart}
-\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
-\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\documentclass[11pt]{amsart}
+\documentclass[9pt,c,3p]{elsarticle}
+%\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+%\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
 %\geometry{landscape}                % Activate for for rotated page geometry
 %\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
 \usepackage{graphicx}
@@ -46,7 +47,6 @@
 \address[rice]{Rice University, Houston, TX, USA.}
 
 \begin{document}
-\maketitle
 
 \begin{abstract}
 The discontinuous Petrov-Galerkin methodology with optimal test functions (DPG) of Demkowicz and Gopalakrishnan \cite{DPG1,DPG2} guarantees the optimality of the solution in an energy norm, and provides several features facilitating adaptive schemes. Whereas Bubnov-Galerkin methods use identical trial and test spaces, Petrov-Galerkin methods allow these function spaces to differ. In DPG, test functions are computed on the fly and are chosen to realize the supremum in the inf-sup condition; the method is equivalent to a minimum residual method. For well-posed problems with sufficiently regular solutions, DPG can be shown to converge at optimal rates---the inf-sup constants governing the convergence are mesh-independent, and of the same order as those governing the continuous problem \cite{DPGStokes}. DPG also provides an accurate mechanism for measuring the error, and this can be used to drive adaptive mesh refinements.
@@ -58,6 +58,8 @@ We survey several preconditioning strategies for the system matrices arising fro
 Discontinuous Petrov Galerkin, adaptive finite elements, preconditioning, iterative solvers
 
 {\bf AMS subject classification:} % 65N30, 35L15 % not sure of these, so commenting out for now.
+
+\maketitle
 
 \section{Introduction} % so far, unassigned
 
