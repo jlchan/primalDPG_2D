@@ -381,7 +381,7 @@ Figure \ref{fig:Poisson3DNoPreconditioner} shows the Poisson results for 3D with
 			    legend entries={$k=1$, $k=2$},
 			    legend pos=outer north east,
 			    xtick=data,
-			    xticklabels={2,4,8,16},
+			    xticklabels={2,4,8,16,32},
 			    ytick={45,60,75}
 			  ]
 			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=1, filter discard warning=false, unbounded coords=discard]{data/PoissonDriver3D_results_nonconforming_GMG_algebraic_overlap0.dat};
@@ -389,7 +389,7 @@ Figure \ref{fig:Poisson3DNoPreconditioner} shows the Poisson results for 3D with
 			\end{axis}
 			\end{tikzpicture}
 		}
-	\caption{Poisson 3D: number of CG iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid, algebraic Schwarz smoother with 0 overlap. \red{The $32 \times 32 \times 32$ cases are queued on Cetus and Vesta (and Mira, though Cetus and Vesta will likely beat Mira to dequeue).}}
+	\caption{Poisson 3D: number of CG iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid, algebraic Schwarz smoother with 0 overlap.}
 	\label{fig:Poisson3DExtras}
 \end{figure}
 
@@ -663,22 +663,22 @@ Figure \ref{fig:Stokes3DNoPreconditioner} shows the Stokes results for 3D with n
 		\scalebox{\plotscaling}{
 			\begin{tikzpicture}
 			\begin{axis}[
-			    title={Stokes 3D, $p$-multigrid Preconditioners, $k=2$, Schwarz with Incomplete Cholesky}, 
+			    title={Stokes 3D, $p$-multigrid Preconditioners, Schwarz algebraic overlap 0}, 
 			    xlabel={Mesh Width (\# Elements)}, 
 			    ylabel={Iteration Count}, 
 			    grid=major,
-			    legend entries={0 overlap (algebraic), 1 overlap (algebraic)},
+			    legend entries={$k=1$, $k=2$},
 			    legend pos=outer north east,
 			    xtick=data,
 			    xticklabels={2,4,8,16},
-			    ytick={46,91,136,167,197}
+			    ytick={71,106,131,170}
 			  ]
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=1, skip first n=1, filter discard warning=false, unbounded coords=discard]{data/StokesDriver3D_results_overlap0_IC_nonconforming.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=1, skip first n=1, filter discard warning=false, unbounded coords=discard]{data/StokesDriver3D_results_overlap1_IC_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesThreeDNthPoint, skip first n=1, filter discard warning=false, unbounded coords=discard]{data/StokesDriver3D_results_nonconforming_GMG_algebraic_overlap0.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesThreeDNthPoint, skip first n=2, filter discard warning=false, unbounded coords=discard]{data/StokesDriver3D_results_nonconforming_GMG_algebraic_overlap0.dat};
 			\end{axis}
 			\end{tikzpicture}
 		}
-	\caption{Stokes 3D: number of CG iterations to reduce error by a factor of $10^{10}$ using statically condensed system matrix with $p$-multigrid, algebraic Schwarz smoother, using Incomplete Cholesky factorization (fill ratio 5) for the Schwarz blocks. \red{Prefer to eliminate this plot, in favor of a new one with standard block inversion, with just the 0 overlap case, but for both $k=1$ and $k=2$.}}
+	\caption{Stokes 3D: number of CG iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid, algebraic Schwarz smoother with 0 overlap.}
 	\label{fig:Stokes3DExtras}
 \end{figure}
 
