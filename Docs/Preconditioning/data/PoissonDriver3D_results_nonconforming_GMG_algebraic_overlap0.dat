@@ -7,3 +7,5 @@ GMG	Schwarz(algebraic)	0	512	8	1	64
 GMG	Schwarz(algebraic)	0	512	8	2	70
 GMG	Schwarz(algebraic)	0	4096	16	1	68
 GMG	Schwarz(algebraic)	0	4096	16	2	73
+GMG	Schwarz(algebraic)	0	32768	32	1	69
+GMG	Schwarz(algebraic)	0	32768	32	2	73
