@@ -17,6 +17,7 @@ where $H$ is the subdomain size, $\delta$ is the overlap region, and $C$ is some
 While applicable to general finite element methods, overlapping additive Schwarz preconditioners have found particular effectiveness in high order finite element solvers.  The coarse solver is often taken to be the solution of a low-order discretization, yielding a coarse system which is relatively large, but amenable to fast solution methods such as multigrid and algebraic multigrid methods.  The use of Lagrange basis functions at a suitable set of nodal points yields a ``fine grid'' resolution, allowing for limited communication through small overlap regions (for example, a single layer of nodes) while yielding a condition number independent of order and subdomain size \cite{canuto2007spectral}.  Combined with the Spectral Element Method and tensor product techniques, two-level overlapping additive Schwarz solvers have been used in some of the largest and highest order fluid dynamics simulations to date  \cite{fischer1997overlapping}.  
 
 %\subsection{OAS for DPG: Poisson and Helmholtz}
+\textcolor{red}{Cite topology paper once I find it - vertex patches vs face neighbors, how toplogy influences OAS.}
 
 One-level additive Schwarz for DPG with the ultra-weak formulation \cite{barker2011overlapping}.  
 
