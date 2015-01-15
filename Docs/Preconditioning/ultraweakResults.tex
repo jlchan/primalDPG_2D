@@ -9,7 +9,19 @@ We start our ultraweak experiments simply, with a Poisson formulation described 
 \end{itemize}
 The $p$-multigrid preconditioner we employ uses constants ($p=0$) for the coarse mesh.
 
+\paragraph{Algebraic OAS} Trilinos's IfPack package provides what we might call an \emph{algebraic} additive Schwarz preconditioner.  This takes an overlap level as an argument.  Overlap level zero means that only locally owned values from the stiffness matrix will be used in the Schwarz blocks; one Schwarz block is defined on each MPI node (i.e., the Schwarz block exhausts all the locally owned degrees of freedom).  In overlap level one, if a degree of freedom that is not locally owned has a nonzero entry on a local row, then the row corresponding to that degree of freedom will be imported.  In overlap level two, if a degree of freedom that does not belong to overlap level one has nonzero entries on the overlap level one matrix, then its row is imported.  Successive overlap levels are defined similarly.
 
+\paragraph{Geometric OAS} While this is a reasonable approximation to a geometrically defined overlapping Schwarz smoother, our expectation was that we would get better results by defining the smoother explicitly in terms of the geometry.  For such a smoother we would like overlap level zero to mean that all degrees of freedom belonging to a cell are in the Schwarz block for the MPI node that owns that cell.  (Note that in IfPack's level zero smoother, degrees of freedom on the interface between two MPI ranks will belong to exactly one of the ranks.)  Overlap level one should mean that all the degrees of freedom for a cell's neighbors---defined as those cells that share a side with the cell---are in the Schwarz block for the MPI node that owns the cell.  Level two will correspond to neighbors of neighbors, and so on.  We might call this a \emph{geometric} overlapping additive Schwarz smoother.  We have implemented such a smoother in Camellia by borrowing heavily from the code in IfPack and rewriting the determination of which degrees of freedom to import.\\
+
+For each test, we employ a smooth non-polynomial manufactured solution and run conjugate gradient iterations until the residual is reduced by a factor of $10^{10}$.
+
+%%%%%%%%%                       POISSON 1D                  %%%%%%%%%
+\paragraph{Poisson 1D Results}
+Figure \ref{fig:Poisson1DNoPreconditioner} shows the Poisson results for 1D with no preconditioner for mesh sizes up to 512 elements and polynomial order up to 16.  The iteration count increases significantly in both $h$ and $k$; for $k=16$ on a 512-element mesh, we require 12,519 iterations to converge.
+
+Results using the OAS preconditioner are shown in Figure \ref{fig:Poisson1Dk16Schwarz}; here, all $k$ values produce essentially identical results (that is, OAS is nearly an optimal $p$-preconditioner), but we still observe significant $h$-dependence, and the iteration counts for the 512-element mesh range from 386 to 1,580.  Note that the iteration counts for the various levels and types of OAS preconditioner agree with our intuition that higher overlaps and geometric Schwarz will outperform the alternatives; the geometric 2-overlap case has the lowest iteration count.  Note that this is also the most expensive case to compute.
+
+Figure \ref{fig:Poisson1Dk16GMG} shows results for the two-level $p$-multigrid preconditioner.  The results remain essentially independent of the polynomial order, and for meshes finer than 128 elements, we observe essentially no increase in iteration count as we refine.  Curiously, here we observe a reversal of our intuitions, and the geometric 2-overlap case (the most expensive) performs the least well in the asymptotic regime, while the algebraic 0-overlap (the cheapest!) performs best.
 
 \newcommand{\plotscaling}{.8}
 \newcommand{\plotscalingTwoUp}{.5}
@@ -71,10 +83,9 @@ The $p$-multigrid preconditioner we employ uses constants ($p=0$) for the coarse
 			\end{axis}
 			\end{tikzpicture}
 		    }
-	\label{fig:Poisson1DNoPreconditioner}
 	\caption{Poisson 1D: number of CG iterations to reduce error by a factor of $10^{10}$, with no preconditioner.}
+	\label{fig:Poisson1DNoPreconditioner}
 	\end{figure}
-
 
 	\begin{figure}[ht]
 	\centering
@@ -105,8 +116,8 @@ The $p$-multigrid preconditioner we employ uses constants ($p=0$) for the coarse
 			\end{axis}
 			\end{tikzpicture}
 		}
-	\label{fig:Poisson1Dk1Schwarz}
 	\caption{Poisson 1D: number of CG iterations to reduce error by a factor of $10^{10}$ using Schwarz preconditioners for $k=16$.  The results for $k=1,2,4,$ and 8 are essentially identical.}
+	\label{fig:Poisson1Dk16Schwarz}
 	\end{figure}
 
 \begin{figure}[ht]
@@ -140,10 +151,13 @@ The $p$-multigrid preconditioner we employ uses constants ($p=0$) for the coarse
 			\end{axis}
 			\end{tikzpicture}
 		}
-	\label{fig:Poisson1Dk1GMG}
 	\caption{	Poisson 1D: number of CG iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid preconditioners with the indicated type of Schwarz smoother for $k=16$.  The results for $k=1,2,4,$ and 8 are essentially identical.}
+	\label{fig:Poisson1Dk16GMG}
 \end{figure}
 
+%%%%%%%%%                       POISSON 2D                  %%%%%%%%%
+\paragraph{Poisson 2D Results}
+Figure \ref{fig:Poisson2DNoPreconditioner} shows the Poisson results for 2D with no preconditioner for mesh sizes up to $16 \times 16$ elements and polynomial order up to 4.  Again, the iteration count increases significantly in both $h$ and $k$; for $k=4$ on a 256-element mesh, we require 7,271 iterations to converge.  Figure \ref{fig:Poisson2Dk4Schwarz} shows results for the OAS preconditioner; as in 1D, we observe that the more expensive OAS preconditioners yield lower iteration counts.  Figure \ref{fig:Poisson2Dk1GMG} shows results for the two-level preconditioner; here, we do not appear to have entered the asymptotic regime, though the cheapest preconditioner does appear to be flattening out in its iteration count.  We therefore reran this case for mesh sizes up to $128 \times 128$; the results are shown in Figure \ref{fig:Poisson2DExtras}.  There is some modest $k$-dependence in the iteration counts, but there is no $h$-dependence, and the worst-case for the $k=4$, 16,384-element mesh was 61 iterations to converge.
 	\begin{figure}[ht]
 	\centering
 		    \scalebox{\plotscaling}{
@@ -168,8 +182,8 @@ The $p$-multigrid preconditioner we employ uses constants ($p=0$) for the coarse
 			\end{axis}
 			\end{tikzpicture}
 		    }
+	\caption{Poisson 2D: number of CG iterations to reduce error by a factor of $10^{10}$, with no preconditioner.}
 	\label{fig:Poisson2DNoPreconditioner}
-	\caption{	Poisson 2D: number of CG iterations to reduce error by a factor of $10^{10}$, with no preconditioner.}
 \end{figure}
 
 \begin{figure}[ht]
@@ -203,8 +217,8 @@ The $p$-multigrid preconditioner we employ uses constants ($p=0$) for the coarse
 			\end{axis}
 			\end{tikzpicture}
 		}
-	\label{fig:Poisson2Dk1Schwarz}
-	\caption{	Poisson 2D: number of CG iterations to reduce error by a factor of $10^{10}$ using Schwarz preconditioners for $k=4$.  The results for $k=1$ and $k=2$ are essentially identical.}
+	\caption{Poisson 2D: number of CG iterations to reduce error by a factor of $10^{10}$ using Schwarz preconditioners for $k=4$.  The results for $k=1$ and $k=2$ are essentially identical.}
+	\label{fig:Poisson2Dk4Schwarz}
 \end{figure}
 
 \begin{figure}[ht]
@@ -236,9 +250,39 @@ The $p$-multigrid preconditioner we employ uses constants ($p=0$) for the coarse
 			\end{axis}
 			\end{tikzpicture}
 		}
+	\caption{Poisson 2D: number of CG iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid preconditioners with the indicated type of Schwarz smoother for $k=4$.  The results for $k=1$ and $k=2$ are very similar.}
 	\label{fig:Poisson2Dk1GMG}
-	\caption{	Poisson 2D: number of CG iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid preconditioners with the indicated type of Schwarz smoother for $k=4$.  The results for $k=1$ and $k=2$ are essentially identical.}
 \end{figure}
+
+	\begin{figure}[ht]
+	\centering
+		\scalebox{\plotscaling}{
+			\begin{tikzpicture}
+			\begin{axis}[
+			    title={Poisson 2D, $p$-multigrid Preconditioners, Schwarz algebraic overlap 0}, 
+			    xlabel={Mesh Width (\# Elements)}, 
+			    ylabel={Iteration Count}, 
+			    grid=major,
+			    legend entries={$k=1$, $k=2$, $k=4$},
+			    legend pos=outer north east,
+			    xtick=data,
+			    xticklabels={2,,8,16,32,64,128},
+			    ytick={45,60,75,100,124}
+			  ]
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=3, skip first n=1, filter discard warning=false, unbounded coords=discard]{data/PoissonDriver2D_results_nonconforming_GMG_algebraic_overlap0.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=3, skip first n=2, filter discard warning=false, unbounded coords=discard]{data/PoissonDriver2D_results_nonconforming_GMG_algebraic_overlap0.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=3, skip first n=3, filter discard warning=false, unbounded coords=discard]{data/PoissonDriver2D_results_nonconforming_GMG_algebraic_overlap0.dat};
+			\end{axis}
+			\end{tikzpicture}
+		}
+	\caption{Poisson 2D: number of CG iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid, algebraic Schwarz smoother with 0 overlap.}
+	\label{fig:Poisson2DExtras}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%% POISSON 3D %%%%%%%%%%%%%%%%%%%%%
+
+\paragraph{Poisson 3D Results}
+Figure \ref{fig:Poisson3DNoPreconditioner} shows the Poisson results for 3D with no preconditioner for mesh sizes up to $8 \times 8 \times 8$ elements and polynomial order up to 2.  The situation is much the same as in 1D and 2D; we observe significant $h$- and $k$-dependence in the iteration count; by employing the OAS preconditioners we can all but eliminate the $k$-dependence, though the $h$-dependence remains, as can be seen in Figure \ref{fig:Poisson3Dk2Schwarz}.  Moreover, the lowest iteration counts belong to the most expensive OAS preconditioner.  Using the two-level preconditioner, we significantly reduce the overall iteration counts.  As with our initial 2D results, we appear to be in the pre-asymptotic regime; guided by our earlier results, we therefore rerun with just the algebraic level-0 preconditioner.  The results are shown in Figure \ref{fig:Poisson3DExtras}.
 
 \begin{figure}[ht]
 	\centering
@@ -263,8 +307,8 @@ The $p$-multigrid preconditioner we employ uses constants ($p=0$) for the coarse
 			\end{axis}
 			\end{tikzpicture}
 		    }
+	\caption{Poisson 3D: number of CG iterations to reduce error by a factor of $10^{10}$, with no preconditioner.}
 	\label{fig:Poisson3DNoPreconditioner}
-	\caption{	Poisson 3D: number of CG iterations to reduce error by a factor of $10^{10}$, with no preconditioner.}
 \end{figure}
 
 	\begin{figure}[ht]
@@ -292,8 +336,8 @@ The $p$-multigrid preconditioner we employ uses constants ($p=0$) for the coarse
 			\end{axis}
 			\end{tikzpicture}
 		}
-	\label{fig:Poisson3Dk1Schwarz}
-	\caption{	Poisson 3D: number of CG iterations to reduce error by a factor of $10^{10}$ using Schwarz preconditioners for $k=2$.  The results for $k=1$ are essentially identical.}
+	\caption{Poisson 3D: number of CG iterations to reduce error by a factor of $10^{10}$ using Schwarz preconditioners for $k=2$.  The results for $k=1$ are essentially identical.}
+	\label{fig:Poisson3Dk2Schwarz}
 \end{figure}
 
 	\begin{figure}[ht]
@@ -322,7 +366,31 @@ The $p$-multigrid preconditioner we employ uses constants ($p=0$) for the coarse
 			\end{tikzpicture}
 		}
 	\label{fig:Poisson3Dk1GMG}
-	\caption{	Poisson 3D: number of CG iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid preconditioners with the indicated type of Schwarz smoother for $k=2$.  The results for $k=1$ are essentially identical.}
+	\caption{Poisson 3D: number of CG iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid preconditioners with the indicated type of Schwarz smoother for $k=2$.  The results for $k=1$ are essentially identical.}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+		\scalebox{\plotscaling}{
+			\begin{tikzpicture}
+			\begin{axis}[
+			    title={Poisson 3D, $p$-multigrid Preconditioners, Schwarz algebraic overlap 0}, 
+			    xlabel={Mesh Width (\# Elements)}, 
+			    ylabel={Iteration Count}, 
+			    grid=major,
+			    legend entries={$k=1$, $k=2$},
+			    legend pos=outer north east,
+			    xtick=data,
+			    xticklabels={2,4,8,16,32},
+			    ytick={45,60,75}
+			  ]
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=1, filter discard warning=false, unbounded coords=discard]{data/PoissonDriver3D_results_nonconforming_GMG_algebraic_overlap0.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\PoissonThreeDNthPoint, skip first n=2, filter discard warning=false, unbounded coords=discard]{data/PoissonDriver3D_results_nonconforming_GMG_algebraic_overlap0.dat};
+			\end{axis}
+			\end{tikzpicture}
+		}
+	\caption{Poisson 3D: number of CG iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid, algebraic Schwarz smoother with 0 overlap.}
+	\label{fig:Poisson3DExtras}
 \end{figure}
 
 %===============================================================================
@@ -346,6 +414,15 @@ The $p$-multigrid preconditioner we employ uses constants ($p=0$) for the coarse
 \newcommand{\StokesThreeDSchwarzGeometricStartkOne}{43}
 \newcommand{\StokesThreeDGMGSchwarzAlgebraicStartkOne}{7} %for the k=1 results
 \newcommand{\StokesThreeDGMGSchwarzGeometricStartkOne}{19}
+
+%%%%%%%%%                       STOKES 2D                  %%%%%%%%%
+\subsubsection{Stokes}
+As with Poisson, we use a smooth non-polynomial manufactured solution for Stokes, and perform conjugate gradient iterations until the residual is reduced by a factor of $10^{-10}$.  We employ the ultraweak velocity-gradient-pressure (VGP) Stokes formulation analyzed in \cite{DPGStokes}.
+
+\paragraph{Stokes 2D Results}
+Figure \ref{fig:Stokes2DNoPreconditioner} shows the 2D Stokes results with no preconditioner for meshes up to $16 \times 16$ elements and up to $k=4$.  The $h$- and $k$-dependence are significant, requiring as many as 10,469 iterations to achieve the desired convergence.  Figure \ref{fig:Stokes2Dk1Schwarz} shows the results for the OAS preconditioners for $k=4$; we do observe some modest $k$-dependence,\footnote{For instance, the whereas for the algebraic 0-overlap case with $k=4$ we require 1,271 iterations to converge, for $k=1$ we require only 1,072.} but essentially the situation is much as it was with Poisson: OAS is a good $p$-preconditioner, but the iteration counts still grow significantly in $h$.  For Stokes, however, the distinction among the various flavors of OAS is more significant: the best OAS preconditioner (which is also the most expensive) requires just 64 iterations on the finest mesh, while the worst requires 1,271.
+
+The two-level preconditioner 2D Stokes results up to a $16 \times 16$ mesh with $k=4$ are shown in Figure \ref{fig:Stokes2Dk1GMG}.  While it does appear that from the plot that the iteration count for the 0-overlap algebraic case is beginning to flatten, it does appear that we are still in the pre-asymptotic regime.  We therefore run again, focusing on this case and extending to $64 \times 64$ elements; the results are shown in Figure \ref{fig:Stokes2DExtras}.  Here, we do clearly see that the iteration count becomes $h$-independent as we refine. 
 
 \begin{figure}[ht]
 	\centering
@@ -462,9 +539,14 @@ The $p$-multigrid preconditioner we employ uses constants ($p=0$) for the coarse
 			\end{axis}
 			\end{tikzpicture}
 		}
-	\label{fig:Stokes2DExtras}
 	\caption{Stokes 2D: number of CG iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid, algebraic Schwarz smoother with 0 overlap.}
+	\label{fig:Stokes2DExtras}
 \end{figure}
+
+%%%%%%%%%                       STOKES 3D                  %%%%%%%%%
+\paragraph{Stokes 3D Results}
+Figure \ref{fig:Stokes3DNoPreconditioner} shows the Stokes results for 3D with no preconditioner for mesh sizes up to $8 \times 8 \times 8$ elements and polynomial order up to 2; we again observe $h$- and $k$-dependence in the iteration count.  OAS preconditioners again help significantly in mitigating the $k$-dependence, though the $h$-dependence remains, as can be seen in Figure \ref{fig:Stokes3Dk2Schwarz}.  As with the OAS results above, the lowest iteration counts belong to the most expensive OAS preconditioner.  Using the two-level preconditioner, we significantly reduce the overall iteration counts; the results up to an $8 \times 8 \times 8$ mesh are shown in Figure \ref{fig:Stokes3Dk1k2GMG}.  We do again appear to be in the pre-asymptotic regime; guided by our earlier results, we therefore rerun with just the algebraic level-0 preconditioner on some larger meshes.  The results are shown in Figure \ref{fig:Stokes3DExtras}.
+
 
 \begin{figure}[ht]
 	\centering
@@ -490,8 +572,8 @@ The $p$-multigrid preconditioner we employ uses constants ($p=0$) for the coarse
 			\end{axis}
 			\end{tikzpicture}
 		    }
+	\caption{Stokes 3D: number of CG iterations to reduce error by a factor of $10^{10}$, with no preconditioner.}
 	\label{fig:Stokes3DNoPreconditioner}
-	\caption{	Stokes 3D: number of CG iterations to reduce error by a factor of $10^{10}$, with no preconditioner.}
 \end{figure}
 
 \begin{figure}[ht]
@@ -520,8 +602,8 @@ The $p$-multigrid preconditioner we employ uses constants ($p=0$) for the coarse
 			\end{axis}
 			\end{tikzpicture}
 		}
-	\label{fig:Stokes3Dk1Schwarz}
-	\caption{	Stokes 3D: number of CG iterations to reduce error by a factor of $10^{10}$ using Schwarz preconditioners for $k=2$.  The results for $k=1$ are similar.}
+	\label{fig:Stokes3Dk2Schwarz}
+	\caption{Stokes 3D: number of CG iterations to reduce error by a factor of $10^{10}$ using Schwarz preconditioners for $k=2$.  The results for $k=1$ are similar.}
 \end{figure}
 
 	\begin{figure}[ht]
@@ -572,8 +654,8 @@ The $p$-multigrid preconditioner we employ uses constants ($p=0$) for the coarse
 			\end{axis}
 			\end{tikzpicture}
 		}
+	\caption{Stokes 3D: number of CG iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid preconditioners with the indicated type of Schwarz smoother for $k=1$ and $k=2$.}
 	\label{fig:Stokes3Dk1k2GMG}
-	\caption{	Stokes 3D: number of CG iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid preconditioners with the indicated type of Schwarz smoother for $k=1$ and $k=2$.}
 \end{figure}
 
 	\begin{figure}[ht]
@@ -581,26 +663,25 @@ The $p$-multigrid preconditioner we employ uses constants ($p=0$) for the coarse
 		\scalebox{\plotscaling}{
 			\begin{tikzpicture}
 			\begin{axis}[
-			    title={Stokes 3D, $p$-multigrid Preconditioners, $k=2$, Schwarz with Incomplete Cholesky}, 
+			    title={Stokes 3D, $p$-multigrid Preconditioners, Schwarz algebraic overlap 0}, 
 			    xlabel={Mesh Width (\# Elements)}, 
 			    ylabel={Iteration Count}, 
 			    grid=major,
-			    legend entries={0 overlap (algebraic), 1 overlap (algebraic)},
+			    legend entries={$k=1$, $k=2$},
 			    legend pos=outer north east,
 			    xtick=data,
 			    xticklabels={2,4,8,16},
-			    ytick={46,91,136,167,197}
+			    ytick={71,106,131,170}
 			  ]
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=1, skip first n=1, filter discard warning=false, unbounded coords=discard]{data/StokesDriver3D_results_overlap0_IC_nonconforming.dat};
-			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=1, skip first n=1, filter discard warning=false, unbounded coords=discard]{data/StokesDriver3D_results_overlap1_IC_nonconforming.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesThreeDNthPoint, skip first n=1, filter discard warning=false, unbounded coords=discard]{data/StokesDriver3D_results_nonconforming_GMG_algebraic_overlap0.dat};
+			  \addplot table [header=false, x index=\meshwidthindex, y index=\iterationcountindex, each nth point=\StokesThreeDNthPoint, skip first n=2, filter discard warning=false, unbounded coords=discard]{data/StokesDriver3D_results_nonconforming_GMG_algebraic_overlap0.dat};
 			\end{axis}
 			\end{tikzpicture}
 		}
-	\label{fig:Stokes3Dk2GMGIC}
-	\caption{	Stokes 3D: number of CG iterations to reduce error by a factor of $10^{10}$ using statically condensed system matrix with $p$-multigrid, algebraic Schwarz smoother, using Incomplete Cholesky factorization (fill ratio 5) for the Schwarz blocks.}
+	\caption{Stokes 3D: number of CG iterations to reduce error by a factor of $10^{10}$ using $p$-multigrid, algebraic Schwarz smoother with 0 overlap.}
+	\label{fig:Stokes3DExtras}
 \end{figure}
 
-%Dependence on overlap region.  
 %Poisson, variable diffusion (high contrast?) Poisson, Stokes in 2D/3D 
 %Automatically adapted meshes 
 %Navier Stokes?
