@@ -12,10 +12,11 @@ Globals2D;FaceGlobals2D
 
 plotFlag = 0;
 grids = {'Maxwell05.neu','Maxwell025.neu','Maxwell0125.neu'}%,'Maxwell00625.neu'};
-% grids = {'Maxwell05.neu','Maxwell025.neu'};
+grids = {'Maxwell05.neu','Maxwell025.neu'};
 % grids = {'Maxwell00625.neu'};
 % grids = {'Maxwell05.neu'};
-Ntrial = [3 6 12];
+%Ntrial = [3 6 12];
+Ntrial = [3 ];
 NpTrials = (Ntrial+1).*(Ntrial+2)/2;
 
 useQuads = 0; run('../Init')

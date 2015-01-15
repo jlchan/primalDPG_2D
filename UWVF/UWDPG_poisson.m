@@ -1,4 +1,4 @@
-function UWDPG_poisson
+function [A b] = UWDPG_poisson
 
 Globals2D
 FaceGlobals2D;

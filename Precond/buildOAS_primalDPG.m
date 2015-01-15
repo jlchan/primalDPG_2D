@@ -86,7 +86,7 @@ else % take just a single element
 end
 
 % coarse grid solver
-[Rc1 Ir1 vmapBT1 xr1 yr1] = pRestrictCG(Norder,1); % interp down
+[Rc1 Ir1 vmapBT1] = pRestrictCG(Norder,1); % interp down
 Rp1 = Rc1*Ir1';
 Rs = spdiag(1./sum(R,2))*R; % divide by shared nodal contributions - undo assembly
 R1 = Rs*Rp1'; % interp down to P1
@@ -94,9 +94,15 @@ If1 = ones(Nf+1,1)/sqrt(Nf+1); % interp from constant to Nf+1
 If1 = kron(speye(NfacesU),If1);
 
 RR = blkdiag(R1,If1);
-P1 = @(b) R1*((R1'*A*R1)\(R1'*b)); % should be able to "ignore" BC imposition - pcg acts on residual e(vmapBT) = 0
+% P1 = @(b) R1*((R1'*A*R1)\(R1'*b)); % should be able to "ignore" BC imposition - pcg acts on residual e(vmapBT) = 0
 % S1 = If1'*S*If1; %bS1 = If1'*bS;
 % P1 = @(bS) If1*(S1\(If1'*bS));
-P1 = @(b) RR*((RR'*A*RR)\(RR'*b));
+P1 = @(b) RR*((RR'*A*RR)\(RR'*b)); % exact P1 solve
+
+% a few AGMG sweeps instead of P1 solve
+% maxiter = 5; 
+% levels = agmg_setup(RR'*A*RR); 
+% P1 = @(x) RR*agmg_solve(levels,RR'*x,maxiter,1e-8);
 
 Mhandle = @(x) P1(x) + OAS(x,Ak); % coarse solver + OAS solver
+

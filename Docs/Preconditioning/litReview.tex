@@ -1,9 +1,27 @@
 % Jesse's part
+
 \subsection{Overlapping Additive Schwarz Preconditioners}
 
-\subsection{OAS for DPG: Poisson and Helmholtz}
+Overlapping additive Schwarz methods constitute a class of domain decomposition methods for converting up the solution of partial differential equations into a set of smaller problems.  Classical additive Schwarz preconditioners for elliptic problems restrict the PDE to a subdomain and solve local problems, approximating the global solution by summing over the subdomains.  While additive Schwarz methods have fallen out of favor as direct solution methods, domain decomposition techniques have found ample use in preconditioning techniques for iterative solvers.  Additive Schwarz methods may alternatively be viewed as block Jacobi preconditioners with overlapping blocks.  Information is then transmitted between subdomains through the overlap regions, and it can be shown that increasing the amount of overlap $\delta$ improves the condition number of the preconditioned matrix.  
+
+Unfortunately, the effectiveness of the additve Schwarz method deteriorates with decreasing subdomain size and fixed overlap \cite{bjorstad2004domain, toselli2005domain}, as communication between subdomains is localized to overlapping regions.  The solution to this is to introduce a global coarse problem which communicates information globally between subdomains, independent of subdomain size.  The two-level overlapping additive Schwarz preconditioner \cite{dryja1987additive} may then be written as
+\[
+P^{-1} = R_0^T A_0^{-1} R_0 + \sum_{k = 1}^K R_k^T A_k^{-1} R_k
+\]
+where $k$ is the number of subdomains, $R_k$ is the restriction operator to that subdomain, and $A_0$ and $A_k$ are the stiffness matrices corresponding to the problems on the coarse level and $k$th subdomain, respectively.  It can be shown that, for model elliptic problems, the preconditioned stiffness matrix condition number may be bounded from above by
+\[
+\kappa(P^{-1}K) \leq C\left(1 + \frac{H}{\delta}\right)
+\]
+where $H$ is the subdomain size, $\delta$ is the overlap region, and $C$ is some constant independent of $h, H$, and $\delta$ \cite{dryja1994schwarz}.  For generous overlap, the condition number is independent of subdomain size, yielding a preconditioner which is scalable in the number of subdomains \cite{chan1996overlapping}.  
+
+While applicable to general finite element methods, overlapping additive Schwarz preconditioners have found particular effectiveness in high order finite element solvers.  The coarse solver is often taken to be the solution of a low-order discretization, yielding a coarse system which is relatively large, but amenable to fast solution methods such as multigrid and algebraic multigrid methods.  The use of Lagrange basis functions at a suitable set of nodal points yields a ``fine grid'' resolution, allowing for limited communication through small overlap regions (for example, a single layer of nodes) while yielding a condition number independent of order and subdomain size \cite{canuto2007spectral}.  Combined with the Spectral Element Method and tensor product techniques, two-level overlapping additive Schwarz solvers have been used in some of the largest and highest order fluid dynamics simulations to date  \cite{fischer1997overlapping}.  
+
+%\subsection{OAS for DPG: Poisson and Helmholtz}
+
+One-level additive Schwarz for DPG with the ultra-weak formulation \cite{barker2011overlapping}.  
 
 \subsection{Geometric Multigrid Preconditioners}
 
-\subsection{Geometric Multigrid for DPG: Wohlmuth and Wieners} % should the title of this subsection instead reflect the problems Wohlmuth and Wieners address?
+\cite{WienersWohlmuth}
+%\subsection{Geometric Multigrid for DPG: Wohlmuth and Wieners} % should the title of this subsection instead reflect the problems Wohlmuth and Wieners address?
 

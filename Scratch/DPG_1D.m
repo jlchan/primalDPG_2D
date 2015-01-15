@@ -1,12 +1,12 @@
 % gets 1D DPG operator for poisson on a uniform grid of K elements, with
 % test order NT and trial order N
 
-function [A Mtr] = DPG_1D(N,NT,K)
+function [A b ids R] = DPG_1D(N,NT,K)
 
-if nargin<3
+if nargin<3 
     N = 2;
     NT = N+2; % test order    
-    K = 8;
+    K = 2;
 end
 
 r = JacobiGL(0,0,N);
@@ -65,7 +65,7 @@ A(1,:) = 0;A(:,1) = 0; A(1,1) = 1;
 A(NpT,:) = 0;A(:,NpT) = 0; A(NpT,NpT) = 1;
 b(1) = 0;b(NpT) = 0;
 
-if nargin<3
+if nargout==0
     u = A\b;
     figure
     plot(x(:),R'*u(1:NpT),'.-')
@@ -74,6 +74,16 @@ end
 fieldInds = 1:NpT;
 fluxInds = NpT+1:size(A,1);
 
+ids = cell(K,1);
+off_field = 0;
+off_flux = NpT;
+for e = 1:K
+    fieldIds = off_field + (1:N+1);
+    fluxIds = off_flux + (1:2);
+    ids{e} = [fieldIds(:); fluxIds(:)];
+    off_field = off_field + N;
+    off_flux = off_flux + 1;
+end
 % [X Y] = meshgrid(x(:));
 % % plot(X,Y,'.')
 % 
