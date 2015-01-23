@@ -15,13 +15,14 @@ xmax = xmax+.1*Lx; xmin = xmin-.1*Lx;
 ymax = ymax+.1*Ly; ymin = ymin-.1*Ly;
 
 axis([xmin xmax ymin ymax])
-drawnow; pause(.05);
+% drawnow; pause(.05);
 
 oFx = reshape(Fx, Nfp, Nfaces*K); oFy = reshape(Fy, Nfp, Nfaces*K);
 
-plot(oFx, oFy, 'k-')
+plot(oFx, oFy, 'k-','linewidth',2)
 axis equal
 axis([xmin xmax ymin ymax])
 
-drawnow; pause(.05);
+% drawnow; pause(.05);
+axis off
 return;
