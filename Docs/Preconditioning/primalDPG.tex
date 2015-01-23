@@ -1,0 +1,33 @@
+The primal DPG method, introduced by Demkowicz and Gopalakrishnan in \cite{demkowicz2013primal}, is the simplest formulation illustrating the ideas behind the optimal test functions of the discontinuous Petrov-Galerkin method.  Consider the Poisson problem posed on some domain $\Omega$ with boundary $\partial \Omega$:
+\begin{align*}
+-\Delta u &=f, \quad \text{on } \Omega\\
+\left.u\right|_{\partial \Omega} &=0, \quad \text{on } \partial \Omega.
+\end{align*}
+We may derive the DPG method by assuming that the solution $u \in H^1(\Omega)$.  Introducing the mesh $\Omega_h$ as a collection of elements $K$, such that $\cup_{K\in \Omega_h} K = \Omega$, we may introduce broken test functions $v \in H^1(K)$, which are locally in $H^1$, but discontinuous between elements.  Multiplying by these test functions and integrating by parts gives
+\[
+\LRp{\Grad u,\Grad v}_{\Omega_h} - \LRa{\pd{u}{n}{}, v}_{\partial \Omega_h} = \LRp{f,v}_{\Omega_h},
+\]
+where the mesh skeleton $\delta \Omega_h = \cup_{K\in \Omega_h} \partial K$ is the collection of all element boundaries.  Since the normal gradient on element boundaries $\partial K$ is not well-defined for $u \in H^1(\Omega)$, we replace it with an unknown hybrid variable $\widehat{\sigma}$ defined on element boundaries
+\[
+\widehat{\sigma} \in H^{-\frac{1}{2}}(\partial \Omega_h) = \LRc{ \hat{q}\in \Pi_K H^{-\frac{1}{2}}(\partial K): \exists q \in H({\rm div}, \Omega) \text{ such that } \left.\hat{q}\right|_{\partial K} = \left.q\cdot n\right|_{\partial K}}.
+\]
+where the fractional Sobolev space on the mesh skeleton is defined as the trace space of vector-valued $H({\rm div})$ functions.  The primal formulation of the DPG method is then to find $\LRp{u,\widehat{\sigma}}$ such that
+\[
+\LRp{\Grad u,\Grad v}_{\Omega_h} - \LRa{\widehat{\sigma}, v}_{\partial \Omega_h} = \LRp{f,v}_{\Omega_h}, \qquad \forall v \in V.
+\]
+To discretize the primal DPG method, we may choose $u_h$ to be a high-order $H^1$-conforming finite element space, and $\widehat{\sigma}_h$ may be discretized using discontinuous functions defined on each face of an element.  The test space $V_h$ is then determined as the space of optimal test functions $v_h$
+\[
+V_h = \LRc{ v_h = T (u_h, \widehat{\sigma}_h), (u_h, \widehat{\sigma}_h) \in U_h}, 
+\]
+where $T$ is the trial-to-test operator defined as the solution to the variational problem
+\[
+\LRp{Tu_h, \delta v}_V = b(u_h,\delta v), \quad v\in V.
+\]
+In general, we require only that $\LRp{v,\delta v}_V$ is an inner product defined over $V$.  For example, for the Poisson problem, we may define $\LRp{v,\delta v}_V$ as
+\[
+\LRp{v,\delta v}_V = \nor{v}_{\L} + \nor{\Grad v}_{\L}.
+\]
+The choice of this inner product is crucial to the stability of DPG methods with optimal test functions, and is studied at length for various problems in \cite{DPG4, DPG5, DPGStokes, DemkowiczHeuer, chan2014robust}.  In practice, these optimal test functions are approximated using a local $p$-enriched Galerkin method.  Conditions are given in \cite{GopalakrishnanQiu11} for the discretized problem to be stable under the ultra-weak formulation.  Using a local Poincare inequality, it may be shown that both the continuous and discretized primal formulations are also stable and quasi-optimal.  
+
+The primal DPG method may also be interpreted as a mortar domain decomposition applied to the test space of the mixed problem resulting from the variational stabilization method of Cohen, Dahmen, and Welper \cite{dahmen, WienersWohlmuth}.  These mortars are precisely the interface unknowns $\widehat{\sigma}$.  
+
