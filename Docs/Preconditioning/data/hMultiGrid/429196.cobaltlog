@@ -1,0 +1,54 @@
+Jobid: 429196
+qsub -t 60 -n 32 --mode c32 -A Camellia ../drivers/Poisson/PoissonPreconditioningTestsDriver --spaceDim=2 --runMany --hOnly --runManySubset=AllGMG --delta_k=1 --polyOrder=0 --problem=Poisson
+Wed Mar 18 04:40:10 2015 +0000 (UTC) submitted with cwd set to: /gpfs/mira-fs1/projects/Camellia/Camellia/build/bg-release/hMultiGridTests
+Wed Mar 18 04:40:36 2015 +0000 (UTC) nroberts/429196: Initiating boot at location CET-62040-73371-128.
+Wed Mar 18 04:40:54 2015 +0000 (UTC) 
+Wed Mar 18 04:40:54 2015 +0000 (UTC) Command: '/usr/bin/runjob' '--np' '1024' '--ranks-per-node' '32' '--cwd' '/gpfs/mira-fs1/projects/Camellia/Camellia/build/bg-release/hMultiGridTests' '--block' 'CET-62040-73371-128' '--envs' 'COBALT_JOBID=429196' '--envs' 'COBALT_STARTTIME=1426653620' '--envs' 'COBALT_ENDTIME=1426657220' '--verbose' '4' ':' '/gpfs/mira-fs1/projects/Camellia/Camellia/build/bg-release/hMultiGridTests/../drivers/Poisson/PoissonPreconditioningTestsDriver' '--spaceDim=2' '--runMany' '--hOnly' '--runManySubset=AllGMG' '--delta_k=1' '--polyOrder=0' '--problem=Poisson'
+Wed Mar 18 04:40:54 2015 +0000 (UTC) 
+Wed Mar 18 04:40:54 2015 +0000 (UTC) Environment:
+Wed Mar 18 04:40:54 2015 +0000 (UTC) LESSOPEN=|/usr/bin/lesspipe.sh %s
+Wed Mar 18 04:40:54 2015 +0000 (UTC) SSH_CLIENT=10.233.1.1 45881 22
+Wed Mar 18 04:40:54 2015 +0000 (UTC) CVS_RSH=ssh
+Wed Mar 18 04:40:54 2015 +0000 (UTC) LOGNAME=root
+Wed Mar 18 04:40:54 2015 +0000 (UTC) USER=root
+Wed Mar 18 04:40:54 2015 +0000 (UTC) HOME=/root
+Wed Mar 18 04:40:54 2015 +0000 (UTC) PATH=/usr/lib64/qt-3.3/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/bgsys/drivers/ppcfloor/bin:/bgsys/drivers/ppcfloor/sbin:/usr/lpp/mmfs/bin:/usr/lpp/mmfs/bin:/root/bin:/dbhome/db2cat/sqllib/bin:/dbhome/db2cat/sqllib/adm:/dbhome/db2cat/sqllib/misc
+Wed Mar 18 04:40:54 2015 +0000 (UTC) ARCH=
+Wed Mar 18 04:40:54 2015 +0000 (UTC) LD_LIBRARY_PATH=/bgsys/drivers/ppcfloor/lib64:/dbhome/db2cat/sqllib/lib64:/dbhome/db2cat/sqllib/lib32
+Wed Mar 18 04:40:54 2015 +0000 (UTC) LANG=en_US.UTF-8
+Wed Mar 18 04:40:54 2015 +0000 (UTC) IBM_DB_DIR=/dbhome/db2cat/sqllib
+Wed Mar 18 04:40:54 2015 +0000 (UTC) TERM=screen-bce
+Wed Mar 18 04:40:54 2015 +0000 (UTC) SHELL=/bin/bash
+Wed Mar 18 04:40:54 2015 +0000 (UTC) QTINC=/usr/lib64/qt-3.3/include
+Wed Mar 18 04:40:54 2015 +0000 (UTC) IBM_DB_LIB=/dbhome/db2cat/sqllib/lib
+Wed Mar 18 04:40:54 2015 +0000 (UTC) DB2INSTANCE=db2cat
+Wed Mar 18 04:40:54 2015 +0000 (UTC) G_BROKEN_FILENAMES=1
+Wed Mar 18 04:40:54 2015 +0000 (UTC) PWD=/root
+Wed Mar 18 04:40:54 2015 +0000 (UTC) HISTSIZE=1000
+Wed Mar 18 04:40:54 2015 +0000 (UTC) PLATFORM=
+Wed Mar 18 04:40:54 2015 +0000 (UTC) MPIRUN_VERBOSE=1
+Wed Mar 18 04:40:54 2015 +0000 (UTC) COBALT_ENDTIME=1426657220
+Wed Mar 18 04:40:54 2015 +0000 (UTC) QTLIB=/usr/lib64/qt-3.3/lib
+Wed Mar 18 04:40:54 2015 +0000 (UTC) DB2LIB=/dbhome/db2cat/sqllib/lib
+Wed Mar 18 04:40:54 2015 +0000 (UTC) CLASSPATH=/usr/share/java/jdom.jar:/dbhome/bgqsysdb/sqllib/tools/clpplus.jar:/dbhome/bgqsysdb/sqllib/tools/antlr-3.2.jar:/dbhome/bgqsysdb/sqllib/tools/jline-0.9.93.jar:/dbhome/db2cat/sqllib/java/db2java.zip:/dbhome/db2cat/sqllib/java/sqlj.zip:/dbhome/db2cat/sqllib/function:/dbhome/db2cat/sqllib/java/db2jcc_license_cu.jar:/dbhome/db2cat/sqllib/tools/clpplus.jar:/dbhome/db2cat/sqllib/tools/antlr-3.2.jar:/dbhome/db2cat/sqllib/tools/jline-0.9.93.jar:/dbhome/db2cat/sqllib/java/db2jcc.jar:.
+Wed Mar 18 04:40:54 2015 +0000 (UTC) IBM_DB_INCLUDE=/dbhome/db2cat/sqllib/include
+Wed Mar 18 04:40:54 2015 +0000 (UTC) DB2_HOME=/dbhome/db2cat/sqllib
+Wed Mar 18 04:40:54 2015 +0000 (UTC) COBALT_STARTTIME=1426653620
+Wed Mar 18 04:40:54 2015 +0000 (UTC) _=/usr/bin/nohup
+Wed Mar 18 04:40:54 2015 +0000 (UTC) LS_COLORS=
+Wed Mar 18 04:40:54 2015 +0000 (UTC) SSH_TTY=/dev/pts/1
+Wed Mar 18 04:40:54 2015 +0000 (UTC) HOSTNAME=cetussn1
+Wed Mar 18 04:40:54 2015 +0000 (UTC) HISTCONTROL=ignoredups
+Wed Mar 18 04:40:54 2015 +0000 (UTC) SHLVL=2
+Wed Mar 18 04:40:54 2015 +0000 (UTC) WHATAMI=
+Wed Mar 18 04:40:54 2015 +0000 (UTC) MAIL=/var/spool/mail/root
+Wed Mar 18 04:40:54 2015 +0000 (UTC) SSH_CONNECTION=10.233.1.1 45881 10.233.1.18 22
+Wed Mar 18 04:40:54 2015 +0000 (UTC) QTDIR=/usr/lib64/qt-3.3
+Wed Mar 18 04:40:54 2015 +0000 (UTC) COBALT_JOBID=429196
+Wed Mar 18 04:40:54 2015 +0000 (UTC) 
+Wed Mar 18 04:40:54 2015 +0000 (UTC) Info: stdin received from /dev/null
+Wed Mar 18 04:40:54 2015 +0000 (UTC) Info: stdout sent to /gpfs/mira-fs1/projects/Camellia/Camellia/build/bg-release/hMultiGridTests/429196.output
+Wed Mar 18 04:40:54 2015 +0000 (UTC) Info: stderr sent to /gpfs/mira-fs1/projects/Camellia/Camellia/build/bg-release/hMultiGridTests/429196.error
+Wed Mar 18 04:40:54 2015 +0000 (UTC) 
+Wed Mar 18 04:40:58 2015 +0000 (UTC) nroberts/429196: Block CET-62040-73371-128 for location CET-62040-73371-128 successfully booted (Initiating). 
+Wed Mar 18 04:43:02 2015 +0000 (UTC) Info: task completed normally with an exit code of 0; initiating job cleanup and removal
