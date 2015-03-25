@@ -1,0 +1,21 @@
+2015-03-25 17:50:50.249 (INFO ) [0x4000122bde0] ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
+2015-03-25 17:50:50.250 (INFO ) [0x4000122bde0] ibm.runjob.AbstractOptions: max open file descriptors: 65536
+2015-03-25 17:50:50.250 (INFO ) [0x4000122bde0] ibm.runjob.AbstractOptions: core file limit: 18446744073709551615
+2015-03-25 17:50:50.251 (INFO ) [0x4000122bde0] 41432:tatu.runjob.client: scheduler job id is 434513
+2015-03-25 17:50:50.255 (INFO ) [0x40000c334e0] 41432:tatu.runjob.monitor: monitor started
+2015-03-25 17:50:53.949 (INFO ) [0x40000c334e0] 41432:tatu.runjob.monitor: task record 963692 created
+2015-03-25 17:50:53.950 (INFO ) [0x4000122bde0] CET-00440-11771-128:41432:ibm.runjob.client.options.Parser: set local socket to runjob_mux from properties file
+2015-03-25 17:51:19.076 (INFO ) [0x4000122bde0] CET-00440-11771-128:1027688:ibm.runjob.client.Job: job 1027688 started
+
+
+	***************************************************************
+
+	Warning: direction vector is no longer A-conjugate 
+	to previous vector but solution has not converged.
+
+	***************************************************************
+
+2015-03-25 18:02:03.701 (INFO ) [0x4000122bde0] CET-00440-11771-128:1027688:ibm.runjob.client.Job: exited with status 0
+2015-03-25 18:02:03.702 (INFO ) [0x4000122bde0] tatu.runjob.client: task exited with status 0
+2015-03-25 18:02:03.702 (INFO ) [0x40000c334e0] 41432:tatu.runjob.monitor: monitor terminating
+2015-03-25 18:02:03.706 (INFO ) [0x4000122bde0] tatu.runjob.client: monitor completed

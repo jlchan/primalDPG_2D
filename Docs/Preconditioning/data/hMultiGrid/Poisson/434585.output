@@ -1,0 +1,4779 @@
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 103 of 512 (0,0,0,1,1,7)  R01-M1-N08-J15 and rank 103!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 216 of 512 (0,0,0,3,0,24)  R01-M1-N10-J04 and rank 216!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 54 of 512 (0,0,0,0,1,22)  R01-M1-N08-J03 and rank 54!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 401 of 512 (0,0,1,2,0,17)  R01-M1-N10-J09 and rank 401!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 375 of 512 (0,0,1,1,1,23)  R01-M1-N08-J14 and rank 375!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 163 of 512 (0,0,0,2,1,3)  R01-M1-N10-J15 and rank 163!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 282 of 512 (0,0,1,0,0,26)  R01-M1-N08-J05 and rank 282!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 494 of 512 (0,0,1,3,1,14)  R01-M1-N10-J02 and rank 494!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 309 of 512 (0,0,1,0,1,21)  R01-M1-N08-J02 and rank 309!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 459 of 512 (0,0,1,3,0,11)  R01-M1-N10-J05 and rank 459!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 75 of 512 (0,0,0,1,0,11)  R01-M1-N08-J08 and rank 75!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 232 of 512 (0,0,0,3,1,8)  R01-M1-N10-J03 and rank 232!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 344 of 512 (0,0,1,1,0,24)  R01-M1-N08-J09 and rank 344!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 135 of 512 (0,0,0,2,0,7)  R01-M1-N10-J08 and rank 135!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 27 of 512 (0,0,0,0,0,27)  R01-M1-N08-J04 and rank 27!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 427 of 512 (0,0,1,2,1,11)  R01-M1-N10-J14 and rank 427!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 102 of 512 (0,0,0,1,1,6)  R01-M1-N08-J15 and rank 102!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 217 of 512 (0,0,0,3,0,25)  R01-M1-N10-J04 and rank 217!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 55 of 512 (0,0,0,0,1,23)  R01-M1-N08-J03 and rank 55!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 400 of 512 (0,0,1,2,0,16)  R01-M1-N10-J09 and rank 400!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 374 of 512 (0,0,1,1,1,22)  R01-M1-N08-J14 and rank 374!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 162 of 512 (0,0,0,2,1,2)  R01-M1-N10-J15 and rank 162!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 283 of 512 (0,0,1,0,0,27)  R01-M1-N08-J05 and rank 283!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 495 of 512 (0,0,1,3,1,15)  R01-M1-N10-J02 and rank 495!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 458 of 512 (0,0,1,3,0,10)  R01-M1-N10-J05 and rank 458!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 308 of 512 (0,0,1,0,1,20)  R01-M1-N08-J02 and rank 308!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 74 of 512 (0,0,0,1,0,10)  R01-M1-N08-J08 and rank 74!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 233 of 512 (0,0,0,3,1,9)  R01-M1-N10-J03 and rank 233!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 345 of 512 (0,0,1,1,0,25)  R01-M1-N08-J09 and rank 345!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 134 of 512 (0,0,0,2,0,6)  R01-M1-N10-J08 and rank 134!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 26 of 512 (0,0,0,0,0,26)  R01-M1-N08-J04 and rank 26!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 426 of 512 (0,0,1,2,1,10)  R01-M1-N10-J14 and rank 426!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 99 of 512 (0,0,0,1,1,3)  R01-M1-N08-J15 and rank 99!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 195 of 512 (0,0,0,3,0,3)  R01-M1-N10-J04 and rank 195!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 57 of 512 (0,0,0,0,1,25)  R01-M1-N08-J03 and rank 57!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 403 of 512 (0,0,1,2,0,19)  R01-M1-N10-J09 and rank 403!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 377 of 512 (0,0,1,1,1,25)  R01-M1-N08-J14 and rank 377!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 173 of 512 (0,0,0,2,1,13)  R01-M1-N10-J15 and rank 173!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 263 of 512 (0,0,1,0,0,7)  R01-M1-N08-J05 and rank 263!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 496 of 512 (0,0,1,3,1,16)  R01-M1-N10-J02 and rank 496!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 310 of 512 (0,0,1,0,1,22)  R01-M1-N08-J02 and rank 310!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 463 of 512 (0,0,1,3,0,15)  R01-M1-N10-J05 and rank 463!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 77 of 512 (0,0,0,1,0,13)  R01-M1-N08-J08 and rank 77!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 228 of 512 (0,0,0,3,1,4)  R01-M1-N10-J03 and rank 228!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 329 of 512 (0,0,1,1,0,9)  R01-M1-N08-J09 and rank 329!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 144 of 512 (0,0,0,2,0,16)  R01-M1-N10-J08 and rank 144!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 6 of 512 (0,0,0,0,0,6)  R01-M1-N08-J04 and rank 6!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 428 of 512 (0,0,1,2,1,12)  R01-M1-N10-J14 and rank 428!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 98 of 512 (0,0,0,1,1,2)  R01-M1-N08-J15 and rank 98!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 194 of 512 (0,0,0,3,0,2)  R01-M1-N10-J04 and rank 194!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 402 of 512 (0,0,1,2,0,18)  R01-M1-N10-J09 and rank 402!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 56 of 512 (0,0,0,0,1,24)  R01-M1-N08-J03 and rank 56!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 172 of 512 (0,0,0,2,1,12)  R01-M1-N10-J15 and rank 172!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 376 of 512 (0,0,1,1,1,24)  R01-M1-N08-J14 and rank 376!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 497 of 512 (0,0,1,3,1,17)  R01-M1-N10-J02 and rank 497!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 262 of 512 (0,0,1,0,0,6)  R01-M1-N08-J05 and rank 262!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 311 of 512 (0,0,1,0,1,23)  R01-M1-N08-J02 and rank 311!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 462 of 512 (0,0,1,3,0,14)  R01-M1-N10-J05 and rank 462!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 229 of 512 (0,0,0,3,1,5)  R01-M1-N10-J03 and rank 229!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 76 of 512 (0,0,0,1,0,12)  R01-M1-N08-J08 and rank 76!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 145 of 512 (0,0,0,2,0,17)  R01-M1-N10-J08 and rank 145!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 328 of 512 (0,0,1,1,0,8)  R01-M1-N08-J09 and rank 328!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 429 of 512 (0,0,1,2,1,13)  R01-M1-N10-J14 and rank 429!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 7 of 512 (0,0,0,0,0,7)  R01-M1-N08-J04 and rank 7!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 207 of 512 (0,0,0,3,0,15)  R01-M1-N10-J04 and rank 207!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 114 of 512 (0,0,0,1,1,18)  R01-M1-N08-J15 and rank 114!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 415 of 512 (0,0,1,2,0,31)  R01-M1-N10-J09 and rank 415!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 42 of 512 (0,0,0,0,1,10)  R01-M1-N08-J03 and rank 42!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 174 of 512 (0,0,0,2,1,14)  R01-M1-N10-J15 and rank 174!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 379 of 512 (0,0,1,1,1,27)  R01-M1-N08-J14 and rank 379!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 508 of 512 (0,0,1,3,1,28)  R01-M1-N10-J02 and rank 508!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 268 of 512 (0,0,1,0,0,12)  R01-M1-N08-J05 and rank 268!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 460 of 512 (0,0,1,3,0,12)  R01-M1-N10-J05 and rank 460!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 314 of 512 (0,0,1,0,1,26)  R01-M1-N08-J02 and rank 314!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 80 of 512 (0,0,0,1,0,16)  R01-M1-N08-J08 and rank 80!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 230 of 512 (0,0,0,3,1,6)  R01-M1-N10-J03 and rank 230!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 350 of 512 (0,0,1,1,0,30)  R01-M1-N08-J09 and rank 350!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 149 of 512 (0,0,0,2,0,21)  R01-M1-N10-J08 and rank 149!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 10 of 512 (0,0,0,0,0,10)  R01-M1-N08-J04 and rank 10!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 447 of 512 (0,0,1,2,1,31)  R01-M1-N10-J14 and rank 447!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 115 of 512 (0,0,0,1,1,19)  R01-M1-N08-J15 and rank 115!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 206 of 512 (0,0,0,3,0,14)  R01-M1-N10-J04 and rank 206!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 43 of 512 (0,0,0,0,1,11)  R01-M1-N08-J03 and rank 43!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 414 of 512 (0,0,1,2,0,30)  R01-M1-N10-J09 and rank 414!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 378 of 512 (0,0,1,1,1,26)  R01-M1-N08-J14 and rank 378!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 175 of 512 (0,0,0,2,1,15)  R01-M1-N10-J15 and rank 175!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 269 of 512 (0,0,1,0,0,13)  R01-M1-N08-J05 and rank 269!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 509 of 512 (0,0,1,3,1,29)  R01-M1-N10-J02 and rank 509!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 461 of 512 (0,0,1,3,0,13)  R01-M1-N10-J05 and rank 461!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 315 of 512 (0,0,1,0,1,27)  R01-M1-N08-J02 and rank 315!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 231 of 512 (0,0,0,3,1,7)  R01-M1-N10-J03 and rank 231!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 81 of 512 (0,0,0,1,0,17)  R01-M1-N08-J08 and rank 81!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 148 of 512 (0,0,0,2,0,20)  R01-M1-N10-J08 and rank 148!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 351 of 512 (0,0,1,1,0,31)  R01-M1-N08-J09 and rank 351!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 446 of 512 (0,0,1,2,1,30)  R01-M1-N10-J14 and rank 446!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 11 of 512 (0,0,0,0,0,11)  R01-M1-N08-J04 and rank 11!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 209 of 512 (0,0,0,3,0,17)  R01-M1-N10-J04 and rank 209!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 100 of 512 (0,0,0,1,1,4)  R01-M1-N08-J15 and rank 100!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 386 of 512 (0,0,1,2,0,2)  R01-M1-N10-J09 and rank 386!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 32 of 512 (0,0,0,0,1,0)  R01-M1-N08-J03 and rank 32!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 179 of 512 (0,0,0,2,1,19)  R01-M1-N10-J15 and rank 179!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 353 of 512 (0,0,1,1,1,1)  R01-M1-N08-J14 and rank 353!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 491 of 512 (0,0,1,3,1,11)  R01-M1-N10-J02 and rank 491!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 274 of 512 (0,0,1,0,0,18)  R01-M1-N08-J05 and rank 274!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 476 of 512 (0,0,1,3,0,28)  R01-M1-N10-J05 and rank 476!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 304 of 512 (0,0,1,0,1,16)  R01-M1-N08-J02 and rank 304!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 240 of 512 (0,0,0,3,1,16)  R01-M1-N10-J03 and rank 240!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 84 of 512 (0,0,0,1,0,20)  R01-M1-N08-J08 and rank 84!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 157 of 512 (0,0,0,2,0,29)  R01-M1-N10-J08 and rank 157!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 325 of 512 (0,0,1,1,0,5)  R01-M1-N08-J09 and rank 325!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 432 of 512 (0,0,1,2,1,16)  R01-M1-N10-J14 and rank 432!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 14 of 512 (0,0,0,0,0,14)  R01-M1-N08-J04 and rank 14!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 208 of 512 (0,0,0,3,0,16)  R01-M1-N10-J04 and rank 208!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 101 of 512 (0,0,0,1,1,5)  R01-M1-N08-J15 and rank 101!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 387 of 512 (0,0,1,2,0,3)  R01-M1-N10-J09 and rank 387!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 33 of 512 (0,0,0,0,1,1)  R01-M1-N08-J03 and rank 33!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 178 of 512 (0,0,0,2,1,18)  R01-M1-N10-J15 and rank 178!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 352 of 512 (0,0,1,1,1,0)  R01-M1-N08-J14 and rank 352!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 490 of 512 (0,0,1,3,1,10)  R01-M1-N10-J02 and rank 490!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 275 of 512 (0,0,1,0,0,19)  R01-M1-N08-J05 and rank 275!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 477 of 512 (0,0,1,3,0,29)  R01-M1-N10-J05 and rank 477!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 305 of 512 (0,0,1,0,1,17)  R01-M1-N08-J02 and rank 305!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 241 of 512 (0,0,0,3,1,17)  R01-M1-N10-J03 and rank 241!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 85 of 512 (0,0,0,1,0,21)  R01-M1-N08-J08 and rank 85!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 156 of 512 (0,0,0,2,0,28)  R01-M1-N10-J08 and rank 156!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 324 of 512 (0,0,1,1,0,4)  R01-M1-N08-J09 and rank 324!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 433 of 512 (0,0,1,2,1,17)  R01-M1-N10-J14 and rank 433!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 15 of 512 (0,0,0,0,0,15)  R01-M1-N08-J04 and rank 15!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 210 of 512 (0,0,0,3,0,18)  R01-M1-N10-J04 and rank 210!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 125 of 512 (0,0,0,1,1,29)  R01-M1-N08-J15 and rank 125!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 388 of 512 (0,0,1,2,0,4)  R01-M1-N10-J09 and rank 388!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 46 of 512 (0,0,0,0,1,14)  R01-M1-N08-J03 and rank 46!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 186 of 512 (0,0,0,2,1,26)  R01-M1-N10-J15 and rank 186!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 354 of 512 (0,0,1,1,1,2)  R01-M1-N08-J14 and rank 354!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 511 of 512 (0,0,1,3,1,31)  R01-M1-N10-J02 and rank 511!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 270 of 512 (0,0,1,0,0,14)  R01-M1-N08-J05 and rank 270!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 469 of 512 (0,0,1,3,0,21)  R01-M1-N10-J05 and rank 469!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 307 of 512 (0,0,1,0,1,19)  R01-M1-N08-J02 and rank 307!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 247 of 512 (0,0,0,3,1,23)  R01-M1-N10-J03 and rank 247!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 95 of 512 (0,0,0,1,0,31)  R01-M1-N08-J08 and rank 95!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 129 of 512 (0,0,0,2,0,1)  R01-M1-N10-J08 and rank 129!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 330 of 512 (0,0,1,1,0,10)  R01-M1-N08-J09 and rank 330!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 434 of 512 (0,0,1,2,1,18)  R01-M1-N10-J14 and rank 434!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 4 of 512 (0,0,0,0,0,4)  R01-M1-N08-J04 and rank 4!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 211 of 512 (0,0,0,3,0,19)  R01-M1-N10-J04 and rank 211!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 124 of 512 (0,0,0,1,1,28)  R01-M1-N08-J15 and rank 124!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 389 of 512 (0,0,1,2,0,5)  R01-M1-N10-J09 and rank 389!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 47 of 512 (0,0,0,0,1,15)  R01-M1-N08-J03 and rank 47!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 187 of 512 (0,0,0,2,1,27)  R01-M1-N10-J15 and rank 187!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 355 of 512 (0,0,1,1,1,3)  R01-M1-N08-J14 and rank 355!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 510 of 512 (0,0,1,3,1,30)  R01-M1-N10-J02 and rank 510!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 271 of 512 (0,0,1,0,0,15)  R01-M1-N08-J05 and rank 271!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 468 of 512 (0,0,1,3,0,20)  R01-M1-N10-J05 and rank 468!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 306 of 512 (0,0,1,0,1,18)  R01-M1-N08-J02 and rank 306!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 246 of 512 (0,0,0,3,1,22)  R01-M1-N10-J03 and rank 246!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 94 of 512 (0,0,0,1,0,30)  R01-M1-N08-J08 and rank 94!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 128 of 512 (0,0,0,2,0,0)  R01-M1-N10-J08 and rank 128!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 331 of 512 (0,0,1,1,0,11)  R01-M1-N08-J09 and rank 331!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 435 of 512 (0,0,1,2,1,19)  R01-M1-N10-J14 and rank 435!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 5 of 512 (0,0,0,0,0,5)  R01-M1-N08-J04 and rank 5!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 204 of 512 (0,0,0,3,0,12)  R01-M1-N10-J04 and rank 204!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 121 of 512 (0,0,0,1,1,25)  R01-M1-N08-J15 and rank 121!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 410 of 512 (0,0,1,2,0,26)  R01-M1-N10-J09 and rank 410!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 36 of 512 (0,0,0,0,1,4)  R01-M1-N08-J03 and rank 36!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 190 of 512 (0,0,0,2,1,30)  R01-M1-N10-J15 and rank 190!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 362 of 512 (0,0,1,1,1,10)  R01-M1-N08-J14 and rank 362!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 501 of 512 (0,0,1,3,1,21)  R01-M1-N10-J02 and rank 501!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 287 of 512 (0,0,1,0,0,31)  R01-M1-N08-J05 and rank 287!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 479 of 512 (0,0,1,3,0,31)  R01-M1-N10-J05 and rank 479!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 312 of 512 (0,0,1,0,1,24)  R01-M1-N08-J02 and rank 312!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 254 of 512 (0,0,0,3,1,30)  R01-M1-N10-J03 and rank 254!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 67 of 512 (0,0,0,1,0,3)  R01-M1-N08-J08 and rank 67!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 139 of 512 (0,0,0,2,0,11)  R01-M1-N10-J08 and rank 139!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 335 of 512 (0,0,1,1,0,15)  R01-M1-N08-J09 and rank 335!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 423 of 512 (0,0,1,2,1,7)  R01-M1-N10-J14 and rank 423!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 18 of 512 (0,0,0,0,0,18)  R01-M1-N08-J04 and rank 18!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 205 of 512 (0,0,0,3,0,13)  R01-M1-N10-J04 and rank 205!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 120 of 512 (0,0,0,1,1,24)  R01-M1-N08-J15 and rank 120!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 411 of 512 (0,0,1,2,0,27)  R01-M1-N10-J09 and rank 411!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 37 of 512 (0,0,0,0,1,5)  R01-M1-N08-J03 and rank 37!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 191 of 512 (0,0,0,2,1,31)  R01-M1-N10-J15 and rank 191!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 363 of 512 (0,0,1,1,1,11)  R01-M1-N08-J14 and rank 363!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 500 of 512 (0,0,1,3,1,20)  R01-M1-N10-J02 and rank 500!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 286 of 512 (0,0,1,0,0,30)  R01-M1-N08-J05 and rank 286!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 478 of 512 (0,0,1,3,0,30)  R01-M1-N10-J05 and rank 478!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 313 of 512 (0,0,1,0,1,25)  R01-M1-N08-J02 and rank 313!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 255 of 512 (0,0,0,3,1,31)  R01-M1-N10-J03 and rank 255!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 66 of 512 (0,0,0,1,0,2)  R01-M1-N08-J08 and rank 66!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 138 of 512 (0,0,0,2,0,10)  R01-M1-N10-J08 and rank 138!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 334 of 512 (0,0,1,1,0,14)  R01-M1-N08-J09 and rank 334!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 422 of 512 (0,0,1,2,1,6)  R01-M1-N10-J14 and rank 422!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 19 of 512 (0,0,0,0,0,19)  R01-M1-N08-J04 and rank 19!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 200 of 512 (0,0,0,3,0,8)  R01-M1-N10-J04 and rank 200!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 105 of 512 (0,0,0,1,1,9)  R01-M1-N08-J15 and rank 105!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 404 of 512 (0,0,1,2,0,20)  R01-M1-N10-J09 and rank 404!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 61 of 512 (0,0,0,0,1,29)  R01-M1-N08-J03 and rank 61!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 160 of 512 (0,0,0,2,1,0)  R01-M1-N10-J15 and rank 160!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 361 of 512 (0,0,1,1,1,9)  R01-M1-N08-J14 and rank 361!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 504 of 512 (0,0,1,3,1,24)  R01-M1-N10-J02 and rank 504!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 285 of 512 (0,0,1,0,0,29)  R01-M1-N08-J05 and rank 285!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 475 of 512 (0,0,1,3,0,27)  R01-M1-N10-J05 and rank 475!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 316 of 512 (0,0,1,0,1,28)  R01-M1-N08-J02 and rank 316!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 236 of 512 (0,0,0,3,1,12)  R01-M1-N10-J03 and rank 236!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 71 of 512 (0,0,0,1,0,7)  R01-M1-N08-J08 and rank 71!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 131 of 512 (0,0,0,2,0,3)  R01-M1-N10-J08 and rank 131!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 327 of 512 (0,0,1,1,0,7)  R01-M1-N08-J09 and rank 327!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 436 of 512 (0,0,1,2,1,20)  R01-M1-N10-J14 and rank 436!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 9 of 512 (0,0,0,0,0,9)  R01-M1-N08-J04 and rank 9!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 201 of 512 (0,0,0,3,0,9)  R01-M1-N10-J04 and rank 201!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 104 of 512 (0,0,0,1,1,8)  R01-M1-N08-J15 and rank 104!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 405 of 512 (0,0,1,2,0,21)  R01-M1-N10-J09 and rank 405!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 60 of 512 (0,0,0,0,1,28)  R01-M1-N08-J03 and rank 60!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 161 of 512 (0,0,0,2,1,1)  R01-M1-N10-J15 and rank 161!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 360 of 512 (0,0,1,1,1,8)  R01-M1-N08-J14 and rank 360!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 505 of 512 (0,0,1,3,1,25)  R01-M1-N10-J02 and rank 505!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 284 of 512 (0,0,1,0,0,28)  R01-M1-N08-J05 and rank 284!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 474 of 512 (0,0,1,3,0,26)  R01-M1-N10-J05 and rank 474!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 317 of 512 (0,0,1,0,1,29)  R01-M1-N08-J02 and rank 317!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 237 of 512 (0,0,0,3,1,13)  R01-M1-N10-J03 and rank 237!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 70 of 512 (0,0,0,1,0,6)  R01-M1-N08-J08 and rank 70!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 130 of 512 (0,0,0,2,0,2)  R01-M1-N10-J08 and rank 130!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 326 of 512 (0,0,1,1,0,6)  R01-M1-N08-J09 and rank 326!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 437 of 512 (0,0,1,2,1,21)  R01-M1-N10-J14 and rank 437!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 8 of 512 (0,0,0,0,0,8)  R01-M1-N08-J04 and rank 8!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 203 of 512 (0,0,0,3,0,11)  R01-M1-N10-J04 and rank 203!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 127 of 512 (0,0,0,1,1,31)  R01-M1-N08-J15 and rank 127!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 413 of 512 (0,0,1,2,0,29)  R01-M1-N10-J09 and rank 413!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 62 of 512 (0,0,0,0,1,30)  R01-M1-N08-J03 and rank 62!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 170 of 512 (0,0,0,2,1,10)  R01-M1-N10-J15 and rank 170!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 371 of 512 (0,0,1,1,1,19)  R01-M1-N08-J14 and rank 371!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 482 of 512 (0,0,1,3,1,2)  R01-M1-N10-J02 and rank 482!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 272 of 512 (0,0,1,0,0,16)  R01-M1-N08-J05 and rank 272!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 450 of 512 (0,0,1,3,0,2)  R01-M1-N10-J05 and rank 450!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 290 of 512 (0,0,1,0,1,2)  R01-M1-N08-J02 and rank 290!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 242 of 512 (0,0,0,3,1,18)  R01-M1-N10-J03 and rank 242!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 73 of 512 (0,0,0,1,0,9)  R01-M1-N08-J08 and rank 73!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 133 of 512 (0,0,0,2,0,5)  R01-M1-N10-J08 and rank 133!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 332 of 512 (0,0,1,1,0,12)  R01-M1-N08-J09 and rank 332!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 441 of 512 (0,0,1,2,1,25)  R01-M1-N10-J14 and rank 441!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 16 of 512 (0,0,0,0,0,16)  R01-M1-N08-J04 and rank 16!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 202 of 512 (0,0,0,3,0,10)  R01-M1-N10-J04 and rank 202!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 126 of 512 (0,0,0,1,1,30)  R01-M1-N08-J15 and rank 126!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 412 of 512 (0,0,1,2,0,28)  R01-M1-N10-J09 and rank 412!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 63 of 512 (0,0,0,0,1,31)  R01-M1-N08-J03 and rank 63!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 171 of 512 (0,0,0,2,1,11)  R01-M1-N10-J15 and rank 171!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 370 of 512 (0,0,1,1,1,18)  R01-M1-N08-J14 and rank 370!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 483 of 512 (0,0,1,3,1,3)  R01-M1-N10-J02 and rank 483!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 273 of 512 (0,0,1,0,0,17)  R01-M1-N08-J05 and rank 273!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 451 of 512 (0,0,1,3,0,3)  R01-M1-N10-J05 and rank 451!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 291 of 512 (0,0,1,0,1,3)  R01-M1-N08-J02 and rank 291!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 243 of 512 (0,0,0,3,1,19)  R01-M1-N10-J03 and rank 243!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 72 of 512 (0,0,0,1,0,8)  R01-M1-N08-J08 and rank 72!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 132 of 512 (0,0,0,2,0,4)  R01-M1-N10-J08 and rank 132!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 333 of 512 (0,0,1,1,0,13)  R01-M1-N08-J09 and rank 333!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 440 of 512 (0,0,1,2,1,24)  R01-M1-N10-J14 and rank 440!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 17 of 512 (0,0,0,0,0,17)  R01-M1-N08-J04 and rank 17!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 222 of 512 (0,0,0,3,0,30)  R01-M1-N10-J04 and rank 222!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 118 of 512 (0,0,0,1,1,22)  R01-M1-N08-J15 and rank 118!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 391 of 512 (0,0,1,2,0,7)  R01-M1-N10-J09 and rank 391!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 34 of 512 (0,0,0,0,1,2)  R01-M1-N08-J03 and rank 34!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 181 of 512 (0,0,0,2,1,21)  R01-M1-N10-J15 and rank 181!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 380 of 512 (0,0,1,1,1,28)  R01-M1-N08-J14 and rank 380!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 481 of 512 (0,0,1,3,1,1)  R01-M1-N10-J02 and rank 481!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 279 of 512 (0,0,1,0,0,23)  R01-M1-N08-J05 and rank 279!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 465 of 512 (0,0,1,3,0,17)  R01-M1-N10-J05 and rank 465!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 292 of 512 (0,0,1,0,1,4)  R01-M1-N08-J02 and rank 292!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 245 of 512 (0,0,0,3,1,21)  R01-M1-N10-J03 and rank 245!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 83 of 512 (0,0,0,1,0,19)  R01-M1-N08-J08 and rank 83!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 140 of 512 (0,0,0,2,0,12)  R01-M1-N10-J08 and rank 140!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 336 of 512 (0,0,1,1,0,16)  R01-M1-N08-J09 and rank 336!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 439 of 512 (0,0,1,2,1,23)  R01-M1-N10-J14 and rank 439!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 20 of 512 (0,0,0,0,0,20)  R01-M1-N08-J04 and rank 20!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 223 of 512 (0,0,0,3,0,31)  R01-M1-N10-J04 and rank 223!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 119 of 512 (0,0,0,1,1,23)  R01-M1-N08-J15 and rank 119!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 390 of 512 (0,0,1,2,0,6)  R01-M1-N10-J09 and rank 390!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 35 of 512 (0,0,0,0,1,3)  R01-M1-N08-J03 and rank 35!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 180 of 512 (0,0,0,2,1,20)  R01-M1-N10-J15 and rank 180!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 381 of 512 (0,0,1,1,1,29)  R01-M1-N08-J14 and rank 381!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 480 of 512 (0,0,1,3,1,0)  R01-M1-N10-J02 and rank 480!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 278 of 512 (0,0,1,0,0,22)  R01-M1-N08-J05 and rank 278!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 464 of 512 (0,0,1,3,0,16)  R01-M1-N10-J05 and rank 464!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 293 of 512 (0,0,1,0,1,5)  R01-M1-N08-J02 and rank 293!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 244 of 512 (0,0,0,3,1,20)  R01-M1-N10-J03 and rank 244!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 82 of 512 (0,0,0,1,0,18)  R01-M1-N08-J08 and rank 82!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 141 of 512 (0,0,0,2,0,13)  R01-M1-N10-J08 and rank 141!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 337 of 512 (0,0,1,1,0,17)  R01-M1-N08-J09 and rank 337!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 438 of 512 (0,0,1,2,1,22)  R01-M1-N10-J14 and rank 438!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 21 of 512 (0,0,0,0,0,21)  R01-M1-N08-J04 and rank 21!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 192 of 512 (0,0,0,3,0,0)  R01-M1-N10-J04 and rank 192!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 97 of 512 (0,0,0,1,1,1)  R01-M1-N08-J15 and rank 97!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 393 of 512 (0,0,1,2,0,9)  R01-M1-N10-J09 and rank 393!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 44 of 512 (0,0,0,0,1,12)  R01-M1-N08-J03 and rank 44!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 189 of 512 (0,0,0,2,1,29)  R01-M1-N10-J15 and rank 189!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 364 of 512 (0,0,1,1,1,12)  R01-M1-N08-J14 and rank 364!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 485 of 512 (0,0,1,3,1,5)  R01-M1-N10-J02 and rank 485!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 281 of 512 (0,0,1,0,0,25)  R01-M1-N08-J05 and rank 281!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 473 of 512 (0,0,1,3,0,25)  R01-M1-N10-J05 and rank 473!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 296 of 512 (0,0,1,0,1,8)  R01-M1-N08-J02 and rank 296!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 250 of 512 (0,0,0,3,1,26)  R01-M1-N10-J03 and rank 250!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 88 of 512 (0,0,0,1,0,24)  R01-M1-N08-J08 and rank 88!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 143 of 512 (0,0,0,2,0,15)  R01-M1-N10-J08 and rank 143!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 320 of 512 (0,0,1,1,0,0)  R01-M1-N08-J09 and rank 320!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 442 of 512 (0,0,1,2,1,26)  R01-M1-N10-J14 and rank 442!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 193 of 512 (0,0,0,3,0,1)  R01-M1-N10-J04 and rank 193!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 392 of 512 (0,0,1,2,0,8)  R01-M1-N10-J09 and rank 392!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 188 of 512 (0,0,0,2,1,28)  R01-M1-N10-J15 and rank 188!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 484 of 512 (0,0,1,3,1,4)  R01-M1-N10-J02 and rank 484!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 472 of 512 (0,0,1,3,0,24)  R01-M1-N10-J05 and rank 472!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 251 of 512 (0,0,0,3,1,27)  R01-M1-N10-J03 and rank 251!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 142 of 512 (0,0,0,2,0,14)  R01-M1-N10-J08 and rank 142!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 443 of 512 (0,0,1,2,1,27)  R01-M1-N10-J14 and rank 443!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 219 of 512 (0,0,0,3,0,27)  R01-M1-N10-J04 and rank 219!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 395 of 512 (0,0,1,2,0,11)  R01-M1-N10-J09 and rank 395!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 164 of 512 (0,0,0,2,1,4)  R01-M1-N10-J15 and rank 164!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 498 of 512 (0,0,1,3,1,18)  R01-M1-N10-J02 and rank 498!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 457 of 512 (0,0,1,3,0,9)  R01-M1-N10-J05 and rank 457!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 225 of 512 (0,0,0,3,1,1)  R01-M1-N10-J03 and rank 225!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 147 of 512 (0,0,0,2,0,19)  R01-M1-N10-J08 and rank 147!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 417 of 512 (0,0,1,2,1,1)  R01-M1-N10-J14 and rank 417!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 218 of 512 (0,0,0,3,0,26)  R01-M1-N10-J04 and rank 218!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 394 of 512 (0,0,1,2,0,10)  R01-M1-N10-J09 and rank 394!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 165 of 512 (0,0,0,2,1,5)  R01-M1-N10-J15 and rank 165!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 499 of 512 (0,0,1,3,1,19)  R01-M1-N10-J02 and rank 499!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 456 of 512 (0,0,1,3,0,8)  R01-M1-N10-J05 and rank 456!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 224 of 512 (0,0,0,3,1,0)  R01-M1-N10-J03 and rank 224!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 146 of 512 (0,0,0,2,0,18)  R01-M1-N10-J08 and rank 146!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 416 of 512 (0,0,1,2,1,0)  R01-M1-N10-J14 and rank 416!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 212 of 512 (0,0,0,3,0,20)  R01-M1-N10-J04 and rank 212!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 397 of 512 (0,0,1,2,0,13)  R01-M1-N10-J09 and rank 397!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 167 of 512 (0,0,0,2,1,7)  R01-M1-N10-J15 and rank 167!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 493 of 512 (0,0,1,3,1,13)  R01-M1-N10-J02 and rank 493!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 449 of 512 (0,0,1,3,0,1)  R01-M1-N10-J05 and rank 449!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 227 of 512 (0,0,0,3,1,3)  R01-M1-N10-J03 and rank 227!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 153 of 512 (0,0,0,2,0,25)  R01-M1-N10-J08 and rank 153!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 419 of 512 (0,0,1,2,1,3)  R01-M1-N10-J14 and rank 419!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 213 of 512 (0,0,0,3,0,21)  R01-M1-N10-J04 and rank 213!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 396 of 512 (0,0,1,2,0,12)  R01-M1-N10-J09 and rank 396!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 166 of 512 (0,0,0,2,1,6)  R01-M1-N10-J15 and rank 166!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 492 of 512 (0,0,1,3,1,12)  R01-M1-N10-J02 and rank 492!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 448 of 512 (0,0,1,3,0,0)  R01-M1-N10-J05 and rank 448!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 226 of 512 (0,0,0,3,1,2)  R01-M1-N10-J03 and rank 226!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 152 of 512 (0,0,0,2,0,24)  R01-M1-N10-J08 and rank 152!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 418 of 512 (0,0,1,2,1,2)  R01-M1-N10-J14 and rank 418!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 215 of 512 (0,0,0,3,0,23)  R01-M1-N10-J04 and rank 215!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 398 of 512 (0,0,1,2,0,14)  R01-M1-N10-J09 and rank 398!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 183 of 512 (0,0,0,2,1,23)  R01-M1-N10-J15 and rank 183!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 486 of 512 (0,0,1,3,1,6)  R01-M1-N10-J02 and rank 486!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 455 of 512 (0,0,1,3,0,7)  R01-M1-N10-J05 and rank 455!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 238 of 512 (0,0,0,3,1,14)  R01-M1-N10-J03 and rank 238!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 137 of 512 (0,0,0,2,0,9)  R01-M1-N10-J08 and rank 137!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 421 of 512 (0,0,1,2,1,5)  R01-M1-N10-J14 and rank 421!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 214 of 512 (0,0,0,3,0,22)  R01-M1-N10-J04 and rank 214!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 399 of 512 (0,0,1,2,0,15)  R01-M1-N10-J09 and rank 399!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 182 of 512 (0,0,0,2,1,22)  R01-M1-N10-J15 and rank 182!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 487 of 512 (0,0,1,3,1,7)  R01-M1-N10-J02 and rank 487!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 454 of 512 (0,0,1,3,0,6)  R01-M1-N10-J05 and rank 454!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 239 of 512 (0,0,0,3,1,15)  R01-M1-N10-J03 and rank 239!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 136 of 512 (0,0,0,2,0,8)  R01-M1-N10-J08 and rank 136!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 420 of 512 (0,0,1,2,1,4)  R01-M1-N10-J14 and rank 420!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 197 of 512 (0,0,0,3,0,5)  R01-M1-N10-J04 and rank 197!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 385 of 512 (0,0,1,2,0,1)  R01-M1-N10-J09 and rank 385!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 184 of 512 (0,0,0,2,1,24)  R01-M1-N10-J15 and rank 184!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 488 of 512 (0,0,1,3,1,8)  R01-M1-N10-J02 and rank 488!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 453 of 512 (0,0,1,3,0,5)  R01-M1-N10-J05 and rank 453!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 234 of 512 (0,0,0,3,1,10)  R01-M1-N10-J03 and rank 234!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 158 of 512 (0,0,0,2,0,30)  R01-M1-N10-J08 and rank 158!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 425 of 512 (0,0,1,2,1,9)  R01-M1-N10-J14 and rank 425!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 196 of 512 (0,0,0,3,0,4)  R01-M1-N10-J04 and rank 196!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 384 of 512 (0,0,1,2,0,0)  R01-M1-N10-J09 and rank 384!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 185 of 512 (0,0,0,2,1,25)  R01-M1-N10-J15 and rank 185!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 489 of 512 (0,0,1,3,1,9)  R01-M1-N10-J02 and rank 489!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 452 of 512 (0,0,1,3,0,4)  R01-M1-N10-J05 and rank 452!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 235 of 512 (0,0,0,3,1,11)  R01-M1-N10-J03 and rank 235!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 159 of 512 (0,0,0,2,0,31)  R01-M1-N10-J08 and rank 159!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 424 of 512 (0,0,1,2,1,8)  R01-M1-N10-J14 and rank 424!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 198 of 512 (0,0,0,3,0,6)  R01-M1-N10-J04 and rank 198!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 406 of 512 (0,0,1,2,0,22)  R01-M1-N10-J09 and rank 406!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 169 of 512 (0,0,0,2,1,9)  R01-M1-N10-J15 and rank 169!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 503 of 512 (0,0,1,3,1,23)  R01-M1-N10-J02 and rank 503!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 466 of 512 (0,0,1,3,0,18)  R01-M1-N10-J05 and rank 466!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 252 of 512 (0,0,0,3,1,28)  R01-M1-N10-J03 and rank 252!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 154 of 512 (0,0,0,2,0,26)  R01-M1-N10-J08 and rank 154!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 430 of 512 (0,0,1,2,1,14)  R01-M1-N10-J14 and rank 430!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 199 of 512 (0,0,0,3,0,7)  R01-M1-N10-J04 and rank 199!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 407 of 512 (0,0,1,2,0,23)  R01-M1-N10-J09 and rank 407!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 168 of 512 (0,0,0,2,1,8)  R01-M1-N10-J15 and rank 168!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 502 of 512 (0,0,1,3,1,22)  R01-M1-N10-J02 and rank 502!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 467 of 512 (0,0,1,3,0,19)  R01-M1-N10-J05 and rank 467!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 253 of 512 (0,0,0,3,1,29)  R01-M1-N10-J03 and rank 253!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 155 of 512 (0,0,0,2,0,27)  R01-M1-N10-J08 and rank 155!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 431 of 512 (0,0,1,2,1,15)  R01-M1-N10-J14 and rank 431!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 220 of 512 (0,0,0,3,0,28)  R01-M1-N10-J04 and rank 220!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 408 of 512 (0,0,1,2,0,24)  R01-M1-N10-J09 and rank 408!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 177 of 512 (0,0,0,2,1,17)  R01-M1-N10-J15 and rank 177!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 506 of 512 (0,0,1,3,1,26)  R01-M1-N10-J02 and rank 506!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 471 of 512 (0,0,1,3,0,23)  R01-M1-N10-J05 and rank 471!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 248 of 512 (0,0,0,3,1,24)  R01-M1-N10-J03 and rank 248!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 151 of 512 (0,0,0,2,0,23)  R01-M1-N10-J08 and rank 151!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 445 of 512 (0,0,1,2,1,29)  R01-M1-N10-J14 and rank 445!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 221 of 512 (0,0,0,3,0,29)  R01-M1-N10-J04 and rank 221!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 409 of 512 (0,0,1,2,0,25)  R01-M1-N10-J09 and rank 409!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 176 of 512 (0,0,0,2,1,16)  R01-M1-N10-J15 and rank 176!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 507 of 512 (0,0,1,3,1,27)  R01-M1-N10-J02 and rank 507!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 470 of 512 (0,0,1,3,0,22)  R01-M1-N10-J05 and rank 470!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 249 of 512 (0,0,0,3,1,25)  R01-M1-N10-J03 and rank 249!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 150 of 512 (0,0,0,2,0,22)  R01-M1-N10-J08 and rank 150!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 444 of 512 (0,0,1,2,1,28)  R01-M1-N10-J14 and rank 444!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 23 of 512 (0,0,0,0,0,23)  R01-M1-N08-J04 and rank 23!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 96 of 512 (0,0,0,1,1,0)  R01-M1-N08-J15 and rank 96!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 45 of 512 (0,0,0,0,1,13)  R01-M1-N08-J03 and rank 45!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 365 of 512 (0,0,1,1,1,13)  R01-M1-N08-J14 and rank 365!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 280 of 512 (0,0,1,0,0,24)  R01-M1-N08-J05 and rank 280!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 297 of 512 (0,0,1,0,1,9)  R01-M1-N08-J02 and rank 297!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 89 of 512 (0,0,0,1,0,25)  R01-M1-N08-J08 and rank 89!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 321 of 512 (0,0,1,1,0,1)  R01-M1-N08-J09 and rank 321!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 22 of 512 (0,0,0,0,0,22)  R01-M1-N08-J04 and rank 22!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 106 of 512 (0,0,0,1,1,10)  R01-M1-N08-J15 and rank 106!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 38 of 512 (0,0,0,0,1,6)  R01-M1-N08-J03 and rank 38!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 373 of 512 (0,0,1,1,1,21)  R01-M1-N08-J14 and rank 373!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 266 of 512 (0,0,1,0,0,10)  R01-M1-N08-J05 and rank 266!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 318 of 512 (0,0,1,0,1,30)  R01-M1-N08-J02 and rank 318!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 90 of 512 (0,0,0,1,0,26)  R01-M1-N08-J08 and rank 90!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 339 of 512 (0,0,1,1,0,19)  R01-M1-N08-J09 and rank 339!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 28 of 512 (0,0,0,0,0,28)  R01-M1-N08-J04 and rank 28!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 107 of 512 (0,0,0,1,1,11)  R01-M1-N08-J15 and rank 107!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 39 of 512 (0,0,0,0,1,7)  R01-M1-N08-J03 and rank 39!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 372 of 512 (0,0,1,1,1,20)  R01-M1-N08-J14 and rank 372!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 267 of 512 (0,0,1,0,0,11)  R01-M1-N08-J05 and rank 267!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 319 of 512 (0,0,1,0,1,31)  R01-M1-N08-J02 and rank 319!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 91 of 512 (0,0,0,1,0,27)  R01-M1-N08-J08 and rank 91!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 338 of 512 (0,0,1,1,0,18)  R01-M1-N08-J09 and rank 338!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 29 of 512 (0,0,0,0,0,29)  R01-M1-N08-J04 and rank 29!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 112 of 512 (0,0,0,1,1,16)  R01-M1-N08-J15 and rank 112!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 51 of 512 (0,0,0,0,1,19)  R01-M1-N08-J03 and rank 51!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 382 of 512 (0,0,1,1,1,30)  R01-M1-N08-J14 and rank 382!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 257 of 512 (0,0,1,0,0,1)  R01-M1-N08-J05 and rank 257!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 300 of 512 (0,0,1,0,1,12)  R01-M1-N08-J02 and rank 300!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 93 of 512 (0,0,0,1,0,29)  R01-M1-N08-J08 and rank 93!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 342 of 512 (0,0,1,1,0,22)  R01-M1-N08-J09 and rank 342!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 24 of 512 (0,0,0,0,0,24)  R01-M1-N08-J04 and rank 24!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 113 of 512 (0,0,0,1,1,17)  R01-M1-N08-J15 and rank 113!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 50 of 512 (0,0,0,0,1,18)  R01-M1-N08-J03 and rank 50!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 383 of 512 (0,0,1,1,1,31)  R01-M1-N08-J14 and rank 383!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 256 of 512 (0,0,1,0,0,0)  R01-M1-N08-J05 and rank 256!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 301 of 512 (0,0,1,0,1,13)  R01-M1-N08-J02 and rank 301!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 92 of 512 (0,0,0,1,0,28)  R01-M1-N08-J08 and rank 92!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 343 of 512 (0,0,1,1,0,23)  R01-M1-N08-J09 and rank 343!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 25 of 512 (0,0,0,0,0,25)  R01-M1-N08-J04 and rank 25!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 117 of 512 (0,0,0,1,1,21)  R01-M1-N08-J15 and rank 117!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 53 of 512 (0,0,0,0,1,21)  R01-M1-N08-J03 and rank 53!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 359 of 512 (0,0,1,1,1,7)  R01-M1-N08-J14 and rank 359!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 259 of 512 (0,0,1,0,0,3)  R01-M1-N08-J05 and rank 259!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 288 of 512 (0,0,1,0,1,0)  R01-M1-N08-J02 and rank 288!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 69 of 512 (0,0,0,1,0,5)  R01-M1-N08-J08 and rank 69!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 346 of 512 (0,0,1,1,0,26)  R01-M1-N08-J09 and rank 346!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 2 of 512 (0,0,0,0,0,2)  R01-M1-N08-J04 and rank 2!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 116 of 512 (0,0,0,1,1,20)  R01-M1-N08-J15 and rank 116!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 52 of 512 (0,0,0,0,1,20)  R01-M1-N08-J03 and rank 52!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 358 of 512 (0,0,1,1,1,6)  R01-M1-N08-J14 and rank 358!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 258 of 512 (0,0,1,0,0,2)  R01-M1-N08-J05 and rank 258!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 289 of 512 (0,0,1,0,1,1)  R01-M1-N08-J02 and rank 289!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 68 of 512 (0,0,0,1,0,4)  R01-M1-N08-J08 and rank 68!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 347 of 512 (0,0,1,1,0,27)  R01-M1-N08-J09 and rank 347!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 3 of 512 (0,0,0,0,0,3)  R01-M1-N08-J04 and rank 3!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 109 of 512 (0,0,0,1,1,13)  R01-M1-N08-J15 and rank 109!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 49 of 512 (0,0,0,0,1,17)  R01-M1-N08-J03 and rank 49!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 367 of 512 (0,0,1,1,1,15)  R01-M1-N08-J14 and rank 367!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 264 of 512 (0,0,1,0,0,8)  R01-M1-N08-J05 and rank 264!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 298 of 512 (0,0,1,0,1,10)  R01-M1-N08-J02 and rank 298!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 79 of 512 (0,0,0,1,0,15)  R01-M1-N08-J08 and rank 79!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 348 of 512 (0,0,1,1,0,28)  R01-M1-N08-J09 and rank 348!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 31 of 512 (0,0,0,0,0,31)  R01-M1-N08-J04 and rank 31!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 108 of 512 (0,0,0,1,1,12)  R01-M1-N08-J15 and rank 108!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 48 of 512 (0,0,0,0,1,16)  R01-M1-N08-J03 and rank 48!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 366 of 512 (0,0,1,1,1,14)  R01-M1-N08-J14 and rank 366!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 265 of 512 (0,0,1,0,0,9)  R01-M1-N08-J05 and rank 265!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 299 of 512 (0,0,1,0,1,11)  R01-M1-N08-J02 and rank 299!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 78 of 512 (0,0,0,1,0,14)  R01-M1-N08-J08 and rank 78!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 349 of 512 (0,0,1,1,0,29)  R01-M1-N08-J09 and rank 349!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 30 of 512 (0,0,0,0,0,30)  R01-M1-N08-J04 and rank 30!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 111 of 512 (0,0,0,1,1,15)  R01-M1-N08-J15 and rank 111!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 40 of 512 (0,0,0,0,1,8)  R01-M1-N08-J03 and rank 40!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 356 of 512 (0,0,1,1,1,4)  R01-M1-N08-J14 and rank 356!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 261 of 512 (0,0,1,0,0,5)  R01-M1-N08-J05 and rank 261!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 303 of 512 (0,0,1,0,1,15)  R01-M1-N08-J02 and rank 303!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 65 of 512 (0,0,0,1,0,1)  R01-M1-N08-J08 and rank 65!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 322 of 512 (0,0,1,1,0,2)  R01-M1-N08-J09 and rank 322!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 1 of 512 (0,0,0,0,0,1)  R01-M1-N08-J04 and rank 1!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 110 of 512 (0,0,0,1,1,14)  R01-M1-N08-J15 and rank 110!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 41 of 512 (0,0,0,0,1,9)  R01-M1-N08-J03 and rank 41!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 357 of 512 (0,0,1,1,1,5)  R01-M1-N08-J14 and rank 357!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 260 of 512 (0,0,1,0,0,4)  R01-M1-N08-J05 and rank 260!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 302 of 512 (0,0,1,0,1,14)  R01-M1-N08-J02 and rank 302!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 64 of 512 (0,0,0,1,0,0)  R01-M1-N08-J08 and rank 64!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 323 of 512 (0,0,1,1,0,3)  R01-M1-N08-J09 and rank 323!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 0 of 512 (0,0,0,0,0,0)  R01-M1-N08-J04 and rank 0!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 123 of 512 (0,0,0,1,1,27)  R01-M1-N08-J15 and rank 123!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 59 of 512 (0,0,0,0,1,27)  R01-M1-N08-J03 and rank 59!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 368 of 512 (0,0,1,1,1,16)  R01-M1-N08-J14 and rank 368!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 276 of 512 (0,0,1,0,0,20)  R01-M1-N08-J05 and rank 276!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 295 of 512 (0,0,1,0,1,7)  R01-M1-N08-J02 and rank 295!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 87 of 512 (0,0,0,1,0,23)  R01-M1-N08-J08 and rank 87!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 341 of 512 (0,0,1,1,0,21)  R01-M1-N08-J09 and rank 341!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 12 of 512 (0,0,0,0,0,12)  R01-M1-N08-J04 and rank 12!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 122 of 512 (0,0,0,1,1,26)  R01-M1-N08-J15 and rank 122!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 58 of 512 (0,0,0,0,1,26)  R01-M1-N08-J03 and rank 58!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 369 of 512 (0,0,1,1,1,17)  R01-M1-N08-J14 and rank 369!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 277 of 512 (0,0,1,0,0,21)  R01-M1-N08-J05 and rank 277!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 294 of 512 (0,0,1,0,1,6)  R01-M1-N08-J02 and rank 294!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 86 of 512 (0,0,0,1,0,22)  R01-M1-N08-J08 and rank 86!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 340 of 512 (0,0,1,1,0,20)  R01-M1-N08-J09 and rank 340!
+Teuchos::GlobalMPISession::GlobalMPISession(): started processor with name Task 13 of 512 (0,0,0,0,0,13)  R01-M1-N08-J04 and rank 13!
+Running Poisson solver in automatic mode (subset: AllGMG), with spaceDim 1, delta_k = 1, non-conforming traces, CG tolerance = 1e-10, max iterations = 25000
+Prolongation operator constructed in 0.0257246 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:    8           residual = 8.990994e-17
+
+
+		Solution time: 0.010885 (sec.)
+		total iterations: 8
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0257189 seconds
+max =  0.0257246 seconds
+min =  0.0256795 seconds
+sum =  13.1681 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.00468162 seconds
+max =  0.00468763 seconds
+min =  0.00464114 seconds
+sum =  2.39699 seconds
+compute coarse stiffness matrix:
+mean = 0.00492158 seconds
+max =  0.00492376 seconds
+min =  0.00487716 seconds
+sum =  2.51985 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0262116 seconds
+max =  0.0266897 seconds
+min =  0.0262095 seconds
+sum =  13.4204 seconds
+map coarse to fine:
+mean = 0.000445414 seconds
+max =  0.000528647 seconds
+min =  0.000435444 seconds
+sum =  0.228052 seconds
+map fine to coarse:
+mean = 0.000514578 seconds
+max =  0.000582032 seconds
+min =  0.000435054 seconds
+sum =  0.263464 seconds
+GMG	IfPack-Schwarz	0	2	2	0	8	0.0518386
+Prolongation operator constructed in 0.0387171 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.380364e-08
+                iter:   12           residual = 4.353894e-13
+
+
+		Solution time: 0.019597 (sec.)
+		total iterations: 12
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.038648 seconds
+max =  0.0387343 seconds
+min =  0.032182 seconds
+sum =  19.7878 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0109092 seconds
+max =  0.0109206 seconds
+min =  0.0108412 seconds
+sum =  5.58552 seconds
+compute coarse stiffness matrix:
+mean = 0.00596594 seconds
+max =  0.0059842 seconds
+min =  0.00590867 seconds
+sum =  3.05456 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0398725 seconds
+max =  0.0403358 seconds
+min =  0.0398696 seconds
+sum =  20.4147 seconds
+map coarse to fine:
+mean = 0.000624738 seconds
+max =  0.000792846 seconds
+min =  0.000612884 seconds
+sum =  0.319866 seconds
+map fine to coarse:
+mean = 0.000723688 seconds
+max =  0.000863088 seconds
+min =  0.000635057 seconds
+sum =  0.370528 seconds
+GMG	IfPack-Schwarz	0	4	4	0	12	0.0615575
+Prolongation operator constructed in 0.0387201 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.648399e-06
+                iter:   16           residual = 9.218378e-11
+
+
+		Solution time: 0.025286 (sec.)
+		total iterations: 16
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0387177 seconds
+max =  0.0388454 seconds
+min =  0.0322939 seconds
+sum =  19.8235 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0141502 seconds
+max =  0.014169 seconds
+min =  0.0139623 seconds
+sum =  7.24488 seconds
+compute coarse stiffness matrix:
+mean = 0.00638535 seconds
+max =  0.00640444 seconds
+min =  0.00632886 seconds
+sum =  3.2693 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0400322 seconds
+max =  0.0404931 seconds
+min =  0.0400303 seconds
+sum =  20.4965 seconds
+map coarse to fine:
+mean = 0.000826722 seconds
+max =  0.00104437 seconds
+min =  0.000807581 seconds
+sum =  0.423282 seconds
+map fine to coarse:
+mean = 0.000978765 seconds
+max =  0.00126912 seconds
+min =  0.000872186 seconds
+sum =  0.501127 seconds
+GMG	IfPack-Schwarz	0	8	8	0	16	0.0677251
+Prolongation operator constructed in 0.0385738 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.438417e-06
+                iter:   18           residual = 6.029080e-11
+
+
+		Solution time: 0.029353 (sec.)
+		total iterations: 18
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.038525 seconds
+max =  0.0387926 seconds
+min =  0.0321703 seconds
+sum =  19.7248 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.016749 seconds
+max =  0.0167697 seconds
+min =  0.016533 seconds
+sum =  8.5755 seconds
+compute coarse stiffness matrix:
+mean = 0.00642481 seconds
+max =  0.00644519 seconds
+min =  0.00637041 seconds
+sum =  3.2895 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0399832 seconds
+max =  0.0404472 seconds
+min =  0.0399806 seconds
+sum =  20.4714 seconds
+map coarse to fine:
+mean = 0.000928291 seconds
+max =  0.00116796 seconds
+min =  0.000905777 seconds
+sum =  0.475285 seconds
+map fine to coarse:
+mean = 0.00108084 seconds
+max =  0.00142661 seconds
+min =  0.000971337 seconds
+sum =  0.55339 seconds
+GMG	IfPack-Schwarz	0	16	16	0	18	0.0722098
+Prolongation operator constructed in 0.0381698 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 8.113407e-06
+                iter:   19           residual = 4.293551e-11
+
+
+		Solution time: 0.033021 (sec.)
+		total iterations: 19
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0380116 seconds
+max =  0.0382862 seconds
+min =  0.0320171 seconds
+sum =  19.4619 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.020101 seconds
+max =  0.0201289 seconds
+min =  0.0198672 seconds
+sum =  10.2917 seconds
+compute coarse stiffness matrix:
+mean = 0.00645978 seconds
+max =  0.00648059 seconds
+min =  0.00640008 seconds
+sum =  3.30741 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0397807 seconds
+max =  0.0402478 seconds
+min =  0.0397781 seconds
+sum =  20.3677 seconds
+map coarse to fine:
+mean = 0.000988333 seconds
+max =  0.00125591 seconds
+min =  0.000955413 seconds
+sum =  0.506026 seconds
+map fine to coarse:
+mean = 0.00113507 seconds
+max =  0.00147444 seconds
+min =  0.00102886 seconds
+sum =  0.581154 seconds
+GMG	IfPack-Schwarz	0	32	32	0	19	0.0759993
+Prolongation operator constructed in 0.0384888 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 7.987735e-06
+                iter:   19           residual = 4.896396e-11
+
+
+		Solution time: 0.040673 (sec.)
+		total iterations: 19
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0381569 seconds
+max =  0.0385361 seconds
+min =  0.032416 seconds
+sum =  19.5363 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0266095 seconds
+max =  0.0266474 seconds
+min =  0.0263739 seconds
+sum =  13.624 seconds
+compute coarse stiffness matrix:
+mean = 0.00657618 seconds
+max =  0.00660153 seconds
+min =  0.00652161 seconds
+sum =  3.367 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0401685 seconds
+max =  0.0406395 seconds
+min =  0.0401457 seconds
+sum =  20.5663 seconds
+map coarse to fine:
+mean = 0.00100307 seconds
+max =  0.00125733 seconds
+min =  0.000955153 seconds
+sum =  0.513574 seconds
+map fine to coarse:
+mean = 0.00114787 seconds
+max =  0.0014841 seconds
+min =  0.00105939 seconds
+sum =  0.587711 seconds
+GMG	IfPack-Schwarz	0	64	64	0	19	0.0840139
+Prolongation operator constructed in 0.037995 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 7.666237e-06
+                iter:   19           residual = 4.824725e-11
+
+
+		Solution time: 0.057246 (sec.)
+		total iterations: 19
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0373874 seconds
+max =  0.0380592 seconds
+min =  0.032404 seconds
+sum =  19.1424 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0435623 seconds
+max =  0.0436188 seconds
+min =  0.043343 seconds
+sum =  22.3039 seconds
+compute coarse stiffness matrix:
+mean = 0.00653069 seconds
+max =  0.00656282 seconds
+min =  0.00648215 seconds
+sum =  3.34371 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0400698 seconds
+max =  0.0405398 seconds
+min =  0.0400493 seconds
+sum =  20.5158 seconds
+map coarse to fine:
+mean = 0.001038 seconds
+max =  0.00126282 seconds
+min =  0.000964401 seconds
+sum =  0.531456 seconds
+map fine to coarse:
+mean = 0.00118777 seconds
+max =  0.00153947 seconds
+min =  0.00105407 seconds
+sum =  0.60814 seconds
+GMG	IfPack-Schwarz	0	128	128	0	19	0.100652
+Prolongation operator constructed in 0.0373079 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 7.333930e-06
+                iter:   19           residual = 4.777952e-11
+
+
+		Solution time: 0.113937 (sec.)
+		total iterations: 19
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0363735 seconds
+max =  0.0374214 seconds
+min =  0.0326531 seconds
+sum =  18.6232 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.100194 seconds
+max =  0.100281 seconds
+min =  0.100005 seconds
+sum =  51.2993 seconds
+compute coarse stiffness matrix:
+mean = 0.00649277 seconds
+max =  0.00653165 seconds
+min =  0.0064604 seconds
+sum =  3.3243 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0401942 seconds
+max =  0.0407518 seconds
+min =  0.0401467 seconds
+sum =  20.5795 seconds
+map coarse to fine:
+mean = 0.00107184 seconds
+max =  0.00125596 seconds
+min =  0.000953102 seconds
+sum =  0.548783 seconds
+map fine to coarse:
+mean = 0.00121606 seconds
+max =  0.0015081 seconds
+min =  0.00106699 seconds
+sum =  0.622624 seconds
+GMG	IfPack-Schwarz	0	256	256	0	19	0.156879
+Prolongation operator constructed in 0.0354949 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 7.082051e-06
+                iter:   19           residual = 4.691481e-11
+
+
+		Solution time: 0.234322 (sec.)
+		total iterations: 19
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0348685 seconds
+max =  0.0357725 seconds
+min =  0.0324592 seconds
+sum =  17.8527 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.220436 seconds
+max =  0.220488 seconds
+min =  0.220395 seconds
+sum =  112.863 seconds
+compute coarse stiffness matrix:
+mean = 0.00626889 seconds
+max =  0.0062861 seconds
+min =  0.00626031 seconds
+sum =  3.20967 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0399371 seconds
+max =  0.0404012 seconds
+min =  0.0399206 seconds
+sum =  20.4478 seconds
+map coarse to fine:
+mean = 0.00106544 seconds
+max =  0.00113746 seconds
+min =  0.000988146 seconds
+sum =  0.545505 seconds
+map fine to coarse:
+mean = 0.00123398 seconds
+max =  0.00129148 seconds
+min =  0.00117037 seconds
+sum =  0.631799 seconds
+GMG	IfPack-Schwarz	0	512	512	0	19	0.277484
+Prolongation operator constructed in 0.025337 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:    8           residual = 2.081457e-20
+
+
+		Solution time: 0.012021 (sec.)
+		total iterations: 8
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.025325 seconds
+max =  0.0254302 seconds
+min =  0.0253063 seconds
+sum =  12.9664 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.00465822 seconds
+max =  0.00466794 seconds
+min =  0.00461572 seconds
+sum =  2.38501 seconds
+compute coarse stiffness matrix:
+mean = 0.0134991 seconds
+max =  0.0135016 seconds
+min =  0.013457 seconds
+sum =  6.91152 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0259271 seconds
+max =  0.0264127 seconds
+min =  0.0259132 seconds
+sum =  13.2747 seconds
+map coarse to fine:
+mean = 0.000436713 seconds
+max =  0.000523244 seconds
+min =  0.000427198 seconds
+sum =  0.223597 seconds
+map fine to coarse:
+mean = 0.000523706 seconds
+max =  0.000571069 seconds
+min =  0.000432671 seconds
+sum =  0.268138 seconds
+GMG	IfPack-Schwarz	1	2	2	0	8	0.0613085
+Prolongation operator constructed in 0.0385256 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 5.487873e-07
+                iter:   13           residual = 2.560594e-11
+
+
+		Solution time: 0.022748 (sec.)
+		total iterations: 13
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0385314 seconds
+max =  0.0386505 seconds
+min =  0.0320944 seconds
+sum =  19.7281 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0115821 seconds
+max =  0.0116 seconds
+min =  0.0115143 seconds
+sum =  5.93003 seconds
+compute coarse stiffness matrix:
+mean = 0.0160468 seconds
+max =  0.0160646 seconds
+min =  0.0159904 seconds
+sum =  8.21597 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0398041 seconds
+max =  0.0402833 seconds
+min =  0.0397917 seconds
+sum =  20.3797 seconds
+map coarse to fine:
+mean = 0.000689999 seconds
+max =  0.000863138 seconds
+min =  0.000665342 seconds
+sum =  0.353279 seconds
+map fine to coarse:
+mean = 0.000796378 seconds
+max =  0.000922182 seconds
+min =  0.000683752 seconds
+sum =  0.407746 seconds
+GMG	IfPack-Schwarz	1	4	4	0	13	0.0749736
+Prolongation operator constructed in 0.038868 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.332222e-05
+                iter:   18           residual = 4.115984e-11
+
+
+		Solution time: 0.030305 (sec.)
+		total iterations: 18
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.038846 seconds
+max =  0.0389837 seconds
+min =  0.0324152 seconds
+sum =  19.8892 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0154463 seconds
+max =  0.0154663 seconds
+min =  0.015241 seconds
+sum =  7.90849 seconds
+compute coarse stiffness matrix:
+mean = 0.0166904 seconds
+max =  0.0167092 seconds
+min =  0.0166348 seconds
+sum =  8.5455 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0401938 seconds
+max =  0.0406843 seconds
+min =  0.0401914 seconds
+sum =  20.5792 seconds
+map coarse to fine:
+mean = 0.000929288 seconds
+max =  0.00117299 seconds
+min =  0.000894158 seconds
+sum =  0.475795 seconds
+map fine to coarse:
+mean = 0.00109544 seconds
+max =  0.0014177 seconds
+min =  0.000960086 seconds
+sum =  0.560867 seconds
+GMG	IfPack-Schwarz	1	8	8	0	18	0.083317
+Prolongation operator constructed in 0.0386796 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 6.105286e-05
+                iter:   20           residual = 2.303371e-10
+                iter:   21           residual = 2.657068e-11
+
+
+		Solution time: 0.036400 (sec.)
+		total iterations: 21
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0386056 seconds
+max =  0.0388788 seconds
+min =  0.0323169 seconds
+sum =  19.7661 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0188372 seconds
+max =  0.0188636 seconds
+min =  0.0185771 seconds
+sum =  9.64467 seconds
+compute coarse stiffness matrix:
+mean = 0.0168961 seconds
+max =  0.0169152 seconds
+min =  0.0168418 seconds
+sum =  8.65079 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0401099 seconds
+max =  0.0406607 seconds
+min =  0.0401066 seconds
+sum =  20.5363 seconds
+map coarse to fine:
+mean = 0.00109927 seconds
+max =  0.00137068 seconds
+min =  0.00106493 seconds
+sum =  0.562827 seconds
+map fine to coarse:
+mean = 0.00123861 seconds
+max =  0.00163882 seconds
+min =  0.0011151 seconds
+sum =  0.634167 seconds
+GMG	IfPack-Schwarz	1	16	16	0	21	0.0896651
+Prolongation operator constructed in 0.0385038 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 9.627871e-05
+                iter:   20           residual = 2.561871e-09
+                iter:   24           residual = 2.225784e-11
+
+
+		Solution time: 0.043904 (sec.)
+		total iterations: 24
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.038358 seconds
+max =  0.0387616 seconds
+min =  0.0322625 seconds
+sum =  19.6393 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0239746 seconds
+max =  0.0240078 seconds
+min =  0.0236697 seconds
+sum =  12.275 seconds
+compute coarse stiffness matrix:
+mean = 0.0169225 seconds
+max =  0.016944 seconds
+min =  0.0168649 seconds
+sum =  8.6643 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0401491 seconds
+max =  0.0406029 seconds
+min =  0.0401453 seconds
+sum =  20.5563 seconds
+map coarse to fine:
+mean = 0.00123616 seconds
+max =  0.00157512 seconds
+min =  0.00119634 seconds
+sum =  0.632916 seconds
+map fine to coarse:
+mean = 0.001428 seconds
+max =  0.00185225 seconds
+min =  0.00129808 seconds
+sum =  0.731137 seconds
+GMG	IfPack-Schwarz	1	32	32	0	24	0.0973789
+Prolongation operator constructed in 0.0386722 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.510581e-04
+                iter:   20           residual = 5.679216e-09
+                iter:   25           residual = 4.902676e-11
+
+
+		Solution time: 0.052571 (sec.)
+		total iterations: 25
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0383162 seconds
+max =  0.038701 seconds
+min =  0.0325906 seconds
+sum =  19.6179 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0321113 seconds
+max =  0.0321631 seconds
+min =  0.0318026 seconds
+sum =  16.441 seconds
+compute coarse stiffness matrix:
+mean = 0.0169949 seconds
+max =  0.0170204 seconds
+min =  0.0169401 seconds
+sum =  8.70137 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0403344 seconds
+max =  0.0408002 seconds
+min =  0.0403115 seconds
+sum =  20.6512 seconds
+map coarse to fine:
+mean = 0.00129617 seconds
+max =  0.00162514 seconds
+min =  0.00123701 seconds
+sum =  0.663642 seconds
+map fine to coarse:
+mean = 0.00149242 seconds
+max =  0.00195035 seconds
+min =  0.00136502 seconds
+sum =  0.764119 seconds
+GMG	IfPack-Schwarz	1	64	64	0	25	0.106345
+Prolongation operator constructed in 0.0385085 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.698074e-04
+                iter:   20           residual = 1.050012e-08
+                iter:   25           residual = 8.003676e-11
+
+
+		Solution time: 0.072499 (sec.)
+		total iterations: 25
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0379134 seconds
+max =  0.0386004 seconds
+min =  0.032901 seconds
+sum =  19.4117 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0519486 seconds
+max =  0.0520177 seconds
+min =  0.051661 seconds
+sum =  26.5977 seconds
+compute coarse stiffness matrix:
+mean = 0.0171787 seconds
+max =  0.017211 seconds
+min =  0.01713 seconds
+sum =  8.79549 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0406022 seconds
+max =  0.0410714 seconds
+min =  0.0405801 seconds
+sum =  20.7883 seconds
+map coarse to fine:
+mean = 0.00135646 seconds
+max =  0.00164647 seconds
+min =  0.00126244 seconds
+sum =  0.694507 seconds
+map fine to coarse:
+mean = 0.00151876 seconds
+max =  0.00194991 seconds
+min =  0.00137668 seconds
+sum =  0.777607 seconds
+GMG	IfPack-Schwarz	1	128	128	0	25	0.126486
+Prolongation operator constructed in 0.0374193 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.752767e-04
+                iter:   20           residual = 1.122127e-08
+                iter:   25           residual = 9.040654e-11
+
+
+		Solution time: 0.140429 (sec.)
+		total iterations: 25
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0365316 seconds
+max =  0.0375769 seconds
+min =  0.0328341 seconds
+sum =  18.7042 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.119501 seconds
+max =  0.119617 seconds
+min =  0.119254 seconds
+sum =  61.1847 seconds
+compute coarse stiffness matrix:
+mean = 0.0167684 seconds
+max =  0.0168086 seconds
+min =  0.0167346 seconds
+sum =  8.58542 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0403351 seconds
+max =  0.0408033 seconds
+min =  0.040278 seconds
+sum =  20.6516 seconds
+map coarse to fine:
+mean = 0.00140778 seconds
+max =  0.00164446 seconds
+min =  0.00126025 seconds
+sum =  0.720782 seconds
+map fine to coarse:
+mean = 0.00155969 seconds
+max =  0.00191534 seconds
+min =  0.00139633 seconds
+sum =  0.798559 seconds
+GMG	IfPack-Schwarz	1	256	256	0	25	0.193625
+Prolongation operator constructed in 0.0352556 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.774825e-04
+                iter:   20           residual = 1.140400e-08
+                iter:   25           residual = 9.212209e-11
+
+
+		Solution time: 0.285713 (sec.)
+		total iterations: 25
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0347175 seconds
+max =  0.0356824 seconds
+min =  0.0324468 seconds
+sum =  17.7753 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.265305 seconds
+max =  0.265384 seconds
+min =  0.265253 seconds
+sum =  135.836 seconds
+compute coarse stiffness matrix:
+mean = 0.0168943 seconds
+max =  0.0169111 seconds
+min =  0.0168861 seconds
+sum =  8.64989 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0397591 seconds
+max =  0.0402303 seconds
+min =  0.0397189 seconds
+sum =  20.3567 seconds
+map coarse to fine:
+mean = 0.00140671 seconds
+max =  0.00149819 seconds
+min =  0.0012996 seconds
+sum =  0.720235 seconds
+map fine to coarse:
+mean = 0.00159013 seconds
+max =  0.00166711 seconds
+min =  0.00151026 seconds
+sum =  0.814145 seconds
+GMG	IfPack-Schwarz	1	512	512	0	25	0.339723
+Prolongation operator constructed in 0.0253586 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:    2           residual = 9.717990e-17
+
+
+		Solution time: 0.005416 (sec.)
+		total iterations: 2
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.025369 seconds
+max =  0.0254865 seconds
+min =  0.0253537 seconds
+sum =  12.9889 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0017538 seconds
+max =  0.00175838 seconds
+min =  0.00174002 seconds
+sum =  0.897946 seconds
+compute coarse stiffness matrix:
+mean = 0.017181 seconds
+max =  0.0171826 seconds
+min =  0.0171393 seconds
+sum =  8.79667 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0259905 seconds
+max =  0.0264808 seconds
+min =  0.0259766 seconds
+sum =  13.3072 seconds
+map coarse to fine:
+mean = 0.000148457 seconds
+max =  0.000177337 seconds
+min =  0.000144218 seconds
+sum =  0.07601 seconds
+map fine to coarse:
+mean = 0.000174323 seconds
+max =  0.000188196 seconds
+min =  0.000157009 seconds
+sum =  0.0892531 seconds
+GMG	IfPack-Schwarz	2	2	2	0	2	0.0584829
+Prolongation operator constructed in 0.0386554 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.981309e-09
+                iter:   11           residual = 2.298928e-11
+
+
+		Solution time: 0.020774 (sec.)
+		total iterations: 11
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0386584 seconds
+max =  0.0387915 seconds
+min =  0.0321338 seconds
+sum =  19.7931 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0104164 seconds
+max =  0.0104323 seconds
+min =  0.0103554 seconds
+sum =  5.3332 seconds
+compute coarse stiffness matrix:
+mean = 0.0208664 seconds
+max =  0.0208841 seconds
+min =  0.0208105 seconds
+sum =  10.6836 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0399659 seconds
+max =  0.040439 seconds
+min =  0.0399538 seconds
+sum =  20.4625 seconds
+map coarse to fine:
+mean = 0.0005889 seconds
+max =  0.000746165 seconds
+min =  0.000566744 seconds
+sum =  0.301517 seconds
+map fine to coarse:
+mean = 0.000678468 seconds
+max =  0.000793856 seconds
+min =  0.000580107 seconds
+sum =  0.347376 seconds
+GMG	IfPack-Schwarz	2	4	4	0	11	0.0779502
+Prolongation operator constructed in 0.0387319 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.370667e-05
+                iter:   16           residual = 8.803355e-11
+
+
+		Solution time: 0.028139 (sec.)
+		total iterations: 16
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0387127 seconds
+max =  0.0389367 seconds
+min =  0.0323145 seconds
+sum =  19.8209 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0142353 seconds
+max =  0.0142609 seconds
+min =  0.0140418 seconds
+sum =  7.28848 seconds
+compute coarse stiffness matrix:
+mean = 0.0221683 seconds
+max =  0.0221874 seconds
+min =  0.0221128 seconds
+sum =  11.3501 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0400935 seconds
+max =  0.0405531 seconds
+min =  0.0400916 seconds
+sum =  20.5279 seconds
+map coarse to fine:
+mean = 0.000832842 seconds
+max =  0.00103997 seconds
+min =  0.000806348 seconds
+sum =  0.426415 seconds
+map fine to coarse:
+mean = 0.000967044 seconds
+max =  0.00125676 seconds
+min =  0.000843858 seconds
+sum =  0.495127 seconds
+GMG	IfPack-Schwarz	2	8	8	0	16	0.0865559
+Prolongation operator constructed in 0.0385113 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 6.179577e-05
+                iter:   19           residual = 9.616880e-11
+
+
+		Solution time: 0.033528 (sec.)
+		total iterations: 19
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0384459 seconds
+max =  0.0387247 seconds
+min =  0.0321773 seconds
+sum =  19.6843 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0175398 seconds
+max =  0.0175667 seconds
+min =  0.0173081 seconds
+sum =  8.98038 seconds
+compute coarse stiffness matrix:
+mean = 0.0225101 seconds
+max =  0.0225305 seconds
+min =  0.0224551 seconds
+sum =  11.5252 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0399736 seconds
+max =  0.0404494 seconds
+min =  0.0399706 seconds
+sum =  20.4665 seconds
+map coarse to fine:
+mean = 0.000987869 seconds
+max =  0.00122646 seconds
+min =  0.000950934 seconds
+sum =  0.505789 seconds
+map fine to coarse:
+mean = 0.00113943 seconds
+max =  0.00149745 seconds
+min =  0.00102534 seconds
+sum =  0.583388 seconds
+GMG	IfPack-Schwarz	2	16	16	0	19	0.0924126
+Prolongation operator constructed in 0.0385893 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.535432e-04
+                iter:   20           residual = 5.328296e-09
+                iter:   24           residual = 5.831007e-11
+
+
+		Solution time: 0.044308 (sec.)
+		total iterations: 24
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0384249 seconds
+max =  0.0387893 seconds
+min =  0.0324141 seconds
+sum =  19.6735 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0239608 seconds
+max =  0.0239987 seconds
+min =  0.0236679 seconds
+sum =  12.2679 seconds
+compute coarse stiffness matrix:
+mean = 0.0226255 seconds
+max =  0.0226469 seconds
+min =  0.0225668 seconds
+sum =  11.5842 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0402352 seconds
+max =  0.040712 seconds
+min =  0.0402323 seconds
+sum =  20.6004 seconds
+map coarse to fine:
+mean = 0.00125084 seconds
+max =  0.00158105 seconds
+min =  0.00120504 seconds
+sum =  0.640431 seconds
+map fine to coarse:
+mean = 0.00139591 seconds
+max =  0.00182188 seconds
+min =  0.00129679 seconds
+sum =  0.714707 seconds
+GMG	IfPack-Schwarz	2	32	32	0	24	0.103654
+Prolongation operator constructed in 0.038872 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 4.183265e-04
+                iter:   20           residual = 4.035886e-08
+                iter:   28           residual = 5.082191e-11
+
+
+		Solution time: 0.058087 (sec.)
+		total iterations: 28
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0385271 seconds
+max =  0.0389078 seconds
+min =  0.0326989 seconds
+sum =  19.7259 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0350607 seconds
+max =  0.0351141 seconds
+min =  0.0347083 seconds
+sum =  17.9511 seconds
+compute coarse stiffness matrix:
+mean = 0.0228757 seconds
+max =  0.0229002 seconds
+min =  0.0228208 seconds
+sum =  11.7124 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.040549 seconds
+max =  0.0410273 seconds
+min =  0.0405228 seconds
+sum =  20.7611 seconds
+map coarse to fine:
+mean = 0.00144333 seconds
+max =  0.00180861 seconds
+min =  0.00137654 seconds
+sum =  0.738987 seconds
+map fine to coarse:
+mean = 0.00165205 seconds
+max =  0.00216491 seconds
+min =  0.00151991 seconds
+sum =  0.845851 seconds
+GMG	IfPack-Schwarz	2	64	64	0	28	0.117612
+Prolongation operator constructed in 0.0383502 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 9.411743e-04
+                iter:   20           residual = 3.289367e-07
+                iter:   30           residual = 5.717998e-11
+
+
+		Solution time: 0.083455 (sec.)
+		total iterations: 30
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0377244 seconds
+max =  0.0384091 seconds
+min =  0.0326772 seconds
+sum =  19.3149 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0589954 seconds
+max =  0.0590814 seconds
+min =  0.058643 seconds
+sum =  30.2056 seconds
+compute coarse stiffness matrix:
+mean = 0.0230339 seconds
+max =  0.0230654 seconds
+min =  0.0229852 seconds
+sum =  11.7934 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.040421 seconds
+max =  0.0409025 seconds
+min =  0.0403948 seconds
+sum =  20.6955 seconds
+map coarse to fine:
+mean = 0.00157876 seconds
+max =  0.00192013 seconds
+min =  0.00147191 seconds
+sum =  0.808327 seconds
+map fine to coarse:
+mean = 0.00179949 seconds
+max =  0.00232295 seconds
+min =  0.00160711 seconds
+sum =  0.921339 seconds
+GMG	IfPack-Schwarz	2	128	128	0	30	0.143057
+Prolongation operator constructed in 0.037413 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.011441e-03
+                iter:   20           residual = 3.123970e-07
+                iter:   30           residual = 9.202843e-11
+
+
+		Solution time: 0.156190 (sec.)
+		total iterations: 30
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0365302 seconds
+max =  0.0375819 seconds
+min =  0.0328472 seconds
+sum =  18.7035 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.131449 seconds
+max =  0.13159 seconds
+min =  0.13115 seconds
+sum =  67.3018 seconds
+compute coarse stiffness matrix:
+mean = 0.0222489 seconds
+max =  0.0222871 seconds
+min =  0.0222161 seconds
+sum =  11.3914 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0403372 seconds
+max =  0.0409055 seconds
+min =  0.0402927 seconds
+sum =  20.6526 seconds
+map coarse to fine:
+mean = 0.0017017 seconds
+max =  0.00198555 seconds
+min =  0.00149454 seconds
+sum =  0.871269 seconds
+map fine to coarse:
+mean = 0.00187428 seconds
+max =  0.00230585 seconds
+min =  0.00165973 seconds
+sum =  0.95963 seconds
+GMG	IfPack-Schwarz	2	256	256	0	30	0.214917
+Prolongation operator constructed in 0.0353327 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.036044e-03
+                iter:   20           residual = 3.251258e-07
+                iter:   30           residual = 1.004052e-10
+                iter:   31           residual = 4.765830e-11
+
+
+		Solution time: 0.335543 (sec.)
+		total iterations: 31
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0347652 seconds
+max =  0.0357509 seconds
+min =  0.0324807 seconds
+sum =  17.7998 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.309724 seconds
+max =  0.309815 seconds
+min =  0.309655 seconds
+sum =  158.579 seconds
+compute coarse stiffness matrix:
+mean = 0.0221851 seconds
+max =  0.0222025 seconds
+min =  0.0221758 seconds
+sum =  11.3588 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0398396 seconds
+max =  0.0404326 seconds
+min =  0.0397899 seconds
+sum =  20.3979 seconds
+map coarse to fine:
+mean = 0.001733 seconds
+max =  0.00184852 seconds
+min =  0.0016023 seconds
+sum =  0.887294 seconds
+map fine to coarse:
+mean = 0.00198154 seconds
+max =  0.00207073 seconds
+min =  0.00188376 seconds
+sum =  1.01455 seconds
+GMG	IfPack-Schwarz	2	512	512	0	31	0.39479
+Prolongation operator constructed in 0.0253988 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:    4           residual = 3.570759e-17
+
+
+		Solution time: 0.007460 (sec.)
+		total iterations: 4
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0254044 seconds
+max =  0.0255371 seconds
+min =  0.0253873 seconds
+sum =  13.0071 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.00272587 seconds
+max =  0.00273414 seconds
+min =  0.00270549 seconds
+sum =  1.39565 seconds
+compute coarse stiffness matrix:
+mean = 0.0138258 seconds
+max =  0.0138281 seconds
+min =  0.0137794 seconds
+sum =  7.0788 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0260684 seconds
+max =  0.0265419 seconds
+min =  0.0260417 seconds
+sum =  13.347 seconds
+map coarse to fine:
+mean = 0.000244332 seconds
+max =  0.000290466 seconds
+min =  0.000235604 seconds
+sum =  0.125098 seconds
+map fine to coarse:
+mean = 0.000284567 seconds
+max =  0.000313561 seconds
+min =  0.000258404 seconds
+sum =  0.145699 seconds
+GMG	Camellia-Schwarz	0	2	2	0	4	0.0573137
+Prolongation operator constructed in 0.0387706 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:    8           residual = 2.093594e-16
+
+
+		Solution time: 0.015979 (sec.)
+		total iterations: 8
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0387646 seconds
+max =  0.0389096 seconds
+min =  0.0322527 seconds
+sum =  19.8475 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.00848495 seconds
+max =  0.00849517 seconds
+min =  0.00843831 seconds
+sum =  4.34429 seconds
+compute coarse stiffness matrix:
+mean = 0.0152834 seconds
+max =  0.0153003 seconds
+min =  0.015226 seconds
+sum =  7.82509 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0401035 seconds
+max =  0.0405764 seconds
+min =  0.0400889 seconds
+sum =  20.533 seconds
+map coarse to fine:
+mean = 0.000443576 seconds
+max =  0.000558848 seconds
+min =  0.00043265 seconds
+sum =  0.227111 seconds
+map fine to coarse:
+mean = 0.00051378 seconds
+max =  0.000609818 seconds
+min =  0.000422802 seconds
+sum =  0.263055 seconds
+GMG	Camellia-Schwarz	0	4	4	0	8	0.067546
+Prolongation operator constructed in 0.0387638 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.738763e-08
+                iter:   11           residual = 3.838313e-11
+
+
+		Solution time: 0.020684 (sec.)
+		total iterations: 11
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0387425 seconds
+max =  0.0389054 seconds
+min =  0.0321792 seconds
+sum =  19.8361 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0110111 seconds
+max =  0.011022 seconds
+min =  0.0108777 seconds
+sum =  5.63769 seconds
+compute coarse stiffness matrix:
+mean = 0.0158186 seconds
+max =  0.0158368 seconds
+min =  0.0157601 seconds
+sum =  8.09912 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.040152 seconds
+max =  0.0406123 seconds
+min =  0.040149 seconds
+sum =  20.5578 seconds
+map coarse to fine:
+mean = 0.000586967 seconds
+max =  0.000734003 seconds
+min =  0.000573571 seconds
+sum =  0.300527 seconds
+map fine to coarse:
+mean = 0.000693332 seconds
+max =  0.000894367 seconds
+min =  0.000597979 seconds
+sum =  0.354986 seconds
+GMG	Camellia-Schwarz	0	8	8	0	11	0.0728025
+Prolongation operator constructed in 0.0385794 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.078118e-05
+                iter:   16           residual = 5.605111e-11
+
+
+		Solution time: 0.028886 (sec.)
+		total iterations: 16
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0385069 seconds
+max =  0.0388273 seconds
+min =  0.0321481 seconds
+sum =  19.7155 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0155216 seconds
+max =  0.0155412 seconds
+min =  0.0153204 seconds
+sum =  7.94707 seconds
+compute coarse stiffness matrix:
+mean = 0.0160997 seconds
+max =  0.0161198 seconds
+min =  0.0160457 seconds
+sum =  8.24304 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0400536 seconds
+max =  0.0405273 seconds
+min =  0.0400509 seconds
+sum =  20.5075 seconds
+map coarse to fine:
+mean = 0.000834381 seconds
+max =  0.00104673 seconds
+min =  0.000812634 seconds
+sum =  0.427203 seconds
+map fine to coarse:
+mean = 0.000969273 seconds
+max =  0.00125637 seconds
+min =  0.000877482 seconds
+sum =  0.496268 seconds
+GMG	Camellia-Schwarz	0	16	16	0	16	0.0816688
+Prolongation operator constructed in 0.0384571 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 4.081406e-05
+                iter:   20           residual = 4.218370e-10
+                iter:   22           residual = 1.836660e-11
+
+
+		Solution time: 0.040755 (sec.)
+		total iterations: 22
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0382941 seconds
+max =  0.0387271 seconds
+min =  0.0322658 seconds
+sum =  19.6066 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0225361 seconds
+max =  0.0225632 seconds
+min =  0.0222772 seconds
+sum =  11.5385 seconds
+compute coarse stiffness matrix:
+mean = 0.0162512 seconds
+max =  0.0162731 seconds
+min =  0.0161934 seconds
+sum =  8.3206 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0401191 seconds
+max =  0.040593 seconds
+min =  0.0401131 seconds
+sum =  20.541 seconds
+map coarse to fine:
+mean = 0.00114052 seconds
+max =  0.00143702 seconds
+min =  0.00110142 seconds
+sum =  0.583947 seconds
+map fine to coarse:
+mean = 0.00131262 seconds
+max =  0.00169677 seconds
+min =  0.00120529 seconds
+sum =  0.672059 seconds
+GMG	Camellia-Schwarz	0	32	32	0	22	0.0937025
+Prolongation operator constructed in 0.0385744 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 4.483462e-05
+                iter:   20           residual = 8.645687e-10
+                iter:   22           residual = 4.111853e-11
+
+
+		Solution time: 0.047512 (sec.)
+		total iterations: 22
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0382345 seconds
+max =  0.0386196 seconds
+min =  0.0325396 seconds
+sum =  19.576 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0294618 seconds
+max =  0.029509 seconds
+min =  0.0291801 seconds
+sum =  15.0845 seconds
+compute coarse stiffness matrix:
+mean = 0.0162802 seconds
+max =  0.0163043 seconds
+min =  0.016227 seconds
+sum =  8.33544 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0402656 seconds
+max =  0.0407432 seconds
+min =  0.0402614 seconds
+sum =  20.616 seconds
+map coarse to fine:
+mean = 0.00118139 seconds
+max =  0.00148335 seconds
+min =  0.00113031 seconds
+sum =  0.604874 seconds
+map fine to coarse:
+mean = 0.00130844 seconds
+max =  0.00172888 seconds
+min =  0.00121541 seconds
+sum =  0.669919 seconds
+GMG	Camellia-Schwarz	0	64	64	0	22	0.100578
+Prolongation operator constructed in 0.0382157 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 4.399206e-05
+                iter:   20           residual = 8.321854e-10
+                iter:   22           residual = 8.701113e-11
+
+
+		Solution time: 0.066560 (sec.)
+		total iterations: 22
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0376402 seconds
+max =  0.0383173 seconds
+min =  0.032658 seconds
+sum =  19.2718 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0484867 seconds
+max =  0.0485475 seconds
+min =  0.0482314 seconds
+sum =  24.8252 seconds
+compute coarse stiffness matrix:
+mean = 0.0163278 seconds
+max =  0.0163602 seconds
+min =  0.0162809 seconds
+sum =  8.35982 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0403471 seconds
+max =  0.0408108 seconds
+min =  0.0403109 seconds
+sum =  20.6577 seconds
+map coarse to fine:
+mean = 0.0011904 seconds
+max =  0.00145537 seconds
+min =  0.00110937 seconds
+sum =  0.609483 seconds
+map fine to coarse:
+mean = 0.00134086 seconds
+max =  0.00174395 seconds
+min =  0.00120212 seconds
+sum =  0.686522 seconds
+GMG	Camellia-Schwarz	0	128	128	0	22	0.119755
+Prolongation operator constructed in 0.0374823 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 4.323536e-05
+                iter:   20           residual = 8.194301e-10
+                iter:   22           residual = 8.614329e-11
+
+
+		Solution time: 0.126907 (sec.)
+		total iterations: 22
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0365897 seconds
+max =  0.0376398 seconds
+min =  0.0328967 seconds
+sum =  18.7339 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.10887 seconds
+max =  0.108969 seconds
+min =  0.108641 seconds
+sum =  55.7413 seconds
+compute coarse stiffness matrix:
+mean = 0.0159682 seconds
+max =  0.016007 seconds
+min =  0.0159349 seconds
+sum =  8.1757 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0404059 seconds
+max =  0.0408735 seconds
+min =  0.0403499 seconds
+sum =  20.6878 seconds
+map coarse to fine:
+mean = 0.0012437 seconds
+max =  0.00145435 seconds
+min =  0.00111699 seconds
+sum =  0.636774 seconds
+map fine to coarse:
+mean = 0.00139056 seconds
+max =  0.00170842 seconds
+min =  0.00121704 seconds
+sum =  0.711965 seconds
+GMG	Camellia-Schwarz	0	256	256	0	22	0.179519
+Prolongation operator constructed in 0.03543 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 4.276201e-05
+                iter:   20           residual = 8.005202e-10
+                iter:   22           residual = 8.440718e-11
+
+
+		Solution time: 0.265141 (sec.)
+		total iterations: 22
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.034851 seconds
+max =  0.0358185 seconds
+min =  0.0325166 seconds
+sum =  17.8437 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.246831 seconds
+max =  0.24689 seconds
+min =  0.246785 seconds
+sum =  126.377 seconds
+compute coarse stiffness matrix:
+mean = 0.0162866 seconds
+max =  0.0163036 seconds
+min =  0.0162774 seconds
+sum =  8.33876 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0399903 seconds
+max =  0.0404719 seconds
+min =  0.0399408 seconds
+sum =  20.475 seconds
+map coarse to fine:
+mean = 0.0012394 seconds
+max =  0.00131816 seconds
+min =  0.00114916 seconds
+sum =  0.634573 seconds
+map fine to coarse:
+mean = 0.00142916 seconds
+max =  0.00149497 seconds
+min =  0.00136321 seconds
+sum =  0.731729 seconds
+GMG	Camellia-Schwarz	0	512	512	0	22	0.318653
+Prolongation operator constructed in 0.025433 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:    2           residual = 9.717990e-17
+
+
+		Solution time: 0.005489 (sec.)
+		total iterations: 2
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.025434 seconds
+max =  0.0255729 seconds
+min =  0.0254135 seconds
+sum =  13.0222 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.00176416 seconds
+max =  0.00176861 seconds
+min =  0.0017508 seconds
+sum =  0.903252 seconds
+compute coarse stiffness matrix:
+mean = 0.0180022 seconds
+max =  0.018004 seconds
+min =  0.0179564 seconds
+sum =  9.21715 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0261037 seconds
+max =  0.026589 seconds
+min =  0.0260721 seconds
+sum =  13.3651 seconds
+map coarse to fine:
+mean = 0.000150549 seconds
+max =  0.000178987 seconds
+min =  0.000146108 seconds
+sum =  0.0770813 seconds
+map fine to coarse:
+mean = 0.000183719 seconds
+max =  0.000200908 seconds
+min =  0.000162103 seconds
+sum =  0.0940639 seconds
+GMG	Camellia-Schwarz	1	2	2	0	2	0.0595635
+Prolongation operator constructed in 0.0386961 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:    7           residual = 3.650105e-17
+
+
+		Solution time: 0.014816 (sec.)
+		total iterations: 7
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.038704 seconds
+max =  0.0388516 seconds
+min =  0.032219 seconds
+sum =  19.8164 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.00791304 seconds
+max =  0.00792262 seconds
+min =  0.00787193 seconds
+sum =  4.05148 seconds
+compute coarse stiffness matrix:
+mean = 0.0213946 seconds
+max =  0.0214137 seconds
+min =  0.0213354 seconds
+sum =  10.954 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0400722 seconds
+max =  0.0405425 seconds
+min =  0.0400476 seconds
+sum =  20.517 seconds
+map coarse to fine:
+mean = 0.000393146 seconds
+max =  0.000495363 seconds
+min =  0.000384042 seconds
+sum =  0.201291 seconds
+map fine to coarse:
+mean = 0.000454473 seconds
+max =  0.000529092 seconds
+min =  0.000388231 seconds
+sum =  0.23269 seconds
+GMG	Camellia-Schwarz	1	4	4	0	7	0.0724521
+Prolongation operator constructed in 0.0388413 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 6.264133e-09
+                iter:   12           residual = 4.172905e-12
+
+
+		Solution time: 0.022635 (sec.)
+		total iterations: 12
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0388239 seconds
+max =  0.0390451 seconds
+min =  0.0323263 seconds
+sum =  19.8778 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0117331 seconds
+max =  0.0117461 seconds
+min =  0.0115936 seconds
+sum =  6.00735 seconds
+compute coarse stiffness matrix:
+mean = 0.0220602 seconds
+max =  0.0220785 seconds
+min =  0.0220042 seconds
+sum =  11.2948 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0402602 seconds
+max =  0.0407316 seconds
+min =  0.0402553 seconds
+sum =  20.6132 seconds
+map coarse to fine:
+mean = 0.000641412 seconds
+max =  0.000810628 seconds
+min =  0.000616326 seconds
+sum =  0.328403 seconds
+map fine to coarse:
+mean = 0.000749016 seconds
+max =  0.000945589 seconds
+min =  0.000642516 seconds
+sum =  0.383496 seconds
+GMG	Camellia-Schwarz	1	8	8	0	12	0.0812368
+Prolongation operator constructed in 0.0385466 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.079463e-05
+                iter:   15           residual = 3.151890e-11
+
+
+		Solution time: 0.027823 (sec.)
+		total iterations: 15
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0384814 seconds
+max =  0.0387548 seconds
+min =  0.0322 seconds
+sum =  19.7025 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0149188 seconds
+max =  0.0149346 seconds
+min =  0.014739 seconds
+sum =  7.63844 seconds
+compute coarse stiffness matrix:
+mean = 0.0224345 seconds
+max =  0.0224531 seconds
+min =  0.0223803 seconds
+sum =  11.4865 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0400471 seconds
+max =  0.0405372 seconds
+min =  0.0400437 seconds
+sum =  20.5041 seconds
+map coarse to fine:
+mean = 0.000787892 seconds
+max =  0.000986367 seconds
+min =  0.000763661 seconds
+sum =  0.403401 seconds
+map fine to coarse:
+mean = 0.000894254 seconds
+max =  0.00116038 seconds
+min =  0.000810113 seconds
+sum =  0.457858 seconds
+GMG	Camellia-Schwarz	1	16	16	0	15	0.0866937
+Prolongation operator constructed in 0.0385782 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.028317e-04
+                iter:   19           residual = 7.718211e-12
+
+
+		Solution time: 0.036709 (sec.)
+		total iterations: 19
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0384274 seconds
+max =  0.0388044 seconds
+min =  0.0322729 seconds
+sum =  19.6748 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0203291 seconds
+max =  0.0203585 seconds
+min =  0.0200952 seconds
+sum =  10.4085 seconds
+compute coarse stiffness matrix:
+mean = 0.0225696 seconds
+max =  0.0225913 seconds
+min =  0.0225117 seconds
+sum =  11.5556 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.04027 seconds
+max =  0.0407327 seconds
+min =  0.0402628 seconds
+sum =  20.6183 seconds
+map coarse to fine:
+mean = 0.00100451 seconds
+max =  0.00126756 seconds
+min =  0.000970437 seconds
+sum =  0.514307 seconds
+map fine to coarse:
+mean = 0.00113846 seconds
+max =  0.00147419 seconds
+min =  0.00104354 seconds
+sum =  0.582893 seconds
+GMG	Camellia-Schwarz	1	32	32	0	19	0.0962429
+Prolongation operator constructed in 0.0387018 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.331219e-04
+                iter:   20           residual = 2.836890e-08
+                iter:   25           residual = 1.658139e-11
+
+
+		Solution time: 0.053087 (sec.)
+		total iterations: 25
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0383597 seconds
+max =  0.0387414 seconds
+min =  0.0326124 seconds
+sum =  19.6402 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0321802 seconds
+max =  0.0322253 seconds
+min =  0.0318697 seconds
+sum =  16.4763 seconds
+compute coarse stiffness matrix:
+mean = 0.0227191 seconds
+max =  0.0227437 seconds
+min =  0.0226656 seconds
+sum =  11.6322 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0403994 seconds
+max =  0.0408766 seconds
+min =  0.0403609 seconds
+sum =  20.6845 seconds
+map coarse to fine:
+mean = 0.00132183 seconds
+max =  0.00166176 seconds
+min =  0.00125653 seconds
+sum =  0.676779 seconds
+map fine to coarse:
+mean = 0.0014826 seconds
+max =  0.00195958 seconds
+min =  0.00134871 seconds
+sum =  0.759093 seconds
+GMG	Camellia-Schwarz	1	64	64	0	25	0.112554
+Prolongation operator constructed in 0.0380921 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 4.332936e-04
+                iter:   20           residual = 5.760635e-08
+                iter:   27           residual = 9.850551e-11
+
+
+		Solution time: 0.077159 (sec.)
+		total iterations: 27
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0374842 seconds
+max =  0.0381581 seconds
+min =  0.0325484 seconds
+sum =  19.1919 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0551045 seconds
+max =  0.0551826 seconds
+min =  0.0547902 seconds
+sum =  28.2135 seconds
+compute coarse stiffness matrix:
+mean = 0.0229527 seconds
+max =  0.022984 seconds
+min =  0.022904 seconds
+sum =  11.7518 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.040204 seconds
+max =  0.0406757 seconds
+min =  0.0401726 seconds
+sum =  20.5845 seconds
+map coarse to fine:
+mean = 0.00142978 seconds
+max =  0.00174515 seconds
+min =  0.00133583 seconds
+sum =  0.732048 seconds
+map fine to coarse:
+mean = 0.0016344 seconds
+max =  0.00211683 seconds
+min =  0.00145432 seconds
+sum =  0.836812 seconds
+GMG	Camellia-Schwarz	1	128	128	0	27	0.136928
+Prolongation operator constructed in 0.0375833 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 4.557088e-04
+                iter:   20           residual = 6.841471e-08
+                iter:   28           residual = 6.972902e-11
+
+
+		Solution time: 0.147995 (sec.)
+		total iterations: 28
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.036638 seconds
+max =  0.0376961 seconds
+min =  0.0328312 seconds
+sum =  18.7586 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.125181 seconds
+max =  0.125316 seconds
+min =  0.124905 seconds
+sum =  64.0926 seconds
+compute coarse stiffness matrix:
+mean = 0.0222415 seconds
+max =  0.022281 seconds
+min =  0.022208 seconds
+sum =  11.3877 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0404531 seconds
+max =  0.0409114 seconds
+min =  0.0403917 seconds
+sum =  20.712 seconds
+map coarse to fine:
+mean = 0.00155666 seconds
+max =  0.00182697 seconds
+min =  0.00140036 seconds
+sum =  0.797008 seconds
+map fine to coarse:
+mean = 0.00175462 seconds
+max =  0.00217413 seconds
+min =  0.00155241 seconds
+sum =  0.898363 seconds
+GMG	Camellia-Schwarz	1	256	256	0	28	0.206985
+Prolongation operator constructed in 0.0354669 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 4.641134e-04
+                iter:   20           residual = 7.026053e-08
+                iter:   28           residual = 7.252343e-11
+
+
+		Solution time: 0.311842 (sec.)
+		total iterations: 28
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0348145 seconds
+max =  0.0357797 seconds
+min =  0.0324363 seconds
+sum =  17.825 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.288648 seconds
+max =  0.288733 seconds
+min =  0.288589 seconds
+sum =  147.788 seconds
+compute coarse stiffness matrix:
+mean = 0.0224642 seconds
+max =  0.0224805 seconds
+min =  0.0224547 seconds
+sum =  11.5017 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0399052 seconds
+max =  0.040379 seconds
+min =  0.0398365 seconds
+sum =  20.4315 seconds
+map coarse to fine:
+mean = 0.00156508 seconds
+max =  0.0016695 seconds
+min =  0.00143765 seconds
+sum =  0.801321 seconds
+map fine to coarse:
+mean = 0.00180178 seconds
+max =  0.00187149 seconds
+min =  0.0017136 seconds
+sum =  0.922513 seconds
+GMG	Camellia-Schwarz	1	512	512	0	28	0.371445
+Prolongation operator constructed in 0.0254583 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:    2           residual = 9.717990e-17
+
+
+		Solution time: 0.005399 (sec.)
+		total iterations: 2
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0254682 seconds
+max =  0.0256171 seconds
+min =  0.0254359 seconds
+sum =  13.0397 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.00176317 seconds
+max =  0.0017675 seconds
+min =  0.00174958 seconds
+sum =  0.902744 seconds
+compute coarse stiffness matrix:
+mean = 0.0209445 seconds
+max =  0.0209463 seconds
+min =  0.0208994 seconds
+sum =  10.7236 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0261523 seconds
+max =  0.0266325 seconds
+min =  0.0261171 seconds
+sum =  13.39 seconds
+map coarse to fine:
+mean = 0.000148048 seconds
+max =  0.000177589 seconds
+min =  0.000143358 seconds
+sum =  0.0758005 seconds
+map fine to coarse:
+mean = 0.000176742 seconds
+max =  0.000190274 seconds
+min =  0.000155878 seconds
+sum =  0.0904921 seconds
+GMG	Camellia-Schwarz	2	2	2	0	2	0.0624095
+Prolongation operator constructed in 0.0389085 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:    6           residual = 1.586824e-19
+
+
+		Solution time: 0.013688 (sec.)
+		total iterations: 6
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0389186 seconds
+max =  0.0390769 seconds
+min =  0.0323506 seconds
+sum =  19.9263 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.00730298 seconds
+max =  0.00731122 seconds
+min =  0.0072664 seconds
+sum =  3.73913 seconds
+compute coarse stiffness matrix:
+mean = 0.0258693 seconds
+max =  0.0258888 seconds
+min =  0.0258096 seconds
+sum =  13.2451 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0402987 seconds
+max =  0.0407821 seconds
+min =  0.0402826 seconds
+sum =  20.6329 seconds
+map coarse to fine:
+mean = 0.000340636 seconds
+max =  0.000425122 seconds
+min =  0.000332908 seconds
+sum =  0.174406 seconds
+map fine to coarse:
+mean = 0.000395834 seconds
+max =  0.000479413 seconds
+min =  0.000343139 seconds
+sum =  0.202667 seconds
+GMG	Camellia-Schwarz	2	4	4	0	6	0.0757584
+Prolongation operator constructed in 0.0392405 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.325970e-09
+                iter:   12           residual = 1.740864e-11
+
+
+		Solution time: 0.023016 (sec.)
+		total iterations: 12
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0392242 seconds
+max =  0.0393984 seconds
+min =  0.0327349 seconds
+sum =  20.0828 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0117464 seconds
+max =  0.0117582 seconds
+min =  0.0116173 seconds
+sum =  6.01414 seconds
+compute coarse stiffness matrix:
+mean = 0.0277628 seconds
+max =  0.0277819 seconds
+min =  0.0277057 seconds
+sum =  14.2145 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0406795 seconds
+max =  0.0411547 seconds
+min =  0.0406656 seconds
+sum =  20.8279 seconds
+map coarse to fine:
+mean = 0.000645489 seconds
+max =  0.000805205 seconds
+min =  0.000629243 seconds
+sum =  0.33049 seconds
+map fine to coarse:
+mean = 0.000744888 seconds
+max =  0.000974371 seconds
+min =  0.000650188 seconds
+sum =  0.381383 seconds
+GMG	Camellia-Schwarz	2	8	8	0	12	0.0869481
+Prolongation operator constructed in 0.0385973 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.157001e-06
+                iter:   15           residual = 1.111373e-11
+
+
+		Solution time: 0.028606 (sec.)
+		total iterations: 15
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.038528 seconds
+max =  0.0387363 seconds
+min =  0.0322484 seconds
+sum =  19.7263 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0149405 seconds
+max =  0.014959 seconds
+min =  0.014757 seconds
+sum =  7.64954 seconds
+compute coarse stiffness matrix:
+mean = 0.028251 seconds
+max =  0.0282714 seconds
+min =  0.0281975 seconds
+sum =  14.4645 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0401195 seconds
+max =  0.0406111 seconds
+min =  0.0401172 seconds
+sum =  20.5412 seconds
+map coarse to fine:
+mean = 0.000787329 seconds
+max =  0.000985157 seconds
+min =  0.000762224 seconds
+sum =  0.403112 seconds
+map fine to coarse:
+mean = 0.000892722 seconds
+max =  0.00117111 seconds
+min =  0.000813892 seconds
+sum =  0.457074 seconds
+GMG	Camellia-Schwarz	2	16	16	0	15	0.0931838
+Prolongation operator constructed in 0.0384617 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.563126e-05
+                iter:   18           residual = 5.267164e-12
+
+
+		Solution time: 0.035785 (sec.)
+		total iterations: 18
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.038318 seconds
+max =  0.038669 seconds
+min =  0.0321472 seconds
+sum =  19.6188 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0196306 seconds
+max =  0.0196537 seconds
+min =  0.0194135 seconds
+sum =  10.0509 seconds
+compute coarse stiffness matrix:
+mean = 0.028509 seconds
+max =  0.0285305 seconds
+min =  0.0284507 seconds
+sum =  14.5966 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0401646 seconds
+max =  0.0406463 seconds
+min =  0.0401612 seconds
+sum =  20.5643 seconds
+map coarse to fine:
+mean = 0.000935988 seconds
+max =  0.0011818 seconds
+min =  0.000907492 seconds
+sum =  0.479226 seconds
+map fine to coarse:
+mean = 0.00107438 seconds
+max =  0.00139631 seconds
+min =  0.00098936 seconds
+sum =  0.550083 seconds
+GMG	Camellia-Schwarz	2	32	32	0	18	0.100737
+Prolongation operator constructed in 0.0386677 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.432139e-03
+                iter:   20           residual = 2.361782e-09
+                iter:   23           residual = 1.602323e-11
+
+
+		Solution time: 0.050875 (sec.)
+		total iterations: 23
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0383234 seconds
+max =  0.0387412 seconds
+min =  0.03258 seconds
+sum =  19.6216 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0304885 seconds
+max =  0.0305311 seconds
+min =  0.0302015 seconds
+sum =  15.6101 seconds
+compute coarse stiffness matrix:
+mean = 0.0287764 seconds
+max =  0.028801 seconds
+min =  0.0287231 seconds
+sum =  14.7335 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0403699 seconds
+max =  0.0408577 seconds
+min =  0.0403213 seconds
+sum =  20.6694 seconds
+map coarse to fine:
+mean = 0.00119885 seconds
+max =  0.00150873 seconds
+min =  0.00115015 seconds
+sum =  0.613809 seconds
+map fine to coarse:
+mean = 0.0013917 seconds
+max =  0.00182359 seconds
+min =  0.00125567 seconds
+sum =  0.71255 seconds
+GMG	Camellia-Schwarz	2	64	64	0	23	0.116318
+Prolongation operator constructed in 0.0381628 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.138328e-03
+                iter:   20           residual = 6.164474e-07
+                iter:   30           residual = 2.085440e-10
+                iter:   32           residual = 2.856172e-11
+
+
+		Solution time: 0.088817 (sec.)
+		total iterations: 32
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0375536 seconds
+max =  0.0382344 seconds
+min =  0.0326664 seconds
+sum =  19.2274 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0615895 seconds
+max =  0.0616805 seconds
+min =  0.061224 seconds
+sum =  31.5338 seconds
+compute coarse stiffness matrix:
+mean = 0.029147 seconds
+max =  0.0291782 seconds
+min =  0.0290984 seconds
+sum =  14.9233 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0402831 seconds
+max =  0.0407585 seconds
+min =  0.0402459 seconds
+sum =  20.625 seconds
+map coarse to fine:
+mean = 0.00170867 seconds
+max =  0.0020844 seconds
+min =  0.0015929 seconds
+sum =  0.874841 seconds
+map fine to coarse:
+mean = 0.00192708 seconds
+max =  0.00251178 seconds
+min =  0.00176597 seconds
+sum =  0.986665 seconds
+GMG	Camellia-Schwarz	2	128	128	0	32	0.154831
+Prolongation operator constructed in 0.0374043 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.271817e-03
+                iter:   20           residual = 9.068197e-07
+                iter:   30           residual = 4.116651e-10
+                iter:   32           residual = 8.064465e-11
+
+
+		Solution time: 0.161768 (sec.)
+		total iterations: 32
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0365282 seconds
+max =  0.0375742 seconds
+min =  0.0327923 seconds
+sum =  18.7025 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.134819 seconds
+max =  0.134964 seconds
+min =  0.134508 seconds
+sum =  69.0275 seconds
+compute coarse stiffness matrix:
+mean = 0.0279022 seconds
+max =  0.0279419 seconds
+min =  0.0278673 seconds
+sum =  14.2859 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0403668 seconds
+max =  0.0408284 seconds
+min =  0.0402852 seconds
+sum =  20.6678 seconds
+map coarse to fine:
+mean = 0.00176888 seconds
+max =  0.00207049 seconds
+min =  0.00157341 seconds
+sum =  0.905668 seconds
+map fine to coarse:
+mean = 0.00198072 seconds
+max =  0.00243086 seconds
+min =  0.00176082 seconds
+sum =  1.01413 seconds
+GMG	Camellia-Schwarz	2	256	256	0	32	0.225975
+Prolongation operator constructed in 0.0354962 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.315678e-03
+                iter:   20           residual = 9.652667e-07
+                iter:   30           residual = 5.037494e-10
+                iter:   33           residual = 5.704390e-11
+
+
+		Solution time: 0.353559 (sec.)
+		total iterations: 33
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0348022 seconds
+max =  0.0357752 seconds
+min =  0.0325401 seconds
+sum =  17.8187 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.325856 seconds
+max =  0.325951 seconds
+min =  0.32579 seconds
+sum =  166.838 seconds
+compute coarse stiffness matrix:
+mean = 0.0280259 seconds
+max =  0.0280409 seconds
+min =  0.0280172 seconds
+sum =  14.3492 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0399309 seconds
+max =  0.0404195 seconds
+min =  0.0398838 seconds
+sum =  20.4446 seconds
+map coarse to fine:
+mean = 0.00182251 seconds
+max =  0.00193807 seconds
+min =  0.00169058 seconds
+sum =  0.933126 seconds
+map fine to coarse:
+mean = 0.00209944 seconds
+max =  0.00219831 seconds
+min =  0.00198645 seconds
+sum =  1.07491 seconds
+GMG	Camellia-Schwarz	2	512	512	0	33	0.418823
+Prolongation operator constructed in 0.025457 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:    8           residual = 6.968969e-18
+
+
+		Solution time: 0.010871 (sec.)
+		total iterations: 8
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0254593 seconds
+max =  0.0256231 seconds
+min =  0.0254266 seconds
+sum =  13.0352 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.00471019 seconds
+max =  0.00472262 seconds
+min =  0.00466399 seconds
+sum =  2.41162 seconds
+compute coarse stiffness matrix:
+mean = 0.00526022 seconds
+max =  0.00526169 seconds
+min =  0.00521653 seconds
+sum =  2.69323 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0261699 seconds
+max =  0.0266546 seconds
+min =  0.0261377 seconds
+sum =  13.399 seconds
+map coarse to fine:
+mean = 0.000445594 seconds
+max =  0.000535572 seconds
+min =  0.000432851 seconds
+sum =  0.228144 seconds
+map fine to coarse:
+mean = 0.000510957 seconds
+max =  0.000593494 seconds
+min =  0.000438519 seconds
+sum =  0.26161 seconds
+GMG	Point-Gauss-Seidel	0	2	2	0	8	0.0518155
+Prolongation operator constructed in 0.0385716 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 4.089528e-09
+                iter:   11           residual = 9.954878e-11
+
+
+		Solution time: 0.019060 (sec.)
+		total iterations: 11
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0385785 seconds
+max =  0.0387495 seconds
+min =  0.0321421 seconds
+sum =  19.7522 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0104407 seconds
+max =  0.0104541 seconds
+min =  0.0103784 seconds
+sum =  5.34563 seconds
+compute coarse stiffness matrix:
+mean = 0.00659507 seconds
+max =  0.00661365 seconds
+min =  0.00653852 seconds
+sum =  3.37668 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0399793 seconds
+max =  0.0404511 seconds
+min =  0.0399628 seconds
+sum =  20.4694 seconds
+map coarse to fine:
+mean = 0.000580111 seconds
+max =  0.000727494 seconds
+min =  0.000567908 seconds
+sum =  0.297017 seconds
+map fine to coarse:
+mean = 0.00067895 seconds
+max =  0.000823642 seconds
+min =  0.000577876 seconds
+sum =  0.347622 seconds
+GMG	Point-Gauss-Seidel	0	4	4	0	11	0.0617853
+Prolongation operator constructed in 0.0389351 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.137689e-06
+                iter:   17           residual = 3.142697e-11
+
+
+		Solution time: 0.027329 (sec.)
+		total iterations: 17
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.038919 seconds
+max =  0.0391022 seconds
+min =  0.0324837 seconds
+sum =  19.9265 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0150415 seconds
+max =  0.0150629 seconds
+min =  0.0148331 seconds
+sum =  7.70126 seconds
+compute coarse stiffness matrix:
+mean = 0.00703196 seconds
+max =  0.00705044 seconds
+min =  0.00697424 seconds
+sum =  3.60036 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0403942 seconds
+max =  0.0408811 seconds
+min =  0.0403888 seconds
+sum =  20.6818 seconds
+map coarse to fine:
+mean = 0.000881258 seconds
+max =  0.00110084 seconds
+min =  0.000859228 seconds
+sum =  0.451204 seconds
+map fine to coarse:
+mean = 0.001017 seconds
+max =  0.0013194 seconds
+min =  0.00090253 seconds
+sum =  0.520703 seconds
+GMG	Point-Gauss-Seidel	0	8	8	0	17	0.0706138
+Prolongation operator constructed in 0.0387349 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 5.068544e-06
+                iter:   18           residual = 6.605262e-11
+
+
+		Solution time: 0.029833 (sec.)
+		total iterations: 18
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0386745 seconds
+max =  0.0389368 seconds
+min =  0.0323869 seconds
+sum =  19.8013 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0169056 seconds
+max =  0.0169259 seconds
+min =  0.0166838 seconds
+sum =  8.65568 seconds
+compute coarse stiffness matrix:
+mean = 0.0071121 seconds
+max =  0.00713183 seconds
+min =  0.00705688 seconds
+sum =  3.6414 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0402893 seconds
+max =  0.0407647 seconds
+min =  0.0402858 seconds
+sum =  20.6281 seconds
+map coarse to fine:
+mean = 0.000933247 seconds
+max =  0.00117214 seconds
+min =  0.000910741 seconds
+sum =  0.477822 seconds
+map fine to coarse:
+mean = 0.00106111 seconds
+max =  0.00142977 seconds
+min =  0.000957938 seconds
+sum =  0.543291 seconds
+GMG	Point-Gauss-Seidel	0	16	16	0	18	0.0733293
+Prolongation operator constructed in 0.0384885 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 7.204796e-06
+                iter:   19           residual = 3.647404e-11
+
+
+		Solution time: 0.033699 (sec.)
+		total iterations: 19
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0383399 seconds
+max =  0.0387761 seconds
+min =  0.0323718 seconds
+sum =  19.63 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0202238 seconds
+max =  0.0202502 seconds
+min =  0.019982 seconds
+sum =  10.3546 seconds
+compute coarse stiffness matrix:
+mean = 0.00713258 seconds
+max =  0.00715456 seconds
+min =  0.00707426 seconds
+sum =  3.65188 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0401986 seconds
+max =  0.0406479 seconds
+min =  0.0401943 seconds
+sum =  20.5817 seconds
+map coarse to fine:
+mean = 0.00100154 seconds
+max =  0.00127403 seconds
+min =  0.000969219 seconds
+sum =  0.512786 seconds
+map fine to coarse:
+mean = 0.00113487 seconds
+max =  0.00148268 seconds
+min =  0.00104323 seconds
+sum =  0.581051 seconds
+GMG	Point-Gauss-Seidel	0	32	32	0	19	0.077261
+Prolongation operator constructed in 0.0385601 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 7.102696e-06
+                iter:   19           residual = 4.396208e-11
+
+
+		Solution time: 0.040881 (sec.)
+		total iterations: 19
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0382158 seconds
+max =  0.0385921 seconds
+min =  0.0325154 seconds
+sum =  19.5665 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0268183 seconds
+max =  0.0268543 seconds
+min =  0.0265852 seconds
+sum =  13.731 seconds
+compute coarse stiffness matrix:
+mean = 0.0071627 seconds
+max =  0.00718861 seconds
+min =  0.00710993 seconds
+sum =  3.6673 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0402605 seconds
+max =  0.0407471 seconds
+min =  0.0402114 seconds
+sum =  20.6134 seconds
+map coarse to fine:
+mean = 0.00101444 seconds
+max =  0.00125665 seconds
+min =  0.000961994 seconds
+sum =  0.519395 seconds
+map fine to coarse:
+mean = 0.00114737 seconds
+max =  0.001486 seconds
+min =  0.0010552 seconds
+sum =  0.587453 seconds
+GMG	Point-Gauss-Seidel	0	64	64	0	19	0.0847644
+Prolongation operator constructed in 0.0384426 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 6.828606e-06
+                iter:   19           residual = 4.325685e-11
+
+
+		Solution time: 0.058287 (sec.)
+		total iterations: 19
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0378188 seconds
+max =  0.0384961 seconds
+min =  0.0328406 seconds
+sum =  19.3632 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.044234 seconds
+max =  0.0442883 seconds
+min =  0.0440113 seconds
+sum =  22.6478 seconds
+compute coarse stiffness matrix:
+mean = 0.00719481 seconds
+max =  0.0072263 seconds
+min =  0.00714682 seconds
+sum =  3.68374 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.040579 seconds
+max =  0.0410635 seconds
+min =  0.0405352 seconds
+sum =  20.7764 seconds
+map coarse to fine:
+mean = 0.00102875 seconds
+max =  0.00125584 seconds
+min =  0.000947938 seconds
+sum =  0.526722 seconds
+map fine to coarse:
+mean = 0.00118762 seconds
+max =  0.00155099 seconds
+min =  0.00106982 seconds
+sum =  0.608064 seconds
+GMG	Point-Gauss-Seidel	0	128	128	0	19	0.102211
+Prolongation operator constructed in 0.0374047 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 6.539093e-06
+                iter:   19           residual = 4.284238e-11
+
+
+		Solution time: 0.115072 (sec.)
+		total iterations: 19
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0364422 seconds
+max =  0.0374906 seconds
+min =  0.0327241 seconds
+sum =  18.6584 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.100722 seconds
+max =  0.100816 seconds
+min =  0.100531 seconds
+sum =  51.5694 seconds
+compute coarse stiffness matrix:
+mean = 0.00711321 seconds
+max =  0.00715416 seconds
+min =  0.00708054 seconds
+sum =  3.64196 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0402773 seconds
+max =  0.040744 seconds
+min =  0.0402076 seconds
+sum =  20.622 seconds
+map coarse to fine:
+mean = 0.00108083 seconds
+max =  0.00126071 seconds
+min =  0.000962667 seconds
+sum =  0.553386 seconds
+map fine to coarse:
+mean = 0.00122246 seconds
+max =  0.00151472 seconds
+min =  0.00105134 seconds
+sum =  0.625898 seconds
+GMG	Point-Gauss-Seidel	0	256	256	0	19	0.158638
+Prolongation operator constructed in 0.0352669 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 6.316207e-06
+                iter:   19           residual = 4.207402e-11
+
+
+		Solution time: 0.236455 (sec.)
+		total iterations: 19
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0347463 seconds
+max =  0.0357197 seconds
+min =  0.0324449 seconds
+sum =  17.7901 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.22192 seconds
+max =  0.22197 seconds
+min =  0.221878 seconds
+sum =  113.623 seconds
+compute coarse stiffness matrix:
+mean = 0.00696343 seconds
+max =  0.00698106 seconds
+min =  0.0069542 seconds
+sum =  3.56528 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0398654 seconds
+max =  0.0403341 seconds
+min =  0.0397741 seconds
+sum =  20.4111 seconds
+map coarse to fine:
+mean = 0.00106321 seconds
+max =  0.00113794 seconds
+min =  0.000983636 seconds
+sum =  0.544364 seconds
+map fine to coarse:
+mean = 0.00123871 seconds
+max =  0.00130408 seconds
+min =  0.00117392 seconds
+sum =  0.634218 seconds
+GMG	Point-Gauss-Seidel	0	512	512	0	19	0.280766
+Prolongation operator constructed in 0.0254835 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:    4           residual = 9.522796e-16
+
+
+		Solution time: 0.006907 (sec.)
+		total iterations: 4
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0253159 seconds
+max =  0.0254907 seconds
+min =  0.0252885 seconds
+sum =  12.9617 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.00277702 seconds
+max =  0.00278156 seconds
+min =  0.00275328 seconds
+sum =  1.42183 seconds
+compute coarse stiffness matrix:
+mean = 0.0041607 seconds
+max =  0.00416264 seconds
+min =  0.00411901 seconds
+sum =  2.13028 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0260757 seconds
+max =  0.0265455 seconds
+min =  0.0260627 seconds
+sum =  13.3508 seconds
+map coarse to fine:
+mean = 0.000249998 seconds
+max =  0.000299462 seconds
+min =  0.000243598 seconds
+sum =  0.127999 seconds
+map fine to coarse:
+mean = 0.000286641 seconds
+max =  0.000321379 seconds
+min =  0.000252624 seconds
+sum =  0.14676 seconds
+GMG	Point-Jacobi	0	2	2	0	4	0.0471992
+Prolongation operator constructed in 0.0384757 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:    8           residual = 2.792095e-15
+
+
+		Solution time: 0.014826 (sec.)
+		total iterations: 8
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0384741 seconds
+max =  0.0386536 seconds
+min =  0.0321083 seconds
+sum =  19.6987 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0085813 seconds
+max =  0.00858978 seconds
+min =  0.00854004 seconds
+sum =  4.39362 seconds
+compute coarse stiffness matrix:
+mean = 0.00537112 seconds
+max =  0.00539079 seconds
+min =  0.00531386 seconds
+sum =  2.75001 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0398963 seconds
+max =  0.0403598 seconds
+min =  0.0398644 seconds
+sum =  20.4269 seconds
+map coarse to fine:
+mean = 0.000448842 seconds
+max =  0.000559166 seconds
+min =  0.000435037 seconds
+sum =  0.229807 seconds
+map fine to coarse:
+mean = 0.000507864 seconds
+max =  0.000609727 seconds
+min =  0.000443033 seconds
+sum =  0.260026 seconds
+GMG	Point-Jacobi	0	4	4	0	8	0.0566738
+Prolongation operator constructed in 0.0389278 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 4.777518e-09
+                iter:   11           residual = 4.161420e-11
+
+
+		Solution time: 0.019221 (sec.)
+		total iterations: 11
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0389115 seconds
+max =  0.0391007 seconds
+min =  0.0325241 seconds
+sum =  19.9227 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0111294 seconds
+max =  0.0111415 seconds
+min =  0.0109997 seconds
+sum =  5.69827 seconds
+compute coarse stiffness matrix:
+mean = 0.00576527 seconds
+max =  0.00578434 seconds
+min =  0.00570874 seconds
+sum =  2.95182 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0404163 seconds
+max =  0.0408885 seconds
+min =  0.0404009 seconds
+sum =  20.6931 seconds
+map coarse to fine:
+mean = 0.00058945 seconds
+max =  0.000740575 seconds
+min =  0.000576506 seconds
+sum =  0.301798 seconds
+map fine to coarse:
+mean = 0.000689152 seconds
+max =  0.000871563 seconds
+min =  0.000595009 seconds
+sum =  0.352846 seconds
+GMG	Point-Jacobi	0	8	8	0	11	0.0614564
+Prolongation operator constructed in 0.0385382 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.198705e-06
+                iter:   17           residual = 3.336892e-12
+
+
+		Solution time: 0.027752 (sec.)
+		total iterations: 17
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0384697 seconds
+max =  0.0387726 seconds
+min =  0.0322538 seconds
+sum =  19.6965 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0163134 seconds
+max =  0.0163316 seconds
+min =  0.0161087 seconds
+sum =  8.35246 seconds
+compute coarse stiffness matrix:
+mean = 0.00578023 seconds
+max =  0.00579946 seconds
+min =  0.00572523 seconds
+sum =  2.95948 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0401119 seconds
+max =  0.0405844 seconds
+min =  0.0401091 seconds
+sum =  20.5373 seconds
+map coarse to fine:
+mean = 0.000885335 seconds
+max =  0.00111782 seconds
+min =  0.000861701 seconds
+sum =  0.453292 seconds
+map fine to coarse:
+mean = 0.00102137 seconds
+max =  0.0013365 seconds
+min =  0.000905527 seconds
+sum =  0.522939 seconds
+GMG	Point-Jacobi	0	16	16	0	17	0.0701011
+Prolongation operator constructed in 0.0384996 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 7.367123e-06
+                iter:   18           residual = 9.541187e-11
+
+
+		Solution time: 0.031841 (sec.)
+		total iterations: 18
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0383481 seconds
+max =  0.0386603 seconds
+min =  0.0322921 seconds
+sum =  19.6342 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0195248 seconds
+max =  0.01955 seconds
+min =  0.0193036 seconds
+sum =  9.99669 seconds
+compute coarse stiffness matrix:
+mean = 0.00581184 seconds
+max =  0.00583282 seconds
+min =  0.00575306 seconds
+sum =  2.97566 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0402257 seconds
+max =  0.0406982 seconds
+min =  0.0402221 seconds
+sum =  20.5956 seconds
+map coarse to fine:
+mean = 0.000949282 seconds
+max =  0.00120142 seconds
+min =  0.000923318 seconds
+sum =  0.486033 seconds
+map fine to coarse:
+mean = 0.00109111 seconds
+max =  0.00141062 seconds
+min =  0.000997746 seconds
+sum =  0.55865 seconds
+GMG	Point-Jacobi	0	32	32	0	18	0.0743365
+Prolongation operator constructed in 0.0385045 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 7.235437e-06
+                iter:   19           residual = 4.964081e-11
+
+
+		Solution time: 0.039905 (sec.)
+		total iterations: 19
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0382026 seconds
+max =  0.0385901 seconds
+min =  0.0325083 seconds
+sum =  19.5597 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0269349 seconds
+max =  0.0269687 seconds
+min =  0.0266993 seconds
+sum =  13.7907 seconds
+compute coarse stiffness matrix:
+mean = 0.00589728 seconds
+max =  0.00592293 seconds
+min =  0.00584319 seconds
+sum =  3.01941 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0402462 seconds
+max =  0.0407226 seconds
+min =  0.0401972 seconds
+sum =  20.606 seconds
+map coarse to fine:
+mean = 0.00102552 seconds
+max =  0.0012746 seconds
+min =  0.000983674 seconds
+sum =  0.525069 seconds
+map fine to coarse:
+mean = 0.00113601 seconds
+max =  0.00148317 seconds
+min =  0.00104446 seconds
+sum =  0.581639 seconds
+GMG	Point-Jacobi	0	64	64	0	19	0.0824886
+Prolongation operator constructed in 0.0382105 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 6.934178e-06
+                iter:   19           residual = 4.890136e-11
+
+
+		Solution time: 0.057112 (sec.)
+		total iterations: 19
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0375967 seconds
+max =  0.0382906 seconds
+min =  0.0325839 seconds
+sum =  19.2495 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.0440738 seconds
+max =  0.0441265 seconds
+min =  0.0438527 seconds
+sum =  22.5658 seconds
+compute coarse stiffness matrix:
+mean = 0.00584106 seconds
+max =  0.00587187 seconds
+min =  0.00579204 seconds
+sum =  2.99062 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0403308 seconds
+max =  0.0408198 seconds
+min =  0.0402877 seconds
+sum =  20.6494 seconds
+map coarse to fine:
+mean = 0.00101818 seconds
+max =  0.00124718 seconds
+min =  0.000943241 seconds
+sum =  0.521309 seconds
+map fine to coarse:
+mean = 0.00118784 seconds
+max =  0.00153615 seconds
+min =  0.00107392 seconds
+sum =  0.608173 seconds
+GMG	Point-Jacobi	0	128	128	0	19	0.0997737
+Prolongation operator constructed in 0.0374707 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 6.626224e-06
+                iter:   19           residual = 4.843522e-11
+
+
+		Solution time: 0.116072 (sec.)
+		total iterations: 19
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0365584 seconds
+max =  0.0376082 seconds
+min =  0.0328583 seconds
+sum =  18.7179 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.102603 seconds
+max =  0.102691 seconds
+min =  0.102415 seconds
+sum =  52.5328 seconds
+compute coarse stiffness matrix:
+mean = 0.0058228 seconds
+max =  0.00586271 seconds
+min =  0.00578922 seconds
+sum =  2.98127 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0404124 seconds
+max =  0.0408964 seconds
+min =  0.0402903 seconds
+sum =  20.6911 seconds
+map coarse to fine:
+mean = 0.00108334 seconds
+max =  0.00125793 seconds
+min =  0.000971946 seconds
+sum =  0.554669 seconds
+map fine to coarse:
+mean = 0.00122003 seconds
+max =  0.00151431 seconds
+min =  0.00106479 seconds
+sum =  0.624655 seconds
+GMG	Point-Jacobi	0	256	256	0	19	0.158427
+Prolongation operator constructed in 0.0351986 seconds.
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned CG solution
+		***** Camellia Geometric Multi-Grid Preconditioner
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 6.394054e-06
+                iter:   19           residual = 4.756985e-11
+
+
+		Solution time: 0.237964 (sec.)
+		total iterations: 19
+************   Fine GMG Solver, timings   *************
+  construct prolongation operator:
+mean = 0.0347331 seconds
+max =  0.0357291 seconds
+min =  0.0323715 seconds
+sum =  17.7833 seconds
+coarse import:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+coarse solve:
+mean = 0.224394 seconds
+max =  0.22445 seconds
+min =  0.224352 seconds
+sum =  114.89 seconds
+compute coarse stiffness matrix:
+mean = 0.00557697 seconds
+max =  0.00559503 seconds
+min =  0.00556795 seconds
+sum =  2.85541 seconds
+construct local coefficient maps:
+mean = 0 seconds
+max =  0 seconds
+min =  0 seconds
+sum =  0 seconds
+construction time:
+mean = 0.0398055 seconds
+max =  0.0402892 seconds
+min =  0.0397472 seconds
+sum =  20.3804 seconds
+map coarse to fine:
+mean = 0.00108777 seconds
+max =  0.00116109 seconds
+min =  0.00100613 seconds
+sum =  0.556937 seconds
+map fine to coarse:
+mean = 0.0012312 seconds
+max =  0.00128757 seconds
+min =  0.00117021 seconds
+sum =  0.630372 seconds
+GMG	Point-Jacobi	0	512	512	0	19	0.280612
+Preconditioner	Smoother	Overlap	num_cells	mesh_width	k	Iterations	Solve_time
+GMG	IfPack-Schwarz	0	2	2	0	8	0.0518386
+GMG	IfPack-Schwarz	0	4	4	0	12	0.0615575
+GMG	IfPack-Schwarz	0	8	8	0	16	0.0677251
+GMG	IfPack-Schwarz	0	16	16	0	18	0.0722098
+GMG	IfPack-Schwarz	0	32	32	0	19	0.0759993
+GMG	IfPack-Schwarz	0	64	64	0	19	0.0840139
+GMG	IfPack-Schwarz	0	128	128	0	19	0.100652
+GMG	IfPack-Schwarz	0	256	256	0	19	0.156879
+GMG	IfPack-Schwarz	0	512	512	0	19	0.277484
+GMG	IfPack-Schwarz	1	2	2	0	8	0.0613085
+GMG	IfPack-Schwarz	1	4	4	0	13	0.0749736
+GMG	IfPack-Schwarz	1	8	8	0	18	0.083317
+GMG	IfPack-Schwarz	1	16	16	0	21	0.0896651
+GMG	IfPack-Schwarz	1	32	32	0	24	0.0973789
+GMG	IfPack-Schwarz	1	64	64	0	25	0.106345
+GMG	IfPack-Schwarz	1	128	128	0	25	0.126486
+GMG	IfPack-Schwarz	1	256	256	0	25	0.193625
+GMG	IfPack-Schwarz	1	512	512	0	25	0.339723
+GMG	IfPack-Schwarz	2	2	2	0	2	0.0584829
+GMG	IfPack-Schwarz	2	4	4	0	11	0.0779502
+GMG	IfPack-Schwarz	2	8	8	0	16	0.0865559
+GMG	IfPack-Schwarz	2	16	16	0	19	0.0924126
+GMG	IfPack-Schwarz	2	32	32	0	24	0.103654
+GMG	IfPack-Schwarz	2	64	64	0	28	0.117612
+GMG	IfPack-Schwarz	2	128	128	0	30	0.143057
+GMG	IfPack-Schwarz	2	256	256	0	30	0.214917
+GMG	IfPack-Schwarz	2	512	512	0	31	0.39479
+GMG	Camellia-Schwarz	0	2	2	0	4	0.0573137
+GMG	Camellia-Schwarz	0	4	4	0	8	0.067546
+GMG	Camellia-Schwarz	0	8	8	0	11	0.0728025
+GMG	Camellia-Schwarz	0	16	16	0	16	0.0816688
+GMG	Camellia-Schwarz	0	32	32	0	22	0.0937025
+GMG	Camellia-Schwarz	0	64	64	0	22	0.100578
+GMG	Camellia-Schwarz	0	128	128	0	22	0.119755
+GMG	Camellia-Schwarz	0	256	256	0	22	0.179519
+GMG	Camellia-Schwarz	0	512	512	0	22	0.318653
+GMG	Camellia-Schwarz	1	2	2	0	2	0.0595635
+GMG	Camellia-Schwarz	1	4	4	0	7	0.0724521
+GMG	Camellia-Schwarz	1	8	8	0	12	0.0812368
+GMG	Camellia-Schwarz	1	16	16	0	15	0.0866937
+GMG	Camellia-Schwarz	1	32	32	0	19	0.0962429
+GMG	Camellia-Schwarz	1	64	64	0	25	0.112554
+GMG	Camellia-Schwarz	1	128	128	0	27	0.136928
+GMG	Camellia-Schwarz	1	256	256	0	28	0.206985
+GMG	Camellia-Schwarz	1	512	512	0	28	0.371445
+GMG	Camellia-Schwarz	2	2	2	0	2	0.0624095
+GMG	Camellia-Schwarz	2	4	4	0	6	0.0757584
+GMG	Camellia-Schwarz	2	8	8	0	12	0.0869481
+GMG	Camellia-Schwarz	2	16	16	0	15	0.0931838
+GMG	Camellia-Schwarz	2	32	32	0	18	0.100737
+GMG	Camellia-Schwarz	2	64	64	0	23	0.116318
+GMG	Camellia-Schwarz	2	128	128	0	32	0.154831
+GMG	Camellia-Schwarz	2	256	256	0	32	0.225975
+GMG	Camellia-Schwarz	2	512	512	0	33	0.418823
+GMG	Point-Gauss-Seidel	0	2	2	0	8	0.0518155
+GMG	Point-Gauss-Seidel	0	4	4	0	11	0.0617853
+GMG	Point-Gauss-Seidel	0	8	8	0	17	0.0706138
+GMG	Point-Gauss-Seidel	0	16	16	0	18	0.0733293
+GMG	Point-Gauss-Seidel	0	32	32	0	19	0.077261
+GMG	Point-Gauss-Seidel	0	64	64	0	19	0.0847644
+GMG	Point-Gauss-Seidel	0	128	128	0	19	0.102211
+GMG	Point-Gauss-Seidel	0	256	256	0	19	0.158638
+GMG	Point-Gauss-Seidel	0	512	512	0	19	0.280766
+GMG	Point-Jacobi	0	2	2	0	4	0.0471992
+GMG	Point-Jacobi	0	4	4	0	8	0.0566738
+GMG	Point-Jacobi	0	8	8	0	11	0.0614564
+GMG	Point-Jacobi	0	16	16	0	17	0.0701011
+GMG	Point-Jacobi	0	32	32	0	18	0.0743365
+GMG	Point-Jacobi	0	64	64	0	19	0.0824886
+GMG	Point-Jacobi	0	128	128	0	19	0.0997737
+GMG	Point-Jacobi	0	256	256	0	19	0.158427
+GMG	Point-Jacobi	0	512	512	0	19	0.280612
+Wrote results to PoissonDriver1D_AllGMG_k0_hOnly_results.dat.
