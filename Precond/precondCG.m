@@ -31,7 +31,7 @@ b = b - A*u0;
 b(vmapBT) = u0(vmapBT);
 A(vmapBT,:) = 0; A(:,vmapBT) = 0;
 A(vmapBT,vmapBT) = speye(length(vmapBT));
-    
+
 u = R'*(A\b);
 
 plotSol(u,25)

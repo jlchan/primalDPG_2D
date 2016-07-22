@@ -47,6 +47,7 @@ else
 %         end
     end
 end
+
 % coarse grid solver
 [Rc1 Ir1 vmapBT1 xr1 yr1] = pRestrictCG(Norder,1); % interp down
 Rp1 = Rc1*Ir1';
